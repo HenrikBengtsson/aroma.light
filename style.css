@@ -1,0 +1,260 @@
+/*********************************************************************
+ This HTML style sheet makes your webpage more conforming to
+ braju.com's graphical profile.
+
+ To include this style sheet in our HTML web page add the following
+ line *between* <head> and </head>:
+
+   <link media="screen" type="text/css" rel="StyleSheet" 
+       href="http://www.braju.com/R/style.css">
+
+
+ URL   : http://www.braju.com/R/style.css
+ Author: Henrik Bengtsson, henrikb@braju.com
+*********************************************************************/
+
+/* ----------- M a i n - b o d y ----------- */
+
+body {
+  font-family: Arial, Verdana, Geneva, sans-serif;
+  background: #ffffff; 
+  position: absolute; 
+  margin-top: 0;
+  top:8; 
+  left:8;
+}
+
+center, p, b, i, em, small, big {
+  font-family: Arial, Verdana, Geneva, sans-serif;
+}
+
+/* ------------- H e a d e r s ------------- */
+
+h1 {
+  font-family: Arial, Verdana, Geneva, sans-serif;
+  color: #3366cc;
+}
+
+h2, h3, h4, h5, h6 {
+  font-family: Arial, Verdana, Geneva, sans-serif;
+}
+
+
+/* --------------- L i n k s --------------- */
+
+a {
+  font-family: Arial, Verdana, Geneva, sans-serif;
+  color: #3366cc;
+}
+
+a:visited { color: #3366cc; }
+
+/*
+a:link    { color: #0C2577; }
+a:active  { color: #0C2577; }
+*/
+
+/* --------------- L i s t s --------------- */
+ol, ul, li {
+  font-family: Arial, Verdana, Geneva, sans-serif;
+}
+
+
+/* ------------ V e r b a t i m ------------ */
+
+pre, tt, code {
+  font-family: 'Courier New', monospace;
+}
+
+
+
+/* --------------- F o r m s --------------- */
+
+.BrajuButton {
+  font-family: Arial, Verdana, Geneva, sans-serif;
+  background-color: #3366cc;
+  color: white;
+  font-weight: bold;
+  font-size: 8pt;
+}
+
+
+/* -------------- T a b l e s -------------- */
+
+table, tr, th, td {
+  font-family: Arial, Verdana, Geneva, sans-serif;
+}
+
+.TableHeader { 
+  font-family: Arial, Verdana, Geneva, sans-serif;
+  background-color: #3366cc; 
+  color: white;
+  font-weight: bold;
+}
+
+.Table { 
+  font-family: Arial, Verdana, Geneva, sans-serif;
+  border-width: thin;
+  border-color: #3366cc;
+  border-style: solid;
+  background-color: white;
+}
+
+
+.ThinTable {
+  border        : #000000 2px solid;
+  width         : auto;
+  margin        : 0pt;
+  padding       : 2pt;
+  border-collapse: collapse;
+}
+
+.ThinTable th {
+  border        : #000000 1px solid;
+  width         : auto;
+  margin        : 2pt;
+  padding       : 2pt;
+}
+
+.ThinTable td {
+  border        : #000000 1px solid;
+  width         : auto;
+  margin        : 2pt;
+  padding       : 2pt;
+}
+ 
+
+/* --------- C o d e - S t y l e s --------- */
+.Code { 
+  font-family: 'Courier New', monospace;
+  color: #3366cc;
+}
+
+.RCode { 
+  font-family: 'Courier New', monospace;
+  color: #3366cc;
+}
+
+.TeXCode { 
+  font-family: 'Courier New', monospace;
+  color: #3366cc;
+}
+
+.CCode { 
+  font-family: 'Courier New', monospace;
+  color: #3366cc;
+}
+
+.JavaCode { 
+  font-family: 'Courier New', monospace;
+  color: #3366cc;
+}
+
+.PerlCode { 
+  font-family: 'Courier New', monospace;
+  color: #3366cc;
+}
+
+.HTMLCode { 
+  font-family: 'Courier New', monospace;
+  color: #3366cc;
+}
+
+.RCode { 
+  font-family: 'Courier New', monospace;
+  color: #3366cc;
+}
+
+.RSource { 
+  font-family: 'Courier New', monospace;
+  color: #3366cc;
+}
+
+
+/* ----------------- U M L ----------------- */
+.UMLClass {
+  background: #000000;
+  color: #ffffff;
+  border-color: #000000;
+  border-width: 0px;
+  border-style: solid;
+}
+
+.UMLDivider {
+  background: #000000;
+  color: #ffffff;
+  height: 2px;
+}
+
+.UMLClassName {
+  background: #ffffff;
+  color: #000000;
+  font-weight: bold;
+  font-size: x-small;
+}
+
+.UMLAttribute {
+  background: #ffffff;
+  color: #000000;
+  font-size: x-small;
+}
+
+.UMLMethod {
+  background: #ffffff;
+  color: #000000;
+  font-size: x-small;
+}
+
+/* ----------- F o o t n o t e s ----------- */
+
+.Footnote { 
+  color: gray; 
+  font-size: x-small;
+}
+
+.FootnoteInverse { 
+  color: white; 
+}
+
+.FootnoteTable { 
+  font-size: x-small;
+  color: gray; 
+}
+
+
+/* ------- M i s c e l l a n e o u s ------- */
+
+.RError { 
+  color: red;
+  font-family: monospace;
+}
+
+.RPrompt { 
+  color: #3366cc;
+  font-family: monospace;
+}
+
+.Dates { 
+  font-size: x-small; 
+}
+
+.Filesize { 
+  color: gray; 
+}
+
+.HorizontalBar {
+  background-color: #3366cc;
+}
+
+.Footer { 
+  font-size: x-small;
+  color: #6f6f6f;
+}
+
+/* HISTORY:
+
+2001-10-28
+* Cleaned up the code and added a few comments.
+
+*/
+
