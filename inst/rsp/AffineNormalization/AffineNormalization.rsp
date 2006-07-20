@@ -1,0 +1,117 @@
+<a name="Affine normalization"></a>
+<h2>Affine normalization</h2>
+
+<h3>Introduction</h3>
+<p>
+Affine normalization applies to all types of microarray platforms, both single-channel arrays such as Affymetrix, two-channel spotted microarrays, as well as multi-channel microarrays. It normalize both within and between-arrays at the same time.
+</p>
+<p>
+In Bengtsson &amp; Hössjer (2006) we carry out a very detailed study on how biases in each channel introduce so called intensity-dependent log-ratios among other systematic artifacts.  This type of bias must be corrected for before any other normalization methods should be applied. Thus, do always apply affine normalization.
+</p>
+<center>
+ <img src="figures/NormalizeAffine-before.png" alt="(A,M) plot">
+ <img src="figures/NormalizeAffine-after.png" alt="(A,M) plot">
+</center>
+<small>
+<em>Figure</em>: Affine normalization.
+<em>Left</em>: (A,M) plot before normalization.
+<em>Right</em>: (A,M) plot after normalization.
+Due to the lower signal-to-noise ratios for log-ratios at lower intensities, we do expect to get a strong fan-out effect at lower intensities. The "inbalance" between postive and negative log-ratios at low intensities is due to fact that the sensitivity was higher in the green compared to the red channel (although both were scanned with PMT 600V). 
+</small>
+
+
+<h4>Model</h4>
+<p>
+Data with (additive) bias in each channel is said to be <em>affinely</em> transformed.  Data without such bias, is said to be <em>linearly</em> (proportionally) transformed. Ideally, observed signals (data) is a linear (proportional) function of true gene expression levels, but this is rarely the case.  The affine model is<br>
+</p>
+<div class="Equation">
+ y<sub>c,i</sub> = a<sub>c</sub> + b<sub>c</sub>*x<sub>c,i</sub> + e<sub>c,i</sub>
+</div>
+<p>
+where <span class="Math">y<sub>c,i</sub></span> is the <em>observed</em> expression level in channel <span class="Math">c</span> for gene <span class="Math">i</span>, <span class="Math">x<sub>c,i</sub></span> is the <em>true</em> expression level, and <span class="Math">e<sub>c,i</sub></span> is noise.  Scale effects, such as PMT settings and labelling efficiency, has a multiplicative effect (<span class="Math">b<sub>c</sub></span>) on the signal, and scanner background has an additive effect (<span class="Math">a<sub>c</sub></span>).
+Here we assume the same scale and offset for all signals across the array.
+</p>
+
+<h4>Assumptions</h4>
+<p>
+We do <em>not</em> assume proportional observations.  The scanner bias is real evidence that assuming linearity is not correct.  Affine normalization corrects for affine transformation in data.  Without control spots it is not possible to estimate the bias in each of the channels but only the relative bias such that after normalization the effective bias are the same in all channels.  This is why we call it normalization and not calibration.  For instance, for two-color data, the normalization will assure that <span class="Math">a<sub>R</sub> = b<sub>R</sub>/b<sub>G</sub>*a<sub>G</sub></span> will be true afterward.  For details, see Bengtsson &amp; Hössjer (2006).
+</p>
+
+<h4>But if the channel biases are small, what is the problem?</h4>
+<p>
+What we mean by small is a matter of definition and because of the logarithmic transform when calculating log-ratios, a small bias has a large impact at low intensities.  Consider all non-differentially expressed genes in a two-color experiment, i.e.  <span class="Math">x<sub>R,i</sub> == x<sub>G,i</sub> == x<sub>i</sub></span> where <span class="Math">i</span> is any non-differentially expressed gene.  Assuming zero-noise, the log-ratio for these genes are then <span class="Math">M<sub>i</sub> = log_2(a<sub>R</sub>+b<sub>R</sub>*x<sub>i</sub>)/(a<sub>G</sub>+b<sub>G</sub>*x<sub>i</sub>)</span>.  To start, set <span class="Math">b<sub>R</sub>=b<sub>G</sub>=1</span> and calculate <span class="Math">M<sub>i</sub></span> for genes at low and high intensities for, say, <span class="Math">(a<sub>G</sub>,a<sub>R</sub>)=(0,0)</span>, <span class="Math">(a<sub>G</sub>,a<sub>R</sub>)=(10,20)</span>, and <span class="Math">(a<sub>G</sub>,a<sub>R</sub>)=(200,20)</span>.  Then try the same, but with different values on <span class="Math">b<sub>R</sub></span> and <span class="Math">b<sub>G</sub></span>.
+</p>
+
+<h4>In <%=pkg%></h4>
+<p>
+In its simplest form, affine normalization is done by:
+</p>
+<pre class="RCode">
+Xn <- normalizeAffine(X)
+</pre>
+<div class="RCodeCommands">
+<%topic <- "normalizeAffine.matrix"%>
+[<a href="/library/<%=pkg%>/html/<%=topic%>.html">help</a>]
+[<a href="/bin/example.rsp?topic=<%=topic%>">example</a>]
+</div>
+
+<h4>Symmetric log-ratios afterward</h4>
+<p>
+Equal effective bias in all channels is much better. First of all, any intensity-dependent bias in the log-ratios is removed <em>for all non-differentially expressed genes</em>.  There is still an intensity-dependent bias in the log-ratios for differentially expressed genes, but this is now symmetric around log-ratio zero.
+</p>
+
+<h4>Normalization of multiple channels?</h4>
+<p>
+The affine normalization can be applied to multiple single-channel
+arrays, as well as single or multiple two- or multi-colour arrays.
+We recommend that all channels and all arrays are normalized together.
+</p>
+
+<h4>Why is between-array scale normalization not needed?</h4>
+<p>
+Affine normalization will (by default and recommended) normalize <em>all</em> arrays together and at once.  This will guarantee that all arrays are "on the same scale". Thus, it <em>not</em> recommended to apply a classical between-array scale normalization afterward.  Moreover, the average log-ratio will be zero after an affine normalization.
+</p>
+
+<h4>Why a fan-out effect?</h4>
+<p>
+Note that for a perfect affine normalization you <em>should</em> expect much higher noise levels in the <em>log-ratios</em> at lower intensities than at higher. It should also be approximately symmetric around zero log-ratio.  In other words, <em>a strong fan-out effect is a good sign</em>.
+</p>
+
+<h4>Why asymmetric tails at low intensities?</h4>
+<p>
+Due to different noise levels in red and green channels, different PMT settings in different channels, plus the fact that the minimum signal is zero, "odd shapes" may be seen in the log-ratio vs log-intensity graphs at lower intensities.  Typically, these show themselves as non-symmetric in positive and negative log-ratios.  Note that you should not see this at higher intensities.
+</p>
+
+<h4>What about curvature at high intensities?</h4>
+<p>
+Note that an affine normalization will only remove curvature in the log-ratios at lower intensities.  If a strong intensity-dependent bias at high intensities remains, this is most likely due to saturation effects, such as too high PMT settings or quenching.  If there is a strong intensity-dependent effect left after the affine normalization, we recommend, for now, that a subsequent curve-fit or quantile normalization is done.  Which one, we do not know.
+</p>
+
+<h4>Why negative signals?</h4>
+<p>
+By default, 5% of the normalized signals will have a non-positive signal in one or both channels.  <em>This is on purpose</em>, although the exact number 5% is chosen by experience. The reason for introducing negative signals is that they are indeed expected.  For instance, when measure a zero gene expression level, there is a chance that the observed value is (should be) negative due to measurement noise. (For this reason it is possible that the scanner manufacturers have introduced scanner bias on purpose to avoid negative signals, which then all would be truncated to zero.)  To adjust the ratio (or number) of negative signals allowed, use for example <code>normalizeAffine(X, constraint=0.01)</code> for 1% negative signals.  If set to zero (or <code>"max"</code>) only as much bias is removed such that no negative signals exist afterward.  Note that this is also true if there were negative signals on beforehand. Do <em>not</em> apply curve-fit normalization to "correct" for this.
+</p>
+
+<h4>Alternatives to affine normalization</h4>
+
+<h5>Curve-fit normalization</h5>
+<p>
+Curve-fit normalization methods such as lowess normalization are basically designed based on linearity assumptions and will for this reason not correct for channel biases.  Curve-fit normalization methods can by definition only be applied to one pair of channels at the time and do therefore require a subsequent between-array scale normalization.  We believe that between-array scale normalization is rather ad hoc.  
+Moreover, curve-fit normalization is not capable of adjusting for channel biases with the effect that if there are channel biases log-ratios will be <em>compressed</em> at low intensities.  Example:
+</p>
+<pre class="RCode">
+Xn <- normalizeCurveFit(X)
+</pre>
+<div class="RCodeCommands">
+<%topic <- "normalizeCurveFit.matrix"%>
+[<a href="/library/<%=pkg%>/html/<%=topic%>.html">help</a>]
+[<a href="/bin/example.rsp?topic=<%=topic%>">example</a>]
+</div>
+<p>
+Compare this with the result from <code>normalizeAffine(X)</code>.  Recall that the fan-out effect <em>is</em> expected.
+</p>
+
+<h5>Quantile normalization</h5>
+<p>
+Affine normalization can be though of a special case of quantile normalization that is more robust than the latter.  See Bengtsson &amp; Hössjer (2006) for details.  Quantile normalization is better than curve-fit normalization methods, but less robust than affine normalization, especially at extreme (low and high) intensities.  For this reason, we do recommend to use affine normalization first, and if this is not satisfactory, quantile normalization may be applied.
+</p>
