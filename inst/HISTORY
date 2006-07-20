@@ -2,6 +2,7 @@ Package: aroma.light
 ====================
 
 Version: 0.1.7 [2006-06-27]
+o Added to Bioconductor.
 o Made the package truely standalone except from R.oo.  Previously package
   R.basic was used in some of the examples.
 
