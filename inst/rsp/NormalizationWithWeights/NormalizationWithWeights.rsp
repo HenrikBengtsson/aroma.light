@@ -1,0 +1,108 @@
+<h2>Normalization with weights</h2>
+
+<h3>Introduction</h3>
+<p>
+In this section we explain how to do weighted normalization.  This will make it possible to specify how much each data point will affect the estimate of the normalization function.
+We will cover:
+</p>
+<ol>
+ <li>Introduction to robustness</li>
+ <li>Weights</li>
+ <li>Weighted affine normalization</li>
+ <li>Weighted curve-fit normalization</li>
+</ol>
+<p>
+</p>
+
+<h3>Introduction to robustness</h3>
+<p>
+Normalization of data takes place in two steps.  First, a normalization function is estimated, and, second, data is normalized (transformed) using this estimated function. 
+</p>
+
+<p>
+<em>Robust normalization</em> is when the normalization function is estimated such that the estimation is affects as little as possible or not at all by outliers.  Very simplied, this can be done by using a distance measure that penalizes outliers less, that is, outliers have less to say about the estimated function.  For instance, in least-square regressing fitting, the distance measure is in <span class="Math">L<sub>2</sub></span>, that is, <span class="Math">(x<sub>i</sub>-m)<sup>2</sup></span>.  When fitting in <span class="Math">L<sub>1</sub></span>, that is, <span class="Math">|x<sub>i</sub>-m|</span>, the estimate is made more robust.  Other measures, or weight functions, are also available.  For details, see Bengtsson &amp; Hössjer (2006).  
+The default in aroma is Tukey's biweight, which gives data points close to the fitted line a high weight and data points beyond a few standard deviations zero weight.
+</p>
+
+
+<h3>Weights</h3>
+<p>
+Closely related to robustness is <em>weighted estimation</em> of the normalization function.  This may for instance be the case when a <em>quality measure</em> has been assigned to each of the data points, for instance, by the amount of saturated pixels in a spot, by the shape of the spot, by visual inspection of images and so.  The higher quality of a signal, the more it should have a say, that is, the more <em>weight</em> it should have in the estimation of the normalization function, and vice versa.
+</p>
+<p>
+In aroma, all weights must be between zero and one, i.e. in [0,1].  Not-a-number (<code>NA</code>) values are not allowed.
+The most common form of weights is <em>data-point weights</em>, which define the weight of a data point.  A <em>data point</em> can be a single value or a vector of values depending on context.  For instance, in curve-fit normalization, a data point <span class="Math">i</span> is the log-ratio log-intensity pair <span class="Math">(A<sub>i</sub>,M<sub>i</sub>)</span>.  In within-array affine normalization of two-channel data, the red-green pair <span class="Math">(G<sub>i</sub>,R<sub>i</sub>)</span> is a data point, and in affine normalization with <span class="Math">J</span> channels, the vector <span class="Math">(X<sub>i,1</sub>,...,X<sub>i,j</sub>)</span> constitutes a data point.
+</p>
+
+<h4>Probe weights</h4>
+<p>
+Typically, it is much easier to assign a weight to each <em>probe</em>, that is spot, than to, say, a the set of identical spots across several arrays.  A <em>probe weights</em> is a weight assigned to a specific probe.  For instance, in two-channel microarrays, the red-green pair signals share the same probe weight.
+</p>
+<p>
+Given probe weights, the data point weight is the square root of the average squared probe weight. Formally, given spots <span class="Math">(i,j)</span> for gene <span class="Math">i</span> on arrays <span class="Math">j=1,...,J</span> and corresponding probe weights <span class="Math">w<sub>probe</sub><sub>i,j</sub></span>, the data point weight for gene <span class="Math">i</span> is <span class="Math">w<sub>i</sub>=sqrt(sum<sub>j</sub>(w<sub>probe</sub><sub>i,j</sub><sup>2</sup>)/J)</span>.
+For example, for the data point <span class="Math">(A<sub>i</sub>,M<sub>i</sub>)</span>, the data point weight is simply the same as the probe weight. Similar for the pair <span class="Math">(G<sub>i</sub>,R<sub>i</sub>)</span>. 
+</p>
+
+
+<h4>Signal weights</h4>
+<p>
+Signals weights are similar to probe weights, but can be assigned to each channel seperately. For instance, for red-green microarrays, the red signals can be assigned a set of weights and the green signals another set of weights. 
+This is useful when for instance the signals in one of the channels are more or less saturated. Saturation may bias data already at signal levels of around 50000 out of 65535, because a subset of pixels may be saturated (Lyng et al, 2004).
+</p>
+<p>
+Analogously to the above, red and green signals weights can be united into probe weights by the square root of the average squared signal weight. 
+</p>
+<p>
+Signal weights are also used when doing a multiscan calibration. The resulting average scan for each channel gets a new set of signal weights calculated from the ones used to calibrate the scans.
+</p>
+
+<h4>Assign weights in aroma</h4>
+<p>
+In aroma, probe weights <code>w</code> are assigned to an <a href="../html/RGData.html"><code>RGData</code></a> object <code>rg</code> using the <a href="../html/setProbeWeights.RGData.html"><code>setProbeWeights(rg, weights=w)</code></a> method.
+Signal weights <code>w</code> are assigned to channel <code>ch</code> using <a href="../html/setSignalWeights.RGData.html"><code>setSignalWeights(rg, channel=ch, weights=w)</code></a>.
+</p>
+<p>
+The methods will assure that the weights are valid.
+Data-point weights are automatically calculated out of signal or probe weights, if they exist.
+</p>
+
+
+<h3>Weighted normalization</h3>
+<p>
+In aroma, when normalizing, data point weights are automatically calculated from probe weights, if assigned. In this section we illustrate the effect of weighted normalization for both affine and curve-fit normalization. 
+</p>
+
+<h4>Weighted affine normalization</h4>
+<p>
+Affine normalization (of a single array) with and without weights is illustrated in the below figure. To a real data set, we have "added" 50 outliers in the green channel. In the <span class="Math">(A,M)</span> scatter plot, these outliers can be seen at <span class="Math">A > 10</span> and <span class="Math">M < -5</span>. As seen by the middle plot, the outliers affect the normalization although it is using Tukey's biweight. By downweighting the outliers thousand times, the result is a much better estimate and  normalization.
+</p>
+<center>
+ <img src="figures/NormalizeAffine-raw.png" alt="(A,M) plot">
+ <img src="figures/NormalizeAffine-nonweighted.png" alt="(A,M) plot">
+ <img src="figures/NormalizeAffine-weighted.png" alt="(A,M) plot">
+</center>
+<small>
+<em>Figure</em>: Non-weighted and weighted affine normalization with a distinct set of 50 outliers.
+<em>Left</em>: <span class="Math">(A,M)<span class="Math"> plot before normalization. The outliers can be seen at negative log-ratios and high intensities.
+<em>Mid</em>: <span class="Math">(A,M)</span> plot after non-weighted normalization. Although the estimate is robustified by Tukey's biweight function, it is affected quite a bit by the outliers.
+<em>Right</em>: <span class="Math">(A,M)</span> plot after weighted normalization where the outliers <span class="Math">o</span> have been downweighted (<span class="Math">w<sub>outliers</sub>=1/1000</span>).
+</small>
+
+
+
+<h4>Weighted curve-fit normalization</h4>
+<p>
+By default, curve-fit normalization in aroma is utilizing (extra robustified) loess.  Loess (as robustified in aroma) is a bit more robust against outliers than affine normalization. [We hope to implement a similar level of robustness to the affine model.]
+For this reason, to illustrate the effect of weighted normalization, we "add" 500 (instead of 50) outliers in the green channel.  See figure below.  The outliers will affect the normalization as seen in the middle plot. By downweighting the outliers thousand times, the result is a much better estimate and  normalization.
+</p>
+<center>
+ <img src="figures/NormalizeCurveFit-raw.png" alt="(A,M) plot">
+ <img src="figures/NormalizeCurveFit-nonweighted.png" alt="(A,M) plot">
+ <img src="figures/NormalizeCurveFit-weighted.png" alt="(A,M) plot">
+</center>
+<small>
+<em>Figure</em>: Non-weighted and weighted loess normalization with a distinct set of 500 outliers.
+<em>Left</em>: <span class="Math">(A,M)<span class="Math"> plot before normalization. The outliers can be seen at negative log-ratios and high intensities.
+<em>Mid</em>: <span class="Math">(A,M)</span> plot after non-weighted normalization. Although the estimate is robustified by Tukey's biweight function, it is affected quite a bit by the outliers.
+<em>Right</em>: <span class="Math">(A,M)</span> plot after weighted normalization where the outliers <span class="Math">o</span> have been downweighted (<span class="Math">w<sub>outliers</sub>=1/1000</span>).
+</small>

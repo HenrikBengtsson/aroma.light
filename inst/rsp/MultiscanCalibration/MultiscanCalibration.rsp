@@ -1,0 +1,74 @@
+<a name="Multiscan calibration"></a>
+<h2>Multiscan calibration</h2>
+<p>
+In this section we give recommendation on how to calibrate data for scanner biases. It applies to any type of microarray platform and scanner.
+</p>
+<p>
+In Bengtsson et al. (2004) we give evidence that microarray scanners can introduce a significant bias in data.  This bias, which is about 15-25 out of 65535, <em>will</em> introduce intensity dependency in the log-ratios, as explained in Bengtsson &amp; Hössjer (2006).  We found the bias to rather stable across arrays and time (Bengtsson et al. 2004), but further research is needed to extrapolate this to be true over a longer period of time. 
+An example of multiscan calibration where the same two-channel array has been scanned at four different PMT voltages is illustrated in the below figure.
+</p>
+<center>
+ <img src="figures/CalibrateMultiscan-RedChannel-before.png" alt="Between-scan (A,M) plot">
+ <img src="figures/CalibrateMultiscan-RedChannel-after.png" alt="Between-scan (A,M) plot">
+</center>
+<small>
+<em>Figure</em>: Multiscan calibration where the same array has been scanned at four different PMT voltages (800V, 700V, 600V, and 500V).  Data shown is for the red channel.
+<em>Left</em>: Between-scan (A,M) plot, that is, between-scan log-ratio versus log-intensity plot before calibration of the six different PMT-pairs.  Scanner bias was estimated to be <span class="Math">a<sub>R</sub>=15.7</span>.  Minimum observed log-intensity is <span class="Math">A<sub>min</sub> = log<sub>2</sub>(a<sub>R</sub>)=3.97</span>, which is confirmed by the graph.
+<em>Right</em>: Between-scan (A,M) plot after calibration, that is, subtracting scanner biases and rescaling.  Except for noise and some scanner saturation, all (A,M) pairs overlap quite well.  Some saturated signals (seen at high intensities) and other outliers (a few) can be seen. The calibration is robustified against these.
+</small>
+
+<h4>Scan protocol</h4>
+<p>
+To calibrate signals for scanner biases, scan the same array at multiple PMT settings (in <em>decreasing</em> order) at three or more PMT settings, e.g. 800V, 700V, 600V and 500V.  Do not worry that you get too weak or too strong signals at the extreme PMT gains; together, all scans will <em>extend the dynamical range</em> and saturated signals will be ignored.  It is important that you do this <em>without</em> washing, cleaning or by other means changing the array between subsequent scans.  Although not necessary, it is prefered that the array remains in the scanner between subsequent scans.  This will simplify the image analysis since spot identification can be made once, preferably using the strongest scan, if the images align perfectly.
+</p>
+
+<h5>Tips for Windows users</h5>
+<p>
+It may be helpful to use a script language for automating the user's interaction with the scanner software.  For Windows users, we recommend the free <a href="http://www.hiddensoft.com/autoit3/">AutoIt</a> software which easily can send keystrokes, mouse clicks etc. to any Windows application. 
+If you write a script for your scanner software, we are happy to included it here for everybodies convenience.
+</p>
+
+<h4>In <%=pkg%></h4>
+<p>
+After image analysis, for each array and for each channel, read the signals from scans <span class="Math">k=1,2,...,K</span> with features <span class="Math">n=1,2,...,N</span> into an <span class="Math">NxK</span> matrix, say, <code>X</code>.  It is enough to use foreground signals.
+Then calibrate it by:
+<pre class="RCode">
+Xc <- calibrateMultiscan(X)
+</pre>
+<div class="RCodeCommands">
+<%topic <- "calibrateMultiscan.matrix"%>
+[<a href="/library/<%=pkg%>/html/<%=topic%>.html">help</a>]
+[<a href="/bin/example.rsp?topic=<%=topic%>">example</a>]
+</div>
+<br>
+By default, this will return an Nx1 matrix.  Repeat this for each channel.
+</p>
+
+<h4>Extended dynamical range and decreased scanner noise</h4>
+<p>
+Because the same array is scanned at several different sensitivity settings, the effect will be an <em>extended dynamical range</em> and <em>decreased measurement noise</em>.  
+In Bengtsson et al. (2004), we extended the effective range on the Axon GenePix 4000A scanner 40 times, that is, the range of signals incresed from [0,65535] to more than [0,2600000].  
+The standard deviation of the <em>scanner noise</em>, decrease roughly by the square root of the number of scans, e.g. with four scans the standard deviation halves.
+</p>
+
+<h4>Robustness</h4>
+<p>
+Saturated signals (due to scanner saturation) are identified to be those with signal above a certain level (argument <code>satSignal</code>). Saturated signals are excluded when estimating the calibration function.
+Moreover, the estimate of the calibration parameters is robust (the estimate is done in <span class="Math">L<sub>1</sub></span> instead of <span class="Math">L<sub>2</sub></span>) making it even less sensitive to outliers, which can be signals from semi-saturated spots that are not identified as saturated because not all pixels in the spot are saturated.
+Finally, when calculating the average calibrated scan, the median is used (by default), which further robustify against saturated signals and other outliers.
+</p>
+
+
+<h4>Is multiscan calibration really necessary?</h4>
+<p>
+In Bengtsson et al. (2004) we give evidence that the scanner may introduce channel biases and from experience we have found that much of the intensity dependent effects (between channels) are removed by the multiscan calibration.  However, if affine normalization is applied as a first normalization step, multiscan calibration may be skipped, although it is always better to do it.
+</p>
+<p>
+Other researchers have reported scanner bias (on the same range) too.  For this reason we strongly recommend that you test your scanner <em>at least once</em> according to the above protocol.  Please feel free to forward the estimates of <em>your</em> scanner's channel biases to us.  This will help us to reach a strong concensus of the exact reason for the bias and to see if the biases are stable in time and between labs.  The results will be shared here.
+</p>
+
+
+<h4>Use multiscan calibration when you cannot normalize by other means</h4>
+<p>
+Moreover, due to the experimental design, but also the layout of the array, some researches find it hard or even impossible to <em>normalize</em> data in a sound way.  We see that much of the intensity dependent effects are due to scanner biases.  Since multiscan calibration does not rely on assumptions such as <em>"the majority of the genes are non-differentially expressed"</em> and so on, it can be applied safely to any microarrays.
+</p>

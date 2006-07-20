@@ -1,0 +1,29 @@
+<h3>Pre-processing of signals</h3>
+
+<p>
+Although the below discussion applies to a pair of single-channel arrays, for simplicity consider a two-color experiment (<span class="Math">C=2</span>) where each array has <span class="Math">I</span> features (spots).  Let <span class="Math">x<sub>c,i</sub></span> the (unknown) <em>true biological signal</em> for feature <em>i=1,2,...,I</em> in sample/channel <em>c=1,2,...,C</em>.  This is the quantity that we wish to estimate.
+</p>
+
+<p>
+With microarrays, we obtain estimates of <span class="Math">x<sub>c,i</sub></span> called feature signals.  Denote these by <span class="Math">y<sub>c,i</sub></span>.  These are not direct measurements, but rather <em>transformed</em> signals due to additive background, scale effects, non-linear effects, and other <em>systematic effects</em>, which we all summarize in a function <span class="Math">f<sub>c</sub>(x<sub>c,i</sub>)</span>.
+With random errors <span class="Math">e<sub>c,i</sub></span>, we measure:
+<div class="Equation">
+y<sub>c,i</sub> = f<sub>c</sub>(x<sub>c,i</sub>) + e<sub>c,i</sub>.
+</div>
+</p>
+
+<p>
+The most general objective in microarray analysis is to obtain an estimate <span class="Math">x*<sub>c,i</sub></span> of the true signal, or at least an estimate <span class="Math">y*<sub>c,i</sub></span> which is close to the true signal up to a less important scale factor (<span class="Math">d</span>).  If we can estimate <span class="Math">f<sub>c</sub>()</span>, then we can back transform the data to get:
+<div class="Equation">
+y*<sub>c,i</sub> = d * f<sub>c</sub><sup>-1</sup>(y<sub>c,i</sub>)
+</div>
+</p>
+
+<p>
+If we manage to do this, we know that <span class="Math">y*<sub>c,i</sub></span> is <em>proportional</em> to <span class="Math">x<sub>c,i</sub></span>, which is often sufficent since we only need to know the relative signal, e.g. when the true signals doubles, our estimate doubles too.  Note that this is typically not the case for <span class="Math">y<sub>c,i</sub></span>.  
+This is why we <em>pre-process</em> measure signals.
+Simply speaking, background subtraction, scanner calibration, and normalization is about estimating <span class="Math">f<sub>c</sub>()</span> and <em>back-transforming</em> signals to obtain <span class="Math">y*<sub>c,i</sub></span>.
+</p>
+<p>
+For the definitions and the difference between calibration and normalization, see the introduction of H.&nbsp;Bengtsson (2004).
+</p>

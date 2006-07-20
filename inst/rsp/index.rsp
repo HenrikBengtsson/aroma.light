@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<%
+pkg <- "aroma.light";
+pd <- packageDescription(pkg);
+%>
+
+<%
+htmlHelp <- function(topic=NULL, package=pkg) {
+  path <- system.file(package=package);
+  path <- system.file(package=pkg);
+  path <- basename(dirname(path));
+  path <- file.path("", path, pkg, "html");
+  if (is.null(topic))
+    topic <- "00Index";
+  filename <- paste(topic, "html", sep=".");
+  file.path(path, filename);
+}
+%>
+
+<html>
+<head>
+ <title>User's guide to <%=pkg%></title>
+ <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+ <meta name="Author" content="Henrik Bengtsson">
+ <link media="screen" type="text/css" rel="StyleSheet" href="/css/R.css">
+ <link media="screen" type="text/css" rel="StyleSheet" href="/css/rsp.css">
+ <link media="screen" type="text/css" rel="StyleSheet" href="/css/figures.css"> 
+ <script type="text/javascript" src="/js/Webcuts.js" language="JavaScript1.2"></script>
+</head>
+
+<body>
+
+<%@include file="src/simpleHeader.rsp"%>
+
+<h1>User's guide to <%=pkg%></h1>
+<p>
+<small>
+Author: Henrik Bengtsson<br>
+Last updated: 2006-07-20<br>
+Comments: Feedback is appreciated.<br>
+</small>
+</p>
+
+<h2>Abstract</h2>
+<p>
+The <%=pkg%> package provides methods for basic microarray analysis, especially methods to pre-process (calibrate and normalize) feature intensities.  Initially the methods was for two-color data, but several apply also to single- and multi-channel data.  The majority of the methods operate on basic data types such as matrices and lists of vectors, making them easy to use utilize by other packages, but also as is.
+</p>
+
+<h3>Table of Contents</h3>
+<p>
+</p>
+<ol style="list-style: outside;">
+ <li><a href="#Introduction">Introduction</a></li>
+ <li><a href="#Multiscan calibration">Multiscan calibration (scanner calibration)</a></li>
+ <li><a href="#Affine normalization">Affine normalization</a></li>
+ <li><a href="#Additional documentation">Additional documentation</a></li>
+ <li><a href="#References">References</a></li>
+</ol>
+<p>
+</p>
+
+<a name="Introduction"></a>
+<h2>Introduction</h2>
+<p>
+With microarray measurement we try to test a few different biological hypothesis.  For instance, in gene-expression analysis we wish to test if a gene is differentially expressed (compared to a reference).  In genotyping analysis, we wish to classify the genotypes along the chromsomes to be either AA, AB, or BB.  Several other questions may be asked.
+In order for the microarray analysis to be successful, we need to be able to estimate the test variables with both high accuracy (low bias) and high precision (small spread).  Typically, this means that we need to get good estimates of the true biological signal.
+</p>
+
+<%@include file="preprocessing.rsp"%>
+<%@include file="bgcorrection.rsp"%>
+
+<h3>A simple model</h3>
+<p>
+One of the simplest models for transformation of signals is the <em>affine model</em>.  Formally, an affine transformation function rescales the signal and then adds an offset (background).  We might assume that both the scale factor and the added offset is constant for each channel (and array), that is:
+<div class="Equation">
+ y<sub>c,i</sub> = f(x<sub>c,i</sub>) + e<sub>c,i</sub> = b<sub>c</sub>*x<sub>c,i</sub> + a<sub>c</sub> + e<sub>c,i</sub>.
+</div>
+Compare this with the above model for additive background.  The main difference is that here we assume <span class="Math">a<sub>c,i</sub> = a<sub>c</sub></span> for all features <span class="Math">i=1,2,...,I</span>.  Several of the pre-processing methods implemented in the <%=pkg%> assume (directly or indirectly) that the relationship between the true and observed signals can be approximated by this model.
+</p>
+<p>
+The reason for not calling it a <em>linear model</em> is that formally, in mathematics, do linear transforms <em>not</em> include an additive term.  By using the term <em>affine</em> we wish to make this distinction explicit.
+</p>
+
+<h3>In <%=pkg%></h3>
+<p>
+To load the <%=pkg%> package, call:
+</p>
+<pre class="RCode">
+library(<%=pkg%>)
+</pre>
+
+
+<%@include file="MultiscanCalibration/MultiscanCalibration.rsp"%>
+<%@include file="AffineNormalization/AffineNormalization.rsp"%>
+<!-- @include file="NormalizationWithWeights/NormalizationWithWeights.rsp" -->
+
+
+<a name="Additional documentation"></a>
+<h2>Additional documentation</h2>
+<p>
+<a href="<%=htmlHelp()%>">Package's help index</a><br>
+</p>
+
+<%@include file="references.rsp"%>
+
+<%@include file="src/simpleFooter.rsp"%>
+</body>
+</html>

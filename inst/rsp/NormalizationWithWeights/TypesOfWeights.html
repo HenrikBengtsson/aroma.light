@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+ <title>aroma - Types of Weights</title>
+ <link media="screen" type="text/css" rel="StyleSheet" href="style.css">
+ <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+ <meta name="Author" content="Henrik Bengtsson">
+ <script type="text/javascript" src="http://www.maths.lth.se/tools/webcuts/Webcuts.js" language="JavaScript1.2"></script>
+</head>
+
+<body>
+
+<h1>Types of Weights</h1>
+<p>
+<small>
+Author: Henrik Bengtsson<br>
+Created: 2005-02-01<br>
+Last updated: 2005-02-05<br>
+Phase: very alpha<br>
+Comments: Feedback is appreciated.
+</small>
+</p>
+<p>
+<small>
+<a href="index.html">Back...</a>
+</small>
+</p>
+
+
+<h2>Introduction</h2>
+
+<p>
+For several normalization and calibration methods the estimation of the
+normalization (or calibration) function can be done with weights.
+Commonly, weights are proportional to a quality measure, that is,
+the less quality we assign to a signal, the less influence (weight) it
+should have on the estimation of calibration and normalization
+functions.
+</p>
+
+
+<h2>General about weights</h2>
+
+<p>
+The definition of a <em>weight</em> is a single value in <i>[0,1]</i>.  Weights outside this range and missing values (<code>NA</code>) are not allowed.
+</p>
+<p>
+Below, we will define different entities such as signals, probes/spots, probesets, channels, arrays, and data-points.  To any of these entities weights may be assigned.
+</p>
+
+
+<h2>Signals and signal weights</h2>
+
+<p>
+A <em>signal</em> is a single value.  A <em>signal weight</em> is a weight assigned to a signal.  Thus, it is for entities within an array and never across/between arrays.
+</p>
+<p>
+<em>Example</em>: In two-color microarray data, there are two signals for each spot, i.e. the red or the green signals, and each of them can be assigned a different signal weight. Typically, such signal weights are represented by an <i>Nx2</i> <code><a href="../../base/html/matrix.html">matrix</a></code>, where <i>N</i> is the number of probes/spots on the array.
+</p>
+<p>
+<em>Example</em>: In Affymetrix microarray data, which is single-channel data, there is one signal per probe (in turn part of a probe set).  Each such probe can be assigned a signal weight.  Typically, such signal weights are represented by an <i>Nx1</i> <code><a href="../../base/html/matrix.html">matrix</a></code>, where <i>N</i> is the number of probes/spots on the array.
+</p>
+
+
+<h2>Probes and probe weights</h2>
+<p>
+A <em>probe</em> is the smallest entity (not considering image pixels) on the array that measures the amount of hybridized samples in one or several channels.
+</p>
+<p>
+<em>Example</em>: For two-color microarrays, a probe is a spot.
+</p>
+<p>
+<em>Example</em>: For Affymetrix arrays, a probe can be either a perfect match probe (PM) or a mismatch probe (MM).
+</p>
+<p>
+A <em>probe weight</em> is a weight assigned to a probe/spot (not a probe set).
+</p>
+<p>
+<em>Example</em>: For two-color data, the signals in the two channels for a given spot share the same probe weight.
+</p>
+<p>
+<em>Example</em>: For four-color data, the signals in the four channels for a given spot share the same probe weight.
+</p>
+<p>
+<em>Example</em>: For single-channel data such as Affymetrix data, the probe weight is identical to a signal weight.
+</p>
+<p>
+Typically, above signal weights are represented by an <i>Nx1</i> <code><a href="../../base/html/matrix.html">matrix</a></code>, where <i>N</i> is the number of probes/spots on the array.
+</p>
+<p>
+The probe weight of probe <i>i</i> must be equal to the mean of its signal weights.
+</p>
+
+
+
+<h2>Probesets and probeset weights</h2>
+<p>
+A <em>probeset</em> consists of a set of probes.
+</p>
+<p>
+<em>Example</em>: For two-color microarrays, probesets are not defined.
+</p>
+<p>
+<em>Example</em>: For Affymetrix arrays, a probeset is the set of perfect match (PM) and mismatch (MM) probes corresponding to the same gene.
+</p>
+<p>
+A <em>probeset weight</em> is a weight assigned to a probeset.
+</p>
+<p>
+Since Affymetrix is single-channel arrays, typically the above probeset weights are represented by an <i>Nx1</i> <code><a href="../../base/html/matrix.html">matrix</a></code>, where <i>N</i> is the number of probesets.
+</p>
+<p>
+The probeset weight for probeset <i>j</i> must be equal to the mean of its probe weights (which in this case are identical the signal weights) by averaging the probe weights for each probeset.
+</p>
+
+
+<h2>Data points and data-point weights</h2>
+<p>
+The definition of a <em>data point</em> depends on the context.  It may be assigned to entities within an array, but also across/between arrays.
+</p>
+<p>
+<em>Example</em>: (Paired data-point weight). In paired-channel normalization, such as curve-fit normalization (a.k.a. lowess intensity normalization), two and only two channels are normalized together at the same time, e.g. red and the green channels in two-color data, or two two single-channel data set obtained from two different Affymetrix arrays.  Here a data point is constituted by two signals, e.g. <i>X[i] = (G[i],R[i])</i>. 
+A data-point weight is assigned to the pair of signals corresponding to the same spot or gene, e.g. for lowess normalization a data-point weight is assigned to a log-ratio and a log-intensity.
+</p>
+<p>
+<em>Example</em>: (Multi-channel data point weight). In multi-channel normalization, such as affine normalization or quantile normalization (within a singel array and/or across multiple arrays), each data point is consituted by multiple signals, e.g. for <i>J</i> two-color arrays it is <i>X[i] = (R[i,1],G[i,1],...,R[i,J],G[i,J])</i>. To this data point, a <em>data-point weight</em> can be assigned.
+</p>
+<p>
+Typically, above signal weights are represented by an <i>Nx1</i> <code><a href="../../base/html/matrix.html">matrix</a></code>, where <i>N</i> is the number of data points.
+</p>
+<p>
+Data-points weights can be generated from signal or probe weights, by averaging them for each data point.
+</p>
+<p>
+If not stated elsewise, arguments named <code>weights</code> are assumed to take data-point weights.
+</p>
+
+
+<h2>Arrays and array weights</h2>
+
+<p>
+An <em>array weight</em> is a weight assigned to an array, that is, to the complete set of signals in all channels constituting an array.
+</p>
+<p>
+By definition, a channel weight can never apply across/between arrays.
+</p>
+<p>
+<em>Constraints</em>: The array weight should be equal to the average of the channel (and signal/probe/probeset) weights. Hence, for single-channel arrays, the array weight should be identical to the channel weight.
+</p>
+
+
+<h2>Channels and channel weights</h2>
+
+<p>
+A <em>channel weight</em> is a weight assigned to a channel, that is, to the set of signals constituting a channel.
+</p>
+<p>
+By definition, a channel weight can never apply across/between arrays.
+</p>
+<p>
+<em>Example</em>: In two-color data, two channel weights can exist.
+</p>
+<p>
+<em>Example</em>: In Affymetrix (single-channel) data, only one channel weights can exists and is therefore identical to an array weight.
+</p>
+<p>
+<em>Constraints</em>: The channel weight should be equal to the average of all signal/probe/probeset weights in the channel.
+</p>
+
+
+<h2>Combining signal weights into spot weights</h2>
+
+<p>
+Spot weights can be generated from signal weights.
+</p>
+<p>
+For a given spot, the spot weight is calculated as the <em>arithmetical mean</em> of the signal weights.
+</p>
+
+
+<h2>Combining signal weights into data-point weights</h2>
+
+<p>
+Data-point weights can be generated from signal weights.
+</p>
+<p>
+For a given data point, the data point weight is calculated as the <em>arithmetical mean</em> of the signal weights.
+</p>
+
+
+<h2>Combining spot weights into data-point weights</h2>
+
+<p>
+Data-point weights can be generated from spot weights.
+</p>
+<p>
+For a given data point, the data point weight is calculated as the <em>arithmetical mean</em> of the spot weights.
+</p>
+
+
+<h2>Restrictions</h2>
+
+<p>
+Note, currently weights are only supported by the <code><a href="../html(RGData.html">RGData</a></code> class.  [The plan is to make this class the "main" class.]
+</p>
+<p>
+Currently, it is only methods that explicitly say they support weights which use weights. For all other methods, weights are ignored.
+</p>
+
+
+<hr><div align="center">[Package <em>aroma</em>  <a href="../html/00Index.html">Index]</a></div>
+
+</body></html>

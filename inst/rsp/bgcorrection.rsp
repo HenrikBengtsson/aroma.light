@@ -1,0 +1,29 @@
+<h3>Additive background correction</h3>
+<p>
+By background correction we mean <em>subtraction of additive background signals from the foreground signals on the intensity (non-log) scale</em>.  
+The foreground signal is defined to be the mean pixel intensity of the interior of the feature.  However, what we mean by background signal is not very well defined, only that it is assumed to be added to the foreground signal.
+</p>
+<p>
+The most common definition originates from the spotted arrays where the background is taken to be the mean pixel intensity in a region near the spot.  This signal estimated using various image analysis methods.  
+For Affymetrix arrays the background signal is instead defined to be the signal of a <em>mismatch probe</em>, which contains probe sequences identical to <em>perfect-match probe</em> except for the middle 13:th nucleotide.  
+In both cases, the background signal is assumed to contaminate the foreground signal in some way, which typically, although not necessarily correct, means that the background signal <span class="Math">a<sub>c,i</sub></span> is assumed to be <em>added</em> on top of the true signal such that:
+<div class="Equation">
+ y<sub>c,i</sub> = x<sub>c,i</sub> + a<sub>c,i</sub> + e<sub>c,i</sub>.
+</div>
+</p>
+<p>
+<em>Background correction</em>, also known as <em>background subtraction</em>, is then:
+</p>
+<p>
+<div class="Equation">
+ y*<sub>c,i</sub> = y<sub>c,i</sub> - a<sub>c,i</sub>.
+</div>
+</p>
+
+<h4>Author's comments</h4>
+<p>
+It is important to understand that still has not been settled if the mean intensity of the pixels in the proximity of a spot is also added to the pixel intensities within the spot.  Even this can be shown, it is still not clear how to optimally estimate such background signal, cf. Bengtsson &amp; Bengtsson (2004).  Same, it still to be established that the signal of the mismatch probe is added to the signal of the corresponding perfect-match probe.  
+</p>
+<p>
+I believe that the relationship between foreground and background signals as estimated by most image analysis methods is more complicated than just being additive.  For instance, it is not rare to see that the spot itself is darker than the surrounding regions.  Same for Affymetrix probe signals.  If the mismatch probes measures the amount of cross-hybridization as intended, the relationship is rather multiplicative than additive.  For this reason, I try to avoid background subtraction in the classical way.  Instead I typically work with foreground signals, or perfect-match signals only, and try to estimate the background <span class="Math">a<sub>c,i</sub></span> by <em>other means</em>.
+</p>
