@@ -23,10 +23,10 @@ htmlHelp <- function(topic=NULL, package=pkg) {
  <title>User's guide to <%=pkg%></title>
  <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
  <meta name="Author" content="Henrik Bengtsson">
- <link media="screen" type="text/css" rel="StyleSheet" href="/css/R.css">
- <link media="screen" type="text/css" rel="StyleSheet" href="/css/rsp.css">
- <link media="screen" type="text/css" rel="StyleSheet" href="/css/figures.css"> 
- <script type="text/javascript" src="/js/Webcuts.js" language="JavaScript1.2"></script>
+ <link media="screen" type="text/css" rel="StyleSheet" href="css/R.css">
+ <link media="screen" type="text/css" rel="StyleSheet" href="css/rsp.css">
+ <link media="screen" type="text/css" rel="StyleSheet" href="css/figures.css"> 
+ <script type="text/javascript" src="js/Webcuts.js" language="JavaScript1.2"></script>
 </head>
 
 <body>

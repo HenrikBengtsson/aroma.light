@@ -7,7 +7,7 @@ isLoaded <- (pkg %in% gsub("^package:", "", search()));
  <div style="float:left; font-size:smaller;">
   <%=pd$Package%> v<%=pd$Version%> (<%=pd$Date%>) (<a href="/R/system/packageDetails.rsp?package=aroma.light">details</a>, <a href="<%=htmlHelp()%>">help pages</a>) 
 <% if (!isLoaded) { %>
-[<a href="/bin/eval.rsp?cmd=library(<%=pkg%>)">load package</a>]
+[<a href="/R2/R/tools/index.rsp?tool=eval.rsp&cmd=library(<%=pkg%>)">load package</a>]
 <% } %>
   <br>
  </div>
