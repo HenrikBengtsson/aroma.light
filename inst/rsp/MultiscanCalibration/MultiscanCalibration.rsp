@@ -44,11 +44,18 @@ Xc <- calibrateMultiscan(X)
 By default, this will return an Nx1 matrix.  Repeat this for each channel.
 </p>
 
-<h4>Extended dynamical range and decreased scanner noise</h4>
+<h4>Extended dynamical range</h4>
 <p>
 Because the same array is scanned at several different sensitivity settings, the effect will be an <em>extended dynamical range</em> and <em>decreased measurement noise</em>.  
-In Bengtsson et al. (2004), we extended the effective range on the Axon GenePix 4000A scanner 40 times, that is, the range of signals incresed from [0,65535] to more than [0,2600000].  
+In Bengtsson et al. (2004), we extended the effective range on the Axon GenePix 4000A scanner 40 times, that is, the range of signals incresed from [0,65535] to more than [0,2600000]. 
+</p>
+
+<h4>Decreased scanner noise and increased sensitivity</h4>
+<p>
 The standard deviation of the <em>scanner noise</em>, decrease roughly by the square root of the number of scans, e.g. with four scans the standard deviation halves.
+</p>
+<p>
+A comparison study of different scan and normalization strategies by Rydén et al. (2006) show that the multiscan calibration method has a much higher <em>sensitivity</em> (88%) compared to most other methods (68-85%).  In this particular study sensitivity refers to the ability to detect differentially expressed (DE) genes.
 </p>
 
 <h4>Robustness</h4>
