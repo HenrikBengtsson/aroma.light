@@ -91,7 +91,9 @@ setMethodS3("normalizeQuantile", "matrix", function(X, ties=FALSE, robust=FALSE,
   signalWeights <- NULL;
   if (!is.null(weights)) {
     # If 'weights' is an object of a class with as.double(), cast it.
+    dim <- dim(weights);
     weights <- as.double(weights);
+    dim(weights) <- dim;
 
     if (any(is.na(weights)))
       stop("Argument 'weights' must not contain NA values.");

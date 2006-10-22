@@ -22,7 +22,7 @@ In both cases, the background signal is assumed to contaminate the foreground si
 
 <h4>Author's comments</h4>
 <p>
-It is important to understand that still has not been settled if the mean intensity of the pixels in the proximity of a spot is also added to the pixel intensities within the spot.  Even this can be shown, it is still not clear how to optimally estimate such background signal, cf. Bengtsson &amp; Bengtsson (2004).  Same, it still to be established that the signal of the mismatch probe is added to the signal of the corresponding perfect-match probe.  
+It is important to understand that still has not been settled if the mean intensity of the pixels in the proximity of a spot is also added to the pixel intensities within the spot.  Even if this can be shown, it is still not clear how to optimally estimate such background signal, cf. Bengtsson &amp; Bengtsson (2004).  Similarily, it still to be established that the signal of the mismatch probe on an Affymetrix array is added to the signal of the corresponding perfect-match probe.  
 </p>
 <p>
 I believe that the relationship between foreground and background signals as estimated by most image analysis methods is more complicated than just being additive.  For instance, it is not rare to see that the spot itself is darker than the surrounding regions.  Same for Affymetrix probe signals.  If the mismatch probes measures the amount of cross-hybridization as intended, the relationship is rather multiplicative than additive.  For this reason, I try to avoid background subtraction in the classical way.  Instead I typically work with foreground signals, or perfect-match signals only, and try to estimate the background <span class="Math">a<sub>c,i</sub></span> by <em>other means</em>.
