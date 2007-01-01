@@ -163,13 +163,6 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   
     nk <- prep$nk
   
-    # From R v1.9.0 internal qsbart is found in stats and not modreg;
-    if (length(.find.package("graphics", quiet=TRUE)) != 0) {
-      qsbartPkg <- "stats";
-    } else {
-      qsbartPkg <- "modreg";
-    }
-    
     fit <- .Fortran("qsbart", as.double(prep$penalty), as.double(prep$dofoff), 
       x=as.double(prep$xbar), y=as.double(ybar), w=as.double(wbar), 
       ssw=as.double(yssw), as.integer(nx), as.double(prep$knot), 
@@ -177,7 +170,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
       crit=double(1), iparms=prep$iparms, spar=prep$spar, parms=unlist(prep$contr.sp[1:4]), 
       isetup=as.integer(0), scrtch=double((17 + nk) * nk), ld4=as.integer(4),
       ldnk=as.integer(1), ier=integer(1), DUP=FALSE,
-      PACKAGE=qsbartPkg)[c("coef", "ty", "lev", "spar", "parms", "crit", "iparms", "ier")] 
+      PACKAGE="stats")[c("coef", "ty", "lev", "spar", "parms", "crit", "iparms", "ier")] 
   
     fit$wbar <- wbar;
     fit$ybar <- ybar;
@@ -355,6 +348,9 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
 
 ######################################################################
 # HISTORY
+# 2007-01-01
+# o Removed any code to make method backward compatibility with 
+#   R < 1.9.0, which was before 'modreg' was merged into 'stats'.
 # 2005-06-03
 # o Now making use of setMethodS3().
 # o Renamed to robustSmoothSpline().

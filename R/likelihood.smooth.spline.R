@@ -75,16 +75,9 @@
 # @keyword "smooth"
 #*/###########################################################################
 setMethodS3("likelihood", "smooth.spline", function(object, x=NULL, y=NULL, w=NULL, base=exp(1), rel.tol=.Machine$double.eps^(1/8), ...) {
+  ## require(stats); # smooth.spline()  # Loaded by default
 
-  # modreg was merged into stats in R v1.9.0
-  # Loads: smooth.spline()
-  if (length(.find.package("stats", quiet=TRUE)) != 0) {
-    require(stats);
-  } else {
-    require(modreg); # This should already have been called, but just in case.
-  }
-
-  g <- object
+  g <- object;
 
   if (is.null(x)) {
     x  <- g$x;
@@ -151,6 +144,9 @@ setMethodS3("likelihood", "smooth.spline", function(object, x=NULL, y=NULL, w=NU
 
 ############################################################################
 # HISTORY:
+# 2007-01-01
+# o Removed any code to make method backward compatibility with 
+#   R < 1.9.0, which was before 'modreg' was merged into 'stats'.
 # 2005-06-03
 # o now returns an object of class SmoothSplineLikelihood.
 # 2005-02-20
