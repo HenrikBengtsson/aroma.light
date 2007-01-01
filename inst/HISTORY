@@ -2,6 +2,7 @@ Package: aroma.light
 ====================
 
 Version: 1.3.0 [2006-10-xx]
+o Added R.utils to Suggests field of DESCRIPTION.
 o The devel version number was bumped up with the Bioconductor release.
 
 Version: 1.2.0 [2006-10-03]

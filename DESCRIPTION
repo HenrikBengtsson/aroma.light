@@ -5,7 +5,7 @@ Title: Light-weight methods for normalization and visualization of microarray da
 Author: Henrik Bengtsson <henrikb@braju.com>
 Maintainer: Henrik Bengtsson <henrikb@braju.com>
 Depends: R.oo
-Suggests: R.utils, modreg
+Suggests: R.utils
 Description: Methods for microarray analysis that take basic data types such as matrices and lists of vectors.  These methods can be used standalone, be utilized in other packages, or be wrapped up in higher-level classes.
 License: LGPL
 biocViews: Microarray, OneChannel, TwoChannel, Preprocessing
