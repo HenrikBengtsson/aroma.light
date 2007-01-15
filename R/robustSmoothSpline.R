@@ -54,6 +54,9 @@
 # @keyword "robust"
 #*/############################################################################
 setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), sdCriteria=2e-4, reps=1e-15, plotCurves=FALSE) {
+  require(stats) || throw("Package not loaded: stats");  # smooth.spline()
+
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -239,14 +242,6 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Verify arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # modreg was merged into stats in R v1.9.0
-  # Loads: smooth.spline()
-  if (length(.find.package("stats", quiet=TRUE)) != 0) {
-    require(stats);
-  } else {
-    require(modreg); # This should already have been called, but just in case.
-  }
-
   # Argument: 'w'
   if (is.numeric(w)) {
     w <- as.double(w);
