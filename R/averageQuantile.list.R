@@ -55,6 +55,8 @@ setMethodS3("averageQuantile", "list", function(X, ...) {
 
 
   # Note: We use variable 'tt' as a temporary variable for anything.
+  # Has NAs?
+  # tt <- !is.na(Xcc);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Get the sample quantile for all channels (columns)
@@ -76,10 +78,8 @@ setMethodS3("averageQuantile", "list", function(X, ...) {
     # The number of non-NA observations
     nobs <- length(Scc);
 
-    # Has NAs?
-    if(nobs < nbrOfObservations[cc]) {
-      tt <- !is.na(Xcc);
-
+    # Too few data points?
+    if(nobs < maxNbrOfObservations) {
       # Get the sample quantiles for those values
       bins <- (0:(nobs-1))/(nobs-1);
 
@@ -103,6 +103,9 @@ setMethodS3("averageQuantile", "list", function(X, ...) {
 
 ##############################################################################
 # HISTORY:
+# 2007-01-22
+# o BUG FIX: averageQuantile.list() did not deal with vectors of different
+#   length correctly. Thanks Alicia Oshlack, WEHI.
 # 2006-05-12
 # o Created from normalizeQuantile.matrix.R.  It has been optimized for 
 #   memory. Hence, the normalization is done using a two-pass procedure.
