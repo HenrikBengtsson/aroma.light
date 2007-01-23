@@ -12,7 +12,7 @@
 #
 # \arguments{
 #   \item{x}{a @numeric @vector of length \eqn{N}.}
-#   \item{xTarget}{a @numeric @vector of length \eqn{M}.}
+#   \item{xTarget}{a \emph{sorted} @numeric @vector of length \eqn{M}.}
 #   \item{ties}{Should ties in \code{x} be treated with care or not?  
 #     For more details, see "limma:normalizeQuantiles".}
 #   \item{...}{Not used.}
