@@ -1,12 +1,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Do not modify this file since it was automatically generated from:
 % 
-%  
+%  999.NonDocumentedObjects.R
 % 
-% on Thu Jun 29 11:45:00 2006.
-% 
-% Generator was the Rdoc class, which is part of the R.oo package written
-% by Henrik Bengtsson, 2001-2006.
+% by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \name{Non-documented objects}
@@ -18,6 +15,7 @@
 \alias{fitIWPCA}
 \alias{calibrateMultiscan}
 \alias{normalizeAffine}
+\alias{normalizeAverage}
 \alias{backtransformAffine}
 \alias{normalizeQuantile}
 \alias{normalizeCurveFit}

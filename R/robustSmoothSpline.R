@@ -56,6 +56,8 @@
 setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), sdCriteria=2e-4, reps=1e-15, plotCurves=FALSE) {
   require(stats) || throw("Package not loaded: stats");  # smooth.spline()
 
+  # To please RMD CMD check for R v2.6.0
+  nx <- 0;
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
@@ -343,6 +345,9 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
 
 ######################################################################
 # HISTORY
+# 2007-06-08
+# o Added declaration 'nx <- 0' in robustSmoothSpline.matrix() in
+#   order to please R CMD check R v2.6.0.
 # 2007-01-01
 # o Removed any code to make method backward compatibility with 
 #   R < 1.9.0, which was before 'modreg' was merged into 'stats'.
