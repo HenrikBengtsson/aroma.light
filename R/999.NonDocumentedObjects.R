@@ -5,6 +5,7 @@
 # @alias fitIWPCA
 # @alias calibrateMultiscan
 # @alias normalizeAffine
+# @alias normalizeAverage
 # @alias backtransformAffine
 # @alias normalizeQuantile
 # @alias normalizeCurveFit
