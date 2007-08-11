@@ -1,6 +1,8 @@
 #########################################################################/**
 # @RdocDocumentation "1. Calibration and Normalization"
 #
+# \encoding{latin1}
+#
 # \description{
 #   In this section we give \emph{our} recommendation on how spotted 
 #   two-color (or multi-color) microarray data is best calibrated and
@@ -22,7 +24,8 @@
 #   In Bengtsson et al (2004) we give evidence that microarray scanners
 #   can introduce a significant bias in data. This bias, which is
 #   about 15-25 out of 65535, \emph{will} introduce intensity dependency
-#   in the log-ratios, as explained in Bengtsson \& Hössjer (2006).
+#   in the log-ratios, as explained in Bengtsson \& 
+#   \enc{Hössjer}{Hossjer} (2006).
 #
 #   In Bengtsson et al (2004) we find that this bias is stable across
 #   arrays (and a couple of months), but further research is needed
@@ -53,9 +56,9 @@
 # }
 #
 # \section{Affine normalization}{
-#   In Bengtsson \& Hössjer (2006), we carry out a very detailed study on
-#   how biases in each channel introduce so called intensity-dependent
-#   log-ratios among other systematic artifacts. 
+#   In Bengtsson \& \enc{Hössjer}{Hossjer} (2006), we carry out a detailed
+#   study on how biases in each channel introduce so called 
+#   intensity-dependent log-ratios among other systematic artifacts. 
 #   Data with (additive) bias in each channel is said to be \emph{affinely} 
 #   transformed. Data without such bias, is said to be \emph{linearly} 
 #   (proportionally) transform. Ideally, observed signals (data) is a 
@@ -148,7 +151,7 @@
 #   Why not quantile normalization? 
 #   Affine normalization can be though of a special case of quantile 
 #   normalization that is more robust than the latter. 
-#   See Bengtsson \& Hössjer (2006) for details.
+#   See Bengtsson \& \enc{Hössjer}{Hossjer} (2006) for details.
 #   Quantile normalization is probably better to apply than curve-fit 
 #   normalization methods, but less robust than affine normalization, 
 #   especially at extreme (low and high) intensities.

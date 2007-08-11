@@ -14,6 +14,8 @@
 \title{Package aroma.light}
 
 
+ \encoding{latin1}
+
  \description{
    Methods for microarray analysis that take basic data types such as matrices and lists of vectors.  These methods can be used standalone, be utilized in other packages, or be wrapped up in higher-level classes.
  }
@@ -57,9 +59,6 @@
  }
 
  \section{Further readings}{
-   For an overview of \pkg{aroma}, see [2].
-   See also the online webpage of \code{aroma} -
-   \url{http://www.maths.lth.se/R/help/aroma/}.
    Several of the normalization methods proposed in [3]-[5] are
    available in this package.
  }
@@ -139,10 +138,10 @@
      in preparation), Mathematical Statistics, Centre for Mathematical
      Sciences, Lund University, 2004.\cr
 
- [3] Henrik Bengtsson and Ola Hössjer, \emph{Methodological Study of Affine Transformations of Gene Expression Data}, Methodological study of affine transformations of gene expression data with proposed robust non-parametric multi-dimensional normalization method, BMC Bioinformatics, 2006, 7:100.
+ [3] Henrik Bengtsson and Ola \enc{Hössjer}{Hossjer}, \emph{Methodological Study of Affine Transformations of Gene Expression Data}, Methodological study of affine transformations of gene expression data with proposed robust non-parametric multi-dimensional normalization method, BMC Bioinformatics, 2006, 7:100.
  \cr
 
- [4] H. Bengtsson, J. Vallon-Christersson and G. Jönsson, \emph{Calibration and assessment of channel-specific biases in microarray data with extended dynamical range}, BMC Bioinformatics, 5:177, 2004.
+ [4] H. Bengtsson, J. Vallon-Christersson and G. \enc{Jönsson}{Jonsson}, \emph{Calibration and assessment of channel-specific biases in microarray data with extended dynamical range}, BMC Bioinformatics, 5:177, 2004.
  \cr
 
  [5] H. Bengtsson, \emph{Identification and normalization of plate effects

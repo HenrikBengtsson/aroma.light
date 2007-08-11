@@ -1,9 +1,13 @@
 Package: aroma.light
 ====================
 
+Version: 1.5.2 [2007-08-10]
+o Package pass R CMD check R v2.6.0.
+
+
 Version: 1.5.1 [2007-06-08] (this was mistakenly versioned 1.4.1)
 o Added normalizeAverage().
-o Package pass R CMD check R v2.6.0.
+o Package pass R CMD check R v2.6.0 with Rd encoding errors.
 
 
 Version: 1.5.0 [2007-05-09]

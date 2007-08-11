@@ -12,6 +12,8 @@
 \alias{calibrateMultiscan.matrix}
 
 
+ \encoding{latin1}
+
  \title{Weighted affine calibration of a multiple re-scanned channel}
 
  \description{
@@ -114,7 +116,7 @@
  \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
 
  \references{
-   [1] H. Bengtsson, J. Vallon-Christersson and G. Jönsson, \emph{Calibration and assessment of channel-specific biases in microarray data with extended dynamical range}, BMC Bioinformatics, 5:177, 2004.
+   [1] H. Bengtsson, J. Vallon-Christersson and G. \enc{Jönsson}{Jonsson}, \emph{Calibration and assessment of channel-specific biases in microarray data with extended dynamical range}, BMC Bioinformatics, 5:177, 2004.
  \cr
  }
 

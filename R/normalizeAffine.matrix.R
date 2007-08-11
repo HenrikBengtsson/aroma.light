@@ -2,6 +2,8 @@
 # @set "class=matrix"
 # @RdocMethod normalizeAffine
 #
+# \encoding{latin1}
+#
 # @title "Weighted affine normalization between channels and arrays"
 #
 # \description{

@@ -1,6 +1,8 @@
 ############################################################################/**
 # @RdocDefault weightedMedian
 #
+# \encoding{latin1}
+#
 # @title "Weighted Median Value"
 #
 # @synopsis
@@ -99,8 +101,8 @@
 # }
 #
 # \author{
-#   Henrik Bengtsson and Ola Hössjer, Centre for Mathematical Sciences,
-#   Lund University.
+#   Henrik Bengtsson and Ola \enc{Hössjer}{Hossjer}, Centre for Mathematical
+#   Sciences, Lund University.
 #   Thanks to Roger Koenker, Econometrics, University of Illinois, for
 #   the initial ideas.
 # }
