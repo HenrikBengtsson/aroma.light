@@ -1,6 +1,8 @@
 #########################################################################/**
 # @RdocPackage aroma.light
 #
+# \encoding{latin1}
+#
 # \description{
 #   @eval "getDescription(aroma.light)" 
 # }
@@ -44,9 +46,6 @@
 # }
 # 
 # \section{Further readings}{
-#   For an overview of \pkg{aroma}, see [2]. 
-#   See also the online webpage of \code{aroma} - 
-#   \url{http://www.maths.lth.se/R/help/aroma/}.
 #   Several of the normalization methods proposed in [3]-[5] are 
 #   available in this package.
 # } 

@@ -2,6 +2,8 @@
 # @set "class=matrix"
 # @RdocMethod calibrateMultiscan
 #
+# \encoding{latin1}
+#
 # @title "Weighted affine calibration of a multiple re-scanned channel"
 #
 # \description{

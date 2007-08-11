@@ -16,6 +16,8 @@
 \alias{normalizeSpline.matrix}
 \alias{normalizeRobustSpline.matrix}
 
+\encoding{latin1}
+
 \title{Weighted curve-fit normalization between a pair of channels}
 
 \description{
@@ -117,9 +119,10 @@
 \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
 
 \references{
-  [1] M. Åstrand, Contrast Normalization of Oligonucleotide Arrays,
+  [1] M. \encoding{Åstrand}{Astrand},
+      Contrast Normalization of Oligonucleotide Arrays,
       Journal Computational Biology, 2003, 10, 95-102. \cr
-  [2] Henrik Bengtsson and Ola Hössjer, \emph{Methodological Study of Affine Transformations of Gene Expression Data}, Methodological study of affine transformations of gene expression data with proposed robust non-parametric multi-dimensional normalization method, BMC Bioinformatics, 2006, 7:100.
+  [2] Henrik Bengtsson and Ola \enc{Hössjer}{Hossjer}, \emph{Methodological Study of Affine Transformations of Gene Expression Data}, Methodological study of affine transformations of gene expression data with proposed robust non-parametric multi-dimensional normalization method, BMC Bioinformatics, 2006, 7:100.
  \cr
 }
 

@@ -6,6 +6,8 @@
 # @alias "normalizeSpline.matrix"
 # @alias "normalizeRobustSpline.matrix"
 #
+# \encoding{latin1}
+#
 # @title "Weighted curve-fit normalization between a pair of channels"
 #
 # \description{
@@ -107,7 +109,8 @@
 # @author
 #
 # \references{
-#   [1] M. Åstrand, Contrast Normalization of Oligonucleotide Arrays, 
+#   [1] M. \encoding{Åstrand}{Astrand}, 
+#       Contrast Normalization of Oligonucleotide Arrays, 
 #       Journal Computational Biology, 2003, 10, 95-102. \cr
 #   [2] @include "../incl/BengtssonHossjer_2006.bib.Rdoc" \cr
 # }

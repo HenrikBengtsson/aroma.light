@@ -10,6 +10,8 @@
 \alias{weightedMedian.default}
 \alias{weightedMedian}
 
+\encoding{latin1}
+
 \title{Weighted Median Value}
 
 \usage{\method{weightedMedian}{default}(x, w, na.rm=NA, interpolate=is.null(ties), ties=NULL, method=c("quick", "shell"), ...)}
@@ -169,8 +171,8 @@ print(bench(N=1e6, K=1))
 }
 
 \author{
-  Henrik Bengtsson and Ola Hössjer, Centre for Mathematical Sciences,
-  Lund University.
+  Henrik Bengtsson and Ola \enc{Hössjer}{Hossjer}, Centre for Mathematical
+  Sciences, Lund University.
   Thanks to Roger Koenker, Econometrics, University of Illinois, for
   the initial ideas.
 }
