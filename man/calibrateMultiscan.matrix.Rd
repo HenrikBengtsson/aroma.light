@@ -100,7 +100,7 @@
   MAD. However, since scanner signals have heteroscedastic noise
   (standard deviation is approximately proportional to the non-logged
   signal), Tukey's bandwidth parameter has to be a function of the
-  signal too, cf. \code{\link[stats]{loess}}.  We have experiemented with this
+  signal too, cf. \code{\link[stats]{loess}}.  We have experimented with this
   too, but found that it does not significantly improve the robustness
   compared to \eqn{L_1}.
   Moreover, using Tukey's biweight as is, that is, assuming homoscedastic

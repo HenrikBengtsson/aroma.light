@@ -1,6 +1,23 @@
 Package: aroma.light
 ====================
 
+Version: 1.7.1 [2007-11-28]
+o The startup message when loading the package is generated with
+  packageStartupMessage() so that it can be suppressed.
+o Package now only suggest the R.oo package, and instead depends
+  on the new R.methodsS3.
+o TYPO: Corrected a spelling error in the help pages.
+o Package passes R CMD check R v2.6.1.
+
+
+Version: 1.7.0 [2007-10-08]
+o The version number was bumped for the Bioconductor devel version.
+
+
+Version: 1.6.0 [2007-10-08]
+o The version number was bumped for the Bioconductor release version.
+
+
 Version: 1.5.2 [2007-08-10]
 o Package pass R CMD check R v2.6.0.
 
