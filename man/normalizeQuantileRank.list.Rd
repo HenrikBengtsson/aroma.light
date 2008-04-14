@@ -1,20 +1,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Do not modify this file since it was automatically generated from:
 % 
-%  normalizeQuantile.list.R
+%  normalizeQuantileRank.list.R
 % 
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
- \name{normalizeQuantile.list}
+ \name{normalizeQuantileRank.list}
+\alias{normalizeQuantileRank.list}
+\alias{normalizeQuantileRank.list}
+
+ \alias{list.normalizeQuantile}
 \alias{normalizeQuantile.list}
-\alias{normalizeQuantile.list}
+\alias{normalizeQuantile,list-method}
 
 
  \title{Normalizes the empirical distribution of a set of samples to a target distribution}
 
- \usage{\method{normalizeQuantile}{list}(X, xTarget=NULL, ...)}
+ \usage{\method{normalizeQuantileRank}{list}(X, xTarget=NULL, ...)}
 
  \description{
    Normalizes the empirical distribution of a set of samples to a target distribution.  The samples may differ in size.
@@ -26,7 +30,7 @@
    \item{xTarget}{The target empirical distribution.  If \code{\link[base]{NULL}}, the target
      distribution is calculated as the average empirical distribution of
      the samples.}
-   \item{...}{Passed to \code{\link{normalizeQuantile.numeric}}().}
+   \item{...}{Passed to \code{\link{normalizeQuantileRank.numeric}}().}
  }
 
  \value{
@@ -73,17 +77,18 @@ plotDensity(X, lwd=2, xlim=xlim, main="The original distributions")
 plotDensity(Xn, lwd=2, xlim=xlim, main="The normalized distributions")
 }
 
- \seealso{
-   The target empirical distribution is calculated as the average
-   using \code{\link[aroma.light:averageQuantile.list]{*averageQuantile}()}.
-   Each \code{\link[base]{vector}} is normalized toward this target disribution using
-   \code{\link[aroma.light:normalizeQuantile.numeric.list]{*normalizeQuantile.numeric}()}.
- }
-
  \author{
    Adopted from Gordon Smyth (\url{http://www.statsci.org/}) in 2002 \& 2006.
    Original code by Ben Bolstad at Statistics Department, University of
    California.
+ }
+
+ \seealso{
+   The target empirical distribution is calculated as the average
+   using \code{\link[aroma.light:averageQuantile.list]{*averageQuantile}()}.
+   Each \code{\link[base]{vector}} is normalized toward this target disribution using
+   \code{\link[aroma.light:normalizeQuantileRank.numeric.list]{*normalizeQuantileRank.numeric}()}.
+   \code{\link[aroma.light:normalizeQuantileSpline.list]{*normalizeQuantileSpline}()}.
  }
 
 

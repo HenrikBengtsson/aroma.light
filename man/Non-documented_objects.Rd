@@ -18,6 +18,9 @@
 \alias{normalizeAverage}
 \alias{backtransformAffine}
 \alias{normalizeQuantile}
+\alias{normalizeQuantile.default}
+\alias{normalizeQuantileRank}
+\alias{normalizeQuantileSpline}
 \alias{normalizeCurveFit}
 \alias{normalizeLoess}
 \alias{normalizeLowess}
@@ -30,6 +33,7 @@
 \alias{plotMvsAPairs}
 \alias{plotMvsMPairs}
 \alias{plotDensity}
+\alias{plotXYCurve}
 
 % Matrix operations
 \alias{rowAverages}
@@ -48,6 +52,7 @@
 
 % Miscellaneous statistical functions
 \alias{likelihood}
+\alias{predict.lowess}
 
 \description{
   This page contains aliases for all "non-documented" objects that

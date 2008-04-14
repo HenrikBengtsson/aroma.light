@@ -1,6 +1,7 @@
 ###########################################################################/**
 # @set "class=matrix"
-# @RdocMethod normalizeQuantile
+# @RdocMethod normalizeQuantileRank
+# @aliasmethod normalizeQuantile
 #
 # @title "Weighted sample quantile normalization"
 #
@@ -50,12 +51,7 @@
 #   by taking the mean of the signal weights in each channel.
 # }
 #
-# @examples "../incl/normalizeQuantile.matrix.Rex"
-#
-# \seealso{
-#   @see "stats::median", @see "weightedMedian",
-#   @see "base::mean" and @see "stats::weighted.mean".
-# }
+# @examples "../incl/normalizeQuantileRank.matrix.Rex"
 #
 # \author{
 #   Adopted from Gordon Smyth (\url{http://www.statsci.org/}) in 2002 \& 2006.
@@ -65,11 +61,17 @@
 #   mean or median was added by @get "author".
 # }
 #
+# \seealso{
+#   @see "stats::median", @see "weightedMedian",
+#   @see "base::mean" and @see "stats::weighted.mean".
+#   @seemethod "normalizeQuantileSpline".
+# }
+#
 # @keyword "nonparametric"
 # @keyword "multivariate"
 # @keyword "robust"
 #*/###########################################################################
-setMethodS3("normalizeQuantile", "matrix", function(X, ties=FALSE, robust=FALSE, weights=NULL, typeOfWeights=c("channel", "signal"), ...) {
+setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FALSE, weights=NULL, typeOfWeights=c("channel", "signal"), ...) {
   zeroOneWeightsOnly <- TRUE;  # Until supported otherwise.
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -252,7 +254,7 @@ setMethodS3("normalizeQuantile", "matrix", function(X, ties=FALSE, robust=FALSE,
   }
 
   X;
-}) # normalizeQuantile()
+})
 
 
 
@@ -260,6 +262,9 @@ setMethodS3("normalizeQuantile", "matrix", function(X, ties=FALSE, robust=FALSE,
 
 ##############################################################################
 # HISTORY:
+# 2008-04-14
+# o Renamed normalizeQuantile() to normalizeQuantileRank().  Keeping the old
+#   name for backward compatibility.
 # 2006-05-12
 # o Updated according to Gordon Smyth's package.
 # 2006-02-08

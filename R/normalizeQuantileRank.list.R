@@ -1,6 +1,7 @@
 ###########################################################################/**
 # @set "class=list"
-# @RdocMethod normalizeQuantile
+# @RdocMethod normalizeQuantileRank
+# @aliasmethod normalizeQuantile
 #
 # @title "Normalizes the empirical distribution of a set of samples to a target distribution"
 #
@@ -16,7 +17,7 @@
 #   \item{xTarget}{The target empirical distribution.  If @NULL, the target
 #     distribution is calculated as the average empirical distribution of
 #     the samples.}
-#   \item{...}{Passed to @see "normalizeQuantile.numeric".}
+#   \item{...}{Passed to @see "normalizeQuantileRank.numeric".}
 # }
 #
 # \value{
@@ -30,14 +31,7 @@
 #   No new @NAs are introduced.
 # }
 # 
-# @examples "../incl/normalizeQuantile.list.Rex"
-#
-# \seealso{
-#   The target empirical distribution is calculated as the average 
-#   using @seemethod "averageQuantile".
-#   Each @vector is normalized toward this target disribution using
-#   @seemethod "normalizeQuantile.numeric".
-# }
+# @examples "../incl/normalizeQuantileRank.list.Rex"
 #
 # \author{
 #   Adopted from Gordon Smyth (\url{http://www.statsci.org/}) in 2002 \& 2006.
@@ -45,11 +39,19 @@
 #   California.
 # }
 #
+# \seealso{
+#   The target empirical distribution is calculated as the average 
+#   using @seemethod "averageQuantile".
+#   Each @vector is normalized toward this target disribution using
+#   @seemethod "normalizeQuantileRank.numeric".
+#   @seemethod "normalizeQuantileSpline".
+# }
+#
 # @keyword "nonparametric"
 # @keyword "multivariate"
 # @keyword "robust"
 #*/###########################################################################
-setMethodS3("normalizeQuantile", "list", function(X, xTarget=NULL, ...) {
+setMethodS3("normalizeQuantileRank", "list", function(X, xTarget=NULL, ...) {
   # Get the target quantile for all channels (columns)?
   if (is.null(xTarget))
     xTarget <- averageQuantile(X);
@@ -57,17 +59,20 @@ setMethodS3("normalizeQuantile", "list", function(X, xTarget=NULL, ...) {
   # Normalizes the data
   nTarget <- length(xTarget);
   X <- lapply(X, FUN=function(x) {
-    normalizeQuantile(x, xTarget=xTarget, ...);
+    normalizeQuantileRank(x, xTarget=xTarget, ...);
   })
 
   X;
-}) # normalizeQuantile()
+})
 
 
 
 
 ##############################################################################
 # HISTORY:
+# 2008-04-14
+# o Renamed normalizeQuantile() to normalizeQuantileRank().  Keeping the old
+#   name for backward compatibility.
 # 2006-05-12
 # o Created from normalizeQuantile.matrix.R.  It has been optimized for 
 #   memory. Hence, the normalization is done using a two-pass procedure.

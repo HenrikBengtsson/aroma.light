@@ -38,12 +38,12 @@
    To normalize multiple single-channel arrays all with the same number of probes/spots:
    \enumerate{
      \item \code{\link{normalizeAffine.matrix}}() - normalizes, on the intensity scale,  for differences in offset and scale between channels.
-     \item \code{\link{normalizeQuantile.matrix}}() - normalizes, on the intensity scale,  for differences in empirical distribution between channels.
+     \item \code{\link{normalizeQuantile.matrix}} - normalizes, on the intensity scale,  for differences in empirical distribution between channels.
    }
 
    To normalize multiple single-channel arrays with varying number probes/spots:
    \enumerate{
-     \item \code{\link{normalizeQuantile.list}}() - normalizes, on the intensity scale, for differences in empirical distribution between channels.
+     \item \code{\link{normalizeQuantile.list}} - normalizes, on the intensity scale, for differences in empirical distribution between channels.
    }
   
    To normalize two-channel arrays:

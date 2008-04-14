@@ -1,6 +1,7 @@
 ###########################################################################/**
 # @set "class=numeric"
-# @RdocMethod normalizeQuantile
+# @RdocMethod normalizeQuantileRank
+# @aliasmethod normalizeQuantile
 #
 # @title "Normalizes the empirical distribution of a single sample to a target distribution"
 #
@@ -28,23 +29,24 @@
 #   normalization.  No new @NAs are introduced.
 # }
 # 
-# \seealso{
-#   To calculate a target distribution from a set of samples, see
-#   @seemethod "getAverageQuantile".
-#   This method is used by @see "normalizeQuantile.list".
-# }
-#
 # \author{
 #   Adopted from Gordon Smyth (\url{http://www.statsci.org/}) in 2002 \& 2006.
 #   Original code by Ben Bolstad at Statistics Department, University of
 #   California.
 # }
 #
+# \seealso{
+#   To calculate a target distribution from a set of samples, see
+#   @seemethod "getAverageQuantile".
+#   This method is used by @see "normalizeQuantileRank.list".
+#   @seemethod "normalizeQuantileSpline".
+# }
+#
 # @keyword "nonparametric"
 # @keyword "multivariate"
 # @keyword "robust"
 #*/###########################################################################
-setMethodS3("normalizeQuantile", "numeric", function(x, xTarget, ties=FALSE, ...) {
+setMethodS3("normalizeQuantileRank", "numeric", function(x, xTarget, ties=FALSE, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -108,14 +110,20 @@ setMethodS3("normalizeQuantile", "numeric", function(x, xTarget, ties=FALSE, ...
   }
 
   x;
-}) # normalizeQuantile.numeric()
+})
 
 
+setMethodS3("normalizeQuantile", "default", function(x, ...) {
+  normalizeQuantileRank(x, ...);
+})
 
 
 
 ##############################################################################
 # HISTORY:
+# 2008-04-14
+# o Renamed normalizeQuantile() to normalizeQuantileRank().  Keeping the old
+#   name for backward compatibility.
 # 2006-05-21
 # o Now 'x' and 'xTarget' may be of different lengths.
 # 2006-05-15
