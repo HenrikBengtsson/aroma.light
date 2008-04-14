@@ -1,20 +1,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Do not modify this file since it was automatically generated from:
 % 
-%  normalizeQuantile.matrix.R
+%  normalizeQuantileRank.matrix.R
 % 
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
- \name{normalizeQuantile.matrix}
+ \name{normalizeQuantileRank.matrix}
+\alias{normalizeQuantileRank.matrix}
+\alias{normalizeQuantileRank.matrix}
+
+ \alias{matrix.normalizeQuantile}
 \alias{normalizeQuantile.matrix}
-\alias{normalizeQuantile.matrix}
+\alias{normalizeQuantile,matrix-method}
 
 
  \title{Weighted sample quantile normalization}
 
- \usage{\method{normalizeQuantile}{matrix}(X, ties=FALSE, robust=FALSE, weights=NULL, typeOfWeights=c("channel", "signal"), ...)}
+ \usage{\method{normalizeQuantileRank}{matrix}(X, ties=FALSE, robust=FALSE, weights=NULL, typeOfWeights=c("channel", "signal"), ...)}
 
  \description{
    Normalizes channels so they all have the same average sample
@@ -78,17 +82,18 @@ plotDensity(X, lwd=2, xlim=xlim, main="The three original distributions")
 plotDensity(Xn, lwd=2, xlim=xlim, main="The three normalized distributions")
 }
 
- \seealso{
-   \code{\link[stats]{median}}, \code{\link{weightedMedian}}(),
-   \code{\link[base]{mean}}() and \code{\link[stats]{weighted.mean}}.
- }
-
  \author{
    Adopted from Gordon Smyth (\url{http://www.statsci.org/}) in 2002 \& 2006.
    Original code by Ben Bolstad at Statistics Department, University of
    California.
    Support for calculating the average sample distribution using (weighted)
    mean or median was added by Henrik Bengtsson (\url{http://www.braju.com/R/}).
+ }
+
+ \seealso{
+   \code{\link[stats]{median}}, \code{\link{weightedMedian}}(),
+   \code{\link[base]{mean}}() and \code{\link[stats]{weighted.mean}}.
+   \code{\link[aroma.light:normalizeQuantileSpline.matrix]{*normalizeQuantileSpline}()}.
  }
 
 

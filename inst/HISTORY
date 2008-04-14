@@ -1,6 +1,14 @@
 Package: aroma.light
 ====================
 
+Version: 1.7.2 [2008-04-14]
+o Added normalizeFragmentLength().
+o Added normalizeQuantileSpline().
+o Renamed normalizeQuantile() to normalizeQuantileRank().
+o Added plotXYCurve().
+o Added predict() for the 'lowess' class.
+
+
 Version: 1.7.1 [2007-11-28]
 o The startup message when loading the package is generated with
   packageStartupMessage() so that it can be suppressed.
