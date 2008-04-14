@@ -25,12 +25,12 @@
 #   To normalize multiple single-channel arrays all with the same number of probes/spots:
 #   \enumerate{
 #     \item @see "normalizeAffine.matrix" - normalizes, on the intensity scale,  for differences in offset and scale between channels.
-#     \item @see "normalizeQuantile.matrix" - normalizes, on the intensity scale,  for differences in empirical distribution between channels.
+#     \item @see "normalizeQuantileRank.matrix", @see "normalizeQuantileSpline.matrix" - normalizes, on the intensity scale,  for differences in empirical distribution between channels.
 #   }
 #
 #   To normalize multiple single-channel arrays with varying number probes/spots:
 #   \enumerate{
-#     \item @see "normalizeQuantile.list" - normalizes, on the intensity scale, for differences in empirical distribution between channels.
+#     \item @see "normalizeQuantileRank.list", @see "normalizeQuantileSpline.list" - normalizes, on the intensity scale, for differences in empirical distribution between channels.
 #   }
 #    
 #   To normalize two-channel arrays:
@@ -46,7 +46,7 @@
 # }
 # 
 # \section{Further readings}{
-#   Several of the normalization methods proposed in [3]-[5] are 
+#   Several of the normalization methods proposed in [3]-[6] are 
 #   available in this package.
 # } 
 #
@@ -94,7 +94,9 @@
 #
 # [4] @include "../incl/BengtssonH_etal_2004.bib.Rdoc" \cr
 #
-# [5] H. Bengtsson, \emph{Identification and normalization of plate effects
+# [5] @include "../incl/BengtssonH_etal_2008.bib.Rdoc" \cr
+#
+# [6] H. Bengtsson, \emph{Identification and normalization of plate effects
 #     in cDNA microarray data}, Preprints in Mathematical Sciences,
 #     2002:28, Mathematical Statistics, Centre for Mathematical Sciences,
 #     Lund University, 2002.\cr

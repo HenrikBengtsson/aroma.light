@@ -46,7 +46,12 @@
 #
 # @author
 #
-# @keyword internal
+# \references{
+#   [1] @include "../incl/BengtssonH_etal_2008.bib.Rdoc" \cr
+# } 
+#
+# @keyword "nonparametric"
+# @keyword "robust" 
 #*/###########################################################################
 setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, targetFcns=NULL, subsetToFit=NULL, .isLogged=TRUE, ..., .returnFit=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

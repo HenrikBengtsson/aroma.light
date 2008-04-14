@@ -41,6 +41,10 @@
 #
 # @author
 #
+# \references{
+#   [1] @include "../incl/BengtssonH_etal_2008.bib.Rdoc" \cr
+# } 
+#
 # @keyword "nonparametric"
 # @keyword "multivariate"
 # @keyword "robust"

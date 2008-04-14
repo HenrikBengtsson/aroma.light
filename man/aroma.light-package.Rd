@@ -38,12 +38,12 @@
    To normalize multiple single-channel arrays all with the same number of probes/spots:
    \enumerate{
      \item \code{\link{normalizeAffine.matrix}}() - normalizes, on the intensity scale,  for differences in offset and scale between channels.
-     \item \code{\link{normalizeQuantile.matrix}} - normalizes, on the intensity scale,  for differences in empirical distribution between channels.
+     \item \code{\link{normalizeQuantileRank.matrix}}(), \code{\link{normalizeQuantileSpline.matrix}}() - normalizes, on the intensity scale,  for differences in empirical distribution between channels.
    }
 
    To normalize multiple single-channel arrays with varying number probes/spots:
    \enumerate{
-     \item \code{\link{normalizeQuantile.list}} - normalizes, on the intensity scale, for differences in empirical distribution between channels.
+     \item \code{\link{normalizeQuantileRank.list}}(), \code{\link{normalizeQuantileSpline.list}}() - normalizes, on the intensity scale, for differences in empirical distribution between channels.
    }
   
    To normalize two-channel arrays:
@@ -59,7 +59,7 @@
  }
 
  \section{Further readings}{
-   Several of the normalization methods proposed in [3]-[5] are
+   Several of the normalization methods proposed in [3]-[6] are
    available in this package.
  }
 
@@ -144,7 +144,10 @@
  [4] H. Bengtsson, J. Vallon-Christersson and G. \enc{Jönsson}{Jonsson}, \emph{Calibration and assessment of channel-specific biases in microarray data with extended dynamical range}, BMC Bioinformatics, 5:177, 2004.
  \cr
 
- [5] H. Bengtsson, \emph{Identification and normalization of plate effects
+ [5] H. Bengtsson, R. Irizarry, B. Carvalho, and T.P. Speed. \emph{Estimation and assessment of raw copy numbers at the single locus level}, Bioinformatics, 2008.
+ \cr
+
+ [6] H. Bengtsson, \emph{Identification and normalization of plate effects
      in cDNA microarray data}, Preprints in Mathematical Sciences,
      2002:28, Mathematical Statistics, Centre for Mathematical Sciences,
      Lund University, 2002.\cr
