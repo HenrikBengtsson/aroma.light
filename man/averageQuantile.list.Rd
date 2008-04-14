@@ -36,7 +36,8 @@
 }
 
 \seealso{
-  \code{\link[aroma.light:normalizeQuantile.list]{*normalizeQuantile}()}.
+  \code{\link[aroma.light:normalizeQuantileRank.list]{*normalizeQuantileRank}()}.
+  \code{\link[aroma.light:normalizeQuantileSpline.list]{*normalizeQuantileSpline}()}.
   \code{\link[stats]{quantile}}.
 }
 

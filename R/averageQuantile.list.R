@@ -26,7 +26,8 @@
 # }
 #
 # \seealso{
-#   @seemethod "normalizeQuantile".
+#   @seemethod "normalizeQuantileRank".
+#   @seemethod "normalizeQuantileSpline".
 #   @see "stats::quantile".
 # }
 #

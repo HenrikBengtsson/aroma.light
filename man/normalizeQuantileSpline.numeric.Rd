@@ -51,6 +51,11 @@
 
 \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
 
+\references{
+  [1] H. Bengtsson, R. Irizarry, B. Carvalho, and T.P. Speed. \emph{Estimation and assessment of raw copy numbers at the single locus level}, Bioinformatics, 2008.
+ \cr
+}
+
 
 
 
