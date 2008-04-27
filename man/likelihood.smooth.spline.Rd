@@ -3,6 +3,8 @@
 % 
 %  likelihood.smooth.spline.R
 % 
+% on Sun Apr 27 23:25:34 2008.
+% 
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

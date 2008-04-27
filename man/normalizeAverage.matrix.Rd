@@ -3,6 +3,8 @@
 % 
 %  normalizeAverage.R
 % 
+% on Sun Apr 27 23:25:34 2008.
+% 
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -36,7 +38,4 @@
 }
 
 \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
-
-\seealso{
-}
 \keyword{methods}

@@ -59,9 +59,6 @@
 #
 # @examples "../incl/iwpca.matrix.Rex"
 #
-# \references{
-# }
-#
 # \seealso{
 #   Internally @seemethod "wpca" is used for calculating the weighted PCA.
 # }
