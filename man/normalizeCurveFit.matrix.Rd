@@ -3,6 +3,8 @@
 % 
 %  normalizeCurveFit.matrix.R
 % 
+% on Sun Apr 27 23:25:35 2008.
+% 
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -119,7 +121,7 @@
 \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
 
 \references{
-  [1] M. \encoding{Åstrand}{Astrand},
+  [1] M. \enc{Åstrand}{Astrand},
       Contrast Normalization of Oligonucleotide Arrays,
       Journal Computational Biology, 2003, 10, 95-102. \cr
   [2] Henrik Bengtsson and Ola \enc{Hössjer}{Hossjer}, \emph{Methodological Study of Affine Transformations of Gene Expression Data}, Methodological study of affine transformations of gene expression data with proposed robust non-parametric multi-dimensional normalization method, BMC Bioinformatics, 2006, 7:100.

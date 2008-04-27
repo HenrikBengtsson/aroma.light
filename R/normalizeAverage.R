@@ -26,9 +26,6 @@
 # }
 #
 # @author
-#
-# \seealso{
-# }
 #*/###########################################################################
 setMethodS3("normalizeAverage", "matrix", function(x, baseline=1, avg=median, targetAvg=2200, ...) {
   # Estimate the scale for each channel

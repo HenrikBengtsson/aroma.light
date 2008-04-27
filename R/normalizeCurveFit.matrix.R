@@ -109,7 +109,7 @@
 # @author
 #
 # \references{
-#   [1] M. \encoding{Åstrand}{Astrand}, 
+#   [1] M. \enc{Åstrand}{Astrand}, 
 #       Contrast Normalization of Oligonucleotide Arrays, 
 #       Journal Computational Biology, 2003, 10, 95-102. \cr
 #   [2] @include "../incl/BengtssonHossjer_2006.bib.Rdoc" \cr

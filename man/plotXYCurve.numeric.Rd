@@ -3,6 +3,8 @@
 % 
 %  plotXYCurve.numeric.R
 % 
+% on Sun Apr 27 23:25:36 2008.
+% 
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
