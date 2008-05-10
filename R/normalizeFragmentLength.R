@@ -100,7 +100,7 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
   # Argument 'subsetToFit':
   if (!is.null(subsetToFit)) {
     subsetToFit <- as.integer(subsetToFit);
-    if (length(subsetToFit) != nbrOfDataPoints) {
+    if (length(subsetToFit) > nbrOfDataPoints) {
       throw("The length of argument 'subsetToFit' does not match the number of data points: ", length(subsetToFit), " != ", nbrOfDataPoints);
     }
   }
@@ -230,6 +230,10 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
 
 ############################################################################
 # HISTORY:
+# 2008-05-10
+# o BUG FIX: If the 'subsetToFit' was shorter than the number of data 
+#   points, an exception was thrown.  The test was supposed to be assert
+#   that the subset was not greater than the number of data points.
 # 2008-04-14
 # o Removed any usage of R.utils::Arguments.
 # 2007-11-29

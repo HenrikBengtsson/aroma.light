@@ -1,6 +1,25 @@
 Package: aroma.light
 ====================
 
+Version: 1.9.1 [2008-05-10]
+o Incorporating the same updates as in release v1.8.1.
+
+
+Version: 1.9.0 [2008-04-29]
+o The version number was bumped for the Bioconductor devel version.
+
+
+Version: 1.8.1 [2008-05-10]
+o BUG FIX: If the 'subsetToFit' of normalizeFragmentLength() was 
+  shorter than the number of data points, an exception was thrown.
+  The test was supposed to be assert that the subset was not greater
+  than the number of data points.
+
+
+Version: 1.8.0 [2008-04-29]
+o The version number was bumped for the Bioconductor release version.
+
+
 Version: 1.7.2 [2008-04-14]
 o Added normalizeFragmentLength().
 o Added normalizeQuantileSpline().
