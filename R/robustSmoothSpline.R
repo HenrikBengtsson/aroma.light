@@ -157,13 +157,19 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
       w <- prep$w
       ox <- prep$ox
       # The tapply is expensive! / HB 2002-03-02
-      tmp <- matrix(unlist(tapply(seq(along=y), ox, function(i, y, w) {
+##      tmp <- matrix(unlist(tapply(seq(along=y), ox, function(i, y, w) {
+##           c(sum(w[i]), sum(w[i]*y[i]), sum(w[i]*y[i]^2))
+##         }, y=y, w=w)), ncol=3, byrow = TRUE)
+      tmp <- tapply(seq(along=y), INDEX=ox, FUN=function(i, y, w) {
            c(sum(w[i]), sum(w[i]*y[i]), sum(w[i]*y[i]^2))
-         }, y=y, w=w)), ncol=3, byrow = TRUE)
+         }, y=y, w=w);
       rm(w); rm(y);
+      tmp <- unlist(tmp, use.names=FALSE);
+      tmp <- matrix(tmp, ncol=3, byrow=TRUE);
       wbar <- tmp[, 1]
       ybar <- tmp[, 2]/ifelse(wbar > 0, wbar, 1)
       yssw <- sum(tmp[, 3] - wbar * ybar^2)
+      rm(tmp);  # Cleanup / HB 2008-07-20
     }
   
     nk <- prep$nk
@@ -175,11 +181,17 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
       crit=double(1), iparms=prep$iparms, spar=prep$spar, parms=unlist(prep$contr.sp[1:4]), 
       isetup=as.integer(0), scrtch=double((17 + nk) * nk), ld4=as.integer(4),
       ldnk=as.integer(1), ier=integer(1), DUP=FALSE,
-      PACKAGE="stats")[c("coef", "ty", "lev", "spar", "parms", "crit", "iparms", "ier")] 
-  
+      PACKAGE="stats");
+    # Clean up. /HB 2008-07-20
+    rm(prep, yssw, ns, nk);
+
+    fields <- c("coef", "ty", "lev", "spar", "parms", "crit", "iparms", "ier");
+    fit <- fit[fields];
     fit$wbar <- wbar;
     fit$ybar <- ybar;
-    fit
+    rm(wbar, ybar);
+
+    fit;
   } # smooth.spline.fit()
 
 
@@ -188,55 +200,71 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
       prep <- x;
     } else {
       xy <- xy.coords(x,y);
-      y <- xy$y;
       prep <- smooth.spline.prepare(x=xy$x, w=w, df=df, spar=spar, cv=cv, all.knots=all.knots, df.offset=df.offset, penalty=penalty, control.spar=control.spar);
+      y <- xy$y;
+      rm(xy);
     }
   
     fit <- smooth.spline.fit(prep, y=y);
     
-    lev <- fit$lev
+    lev <- fit$lev;
+    wbar <- fit$wbar;
+    coef <- fit$coef;
+    spar <- fit$spar;
+    iparms <- fit$iparms;
+    crit <- fit$crit;
+    lambda <- unname(fit$parms["low"]);
+    ybar <- fit$ybar;
+    ty <- fit$ty;
+    ier <-fit$ier;
+    rm(fit); # /HB 2008-07-20
+
     df <- sum(lev)
     if (is.na(df)) 
       stop("NA lev[]; probably smoothing parameter `spar' way too large!")
-    if (fit$ier > 0) {
-      sml <- fit$spar < 0.5
+    if (ier > 0) {
+      sml <- (spar < 0.5)
       wtxt <- paste("smoothing parameter value too", if (sml) "small" else "large")
       if (sml) {
         stop(wtxt)
       } else {
-        fit$ty <- rep(mean(y), nx)
+        ty <- rep(mean(y), nx)
         df <- 1
         warning(paste(wtxt, "setting df = 1  __use with care!__", sep="\n"))
       }
     }
   
     ox <- prep$ox;
-    wbar <- fit$wbar;
     n <- prep$n;
   
     cv.crit <- if (cv) {
       ww <- wbar
       ww[!(ww > 0)] <- 1
-      weighted.mean(((y - fit$ty[ox])/(1 - (lev[ox] * w)/ww[ox]))^2, w)
-    } else
-      weighted.mean((y - fit$ty[ox])^2, w)/(1 - (df.offset + penalty * df)/n)^2
+      weighted.mean(((y - ty[ox])/(1 - (lev[ox] * w)/ww[ox]))^2, w)
+      rm(ww)
+    } else {
+      weighted.mean((y - ty[ox])^2, w)/(1 - (df.offset + penalty * df)/n)^2
+    }
   
-    ybar <- fit$ybar;
-    
-    pen.crit <- sum(wbar * (ybar - fit$ty) * ybar)
-  
+    pen.crit <- sum(wbar * (ybar - ty) * ybar)
+
     knot <- prep$knot;
     nk <- prep$nk;
     ux <- prep$ux;
     r.ux <- prep$r.ux;
-  
-    fit.object <- list(knot=knot, nk=nk, min=ux[1], range=r.ux, coef=fit$coef)
+    rm(prep);
+
+    fit.object <- list(knot=knot, nk=nk, min=ux[1], range=r.ux, coef=coef)
     class(fit.object) <- "smooth.spline.fit"
-    object <- list(x=ux, y=fit$ty, w=wbar, yin=ybar, lev=lev, cv.crit=cv.crit,
-               pen.crit=pen.crit, crit=fit$crit, df=df, spar=fit$spar,
-               lambda=unname(fit$parms["low"]), iparms=fit$iparms, fit=fit.object,
+    rm(knot, nk, r.ux);
+    object <- list(x=ux, y=ty, w=wbar, yin=ybar, lev=lev, cv.crit=cv.crit,
+               pen.crit=pen.crit, crit=crit, df=df, spar=spar,
+               lambda=lambda, iparms=iparms, fit=fit.object,
                call=match.call())
+    rm(ux, ty, wbar, ybar,  lev, cv.crit, pen.crit, crit, df, spar, 
+       lambda, ipars, fit.object); # /HB 2007-08-20
     class(object) <- "smooth.spline"
+
     object
   } # smooth.spline0()
         
@@ -271,14 +299,22 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   utx <- unique(sort(tx));
   otx <- match(utx, tx);
   w0 <- w[otx];
+  rm(tx, utx, otx); # /HB 2008-07-20
 
   if (inherits(x, "smooth.spline")) {
     g <- x;
   } else if (missing(w) || is.null(w)) {
-    g <- smooth.spline(as.vector(x), as.vector(y), ...);
+    x <- as.vector(x);
+    y <- as.vector(y);
+    g <- smooth.spline(x, y, ...);
+    rm(x,y); # HB /2008-07-20
   } else {
 #    warning("Robust *weighted* smoothing splines are not implemented yet!")
-    g <- smooth.spline(as.vector(x), as.vector(y), w=as.vector(w), ...);
+    x <- as.vector(x);
+    y <- as.vector(y);
+    w <- as.vector(w);
+    g <- smooth.spline(x, y, w=w, ...);
+    rm(x,y,w); # HB /2008-07-20
   }
   
   # Precalculate a lot of thing for speeding up subsequent calls to smooth.spline()
@@ -315,6 +351,8 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
     }
     
     sdR <- sd(r);
+    rm(r);  # HB /2008-07-20
+
     if (iter > minIter) {
       if (!is.na(sdR0)) {
         dSd <- abs(sdR0-sdR);
@@ -330,8 +368,10 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
     ok.weights <- (w != 0 & is.finite(w));
     if (!all(ok.weights))
       w[!ok.weights] <- 0;
+    rm(ok.weights); # HB /2008-07-20
 
     g <- smooth.spline0(spline.prep, g$yin, w=w, ...);
+    rm(w); # HB /2008-07-20
 
     if (plotCurves == TRUE)
       lines(g, col=(col<-col+1));
@@ -345,6 +385,10 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
 
 ######################################################################
 # HISTORY
+# 2008-07-20
+# o MEMORY OPTIMIZATION: Removing more variables when done etc.
+#   Helping the garbage collector by doing x <- as.vector(x) before
+#   calling a function rather than having as.vector(x) as an argument.
 # 2007-06-08
 # o Added declaration 'nx <- 0' in robustSmoothSpline.matrix() in
 #   order to please R CMD check R v2.6.0.
