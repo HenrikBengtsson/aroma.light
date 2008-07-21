@@ -1,6 +1,11 @@
 Package: aroma.light
 ====================
 
+Version: 1.9.1.1 [2008-07-20]
+o MEMORY OPTIMIZATION: robustSmoothSpline() is now cleaning out
+  more variables when no longer needed.
+
+
 Version: 1.9.1 [2008-05-10]
 o Incorporating the same updates as in release v1.8.1.
 
