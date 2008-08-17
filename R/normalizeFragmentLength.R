@@ -14,7 +14,9 @@
 #   \item{y}{A @numeric @vector of length K of signals to be normalized
 #     across E enzymes.}
 #   \item{fragmentLengths}{An @integer KxE @matrix of fragment lengths.}
-#   \item{targetFcns}{A @list of E @functions - one per enzyme.}
+#   \item{targetFcns}{An optional @list of E @functions; one per enzyme.
+#     If @NULL, the data is normalized to have constant fragment-length
+#     effects (all equal to zero on the log-scale).}
 #   \item{subsetToFit}{The subset of data points used to fit the 
 #      normalization function.
 #      If @NULL, all data points are considered.}
@@ -36,6 +38,29 @@
 #  of the model are not met and the fit will fail with an error.}
 #  Then, from the above single-enzyme fits the average effect across
 #  enzymes is the calculated for each unit that is on multiple enzymes.
+# }
+#
+# \section{Target functions}{
+#   It is possible to specify custom target function effects for each
+#   enzyme via argument \code{targetFcns}.  This argument has to be a
+#   @list containing one @function per enzyme and ordered in the same
+#   order as the enzyme are in the columns of argument 
+#   \code{fragmentLengths}.
+#   For instance, if one wish to normalize the signals such that their
+#   mean signal as a function of fragment length effect is contantly
+#   equal to 2200 (or the intensity scale), the use 
+#   \code{targetFcns=function(fl, ...) log2(2200)} which completely
+#   ignores fragment-length argument 'fl' and always returns a 
+#   constant.
+#   If two enzymes are used, then use
+#   \code{targetFcns=rep(list(function(fl, ...) log2(2200)), 2)}.
+#
+#   Note, if \code{targetFcns} is @NULL, this corresponds to 
+#   \code{targetFcns=rep(list(function(fl, ...) 0), ncol(fragmentLengths))}.
+#
+#   Alternatively, if one wants to only apply minimial corrections to
+#   the signals, then one can normalize toward target functions that
+#   correspond to the fragment-length effect of the average array.
 # }
 #
 # \examples{
