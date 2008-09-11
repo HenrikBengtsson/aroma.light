@@ -10,13 +10,20 @@ J <- 1000;
 # Fragment lengths
 fl <- seq(from=100, to=1000, length.out=J);
 
+# Simulate data points with unknown fragment lengths
+hasUnknownFL <- seq(from=1, to=J, by=50);
+fl[hasUnknownFL] <- NA;
+
 # Simulate data
 y <- matrix(0, nrow=J, ncol=I);
 maxY <- 12;
 for (kk in 1:I) {
   k <- runif(n=1, min=3, max=5);
   mu <- function(fl) {
-    maxY - fl^{1/k};
+    mu <- rep(maxY, length(fl));
+    ok <- !is.na(fl);
+    mu[ok] <- mu[ok] - fl[ok]^{1/k};
+    mu;
   }
   eps <- rnorm(J, mean=0, sd=1);
   y[,kk] <- mu(fl) + eps;
@@ -24,24 +31,33 @@ for (kk in 1:I) {
 
 # Normalize data (to a zero baseline)
 yN <- apply(y, MARGIN=2, FUN=function(y) {
-  normalizeFragmentLength(y, fragmentLengths=fl);
+  normalizeFragmentLength(y, fragmentLengths=fl, onMissing="median");
 })
+
+# The correction factors
+rho <- y-yN;
+print(summary(rho));
+# The correction for units with unknown fragment lengths 
+# equals the median correction factor of all other units
+print(summary(rho[hasUnknownFL,]));
 
 # Plot raw data
 layout(matrix(1:9, ncol=3));
-xlim <- c(0,max(fl));
-ylim <- c(0,max(y));
+xlim <- c(0,max(fl, na.rm=TRUE));
+ylim <- c(0,max(y, na.rm=TRUE));
 xlab <- "Fragment length";
 ylab <- expression(log2(theta));
 for (kk in 1:I) {
   plot(fl, y[,kk], xlim=xlim, ylim=ylim, xlab=xlab, ylab=ylab);
-  lines(lowess(fl, y[,kk]), col="red", lwd=2);
+  ok <- (is.finite(fl) & is.finite(y[,kk]));
+  lines(lowess(fl[ok], y[ok,kk]), col="red", lwd=2);
 }
 
 # Plot normalized data
 layout(matrix(1:9, ncol=3));
-ylim <- c(-1,1)*max(y)/2;
+ylim <- c(-1,1)*max(y, na.rm=TRUE)/2;
 for (kk in 1:I) {
   plot(fl, yN[,kk], xlim=xlim, ylim=ylim, xlab=xlab, ylab=ylab);
-  lines(lowess(fl, yN[,kk]), col="blue", lwd=2);
+  ok <- (is.finite(fl) & is.finite(y[,kk]));
+  lines(lowess(fl[ok], yN[ok,kk]), col="blue", lwd=2);
 }

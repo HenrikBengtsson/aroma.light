@@ -1,7 +1,10 @@
 Package: aroma.light
 ====================
 
-Version: 1.9.1.1 [2008-07-20]
+Version: 1.9.2 [2008-09-10]
+o Added argument 'onMissing' to normalizeFragmentLength() for 
+  specifying how to normalize (if at all) data points for which
+  the fragment lengths are unknown.
 o MEMORY OPTIMIZATION: robustSmoothSpline() is now cleaning out
   more variables when no longer needed.
 

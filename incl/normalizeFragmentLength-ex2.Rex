@@ -7,7 +7,7 @@ set.seed(0xbeef);
 I <- 5;
 
 # Number of loci
-J <- 2000;
+J <- 3000;
 
 # Fragment lengths (two enzymes)
 fl <- matrix(0, nrow=J, ncol=2);
@@ -17,6 +17,10 @@ fl[,2] <- seq(from=1000, to=100, length.out=J);
 # Let 1/2 of the units be on both enzymes
 fl[seq(from=1, to=J, by=4),1] <- NA;
 fl[seq(from=2, to=J, by=4),2] <- NA;
+
+# Let some have unknown fragment lengths
+hasUnknownFL <- seq(from=1, to=J, by=15);
+fl[hasUnknownFL,] <- NA;
 
 # Sty/Nsp mixing proportions:
 rho <- rep(1, I);
@@ -31,7 +35,10 @@ for (ii in 1:I) {
   # Common effect for both enzymes
   mu <- function(fl) {
     k <- runif(n=1, min=3, max=5);
-    maxLog2Theta - fl^{1/k};
+    mu <- rep(maxLog2Theta, length(fl));
+    ok <- is.finite(fl);
+    mu[ok] <- mu[ok] - fl[ok]^{1/k};
+    mu;
   }
 
   # Calculate the effect for each data point
@@ -56,7 +63,8 @@ hasFl <- is.finite(fl);
 unitSets <- list(
   nsp  = which( hasFl[,1] & !hasFl[,2]),
   sty  = which(!hasFl[,1] &  hasFl[,2]),
-  both = which( hasFl[,1] &  hasFl[,2])
+  both = which( hasFl[,1] &  hasFl[,2]),
+  none = which(!hasFl[,1] & !hasFl[,2])
 )
 
 # The observed data is a mix of two enzymes
@@ -71,6 +79,10 @@ for (ee in 1:2) {
 # Both-enzyme units (sum on intensity scale)
 uu <- unitSets$both;
 theta[uu,] <- (2^z[uu,1,]+2^z[uu,2,])/2;
+
+# Missing units (sample from the others)
+uu <- unitSets$none;
+theta[uu,] <- apply(theta, MARGIN=2, sample, size=length(uu))
 
 # Calculate target array
 thetaT <- rowMeans(theta, na.rm=TRUE);
@@ -89,7 +101,8 @@ for (ee in 1:2) {
 thetaN <- matrix(NA, nrow=J, ncol=I);
 fits <- vector("list", I);
 for (ii in 1:I) {
-  lthetaNi <- normalizeFragmentLength(log2(theta[,ii]), targetFcns=targetFcns, fragmentLengths=fl, .returnFit=TRUE);
+  lthetaNi <- normalizeFragmentLength(log2(theta[,ii]), targetFcns=targetFcns,
+                     fragmentLengths=fl, onMissing="median", .returnFit=TRUE);
   fits[[ii]] <- attr(lthetaNi, "modelFit");
   thetaN[,ii] <- 2^lthetaNi;
 }
@@ -125,10 +138,10 @@ for (ii in 1:I) {
 
     # The estimated effects
     fit <- fits[[ii]][[ee]]$fit;
-    lines(fit, col="orange", lwd=2);
+    lines(fit, col="orange", lwd=3);
 
     muT <- targetFcns[[ee]](fl[uu,ee]);
-    lines(fl[uu,ee], muT, col="purple", lwd=1);
+    lines(fl[uu,ee], muT, col="cyan", lwd=1);
   }
 }
 
@@ -161,7 +174,14 @@ for (ii in 1:I) {
   uu <- unitSets$both;
   if (length(uu) > 0)
     data[[3]] <- M[uu,ii];
-  plotDensity(data, col=1:3+1, xlim=Mlim, xlab=Mlab, main="normalized");
+
+  uu <- unitSets$none;
+  if (length(uu) > 0)
+    data[[4]] <- M[uu,ii];
+
+  cols <- seq(along=data)+1;
+  plotDensity(data, col=cols, xlim=Mlim, xlab=Mlab, main="normalized");
+
   abline(v=0, lty=2);
 }
 

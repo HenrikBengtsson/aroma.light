@@ -20,6 +20,12 @@
 #   \item{subsetToFit}{The subset of data points used to fit the 
 #      normalization function.
 #      If @NULL, all data points are considered.}
+#   \item{onMissing}{Specifies how data points for which there is no
+#      fragment length is normalized. 
+#      If \code{"ignore"}, the values are not modified.
+#      If \code{"median"}, the values are updated to have the same
+#      robust average as the other data points.
+#   }
 #   \item{.isLogged}{A @logical.}
 #   \item{...}{Additional arguments passed to @see "stats::lowess".}
 #   \item{.returnFit}{A @logical.}
@@ -78,7 +84,7 @@
 # @keyword "nonparametric"
 # @keyword "robust" 
 #*/###########################################################################
-setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, targetFcns=NULL, subsetToFit=NULL, .isLogged=TRUE, ..., .returnFit=FALSE) {
+setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, targetFcns=NULL, subsetToFit=NULL, onMissing=c("median", "ignore"), .isLogged=TRUE, ..., .returnFit=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -130,6 +136,9 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
     }
   }
 
+  # Argument 'onMissing':
+  onMissing <- match.arg(onMissing);
+
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Estimate normalization function and predict the signals
@@ -145,9 +154,10 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
   okY <- is.finite(y);
 
   # KxE matrix for sample (and target predictions)
-  mu <- matrix(NA, nrow=nbrOfDataPoints, ncol=nbrOfEnzymes);
+  naValue <- as.double(NA);
+  mu <- matrix(naValue, nrow=nbrOfDataPoints, ncol=nbrOfEnzymes);
   if (!is.null(targetFcns))
-    muT <- matrix(NA, nrow=nbrOfDataPoints, ncol=nbrOfEnzymes);
+    muT <- matrix(naValue, nrow=nbrOfDataPoints, ncol=nbrOfEnzymes);
 
   if (.returnFit)
     fits <- vector("list", nbrOfEnzymes);
@@ -209,6 +219,10 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
   } # for (ee ...)
   rm(hasFL, isSingleEnzymed);
 
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Calculate the *average* predicted signal across enzymes
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Sum on the non-log scale.
   if (.isLogged) {
     mu <- 2^mu;
@@ -224,14 +238,31 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
 #    muT <- muT / countFL; # Averaging (needed?!?)
   }
 
+
+  # Special case: Units with unknown fragment lengths
+  if (onMissing != "ignore") {
+    isMissing <- (countFL == 0);
+    if (any(isMissing)) {
+      if (onMissing == "median") {
+        # Let the predicted value for these units be the robust average
+        # of all other units (based on the assumption that the missing
+        # fragment lengths are distributed as the known ones).
+        mu[isMissing] <- median(mu[!isMissing], na.rm=TRUE);
+        if (!is.null(targetFcns))
+          muT[isMissing] <- median(muT[!isMissing], na.rm=TRUE);
+      }
+    }
+  }
+
   if (.isLogged) {
     mu <- log2(mu);
     if (!is.null(targetFcns))
       muT <- log2(muT);
   }
 
-  rm(countFL);
-
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Calculate the correction ("normalization") factor
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Calculate correction factors
   if (is.null(targetFcns)) {
     dy <- mu;
@@ -242,10 +273,14 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
   if (!is.null(targetFcns))
     rm(muT);
 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Normalize signals
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Transform signals
-  y[okY] <- y[okY] - dy[okY];
+  ok <- is.finite(dy) & okY;
+  rm(okY);
+  y[ok] <- y[ok] - dy[ok];
   
-
   if (.returnFit)
     attr(y, "modelFit") <- fits;
 
@@ -255,6 +290,10 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
 
 ############################################################################
 # HISTORY:
+# 2008-09-10
+# o Added argument 'onMissing' to normalizeFragmentLength() for specifying
+#   how to normalize (if at all) data points for which the fragment lengths 
+#   are unknown.
 # 2008-05-10
 # o BUG FIX: If the 'subsetToFit' was shorter than the number of data 
 #   points, an exception was thrown.  The test was supposed to be assert
