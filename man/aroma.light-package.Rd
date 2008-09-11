@@ -3,8 +3,6 @@
 % 
 %  999.package.R
 % 
-% on Sun Apr 27 23:25:33 2008.
-% 
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -68,17 +66,18 @@
  \section{How to cite this package}{
    Whenever using this package, please cite [2] as\cr
 
-   \preformatted{@TECHREPORT{BengtssonH_2004,
-  author = {Bengtsson, Henrik},
-  title = {{aroma} - {A}n {R} {O}bject-oriented {M}icroarray {A}nalysis environment},
-  institution = {Mathematical Statistics, Centre for Mathematical Sciences, Lund University, Sweden},
-  year = {2004},
-  type = {{Preprint in Mathematical Sciences}},
-  number = {2004:18},
+   \preformatted{@ARTICLE{BengtssonH_etal_2008a,
+  author = {H. Bengtsson and R. Irizarry and B. Carvalho and T.P. Speed},
+  title = {Estimation and assessment of raw copy numbers at the
+            single locus level},
+  journal = {Bioinformatics},
+  year = {2008},
+  pages = {btn016},
+  doi = {10.1093/bioinformatics/btn016},
 }
 
 @ARTICLE{BengtssonHossjer_2006,
-  author = {Henrik Bengtsson and Ola H{\"o}ssjer},
+  author = {H. Bengtsson and O. H{\"o}ssjer},
   title = {Methodological study of affine transformations of gene
            expressiondata with proposed robust non-parametric
            multi-dimensional normalization	method},
@@ -90,9 +89,19 @@
   doi = {10.1186/1471-2105-7-100}
 }
 
+@TECHREPORT{BengtssonH_2004,
+  author = {H. Bengtsson},
+  title = {{aroma} - {A}n {R} {O}bject-oriented {M}icroarray
+           {A}nalysis environment},
+  institution = {Mathematical Statistics, Centre for
+                 Mathematical Sciences, Lund University, Sweden},
+  year = {2004},
+  type = {{Preprint in Mathematical Sciences}},
+  number = {2004:18},
+}
+
 @ARTICLE{BengtssonH_etal_2004,
-  author = {Henrik Bengtsson and G\"{o}ran J\"{o}nsson and
-            Johan Vallon-Christersson},
+  author = {H. Bengtsson and G. J\"{o}nsson and J. Vallon-Christersson},
   title = {Calibration and assessment of channel-specific biases
            in microarray data with extended dynamical range},
   journal = {BMC Bioinformatics},
@@ -146,7 +155,7 @@
  [4] H. Bengtsson, J. Vallon-Christersson and G. \enc{Jönsson}{Jonsson}, \emph{Calibration and assessment of channel-specific biases in microarray data with extended dynamical range}, BMC Bioinformatics, 5:177, 2004.
  \cr
 
- [5] H. Bengtsson, R. Irizarry, B. Carvalho, and T.P. Speed. \emph{Estimation and assessment of raw copy numbers at the single locus level}, Bioinformatics, 2008.
+ [5] H. Bengtsson, R. Irizarry, B. Carvalho, and T. Speed, \emph{Estimation and assessment of raw copy numbers at the single locus level}, Bioinformatics, 2008.
  \cr
 
  [6] H. Bengtsson, \emph{Identification and normalization of plate effects
