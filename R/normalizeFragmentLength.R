@@ -84,7 +84,7 @@
 # @keyword "nonparametric"
 # @keyword "robust" 
 #*/###########################################################################
-setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, targetFcns=NULL, subsetToFit=NULL, onMissing=c("median", "ignore"), .isLogged=TRUE, ..., .returnFit=FALSE) {
+setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, targetFcns=NULL, subsetToFit=NULL, onMissing=c("ignore", "median"), .isLogged=TRUE, ..., .returnFit=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -247,12 +247,28 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
         # Let the predicted value for these units be the robust average
         # of all other units (based on the assumption that the missing
         # fragment lengths are distributed as the known ones).
-        mu[isMissing] <- median(mu[!isMissing], na.rm=TRUE);
+
+        # Identify the set to be used to estimate the target average
+        ok <- (okY & !isMissing);
+        if (!is.null(subsetToFit))
+          ok[-subsetToFit] <- FALSE;
+
+        # Sanity check
+        if (sum(ok) == 0) {
+          throw("Cannot fit normalization function to loci with unknown fragment lengths, because there are no (finite) data points to be fitted.");
+        }
+
+        # Substitute the predicted means with the median of the already
+        # predicted set of loci.
+        mu[isMissing] <- median(mu[ok], na.rm=TRUE);
         if (!is.null(targetFcns))
-          muT[isMissing] <- median(muT[!isMissing], na.rm=TRUE);
-      }
+          muT[isMissing] <- median(muT[ok], na.rm=TRUE);
+        rm(ok);
+      } # if (onMissing == "median")
     }
+    rm(isMissing);
   }
+  rm(countFL);
 
   if (.isLogged) {
     mu <- log2(mu);
@@ -290,10 +306,13 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
 
 ############################################################################
 # HISTORY:
+# 2008-09-11
+# o Now onMissing="median" estimates the median on using the subset to fit.
 # 2008-09-10
 # o Added argument 'onMissing' to normalizeFragmentLength() for specifying
 #   how to normalize (if at all) data points for which the fragment lengths 
-#   are unknown.
+#   are unknown.  For backward compatibility, we start of by having it
+#   "ignore" by default.
 # 2008-05-10
 # o BUG FIX: If the 'subsetToFit' was shorter than the number of data 
 #   points, an exception was thrown.  The test was supposed to be assert
