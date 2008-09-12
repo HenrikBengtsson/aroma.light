@@ -97,12 +97,16 @@ for (ee in 1:2) {
 }
 
 
+# Fit model only to a subset of the data
+subsetToFit <- setdiff(1:J, seq(from=1, to=J, by=10))
+
 # Normalize data (to a target baseline)
 thetaN <- matrix(NA, nrow=J, ncol=I);
 fits <- vector("list", I);
 for (ii in 1:I) {
   lthetaNi <- normalizeFragmentLength(log2(theta[,ii]), targetFcns=targetFcns,
-                     fragmentLengths=fl, onMissing="median", .returnFit=TRUE);
+                     fragmentLengths=fl, onMissing="median", 
+                     subsetToFit=subsetToFit, .returnFit=TRUE);
   fits[[ii]] <- attr(lthetaNi, "modelFit");
   thetaN[,ii] <- 2^lthetaNi;
 }
