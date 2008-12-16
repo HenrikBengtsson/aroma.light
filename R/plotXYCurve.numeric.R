@@ -77,7 +77,7 @@ setMethodS3("plotXYCurve", "numeric", function(x, y, lwd=2, col=1, dlwd=1, dcol=
     args <- list(x=x, y=y, ...);
     keep <- intersect(names(args), names(formals(smooth.spline)));
     args <- args[keep];
-    fit <- do.call("smooth.spline", args=args);
+    fit <- do.call(smooth.spline, args=args);
     lines(fit, col=col, lwd=lwd, ...);
   })
 
