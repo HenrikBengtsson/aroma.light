@@ -35,13 +35,11 @@
 
 \value{
   Returns a named \code{\link[base]{list}} structure with elements:
-  \itemize{
    \item{overall}{The fitted constant term.}
    \item{row}{The fitted row effect.}
    \item{col}{The fitted column effect.}
    \item{residuals}{The residuals.}
    \item{converged}{If \code{\link[base:logical]{TRUE}}, the algorithm converged, otherwise not.}
-  }
 }
 
 \details{
