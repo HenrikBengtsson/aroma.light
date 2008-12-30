@@ -25,13 +25,11 @@
 #
 # \value{
 #   Returns a named @list structure with elements:
-#   \itemize{
 #    \item{overall}{The fitted constant term.}
 #    \item{row}{The fitted row effect.}
 #    \item{col}{The fitted column effect.}
 #    \item{residuals}{The residuals.}
 #    \item{converged}{If @TRUE, the algorithm converged, otherwise not.}
-#   }
 # }
 #
 # \details{
