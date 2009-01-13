@@ -183,7 +183,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
       ldnk=as.integer(1), ier=integer(1), DUP=FALSE,
       PACKAGE="stats");
     # Clean up. /HB 2008-07-20
-    rm(prep, yssw, ns, nk);
+    rm(prep, yssw, nk);
 
     fields <- c("coef", "ty", "lev", "spar", "parms", "crit", "iparms", "ier");
     fit <- fit[fields];
@@ -262,7 +262,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
                lambda=lambda, iparms=iparms, fit=fit.object,
                call=match.call())
     rm(ux, ty, wbar, ybar,  lev, cv.crit, pen.crit, crit, df, spar, 
-       lambda, ipars, fit.object); # /HB 2007-08-20
+       lambda, fit.object); # /HB 2007-08-20
     class(object) <- "smooth.spline"
 
     object

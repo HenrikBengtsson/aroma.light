@@ -1,6 +1,10 @@
 Package: aroma.light
 ====================
 
+Version: 1.11.1 [2009-01-12]
+o Added fit- & backtransformPrincipalCurve().
+
+
 Version: 1.11.0 [2008-10-21]
 o The version number was bumped for the Bioconductor devel version.
 

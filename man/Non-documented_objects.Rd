@@ -49,6 +49,9 @@
 % Advanced linear-algebra
 \alias{iwpca}
 \alias{wpca}
+\alias{fitPrincipalCurve}
+\alias{backtransformPrincipalCurve}
+\alias{principal.curve.hb} % Internal patch of princurve::principal.curve().
 
 % Miscellaneous statistical functions
 \alias{likelihood}
