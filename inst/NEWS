@@ -1,6 +1,14 @@
 Package: aroma.light
 ====================
 
+Version: 1.11.0 [2008-10-21]
+o The version number was bumped for the Bioconductor devel version.
+
+
+Version: 1.10.0 [2008-10-21]
+o The version number was bumped for the Bioconductor release version.
+
+
 Version: 1.9.2 [2008-09-11]
 o Added argument 'onMissing' to normalizeFragmentLength() for specifying
   how to normalize (if at all) data points for which the fragment lengths 
