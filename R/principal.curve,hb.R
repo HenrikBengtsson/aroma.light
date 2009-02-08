@@ -162,8 +162,8 @@ principal.curve.hb <- function(x, start=NULL, thresh=0.001, plot.true=FALSE, max
 #   same as if they are "missing" [which is hard to emulate with for 
 #   instance do.call()].
 # o Added 'converged' and 'nbrOfIterations' to return structure.
-# o Now the nxp matrix 's' is allocated only once. Before it was built up
-#   using cbind() once per iteration.
-# o Now the smoother function is identified/created before starting the
-#   algorithm, and not once per dimension and iteration.
+# o SPEED UP/MEMORY OPTIMIZATION: Now the nxp matrix 's' is allocated only 
+#   once. Before it was built up using cbind() once per iteration.
+# o SPEED UP: Now the smoother function is identified/created before 
+#   starting the algorithm, and not once per dimension and iteration.
 ###########################################################################
