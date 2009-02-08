@@ -13,10 +13,13 @@ principal.curve.hb <- function(x, start=NULL, thresh=0.001, plot.true=FALSE, max
 
   # Argument 'stretch':
   stretches <- c(2, 2, 0);
-  if(missing(stretch) || is.null(stretch)) {
-    if (is.function(smoother))
+  if (is.function(smoother)) {
+    if (is.null(stretch))
       stop("Argument 'stretch' must be given if 'smoother' is a function.");
-    stretch <- stretches[match(smoother, smooth.list)];
+  } else {
+    if(missing(stretch) || is.null(stretch)) {
+      stretch <- stretches[match(smoother, smooth.list)];
+    }
   }
 
 
@@ -44,10 +47,13 @@ principal.curve.hb <- function(x, start=NULL, thresh=0.001, plot.true=FALSE, max
         periodic.lowess(lambda, xj, ...)$y;
       }
     ) # smootherFcn()
+
+    # Should the fitted curve be bias corrected (in each iteration)?
+    biasCorrectCurve <- (smoother == "periodic.lowess");
+  } else {
+    biasCorrectCurve <- FALSE;
   }
 
-  # Should the fitted curve be bias corrected (in each iteration)
-  biasCorrectCurve <- (smoother == "periodic.lowess");
 
 
   this.call <- match.call()
@@ -59,10 +65,10 @@ principal.curve.hb <- function(x, start=NULL, thresh=0.001, plot.true=FALSE, max
   # You can give starting values for the curve
   if (missing(start) || is.null(start)) {
     # use largest principal component
-    if (smoother == "periodic.lowess") {
+    if (is.character(smoother) && smoother == "periodic.lowess") {
       start <- startCircle(x)
     } else {
-      xbar <- apply(x, MARGIN=2, "mean")
+      xbar <- colMeans(x)
       xstar <- scale(x, xbar, FALSE)
       svd.xstar <- svd(xstar)
       dd <- svd.xstar$d
@@ -149,6 +155,7 @@ principal.curve.hb <- function(x, start=NULL, thresh=0.001, plot.true=FALSE, max
 ###########################################################################
 # HISTORY:
 # 2009-02-08
+# o BUG FIX: An error was thrown if 'smoother' was a function.
 # o Cleaned up source code (removed comments).
 # 2008-05-27
 # o Benchmarking: For larger data sets, most of the time is spent in
