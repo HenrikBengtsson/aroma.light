@@ -114,8 +114,6 @@ principal.curve.hb <- function(x, start=NULL, thresh=0.001, plot.true=FALSE, max
     # the value of \lambda for which f(\lambda) is closest 
     # to x.
     pcurve <- get.lam(x, s, stretch=stretch);
-##    pcurve2 <- get.lam.hb(x, s, stretch=stretch);
-##    stopifnot(identical(pcurve2,pcurve));
 
     # Bias correct?
     if (biasCorrectCurve)
@@ -147,86 +145,11 @@ principal.curve.hb <- function(x, start=NULL, thresh=0.001, plot.true=FALSE, max
 } # principal.curve.hb()
 
 
-## get.lam.hb <- function(x, s, tag=NULL, stretch=2) {
-##   storage.mode(x) <- "double";
-## 
-##   np <- dim(x);
-##   if(length(np) != 2) {
-##     stop("get.lam needs a matrix input");
-##   }
-## 
-##   n <- np[1];
-##   p <- np[2];
-## 
-##   # Reorder?
-##   if(!missing(tag) && !is.null(tag)) {
-##     s <- s[tag,,drop=FALSE];
-##   }
-## 
-## #  # Stretch end points?
-## #  if (stretch > 0) {
-## #    if (stretch > 2)
-## #      stretch <- 2;
-## #    s[1,] <- s[1,] + stretch*(s[1,]-s[2,]);
-## #    s[n,] <- s[n,] + stretch*(s[n,]-s[n-1,]);
-## #  }
-## #
-## #  # Not needed anymore
-## #  stretch <- as.double(0);
-## 
-##   n <- nrow(x);
-##   p <- ncol(x);
-##   ns <- nrow(s);
-## 
-## #  sortdi <- function(v, a, ii, jj) {
-## #    a <- order(v)[ii:jj];
-## #    a;
-## #  } # sortdi()
-## #
-## #  lamix <- function(ns, p, x, s, lambda, dismin, tempsx) {
-## #    # ns: integer
-## #    # p: integer
-## #    # lambda: double
-## #    # x[p]: double
-## #    # s[ns,p]: double
-## #    # dismin: double
-## #    # tempsx[p]: double
-## #    v <- matrix(0, nrow=2, ncol=p);
-## #
-## #  } # lamix()
-## 
-## #  for (ii in 1:n) {
-## #    vecx <- x[i,];
-## #    lamix(ns, p, vecx, s, lambda(i), dist(i), tempsx);
-## #    sx[i,] <- tempsx;
-## #    order <- 1:n;
-## #    order <- sortdi(lambda, order, 1, n);
-## #  }
-## 
-##   storage.mode(s) <- "double";
-##   tt <- .Fortran("getlam",
-## 		 n,                      # n: integer
-## 		 p,                      # p: integer
-## 		 x,                      # x[n,p]: double
-## 		 s = x,                  # sx[n,p]: double
-## 		 lambda = double(n),     # lambda[n]: double
-## 		 tag = integer(n),       # order[n]: integer
-## 		 dist = double(n),       # dist[n}; double
-## 		 as.integer(nrow(s)),    # ns: integer
-## 		 s,                      # s[n,p]: double
-## 		 stretch,                # stretch: double
-## 		 double(p),              # vecx[p]: double
-## 		 double(p),              # tempsx[p]: double
-##      PACKAGE="princurve");
-##   tt <- tt[c("s", "tag", "lambda", "dist")];
-##   tt$dist <- sum(tt$dist);
-##   class(tt) <- "principal.curve";
-##   tt;
-## } # get.lab.hb()
-
 
 ###########################################################################
 # HISTORY:
+# 2009-02-08
+# o Cleaned up source code (removed comments).
 # 2008-05-27
 # o Benchmarking: For larger data sets, most of the time is spent in
 #   get.lam().
