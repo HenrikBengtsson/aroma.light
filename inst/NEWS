@@ -1,6 +1,11 @@
 Package: aroma.light
 ====================
 
+Version: 1.11.2 [2009-02-08]
+o BUG FIX: An error was thrown in backtransformPrincipalCurve() 
+  when argument 'dimensions' was specified.
+
+
 Version: 1.11.1 [2009-01-12]
 o Added fit- & backtransformPrincipalCurve().
 

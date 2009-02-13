@@ -57,7 +57,7 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
   p <- ncol(fit$s);
   if (!is.null(dimensions)) {
     dimensions <- as.integer(dimensions);
-    if (any(dimensions < 1 | dimension > p)) {
+    if (any(dimensions < 1 | dimensions > p)) {
       stop("Argument 'dimensions' contains values out of range [1,", p, "]");
     }
   }
@@ -130,6 +130,10 @@ setMethodS3("backtransformPrincipalCurve", "numeric", function(X, ...) {
 
 ###########################################################################
 # HISTORY:
+# 2009-02-08
+# o An error was thrown in backtransformPrincipalCurve() if argument 
+#   'dimensions' was specified.
+# o BUG FIX:
 # 2009-01-12
 # o Updated validation of arguments such that it does not require R.utils.
 # 2008-10-08
