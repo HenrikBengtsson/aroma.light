@@ -25,7 +25,7 @@
  \item{X}{An NxK \code{\link[base]{matrix}} containing data to be backtransformed.}
  \item{fit}{An object of class \code{principal.curve} as returned by
    \code{\link[aroma.light:fitPrincipalCurve.matrix]{*fitPrincipalCurve}()}.}
- \item{dimensions}{An (optional) subset of of dimensions all in [1,K]
+ \item{dimensions}{An (optional) subset of of D dimensions all in [1,K]
    to be returned (and backtransform).}
  \item{targetDimension}{An (optional) index specifying the dimension
    in [1,K] to be used as the target dimension.  All other
@@ -35,7 +35,7 @@
 }
 
 \value{
-  The backtransformed NxK \code{\link[base]{matrix}}.
+  The backtransformed NxK (or NxD) \code{\link[base]{matrix}}.
 }
 
 \examples{\dontrun{See help(fitPrincipalCurve.matrix).}}
