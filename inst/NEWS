@@ -1,6 +1,25 @@
 Package: aroma.light
 ====================
 
+Version: 1.13.1 [2009-05-13]
+o Incorporating the same updates as in release v1.12.1.
+
+
+Version: 1.13.0 [2009-04-20]
+o The version number was bumped for the Bioconductor devel version.
+
+
+Version: 1.12.1 [2009-05-13]
+o BUG FIX: backtransformPrincipalCurve(..., dimensions) did not subset
+  the 'X' matrix. Also, the method now returns a matrix of the same
+  number of columns requested.  The Rd example now illustrates this.
+  Thanks to Pierre Neuvial, UC Berkeley for the troublshooting and fix.
+
+
+Version: 1.12.0 [2009-04-20]
+o The version number was bumped for the Bioconductor release version.
+
+
 Version: 1.11.2 [2009-02-08]
 o BUG FIX: An error was thrown in backtransformPrincipalCurve() 
   when argument 'dimensions' was specified.

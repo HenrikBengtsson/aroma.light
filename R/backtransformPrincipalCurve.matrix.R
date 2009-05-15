@@ -15,7 +15,7 @@
 #  \item{X}{An NxK @matrix containing data to be backtransformed.}
 #  \item{fit}{An object of class \code{principal.curve} as returned by
 #    @seemethod "fitPrincipalCurve".}
-#  \item{dimensions}{An (optional) subset of of dimensions all in [1,K]
+#  \item{dimensions}{An (optional) subset of of D dimensions all in [1,K]
 #    to be returned (and backtransform).}
 #  \item{targetDimension}{An (optional) index specifying the dimension
 #    in [1,K] to be used as the target dimension.  All other
@@ -25,7 +25,7 @@
 # }
 #
 # \value{
-#   The backtransformed NxK @matrix.
+#   The backtransformed NxK (or NxD) @matrix.
 # }
 #
 # \examples{\dontrun{See help(fitPrincipalCurve.matrix).}}
@@ -75,14 +75,6 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Pre-allocate result matrix
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  naValue <- NA;
-  mode(naValue) <- mode(X);
-  Xhat <- matrix(naValue, nrow=dim[1], ncol=dim[2]);
-
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Transform towards a target dimension?
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   hasTargetDimension <- (!is.null(targetDimension));
@@ -92,15 +84,25 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
     lambda <- fit$lambda;
   }
 
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # Find backtransformations and backtransform data
+  # Subset dimensions?
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   s <- fit$s;
   if (!is.null(dimensions)) {
     s <- s[,dimensions,drop=FALSE];
+    X <- X[,dimensions,drop=FALSE];
+    dim <- dim(X);
   }
 
-    
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Find backtransformations and backtransform data
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  naValue <- NA;
+  mode(naValue) <- mode(X);
+  Xhat <- matrix(naValue, nrow=dim[1], ncol=dim[2]);
+
   for (kk in seq(length=ncol(s))) {
     sKK <- s[,kk];
     fitKK <- smooth.spline(sKK, lambda, ...);
@@ -130,6 +132,11 @@ setMethodS3("backtransformPrincipalCurve", "numeric", function(X, ...) {
 
 ###########################################################################
 # HISTORY:
+# 2009-05-12
+# o BUG FIX: backtransformPrincipalCurve(..., dimensions) did not subset
+#   the 'X' matrix. Also, the method now returns a matrix of the same
+#   number of columns requested.  The Rd example now illustrates this.
+#   Thanks to Pierre Neuvial, UC Berkeley for the troublshooting and fix.
 # 2009-02-08
 # o An error was thrown in backtransformPrincipalCurve() if argument 
 #   'dimensions' was specified.

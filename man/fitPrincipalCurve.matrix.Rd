@@ -72,6 +72,13 @@ if (flip) {
 # Backtransform (y_1, y_2, y_3) to be proportional to each other
 yN <- backtransformPrincipalCurve(y, fit=fit)
 
+# Same backtransformation dimension by dimension
+yN2 <- y
+for (cc in 1:ncol(y)) {
+  yN2[,cc] <- backtransformPrincipalCurve(y, fit=fit, dimensions=cc)
+}
+stopifnot(identical(yN2, yN))
+
 
 xlim <- c(0, 1.04*max(x))
 ylim <- range(c(y,yN), na.rm=TRUE)
