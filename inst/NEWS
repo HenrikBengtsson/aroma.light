@@ -1,12 +1,26 @@
 Package: aroma.light
 ====================
 
+Version: 1.13.2 [2009-05-29]
+o Incorporating the same updates as in release v1.12.2.
+
+
 Version: 1.13.1 [2009-05-13]
 o Incorporating the same updates as in release v1.12.1.
 
 
 Version: 1.13.0 [2009-04-20]
 o The version number was bumped for the Bioconductor devel version.
+
+
+Version: 1.12.2 [2009-05-29]
+o Replacing old HOWTOCITE with a standard CITATION file.
+o BUG FIX: Previous bug fix in backtransformPrincipalCurve() regarding
+  argument 'dimension' broke the initial purpose of this argument. Since
+  both use cases are still of interest, how the subsetting is done is now
+  based on whether the number of dimensions of the input data and the 
+  model fit match or not. See help and example code for 
+  'backtransformPrincipalCurve.matrix'.
 
 
 Version: 1.12.1 [2009-05-13]
