@@ -3,7 +3,7 @@
 # @RdocMethod backtransformPrincipalCurve
 # @alias backtransformPrincipalCurve.numeric
 #
-# @title "Reverse affine transformation"
+# @title "Reverse transformation of principal-curve fit"
 #
 # \description{
 #   @get "title".
@@ -13,14 +13,15 @@
 #
 # \arguments{
 #  \item{X}{An NxK @matrix containing data to be backtransformed.}
-#  \item{fit}{An object of class \code{principal.curve} as returned by
-#    @seemethod "fitPrincipalCurve".}
-#  \item{dimensions}{An (optional) subset of of D dimensions all in [1,K]
+#  \item{fit}{An MxL principal-curve fit object of class
+#    \code{principal.curve} as returned by @seemethod "fitPrincipalCurve".
+#    Typically \eqn{L = K}, but not always.
+#  }
+#  \item{dimensions}{An (optional) subset of of D dimensions all in [1,L]
 #    to be returned (and backtransform).}
 #  \item{targetDimension}{An (optional) index specifying the dimension
-#    in [1,K] to be used as the target dimension.  All other
-#    dimensions will be normalized toward this dimension, which will
-#    not be changed.}
+#    in [1,L] to be used as the target dimension of the \code{fit}.
+#    More details below.}
 #  \item{...}{Passed internally to @see "stats::smooth.spline".}
 # }
 #
@@ -28,7 +29,25 @@
 #   The backtransformed NxK (or NxD) @matrix.
 # }
 #
-# \examples{\dontrun{See help(fitPrincipalCurve.matrix).}}
+# \section{Target dimension}{
+#   By default, the backtransform is such that afterward the signals are
+#   approximately proportional to the (first) principal curve as fitted
+#   by @seemethod "fitPrincipalCurve".  This scale and origin of this
+#   principal curve is not uniquely defined.
+#   If \code{targetDimension} is specified, then the backtransformed signals
+#   are approximately proportional to the signals of the target dimension,
+#   and the signals in the target dimension are unchanged.
+# }
+#
+# \section{Subsetting dimensions}{
+#   Argument \code{dimensions} can be used to backtransform a subset of
+#   dimensions (K) based on a subset of the fitted dimensions (L).
+#   If \eqn{K = L}, then both \code{X} and \code{fit} is subsetted.
+#   If \eqn{K <> L}, then it is assumed that \code{X} is already 
+#   subsetted/expanded and only \code{fit} is subsetted.
+# }
+#
+# @examples "../incl/backtransformPrincipalCurve.matrix.Rex"
 #
 # \seealso{
 #   @seemethod "fitPrincipalCurve"
@@ -43,7 +62,8 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
     stop("Argument 'X' is not numeric: ", mode(X));
   }
 
-  dim <- dim(X);
+  dimX <- dim(X);
+  K <- dimX[2];
   if (!is.matrix(X)) {
     X <- as.matrix(X);
   }
@@ -54,21 +74,23 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
   }
 
   # Argument 'dimensions'
-  p <- ncol(fit$s);
+  dimS <- dim(fit$s);
+  L <- dimS[2];
   if (!is.null(dimensions)) {
     dimensions <- as.integer(dimensions);
-    if (any(dimensions < 1 | dimensions > p)) {
-      stop("Argument 'dimensions' contains values out of range [1,", p, "]");
+    if (any(dimensions < 1 | dimensions > L)) {
+      stop("Argument 'dimensions' contains values out of range [1,", L, "]");
     }
   }
 
+  # Argument 'targetDimension':
   if (!is.null(targetDimension)) {
     targetDimension <- as.integer(targetDimension);
     if (length(targetDimension) != 1) {
       stop("Argument 'targetDimension' should be a scalar or NULL.");
     }
-    if (targetDimension < 1 | targetDimension > p) {
-      stop("Argument 'targetDimension' is out of range [1,", p, "]: ", 
+    if (targetDimension < 1 | targetDimension > L) {
+      stop("Argument 'targetDimension' is out of range [1,", L, "]: ", 
                                                            targetDimension);
     }
   }
@@ -91,8 +113,12 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
   s <- fit$s;
   if (!is.null(dimensions)) {
     s <- s[,dimensions,drop=FALSE];
-    X <- X[,dimensions,drop=FALSE];
-    dim <- dim(X);
+    if (K == L) {
+      X <- X[,dimensions,drop=FALSE];
+      dimX <- dim(X);
+    }
+    dimS <- dim(s);
+    L <- dimS[2];
   }
 
 
@@ -101,9 +127,9 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   naValue <- NA;
   mode(naValue) <- mode(X);
-  Xhat <- matrix(naValue, nrow=dim[1], ncol=dim[2]);
+  Xhat <- matrix(naValue, nrow=dimX[1], ncol=dimX[2]);
 
-  for (kk in seq(length=ncol(s))) {
+  for (kk in seq(length=L)) {
     sKK <- s[,kk];
     fitKK <- smooth.spline(sKK, lambda, ...);
 
@@ -120,7 +146,7 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
 
   rm(sKK, lambda, fitKK, XhatKK, keep, s);
 
-  dim(Xhat) <- dim;
+  dim(Xhat) <- dimX;
   Xhat;
 }) # backtransformPrincipalCurve()
 
@@ -132,6 +158,14 @@ setMethodS3("backtransformPrincipalCurve", "numeric", function(X, ...) {
 
 ###########################################################################
 # HISTORY:
+# 2009-05-29
+# o BUG FIX: Previous bug fix inbacktransformPrincipalCurve() regarding
+#   argument 'dimension' broke the initial purpose of this argument. Since
+#   both use cases are still of interest, how the subsetting is done is now
+#   based on whether the number of dimensions of the input data and the 
+#   model fit match or not. See help(backtransformPrincipalCurve.matrix).
+#   Added several cases to the example code for testing this.
+# o Added more Rdoc comments.
 # 2009-05-12
 # o BUG FIX: backtransformPrincipalCurve(..., dimensions) did not subset
 #   the 'X' matrix. Also, the method now returns a matrix of the same
