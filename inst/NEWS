@@ -1,6 +1,12 @@
 Package: aroma.light
 ====================
 
+Version: 1.13.3 [2009-07-15]
+o ADDED: fit- and backtransformXYCurve().
+o Added attribute 'processingTime' to the fit object returned 
+  by fitPrincipalCurve().
+
+
 Version: 1.13.2 [2009-05-29]
 o Incorporating the same updates as in release v1.12.2.
 

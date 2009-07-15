@@ -73,7 +73,8 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
 
 
   verbose && enter(verbose, "Fitting principal curve");
-  verbose && cat(verbose, "Data size: ", n, "x", p);
+#print(verbose)
+#  verbose && cat(verbose, "Data size: ", n, "x", p);
 
   verbose && enter(verbose, "Identifying missing values");
   # princurve::principal.curve() does not handle missing values.
@@ -85,11 +86,18 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
     X <- X[keep,];
   verbose && exit(verbose);
 
-  verbose && cat(verbose, "Data size after removing non-finite data points: ", nrow(X), "x", p);
+#  verbose && cat(verbose, "Data size after removing non-finite data points: ", nrow(X), "x", p);
 
 
   verbose && enter(verbose, "Calling principal.curve()");
-  fit <- principal.curve(X, ...);
+  trace <- as.logical(verbose);
+  t <- system.time({
+    fit <- principal.curve(X, ..., trace=trace);
+  });
+  attr(fit, "processingTime") <- t;
+  verbose && printf(verbose, "Converged: %s\n", fit$converged);
+  verbose && printf(verbose, "Number of iterations: %d\n", fit$nbrOfIterations);
+  verbose && printf(verbose, "Processing time/iteration: %.1fs (%.1fs/iteration)\n", t[3], t[3]/fit$nbrOfIterations);
   verbose && exit(verbose);
 
   if (anyMissing) {
@@ -114,6 +122,9 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
 
 ###########################################################################
 # HISTORY:
+# 2009-07-15
+# o Added attribute 'processingTime' to the fit object returned by
+#   fitPrincipalCurve().
 # 2009-01-12
 # o Updated code such that R.utils::Verbose is optional.
 # 2008-10-08
