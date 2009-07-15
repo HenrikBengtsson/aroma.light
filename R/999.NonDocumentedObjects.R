@@ -24,12 +24,15 @@
 # @alias plotMvsMPairs
 # @alias plotDensity
 # @alias plotXYCurve
+# @alias lines.XYCurveFit
 #
 # % Matrix operations
 # @alias rowAverages
 # @alias rowAverages.matrix
 # @alias sampleCorrelations
 # @alias medianPolish
+# @alias backtransformXYCurve
+# @alias backtransformXYCurve.matrix
 #
 # % Simple linear-algebra
 # @alias projectUontoV
