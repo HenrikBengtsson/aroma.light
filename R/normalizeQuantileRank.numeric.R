@@ -37,7 +37,7 @@
 #
 # \seealso{
 #   To calculate a target distribution from a set of samples, see
-#   @seemethod "getAverageQuantile".
+#   @see "averageQuantile.list".
 #   This method is used by @see "normalizeQuantileRank.list".
 #   @seemethod "normalizeQuantileSpline".
 # }

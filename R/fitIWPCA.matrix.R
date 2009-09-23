@@ -116,8 +116,8 @@
 # %examples "fitMultiIWPCA.matrix.Rex"
 #
 # \seealso{
-#   This is an internal method used by the @seemethod "fitMultiscanAffine"
-#   method, which in addition uses @seemethod "fitPairIWPCA".
+#   This is an internal method used by the @seemethod "calibrateMultiscan"
+#   and @seemethod "normalizeAffine" methods.
 #   Internally the function @see "iwpca" is used to fit a line 
 #   through the data cloud and the function @see "distanceBetweenLines" to
 #   find the closest point to the diagonal (1,1,...,1).
