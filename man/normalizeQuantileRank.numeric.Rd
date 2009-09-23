@@ -50,7 +50,7 @@
 
  \seealso{
    To calculate a target distribution from a set of samples, see
-   \code{\link[aroma.light:getAverageQuantile.numeric]{*getAverageQuantile}()}.
+   \code{\link{averageQuantile.list}}().
    This method is used by \code{\link{normalizeQuantileRank.list}}().
    \code{\link[aroma.light:normalizeQuantileSpline.numeric]{*normalizeQuantileSpline}()}.
  }

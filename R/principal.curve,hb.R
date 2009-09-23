@@ -69,19 +69,19 @@ principal.curve.hb <- function(x, start=NULL, thresh=0.001, plot.true=FALSE, max
       start <- startCircle(x)
     } else {
       xbar <- colMeans(x)
-      xstar <- scale(x, xbar, FALSE)
+      xstar <- scale(x, center=xbar, scale=FALSE)
       svd.xstar <- svd(xstar)
       dd <- svd.xstar$d
       lambda <- svd.xstar$u[,1] * dd[1]
       tag <- order(lambda)
-      s <- scale(outer(lambda, svd.xstar$v[,1]),  - xbar, FALSE)
+      s <- scale(outer(lambda, svd.xstar$v[,1]), center=-xbar, scale=FALSE)
       dist <- sum((dd^2)[-1]) * n
       start <- list(s=s, tag=tag, lambda=lambda, dist=dist)
     }
   } else if (!inherits(start, "principal.curve")) {
     # use given starting curve 
     if (is.matrix(start)) {
-      start <- get.lam(x, start, stretch=stretch)
+      start <- get.lam(x, s=start, stretch=stretch)
     } else {
       stop("Invalid starting curve: should be a matrix or principal.curve")
     }
@@ -120,11 +120,11 @@ principal.curve.hb <- function(x, start=NULL, thresh=0.001, plot.true=FALSE, max
     # \lambda_f(x) [Eqn (3) in Hastie & Stuetzle (1989), is
     # the value of \lambda for which f(\lambda) is closest 
     # to x.
-    pcurve <- get.lam(x, s, stretch=stretch);
+    pcurve <- get.lam(x, s=s, stretch=stretch);
 
     # Bias correct?
     if (biasCorrectCurve)
-      pcurve <- bias.correct.curve(x, pcurve, ...)
+      pcurve <- bias.correct.curve(x, pcurve=pcurve, ...)
 
     # Converged?
     hasConverged <- (abs((dist.old - pcurve$dist)/dist.old) <= thresh);

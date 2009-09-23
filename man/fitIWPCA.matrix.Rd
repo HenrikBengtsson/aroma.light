@@ -126,8 +126,8 @@
 %examples "fitMultiIWPCA.matrix.Rex"
 
 \seealso{
-  This is an internal method used by the \code{\link[aroma.light:fitMultiscanAffine.matrix]{*fitMultiscanAffine}()}
-  method, which in addition uses \code{\link[aroma.light:fitPairIWPCA.matrix]{*fitPairIWPCA}()}.
+  This is an internal method used by the \code{\link[aroma.light:calibrateMultiscan.matrix]{*calibrateMultiscan}()}
+  and \code{\link[aroma.light:normalizeAffine.matrix]{*normalizeAffine}()} methods.
   Internally the function \code{\link{iwpca}}() is used to fit a line
   through the data cloud and the function \code{\link{distanceBetweenLines}}() to
   find the closest point to the diagonal (1,1,...,1).

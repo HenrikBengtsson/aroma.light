@@ -87,7 +87,7 @@ plotDensity(Xn, lwd=2, xlim=xlim, main="The normalized distributions")
    The target empirical distribution is calculated as the average
    using \code{\link[aroma.light:averageQuantile.list]{*averageQuantile}()}.
    Each \code{\link[base]{vector}} is normalized toward this target disribution using
-   \code{\link[aroma.light:normalizeQuantileRank.numeric.list]{*normalizeQuantileRank.numeric}()}.
+   \code{\link{normalizeQuantileRank.numeric}}().
    \code{\link[aroma.light:normalizeQuantileSpline.list]{*normalizeQuantileSpline}()}.
  }
 

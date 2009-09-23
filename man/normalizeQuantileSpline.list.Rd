@@ -49,7 +49,7 @@
    The target empirical distribution is calculated as the average
    using \code{\link[aroma.light:averageQuantile.list]{*averageQuantile}()}.
    Each \code{\link[base]{vector}} is normalized toward this target disribution using
-   \code{\link[aroma.light:normalizeQuantileSpline.numeric.list]{*normalizeQuantileSpline.numeric}()}.
+   \code{\link{normalizeQuantileSpline.numeric}}().
    \code{\link[aroma.light:normalizeQuantileRank.list]{*normalizeQuantileRank}()}.
  }
 

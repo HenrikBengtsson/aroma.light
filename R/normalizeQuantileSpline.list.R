@@ -39,7 +39,7 @@
 #   The target empirical distribution is calculated as the average 
 #   using @seemethod "averageQuantile".
 #   Each @vector is normalized toward this target disribution using
-#   @seemethod "normalizeQuantileSpline.numeric".
+#   @see "normalizeQuantileSpline.numeric".
 #   @seemethod "normalizeQuantileRank".
 # }
 #
