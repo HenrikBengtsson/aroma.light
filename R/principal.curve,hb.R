@@ -157,7 +157,7 @@ principal.curve.hb <- function(x, start=NULL, thresh=0.001, plot.true=FALSE, max
 # HISTORY:
 # 2009-07-15
 # o MEMORY OPTIMIZATION: Now the result matrix allocated as doubles, not
-#   logicals (as NA is), in order to prevent a coersion.
+#   logicals (as NA is), in order to prevent a coercion.
 # 2009-02-08
 # o BUG FIX: An error was thrown if 'smoother' was a function.
 # o Cleaned up source code (removed comments).
