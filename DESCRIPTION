@@ -1,6 +1,6 @@
 Package: aroma.light
-Version: 1.13.5
-Date: 2009-09-23
+Version: 1.13.6
+Date: 2009-10-20
 Title: Light-weight methods for normalization and visualization of microarray data using only basic R data types
 Author: Henrik Bengtsson <henrikb@braju.com>
 Maintainer: Henrik Bengtsson <henrikb@braju.com>
