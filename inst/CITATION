@@ -85,7 +85,8 @@ citEntry(
   author = "H. Bengtsson and O. H{\"o}ssjer",
   title = "Methodological study of affine transformations of gene
   expressiondata with proposed robust non-parametric multi-dimensional
-  normalization method", 
+  normalization method",
+ 
   journal = "BMC Bioinformatics",
   year = "2006",
   volume = "7",
@@ -97,10 +98,11 @@ citEntry(
   # Plain-text citation:
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   textVersion = paste(sep="",
-    "H. Bengtsson & O. Hossjer. ",
+    "H. Bengtsson & O. Hössjer. ",
     "Methodological study of affine transformations of gene expressiondata
     with proposed robust non-parametric multi-dimensional normalization
-    method, ", 
+    method, ",
+ 
     "BMC Bioinformatics, ", 
     "2006"
   )
@@ -114,7 +116,8 @@ citEntry(
   entry="Article",
   author = "H. Bengtsson and G. J\"{o}nsson and J. Vallon-Christersson",
   title = "Calibration and assessment of channel-specific biases in microarray
-  data with extended dynamical range", 
+  data with extended dynamical range",
+ 
   journal = "BMC Bioinformatics",
   year = "2004",
   volume = "5",
@@ -126,7 +129,7 @@ citEntry(
   # Plain-text citation:
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   textVersion = paste(sep="",
-    "H. Bengtsson, G. Jonsson & J. Vallon-Christersson. ",
+    "H. Bengtsson, G. Jönsson & J. Vallon-Christersson. ",
     "Calibration and assessment of channel-specific biases in microarray data with extended dynamical range, ",
     "BMC Bioinformatics, ", 
     "2004"
