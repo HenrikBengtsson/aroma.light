@@ -1,6 +1,14 @@
 Package: aroma.light
 ====================
 
+Version: 1.15.0 [2009-10-27]
+o The version number was bumped for the Bioconductor devel version.
+
+
+Version: 1.14.0 [2009-10-27]
+o The version number was bumped for the Bioconductor release version.
+
+
 Version: 1.13.6 [2009-10-20]
 o FIX: CITATION file reverted to that of v1.13.4.
 
