@@ -45,8 +45,11 @@
 setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
   require("princurve") || throw("Package not loaded: princurve");
 
-  # The current implementation contains bugs. /HB 2008-05-26
-  principal.curve <- principal.curve.hb;
+  # princurve v1.1-9 and before contains bugs. /HB 2008-05-26
+  ver <- packageDescription("princurve")$Version;
+  if (compareVersion(ver, "1.1-10") < 0) {
+    principal.curve <- principal.curve.hb;
+  }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Validate arguments
@@ -122,6 +125,9 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
 
 ###########################################################################
 # HISTORY:
+# 2009-11-01
+# o Now fitPrincipalCurve() bug-fixed princurve v1.1-10.  If earlier 
+#   version are available, it used the internal patch.
 # 2009-07-15
 # o Added attribute 'processingTime' to the fit object returned by
 #   fitPrincipalCurve().

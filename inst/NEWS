@@ -1,6 +1,11 @@
 Package: aroma.light
 ====================
 
+Version: 1.15.1 [2009-11-01]
+o Now fitPrincipalCurve() only uses the internal bug-fix patch
+  if a version earlier than princurve v1.1-10 is installed.
+
+
 Version: 1.15.0 [2009-10-27]
 o The version number was bumped for the Bioconductor devel version.
 
