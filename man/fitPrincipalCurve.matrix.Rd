@@ -89,13 +89,13 @@ ylim <- range(c(y,yN), na.rm=TRUE)
 layout(matrix(1:4, nrow=2, byrow=TRUE))
 par(mar=c(4,4,2,1)+0.1)
 for (rr in 1:2) {
-  ylab <- substitute(y[c], list=list(c=rr))
+  ylab <- substitute(y[c], env=list(c=rr))
   for (cc in 2:3) {
     if (cc == rr) {
       plot.new()
       next
     }
-    xlab <- substitute(y[c], list=list(c=cc))
+    xlab <- substitute(y[c], env=list(c=cc))
     plot(NA, xlim=ylim, ylim=ylim, xlab=xlab, ylab=ylab)
     abline(a=0, b=1, lty=2)
     points(y[,c(cc,rr)])
@@ -107,7 +107,7 @@ for (rr in 1:2) {
 layout(matrix(1:4, nrow=2, byrow=TRUE))
 par(mar=c(4,4,2,1)+0.1)
 for (cc in 1:3) {
-  ylab <- substitute(y[c], list=list(c=cc))
+  ylab <- substitute(y[c], env=list(c=cc))
   plot(NA, xlim=xlim, ylim=ylim, xlab="x", ylab=ylab)
   points(x, y[,cc])
   points(x, yN[,cc], col="tomato")

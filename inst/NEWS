@@ -1,6 +1,12 @@
 Package: aroma.light
 ====================
 
+Version: 1.15.2 [2019-03-12]
+o BUG FIX: The example of fitPrincipalCurve() used a non-existing
+  argument name in the calls to substitute().  Thanks to Brian
+  Ripley at University of Oxford for reporting this.
+
+
 Version: 1.15.1 [2009-11-01]
 o Now fitPrincipalCurve() only uses the internal bug-fix patch
   if a version earlier than princurve v1.1-10 is installed.
