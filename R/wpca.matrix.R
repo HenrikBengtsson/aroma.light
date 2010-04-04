@@ -91,7 +91,8 @@
 #   For Singular Value Decomposition, see @see "base::svd".
 #   For other implementations of Principal Component Analysis functions see
 #   (if they are installed):
-#   @see "stats::prcomp" (\pkg{stats}) and @see "pcurve::pca" (\pkg{pcurve}).
+#   @see "stats::prcomp" in package \pkg{stats} and 
+#   \code{pca()} in package \pkg{pcurve}.
 # }
 #
 # @keyword "algebra"
