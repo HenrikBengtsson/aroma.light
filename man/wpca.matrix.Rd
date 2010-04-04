@@ -228,7 +228,8 @@ par(opar)
   For Singular Value Decomposition, see \code{\link[base]{svd}}().
   For other implementations of Principal Component Analysis functions see
   (if they are installed):
-  \code{\link[stats]{prcomp}} (\pkg{stats}) and \code{\link[pcurve]{pca}} (\pkg{pcurve}).
+  \code{\link[stats]{prcomp}} in package \pkg{stats} and
+  \code{pca()} in package \pkg{pcurve}.
 }
 
 

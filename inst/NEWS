@@ -1,7 +1,13 @@
 Package: aroma.light
 ====================
 
-Version: 1.15.2 [2019-03-12]
+Version: 1.15.3 [2010-04-04]
+o Added normalizeDifferencesToAverage(), normalizeTumorBoost(), 
+  callNaiveGenotypes() and internal findPeaksAndValleys(),
+  which all were moved from the aroma.cn package.
+
+
+Version: 1.15.2 [2010-03-12]
 o BUG FIX: The example of fitPrincipalCurve() used a non-existing
   argument name in the calls to substitute().  Thanks to Brian
   Ripley at University of Oxford for reporting this.

@@ -15,7 +15,7 @@
 # \arguments{
 #  \item{X}{An NxK @matrix (K>=2) where the columns represent the dimension.}
 #  \item{...}{Other arguments passed to @see "princurve::principal.curve".}
-#  \item{verbose}{See @see "R.utils::Verbose".}
+#  \item{verbose}{A @logical or a @see "R.utils::Verbose" object.}
 # }
 #
 # \value{
@@ -70,14 +70,14 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
     }
   }
   if (verbose && inherits(verbose, "Verbose")) {
+    cat <- R.utils::cat;
     pushState(verbose);
     on.exit(popState(verbose));
   }
 
 
   verbose && enter(verbose, "Fitting principal curve");
-#print(verbose)
-#  verbose && cat(verbose, "Data size: ", n, "x", p);
+  verbose && cat(verbose, "Data size: ", n, "x", p);
 
   verbose && enter(verbose, "Identifying missing values");
   # princurve::principal.curve() does not handle missing values.
@@ -89,7 +89,7 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
     X <- X[keep,];
   verbose && exit(verbose);
 
-#  verbose && cat(verbose, "Data size after removing non-finite data points: ", nrow(X), "x", p);
+  verbose && cat(verbose, "Data size after removing non-finite data points: ", nrow(X), "x", p);
 
 
   verbose && enter(verbose, "Calling principal.curve()");

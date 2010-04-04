@@ -25,7 +25,7 @@
 \arguments{
  \item{X}{An NxK \code{\link[base]{matrix}} (K>=2) where the columns represent the dimension.}
  \item{...}{Other arguments passed to \code{\link[princurve]{principal.curve}}.}
- \item{verbose}{See \code{\link[R.utils]{Verbose}}.}
+ \item{verbose}{A \code{\link[base]{logical}} or a \code{\link[R.utils]{Verbose}} object.}
 }
 
 \value{

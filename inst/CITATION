@@ -4,6 +4,32 @@ citEntry(
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # BibTeX entry:
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  entry = "Article",
+  author = "H. Bengtsson and Pierre Neuvial and Terence P Speed",
+  title = "TumorBoost: Normalization of allele-specific tumor copy numbers from a single pair of tumor-normal genotyping microarrays",
+  journal = "(revised)",
+  year = "2010",
+  volume = "",
+  number = "",
+  doi = "",
+  url = "",
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Plain-text citation:
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  textVersion = paste(sep="",
+    "H. Bengtsson, P. Neuvial and T.P. Speed",
+    "TumorBoost: Normalization of allele-specific tumor copy numbers from a single pair of tumor-normal genotyping microarrays, ",
+    "(revised), ",
+    "2010"
+  )
+);
+
+
+citEntry(
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # BibTeX entry:
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   entry="TechReport",
   author = "H. Bengtsson and K. Simpson and J. Bullard and K. Hansen",
   title = "{aroma.affymetrix}: A generic framework in {R} for analyzing small
