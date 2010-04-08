@@ -1,6 +1,11 @@
 Package: aroma.light
 ====================
 
+Version: 1.15.4 [2010-04-08]
+o R devel assumes ASCII encoding unless specified. Added explicit
+  Latin-1 encoding to the DESCRIPTION file to R CMD check to pass.
+
+
 Version: 1.15.3 [2010-04-04]
 o Added normalizeDifferencesToAverage(), normalizeTumorBoost(), 
   callNaiveGenotypes() and internal findPeaksAndValleys(),
