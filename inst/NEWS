@@ -1,6 +1,14 @@
 Package: aroma.light
 ====================
 
+Version: 1.17.0 [2009-04-22]
+o The version number was bumped for the Bioconductor devel version.
+
+
+Version: 1.16.0 [2009-04-22]
+o The version number was bumped for the Bioconductor release version.
+
+
 Version: 1.15.4 [2010-04-08]
 o R devel assumes ASCII encoding unless specified. Added explicit
   Latin-1 encoding to the DESCRIPTION file to R CMD check to pass.
