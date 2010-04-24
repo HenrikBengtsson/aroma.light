@@ -7,7 +7,7 @@ citEntry(
   entry = "Article",
   author = "H. Bengtsson and Pierre Neuvial and Terence P Speed",
   title = "TumorBoost: Normalization of allele-specific tumor copy numbers from a single pair of tumor-normal genotyping microarrays",
-  journal = "(revised)",
+  journal = "BMC Bioinformatics",
   year = "2010",
   volume = "",
   number = "",
@@ -20,8 +20,9 @@ citEntry(
   textVersion = paste(sep="",
     "H. Bengtsson, P. Neuvial and T.P. Speed",
     "TumorBoost: Normalization of allele-specific tumor copy numbers from a single pair of tumor-normal genotyping microarrays, ",
-    "(revised), ",
-    "2010"
+    "BMC Bioinformatics, ",
+    "2010",
+    "(accepted)"
   )
 );
 
