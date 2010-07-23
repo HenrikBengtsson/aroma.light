@@ -179,11 +179,14 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
     verbose && exit(verbose);
   } # for (kk ...)
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Return genotype calls
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Sanity check
   stopifnot(length(mu) == J);
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Return genotype calls (and parameter estimates)
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  attr(mu, "modelFit") <- fit;
 
   verbose && exit(verbose);
 
@@ -193,6 +196,9 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
 
 ###########################################################################
 # HISTORY:
+# 2010-07-23
+# o Now callNaiveGenotypes() returns the model estimates as attribute
+#   'modelFit'.
 # 2010-04-04
 # o Updated code such that R.utils::Verbose is optional.
 # o Corrected an Rdoc tag typo.
