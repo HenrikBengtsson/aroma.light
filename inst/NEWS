@@ -1,6 +1,21 @@
 Package: aroma.light
 ====================
 
+Version: 1.17.3 [2010-09-18]
+o ROBUSTNESS: Now normalizeFragmentLength() asserts that arguments
+  'fragmentLengths' and 'y' contain at least some finite values and 
+  specifies the same number of units.  In addition, the method also
+  gives more informative error messages in case it cannot fit the
+  normalization function due to non-finite values.
+
+
+Version: 1.17.2 [2010-08-04]
+o Added argument 'preserveScale' to normalizeTumorBoost() to
+  rescale the calibrated allele B fractions for heterozygous SNPs
+  such that the compression relative to the homozgygotes is
+  preserved.
+
+
 Version: 1.17.1 [2010-07-23]
 o Same updates as in release version v1.16.1.
 
