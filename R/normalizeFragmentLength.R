@@ -91,6 +91,11 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
   # Argument 'y':
   y <- as.double(y);
   nbrOfDataPoints <- length(y);
+  okY <- is.finite(y);
+  # Sanity check
+  if (!any(okY, na.rm=TRUE)) {
+    throw("Cannot fit normalization function to enzyme, because there are no (finite) data points in argument 'y'.");
+  }
 
   # Argument 'fragmentLengths':
   if (!is.matrix(fragmentLengths)) {
@@ -101,10 +106,39 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
                                                 class(fragmentLengths)[[1]]);
     }
   }
+  if (nrow(fragmentLengths) != nbrOfDataPoints) {
+    throw("Number of rows in argument 'fragmentLengths' does not match the length of argument 'y': ", nrow(fragmentLengths), " != ", nbrOfDataPoints);
+  }
   nbrOfEnzymes <- ncol(fragmentLengths);
   allEnzymes <- seq(length=nbrOfEnzymes);
+  # Coerce to doubles
   for (ee in allEnzymes) {
     fragmentLengths[,ee] <- as.double(fragmentLengths[,ee]);
+  }
+
+  # Assert that there are some finite fragment lengths
+  hasFL <- is.finite(fragmentLengths);
+  if (!any(hasFL)) {
+    throw("Cannot fit normalization function. Argument 'fragmentLengths' contains no finite values.");
+  }
+
+  # Assert that for each enzyme there exist some finite fragment lengths
+  for (ee in allEnzymes) {
+    if (sum(hasFL[,ee]) == 0) {
+      throw(sprintf("Cannot fit normalization function to enzyme #%d, because there are no units with finite fragment lengths for this enzyme: ", ee));
+    }
+  }
+
+  # Count the number of enzymes per units
+  countFL <- rep(as.integer(0), times=nbrOfDataPoints);
+  for (ee in allEnzymes) {
+    countFL <- countFL + as.integer(hasFL[,ee]);
+  }
+
+  # Assert that there are units from a single enzyme
+  isSingleEnzymed <- (countFL == 1);
+  if (sum(isSingleEnzymed) == 0) {
+    throw("Cannot fit normalization function, because none of the units are on fragments from a single enzyme, or equivalently, there exist no rows in argument 'fragmentLenghts' that only have one finite value.");
   }
 
   # Argument 'targetFcns':
@@ -144,42 +178,42 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
   # Estimate normalization function and predict the signals
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Fit smooth curve to each enzyme separately
-  hasFL <- is.finite(fragmentLengths);
-  # Count the number of enzymes per units
-  countFL <- rep(0, nbrOfDataPoints);
-  for (ee in allEnzymes)
-    countFL <- countFL + as.integer(hasFL[,ee]);
-  isSingleEnzymed <- (countFL == 1);
-
-  okY <- is.finite(y);
 
   # KxE matrix for sample (and target predictions)
   naValue <- as.double(NA);
   mu <- matrix(naValue, nrow=nbrOfDataPoints, ncol=nbrOfEnzymes);
-  if (!is.null(targetFcns))
+  if (!is.null(targetFcns)) {
     muT <- matrix(naValue, nrow=nbrOfDataPoints, ncol=nbrOfEnzymes);
+  }
 
-  if (.returnFit)
+  if (.returnFit) {
     fits <- vector("list", nbrOfEnzymes);
+  }
 
   for (ee in allEnzymes) {
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # (a) Fit normalization function
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # Fit only to units with known length and non-missing data points.
-    ok <- (hasFL[,ee] & isSingleEnzymed & okY);
+    # (i) Fit only to units that are on fragments from a single (this)
+    #     enzyme and that there exist finite fragment lengths
+    ok <- isSingleEnzymed & hasFL[,ee];
+    if (!any(ok)) {
+      throw(sprintf("Cannot fit normalization function to enzyme #%d, because there are no units in argument 'fragmentLengths' that are unique to this enzyme and with finite fragment lengths: ", ee));
+    }
 
+    # (ii) Fit only to units with non-missing data points.
+    ok <- ok & okY;
     # Sanity check
-    if (sum(ok) == 0) {
-      throw("Cannot fit normalization function to enzyme, because there are no (finite) data points that are unique to this enzyme: ", ee);
+    if (!any(ok)) {
+      throw(sprintf("Cannot fit normalization function to enzyme #%d, because there are no units in argument 'fragmentLengths' that are unique to this enzyme and with finite fragment lengths and at the same time have finite values in argument 'y': ", ee));
     }
 
     if (!is.null(subsetToFit)) {
       ok[-subsetToFit] <- FALSE;
 
       # Sanity check
-      if (sum(ok) == 0) {
-        throw("Cannot fit normalization function to enzyme, because there are no (finite) data points that are unique to this enzyme for the subset requested: ", ee);
+      if (!any(ok)) {
+        throw(sprintf("Cannot fit normalization function to enzyme #%d, because after subsetting there are no units in argument 'fragmentLengths' that are unique to this enzyme and with finite fragment lengths and at the same time have finite values in argument 'y': ", ee));
       }
     }
 
@@ -204,14 +238,16 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
     ok <- (hasFL[,ee] & okY);
     mu[ok,ee] <- predict(fit, newdata=fl[ok]);
 
-    if (.returnFit)
+    if (.returnFit) {
       fits[[ee]] <- list(fit=fit, mu=mu[,ee]);
+    }
 
     # Normalize toward a target function?
     if (!is.null(targetFcns)) {
       muT[ok,ee] <- targetFcns[[ee]](fl[ok]);
-      if (.returnFit)
+      if (.returnFit) {
         fits[[ee]]$muT <- muT[,ee];
+      }
     }
 
     rm(fit, fl);
@@ -250,19 +286,25 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
 
         # Identify the set to be used to estimate the target average
         ok <- (okY & !isMissing);
-        if (!is.null(subsetToFit))
-          ok[-subsetToFit] <- FALSE;
-
         # Sanity check
-        if (sum(ok) == 0) {
+        if (!any(ok)) {
           throw("Cannot fit normalization function to loci with unknown fragment lengths, because there are no (finite) data points to be fitted.");
+        }
+
+        if (!is.null(subsetToFit)) {
+          ok[-subsetToFit] <- FALSE;
+          # Sanity check
+          if (!any(ok)) {
+            throw("Cannot fit normalization function to loci with unknown fragment lengths, because after subsetting there are no (finite) data points to be fitted.");
+          }
         }
 
         # Substitute the predicted means with the median of the already
         # predicted set of loci.
         mu[isMissing] <- median(mu[ok], na.rm=TRUE);
-        if (!is.null(targetFcns))
+        if (!is.null(targetFcns)) {
           muT[isMissing] <- median(muT[ok], na.rm=TRUE);
+        }
         rm(ok);
       } # if (onMissing == "median")
     }
@@ -286,8 +328,9 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
     dy <- (mu - muT);
   }
   rm(mu);
-  if (!is.null(targetFcns))
+  if (!is.null(targetFcns)) {
     rm(muT);
+  }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Normalize signals
@@ -297,8 +340,9 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
   rm(okY);
   y[ok] <- y[ok] - dy[ok];
   
-  if (.returnFit)
+  if (.returnFit) {
     attr(y, "modelFit") <- fits;
+  }
 
   y;
 }, private=TRUE)
@@ -306,6 +350,12 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
 
 ############################################################################
 # HISTORY:
+# 2010-09-18
+# o ROBUSTNESS: Now normalizeFragmentLength() asserts that arguments
+#   'fragmentLengths' and 'y' contain at least some finite values and 
+#   specifies the same number of units.  In addition, the method also
+#   gives more informative error messages in case it cannot fit the
+#   normalization function due to non-finite values.
 # 2008-09-11
 # o Now onMissing="median" estimates the median on using the subset to fit.
 # 2008-09-10

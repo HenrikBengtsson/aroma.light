@@ -25,7 +25,7 @@
   unchanged afterwards.
  }
 
- \usage{\method{normalizeTumorBoost}{numeric}(betaT, betaN, muN=callNaiveGenotypes(betaN), flavor=c("v4", "v3", "v2", "v1"), ...)}
+ \usage{\method{normalizeTumorBoost}{numeric}(betaT, betaN, muN=callNaiveGenotypes(betaN), flavor=c("v4", "v3", "v2", "v1"), preserveScale=TRUE, ...)}
 
  \arguments{
   \item{betaT, betaN}{Two \code{\link[base]{numeric}} \code{\link[base]{vector}}s each of length J with
@@ -34,6 +34,10 @@
      normal genotypes calls in (0,1/2,1,\code{\link[base]{NA}}) for (AA,AB,BB).}
   \item{flavor}{A \code{\link[base]{character}} string specifying the type of
      correction applied.}
+  \item{preserveScale}{If \code{\link[base:logical]{TRUE}}, SNPs that are heterozygous in the
+    matched normal are corrected for signal compression using an estimate
+    of signal compression based on the amount of correction performed
+    by TumorBoost on SNPs that are homozygous in the matched normal.}
   \item{...}{Argument passed to \code{\link{callNaiveGenotypes}}(), if called.}
  }
 
@@ -66,6 +70,32 @@
              normalization method.  See also the discussion in the
              paragraph following Eqn (12) in [1].}
   }
+ }
+
+ \section{Preserving scale}{
+  Allele B fractions are more or less compressed toward a half, e.g.
+  the signals for homozygous SNPs are slightly away from zero and one.
+  The TumorBoost method decreases the correlation in allele B fractions
+  between the tumor and the normal \emph{conditioned on the genotype}.
+  What it does not control for is the mean level of the allele B fraction
+  \emph{conditioned on the genotype}.
+
+  By design, most flavors of the method will correct the homozygous SNPs
+  such that their mean levels get close to the expected zero and
+  one levels.  However, the heterozygous SNPs will typically keep the
+  same mean levels as before.
+  One possibility is to adjust the signals such as the mean levels of
+  the heterozygous SNPs relative to that of the homozygous SNPs is
+  the same after as before the normalization.
+
+  If argument \code{preserveScale=TRUE}, then SNPs that are heterozygous
+  (in the matched normal) are corrected for signal compression using
+  an estimate of signal compression based on the amount of correction
+  performed by TumorBoost on SNPs that are homozygous
+  (in the matched normal).
+
+  The option of preserving the scale is \emph{not} discussed in the
+  TumorBoost paper [1].
  }
 
  \examples{
@@ -105,6 +135,6 @@ plot(pos, betaTNx, col=col, ylim=ylim)
   [1] H. Bengtsson, P. Neuvial & T.P. Speed,
       \emph{TumorBoost: Normalization of allele-specific tumor copy numbers
       from a single pair of tumor-normal genotyping microarrays},
-      2010 (revised)\cr
+      BMC Bioinformatics, 2010, 11:245. [PMID 20462408]\cr
  }
 \keyword{methods}

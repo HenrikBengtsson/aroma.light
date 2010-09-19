@@ -24,6 +24,10 @@
 #     normal genotypes calls in (0,1/2,1,@NA) for (AA,AB,BB).}
 #  \item{flavor}{A @character string specifying the type of 
 #     correction applied.}
+#  \item{preserveScale}{If @TRUE, SNPs that are heterozygous in the
+#    matched normal are corrected for signal compression using an estimate
+#    of signal compression based on the amount of correction performed
+#    by TumorBoost on SNPs that are homozygous in the matched normal.}
 #  \item{...}{Argument passed to @see "callNaiveGenotypes", if called.}
 # }
 #
@@ -58,6 +62,32 @@
 #  }
 # }
 #
+# \section{Preserving scale}{
+#  Allele B fractions are more or less compressed toward a half, e.g.
+#  the signals for homozygous SNPs are slightly away from zero and one.
+#  The TumorBoost method decreases the correlation in allele B fractions
+#  between the tumor and the normal \emph{conditioned on the genotype}.
+#  What it does not control for is the mean level of the allele B fraction
+#  \emph{conditioned on the genotype}.  
+#
+#  By design, most flavors of the method will correct the homozygous SNPs
+#  such that their mean levels get close to the expected zero and 
+#  one levels.  However, the heterozygous SNPs will typically keep the
+#  same mean levels as before.  
+#  One possibility is to adjust the signals such as the mean levels of
+#  the heterozygous SNPs relative to that of the homozygous SNPs is
+#  the same after as before the normalization.
+#
+#  If argument \code{preserveScale=TRUE}, then SNPs that are heterozygous
+#  (in the matched normal) are corrected for signal compression using 
+#  an estimate of signal compression based on the amount of correction
+#  performed by TumorBoost on SNPs that are homozygous 
+#  (in the matched normal).
+#
+#  The option of preserving the scale is \emph{not} discussed in the 
+#  TumorBoost paper [1].
+# }
+#
 # @examples "../incl/normalizeTumorBoost.Rex"
 #
 # \author{Henrik Bengtsson and Pierre Neuvial}
@@ -66,10 +96,10 @@
 #  [1] H. Bengtsson, P. Neuvial & T.P. Speed, 
 #      \emph{TumorBoost: Normalization of allele-specific tumor copy numbers
 #      from a single pair of tumor-normal genotyping microarrays},
-#      2010 (revised)\cr
+#      BMC Bioinformatics, 2010, 11:245. [PMID 20462408]\cr
 # }
 #*/########################################################################### 
-setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNaiveGenotypes(betaN), flavor=c("v4", "v3", "v2", "v1"), ...) {
+setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNaiveGenotypes(betaN), flavor=c("v4", "v3", "v2", "v1"), preserveScale=TRUE, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -164,7 +194,48 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Normalize
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # In very rare cases delta can be non-finite while betaT is.
+  # This can happen whenever muN or betaN is non-finite.  Then:
+  #   ok <- is.finite(delta);
+  #   ok <- whichVector(ok);
+  #   betaTN[ok] <- betaT[ok] - delta[ok];
+  # It can be debated whether one should correct a SNP in this case, for
+  # which betaTN then become non-finite too.  If not correcting, we will
+  # end up with betaTN == betaT value which is not from the same mixture
+  # distribution as the other corrected values.
+  # For now, we ignore this. /HB 2010-08-19 [on the flight to SFO]
   betaTN <- betaT - delta;
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Preserve scale of heterozygotes relative to homozygotes
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  if (preserveScale) {
+    isHom <- (muN == 0 | muN == 1);
+    idxs <- whichVector(isHom);
+
+    # Signal compression in homozygous SNPs before TBN
+    eta <- median(abs(betaT[idxs]-1/2), na.rm=TRUE);
+
+    # Signal compression in homozygous SNPs after TBN
+    etaC <- median(abs(betaTN[idxs]-1/2), na.rm=TRUE);
+
+    # Correction factor
+    sf <- etaC/eta;
+
+    # Correct
+    isHet <- !isHom;
+    isDown <- (betaTN < 1/2);
+    idxs <- whichVector(isHet & isDown);
+    betaTN[idxs] <- 1/2 - sf * (1/2 - betaTN[idxs]);
+    idxs <- whichVector(isHet & !isDown);
+    betaTN[idxs] <- 1/2 + sf * (betaTN[idxs] - 1/2);
+
+    # Clean up
+    rm(isDown, isHom, isHet, idxs, eta, etaC);
+  } else {
+    sf <- as.double(NA);
+  }
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -173,7 +244,9 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
   modelFit <- list(
     method = "normalizeTumorBoost",
     flavor = flavor,
-    delta = delta
+    delta = delta,
+    preserveScale = preserveScale,
+    scaleFactor = sf
   );
   attr(betaTN, "modelFit") <- modelFit;
 
@@ -186,6 +259,8 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
 
 ############################################################################
 # HISTORY:
+# 2010-08-04
+# o Added argument 'preserveScale' to normalizeTumorBoost().
 # 2010-03-18
 # o BUG FIX: For flavors "v2" and "v3" NaN:s could be introduced if betaN
 #   was exactly zero or exactly one.
