@@ -1,7 +1,8 @@
 ###########################################################################/**
-# @set "class=numeric"
+# @set "class=density"
 # @RdocMethod findPeaksAndValleys
 # @alias findPeaksAndValleys
+# @alias findPeaksAndValleys.numeric
 #
 # @title "Finds extreme points in the empirical density estimated from data"
 #
@@ -9,14 +10,18 @@
 #   @get "title".
 # }
 # 
-# @synopsis
+# \usage{
+#  \method{findPeaksAndValleys}{density}(x, tol=0, ...)
+#  \method{findPeaksAndValleys}{numeric}(x, tol=0, ..., na.rm=TRUE)
+# }
 #
 # \arguments{
-#  \item{x}{A @numeric @vector containing data points.}
-#  \item{na.rm}{If @TRUE, missing values are dropped, otherwise not.}
-#  \item{...}{Arguments passed to @see "stats::density".}
+#  \item{x}{A @numeric @vector containing data points or 
+#     a @see "stats::density" object.}
 #  \item{tol}{A non-negative @numeric threshold specifying the minimum
 #    density at the extreme point in order to accept it.}
+#  \item{...}{Arguments passed to @see "stats::density".}
+#  \item{na.rm}{If @TRUE, missing values are dropped, otherwise not.}
 # }
 #
 # \value{
@@ -29,17 +34,18 @@
 #
 # @keyword internal
 #*/########################################################################### 
-setMethodS3("findPeaksAndValleys", "numeric", function(x, na.rm=TRUE, ..., tol=0) {
-  # Argument 'na.rm':
-  na.rm <- as.logical(na.rm);
-  stopifnot(length(na.rm) == 1);
+setMethodS3("findPeaksAndValleys", "density", function(x, tol=0, ...) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Argument 'x':
+  d <- x;
 
   # Argument 'tol':
   tol <- as.double(tol);
   stopifnot(length(tol) == 1);
   stopifnot(tol >= 0);
 
-  d <- density(x, na.rm=na.rm, ...);
   delta <- diff(d$y);
   n <- length(delta);
 
@@ -63,8 +69,32 @@ setMethodS3("findPeaksAndValleys", "numeric", function(x, na.rm=TRUE, ..., tol=0
   res;
 }) # findPeaksAndValleys()
 
+
+setMethodS3("findPeaksAndValleys", "numeric", function(x, tol=0, ..., na.rm=TRUE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Argument 'na.rm':
+  na.rm <- as.logical(na.rm);
+  stopifnot(length(na.rm) == 1);
+
+  # Argument 'tol':
+  tol <- as.double(tol);
+  stopifnot(length(tol) == 1);
+  stopifnot(tol >= 0);
+
+  d <- density(x, na.rm=na.rm, ...);
+  findPeaksAndValleys(d, tol=tol);
+}) # findPeaksAndValleys()
+
+
+
+
 ############################################################################
 # HISTORY:
+# 2010-10-06 [HB]
+# o Added findPeaksAndValleys() for the 'density' class, which then
+#   findPeaksAndValleys() for 'numeric' utilizes.
 # 2010-04-04 [HB]
 # o Made findPeaksAndValleys() an internal function in Rd.
 # o Updated could to validate arguments with using R.utils::Arguments.
