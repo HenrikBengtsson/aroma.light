@@ -1,6 +1,11 @@
 Package: aroma.light
 ====================
 
+Version: 1.17.4 [2010-10-06]
+o Added findPeaksAndValleys() for the 'density' class, which then
+  findPeaksAndValleys() for 'numeric' utilizes.
+
+
 Version: 1.17.3 [2010-09-18]
 o ROBUSTNESS: Now normalizeFragmentLength() asserts that arguments
   'fragmentLengths' and 'y' contain at least some finite values and 
