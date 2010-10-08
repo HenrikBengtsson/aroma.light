@@ -19,12 +19,9 @@
 #    used to specify which loci are diploid and which are not, e.g. 
 #    autosomal and sex chromosome copy numbers.}
 #  \item{flavor}{A @character string specifying the type of algorithm used.}
-#  \item{adjust}{A postive @double specifying the amount smoothing for
-#    the empirical density estimator.}
-#  \item{...}{Additional arguments passed to @see "findPeaksAndValleys".}
-#  \item{censorAt}{A @double @vector of length two specifying the range
-#    for which values are considered finite.  Values below (above) this 
-#    range are treated as -@Inf (+@Inf).}
+#  \item{...}{Additional arguments passed to @seemethod "fitNaiveGenotypes".}
+#  \item{modelFit}{A optional model fit as returned 
+#    by @seemethod "fitNaiveGenotypes".}
 #  \item{verbose}{A @logical or a @see "R.utils::Verbose" object.}
 # }
 #
@@ -47,10 +44,10 @@
 # @author
 #
 # \seealso{
-#   Internally @see "findPeaksAndValleys" is used to identify the thresholds.
+#   Internally @seemethod "fitNaiveGenotypes" is used to identify the thresholds.
 # }
 #*/########################################################################### 
-setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), flavor=c("density"), adjust=1.5, ..., censorAt=c(-0.5,+1.5), verbose=FALSE) {
+setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), flavor=c("density"), ..., modelFit=NULL, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -76,19 +73,12 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
   # Argument 'flavor':
   flavor <- match.arg(flavor);
 
-  # Argument 'adjust':
-  adjust <- as.double(adjust);
-  if (length(adjust) != 1) {
-    stop("Argument 'adjust' must be single value: ", adjust);
+  # Argument 'modelFit':
+  if (!is.null(modelFit)) {
+    if (!inherits(modelFit, "NaiveGenotypeModelFit")) {
+      throw("Argument 'modelFit' is not of class NaiveGenotypeModelFit: ", class(modelFit)[1]);
+    }
   }
-  if (adjust <= 0) {
-    stop("Argument 'adjust' must be positive: ", adjust);
-  }
-
-  # Argument 'censorAt':
-  censorAt <- as.double(censorAt);
-  stopifnot(length(censorAt) == 2);
-  stopifnot(censorAt[1] <= censorAt[2]);
 
   # Argument 'verbose':
   if (inherits(verbose, "Verbose")) {
@@ -110,69 +100,83 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
  
 
   verbose && enter(verbose, "Calling genotypes from allele B fractions (BAFs)");
+  verbose && cat(verbose, "Flavor: ", flavor);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Allocate result
+  # Fit naive genotype model?
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  naValue <- as.double(NA);
-  mu <- rep(naValue, times=J);
+  if (is.null(modelFit)) {
+    verbose && enter(verbose, "Fitting naive genotype model");
+    modelFit <- fitNaiveGenotypes(y=y, cn=cn, flavor=flavor, ..., verbose=verbose);
+    verbose && print(verbose, modelFit);
+    verbose && exit(verbose);
+  }
 
-  verbose && enter(verbose, "Censoring BAFs");
-  verbose && cat(verbose, "Before:");
-  verbose && summary(verbose, y);
-  verbose && print(verbose, sum(is.finite(y)));
-  # Censor values
-  y[y < censorAt[1]] <- -Inf;
-  y[y > censorAt[2]] <- +Inf;
-  verbose && cat(verbose, "After:");
-  verbose && summary(verbose, y);
-  verbose && print(verbose, sum(is.finite(y)));
-  verbose && exit(verbose);
-
-  # To please R CMD check
-  type <- NULL; rm(type);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Call genotypes
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  naValue <- as.double(NA);
+  mu <- rep(naValue, times=J);
+
+  # To please R CMD check
+  type <- NULL; rm(type);
+
+  # Fitted CNs
+  cns <- sapply(modelFit, FUN=function(fit) fit$cn);
   for (kk in seq(along=uniqueCNs)) {
     cnKK <- uniqueCNs[kk];
     verbose && enter(verbose, sprintf("Copy number level #%d (C=%g) of %d", kk, cnKK, length(uniqueCNs)));
 
+    # Special case
+    if (cnKK == 0) {
+      verbose && cat(verbose, "TCN=0 => BAF not defined. Skipping.");
+      verbose && exit(verbose);
+      next;
+    }
+
     keep <- which(cn == cnKK);
     yKK <- y[keep];
 
-    # Exclude missing and non-finited values when fitting the density
-    yT <- yKK[is.finite(yKK)];
-    fit <- findPeaksAndValleys(yT, adjust=adjust, ...);
-    verbose && cat(verbose, "Identified extreme points in density of BAF:");
-    verbose && print(verbose, fit);
+    idx <- which(cnKK == cns);
+    if (length(idx) != 1) {
+      msg <- sprintf("Cannot call genotypes for %d loci with true total copy number %d, because the naive genotype model was not fit for such copy numbers. Skipping.", length(yKK), cnKK);
+      verbose && cat(verbose, msg);
+      verbose && exit(verbose);
+      next;
+    }
 
-    fit <- subset(fit, type == "valley");
-    nbrOfGenotypeGroups <- nrow(fit) + 1L;
+    fitKK <- modelFit[[idx]];
+    verbose && cat(verbose, "Model fit:");
+    verbose && print(verbose, fitKK);
+
+    fitPeaks <- fitKK$fitPeaks;
+    nbrOfGenotypeGroups <- nrow(fitPeaks) + 1L;
     verbose && cat(verbose, "Local minimas (\"valleys\") in BAF:");
-    verbose && print(verbose, fit);
+    verbose && print(verbose, fitPeaks);
 
     # Call genotypes
     muKK <- rep(naValue, length(yKK));
-    if (cnKK == 0) {
-      verbose && cat(verbose, "TCN=0 => BAF not defined. Skipping.");
-    } else if (cnKK == 1) {
+    if (cnKK == 1) {
       verbose && cat(verbose, "TCN=1 => BAF in {0,1}.");
       # Sanity check
       stopifnot(nbrOfGenotypeGroups == 2);
-      a <- fit$x[1];
+      a <- fitPeaks$x[1];
+      verbose && printf(verbose, "Call regions: A = (-Inf,%.3f], B = (%.3f,+Inf)\n", a, a);
       muKK[yKK <= a] <- 0;
       muKK[a < yKK] <- 1;
     } else if (cnKK == 2) {
       verbose && cat(verbose, "TCN=2 => BAF in {0,1/2,1}.");
       # Sanity check
       stopifnot(nbrOfGenotypeGroups == 3);
-      a <- fit$x[1];
-      b <- fit$x[2]; 
+      a <- fitPeaks$x[1];
+      b <- fitPeaks$x[2]; 
+      verbose && printf(verbose, "Call regions: AA = (-Inf,%.3f], AB = (%.3f,%.3f], BB = (%.3f,+Inf)\n", a, a, b, b);
       muKK[yKK <= a] <- 0;
       muKK[a < yKK & yKK <= b] <- 1/2;
       muKK[b < yKK] <- 1;
+    } else {
+      verbose && printf(verbose, "TCN=%d => Skipping.\n", cnKK);
     }
     mu[keep] <- muKK;
 
@@ -186,7 +190,7 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Return genotype calls (and parameter estimates)
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  attr(mu, "modelFit") <- fit;
+  attr(mu, "modelFit") <- modelFit;
 
   verbose && exit(verbose);
 
@@ -196,6 +200,9 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
 
 ###########################################################################
 # HISTORY:
+# 2010-10-07
+# o Now callNaiveGenotypes() utilizes fitNaiveGenotypes().
+# o Added more detailed verbose to callNaiveGenotypes().
 # 2010-07-23
 # o Now callNaiveGenotypes() returns the model estimates as attribute
 #   'modelFit'.

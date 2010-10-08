@@ -19,7 +19,7 @@
    Calls genotypes in a normal sample.
  }
 
- \usage{\method{callNaiveGenotypes}{numeric}(y, cn=rep(2, length(y)), flavor=c("density"), adjust=1.5, ..., censorAt=c(-0.5, +1.5), verbose=FALSE)}
+ \usage{\method{callNaiveGenotypes}{numeric}(y, cn=rep(2, length(y)), flavor=c("density"), ..., modelFit=NULL, verbose=FALSE)}
 
  \arguments{
   \item{y}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J containing allele B fractions
@@ -29,12 +29,9 @@
     used to specify which loci are diploid and which are not, e.g.
     autosomal and sex chromosome copy numbers.}
   \item{flavor}{A \code{\link[base]{character}} string specifying the type of algorithm used.}
-  \item{adjust}{A postive \code{\link[base]{double}} specifying the amount smoothing for
-    the empirical density estimator.}
-  \item{...}{Additional arguments passed to \code{\link{findPeaksAndValleys}}().}
-  \item{censorAt}{A \code{\link[base]{double}} \code{\link[base]{vector}} of length two specifying the range
-    for which values are considered finite.  Values below (above) this
-    range are treated as -\code{\link[base:is.finite]{Inf}} (+\code{\link[base:is.finite]{Inf}}).}
+  \item{...}{Additional arguments passed to \code{\link[aroma.light:fitNaiveGenotypes.numeric]{*fitNaiveGenotypes}()}.}
+  \item{modelFit}{A optional model fit as returned
+    by \code{\link[aroma.light:fitNaiveGenotypes.numeric]{*fitNaiveGenotypes}()}.}
   \item{verbose}{A \code{\link[base]{logical}} or a \code{\link[R.utils]{Verbose}} object.}
  }
 
@@ -108,6 +105,6 @@ abline(v=fit$x)
  \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
 
  \seealso{
-   Internally \code{\link{findPeaksAndValleys}}() is used to identify the thresholds.
+   Internally \code{\link[aroma.light:fitNaiveGenotypes.numeric]{*fitNaiveGenotypes}()} is used to identify the thresholds.
  }
 \keyword{methods}
