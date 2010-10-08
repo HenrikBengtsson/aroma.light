@@ -1,6 +1,14 @@
 Package: aroma.light
 ====================
 
+Version: 1.17.5 [2010-10-07]
+o Added optional argument 'fit' to callNaiveGenotypes() for passing
+  a model fit returned by fitNaiveGenotypes().  If not specified,
+  callNaiveGenotypes() will call fitNaiveGenotypes() internally.
+o Added fitNaiveGenotypes(), which previously was only internal
+  of callNaiveGenotypes().
+
+
 Version: 1.17.4 [2010-10-06]
 o Added findPeaksAndValleys() for the 'density' class, which then
   findPeaksAndValleys() for 'numeric' utilizes.
