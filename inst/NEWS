@@ -1,6 +1,11 @@
 Package: aroma.light
 ====================
 
+Version: 1.17.6 [2010-10-08]
+o Now findPeaksAndValleys() returns a object of class PeaksAndValleys,
+  which extends data.frame.
+
+
 Version: 1.17.5 [2010-10-07]
 o Added optional argument 'fit' to callNaiveGenotypes() for passing
   a model fit returned by fitNaiveGenotypes().  If not specified,

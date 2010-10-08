@@ -25,7 +25,8 @@
 # }
 #
 # \value{
-#   Returns a @data.frame of "peaks" and "valleys" filtered by \code{tol}.
+#   Returns a @data.frame (of class 'PeaksAndValleys') containing 
+#   of "peaks" and "valleys" filtered by \code{tol}.
 # }
 #
 # @examples "..\incl\findPeaksAndValleys.Rex"
@@ -60,6 +61,7 @@ setMethodS3("findPeaksAndValleys", "density", function(x, tol=0, ...) {
   x <- d$x[idxs];
   y <- d$y[idxs];
   res <- data.frame(type=types, x=x, density=y);
+  class(res) <- c("PeaksAndValleys", class(res));
 
   # Filter valleys by density?
   if (tol > 0) {
@@ -92,6 +94,9 @@ setMethodS3("findPeaksAndValleys", "numeric", function(x, tol=0, ..., na.rm=TRUE
 
 ############################################################################
 # HISTORY:
+# 2010-10-08 [HB]
+# o Now findPeaksAndValleys() returns a object of class PeaksAndValleys,
+#   which extends data.frame.
 # 2010-10-06 [HB]
 # o Added findPeaksAndValleys() for the 'density' class, which then
 #   findPeaksAndValleys() for 'numeric' utilizes.
