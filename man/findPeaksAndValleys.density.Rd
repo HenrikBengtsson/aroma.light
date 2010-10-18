@@ -35,7 +35,8 @@
  }
 
  \value{
-   Returns a \code{\link[base]{data.frame}} of "peaks" and "valleys" filtered by \code{tol}.
+   Returns a \code{\link[base]{data.frame}} (of class 'PeaksAndValleys') containing
+   of "peaks" and "valleys" filtered by \code{tol}.
  }
 
  \examples{

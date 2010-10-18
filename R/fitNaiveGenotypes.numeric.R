@@ -42,7 +42,7 @@
 #   Internally @see "findPeaksAndValleys" is used to identify the thresholds.
 # }
 #*/########################################################################### 
-setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), subsetToFit=NULL, flavor=c("density"), adjust=1.5, ..., censorAt=c(-0.5,+1.5), verbose=FALSE) {
+setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), subsetToFit=NULL, flavor=c("density"), adjust=1.5, ..., censorAt=c(-0.1,1.1), verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -67,12 +67,12 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), s
 
   # Argument 'subsetToFit':
   if (!is.null(subsetToFit)) {
-    subsetToFit <- as.integer(subsetToFit);
     if (is.logical(subsetToFit)) {
       if (length(subsetToFit) != J) {
         stop("The length of argument 'subsetToFit' does not match 'y': ",
                                          length(subsetToFit), " != ", J);
       }
+      subsetToFit <- which(subsetToFit);
     } else {
       subsetToFit <- as.integer(subsetToFit);
       subsetToFit <- sort(unique(subsetToFit));
@@ -93,6 +93,15 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), s
   if (adjust <= 0) {
     stop("Argument 'adjust' must be positive: ", adjust);
   }
+
+##   # Argument 'tol':
+##   tol <- as.double(tol);
+##   if (length(tol) != 1) {
+##     stop("Argument 'tol' must be single value: ", tol);
+##   }
+##   if (tol <= 0) {
+##     stop("Argument 'tol' must be positive: ", tol);
+##   }
 
   # Argument 'censorAt':
   censorAt <- as.double(censorAt);
@@ -174,17 +183,17 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), s
     verbose && cat(verbose, "Identified extreme points in density of BAF:");
     verbose && print(verbose, fit);
 
-    fitPeaks <- subset(fit, type == "valley");
-    nbrOfGenotypeGroups <- nrow(fitPeaks) + 1L;
+    fitValleys <- subset(fit, type == "valley");
+    nbrOfGenotypeGroups <- nrow(fitValleys) + 1L;
     verbose && cat(verbose, "Local minimas (\"valleys\") in BAF:");
-    verbose && print(verbose, fitPeaks);
+    verbose && print(verbose, fitValleys);
 
     # Store
     fitList[[kk]] <- list(
       cn=cnKK,
       nbrOfGenotypeGroups=nbrOfGenotypeGroups,
       fit=fit,
-      fitPeaks=fitPeaks,
+      fitValleys=fitValleys,
       n=n
     );
     verbose && exit(verbose);
@@ -200,6 +209,13 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), s
 
 ###########################################################################
 # HISTORY:
+# 2010-10-14
+# o TYPO FIX: Used name 'fitPeaks' instead of 'fitValleys'.
+# 2010-10-12
+# o New default of argument 'censorAt' for fitNaiveGenotypes().
+# o BUG FIX: fitNaiveGenotypes(..., subsetToFit=<logical>) would throw
+#   an exception reporting "Some elements of argument 'subsetToFit' is 
+#   out of range ...".
 # 2010-10-07
 # o Created from callNaiveGenotypes.R.
 ###########################################################################
