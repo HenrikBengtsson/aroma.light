@@ -1,6 +1,27 @@
 Package: aroma.light
 ====================
 
+Version: 1.19.1 [2010-10-18]
+o Same updates as in v1.18.1.
+
+
+Version: 1.19.0 [2010-10-18]
+o The version number was bumped for the Bioconductor devel version.
+
+
+Version: 1.18.1 [2010-10-18]
+o These updates were supposed to be in v1.17.7, but we forgot
+  to commit them to the BioC repository before the new BioC release.
+o Argument 'censorAt' for fitNaiveGenotypes() has new default.
+o BUG FIX: fitNaiveGenotypes(..., subsetToFit=<logical>) would throw
+  an exception reporting "Some elements of argument 'subsetToFit' is 
+  out of range ...".
+
+
+Version: 1.18.0 [2010-10-18]
+o The version number was bumped for the Bioconductor release version.
+
+
 Version: 1.17.6 [2010-10-08]
 o Now findPeaksAndValleys() returns a object of class PeaksAndValleys,
   which extends data.frame.

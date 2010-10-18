@@ -150,10 +150,10 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
     verbose && cat(verbose, "Model fit:");
     verbose && print(verbose, fitKK);
 
-    fitPeaks <- fitKK$fitPeaks;
-    nbrOfGenotypeGroups <- nrow(fitPeaks) + 1L;
+    fitValleys <- fitKK$fitValleys;
+    nbrOfGenotypeGroups <- nrow(fitValleys) + 1L;
     verbose && cat(verbose, "Local minimas (\"valleys\") in BAF:");
-    verbose && print(verbose, fitPeaks);
+    verbose && print(verbose, fitValleys);
 
     # Call genotypes
     muKK <- rep(naValue, length(yKK));
@@ -161,7 +161,7 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
       verbose && cat(verbose, "TCN=1 => BAF in {0,1}.");
       # Sanity check
       stopifnot(nbrOfGenotypeGroups == 2);
-      a <- fitPeaks$x[1];
+      a <- fitValleys$x[1];
       verbose && printf(verbose, "Call regions: A = (-Inf,%.3f], B = (%.3f,+Inf)\n", a, a);
       muKK[yKK <= a] <- 0;
       muKK[a < yKK] <- 1;
@@ -169,8 +169,8 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
       verbose && cat(verbose, "TCN=2 => BAF in {0,1/2,1}.");
       # Sanity check
       stopifnot(nbrOfGenotypeGroups == 3);
-      a <- fitPeaks$x[1];
-      b <- fitPeaks$x[2]; 
+      a <- fitValleys$x[1];
+      b <- fitValleys$x[2]; 
       verbose && printf(verbose, "Call regions: AA = (-Inf,%.3f], AB = (%.3f,%.3f], BB = (%.3f,+Inf)\n", a, a, b, b);
       muKK[yKK <= a] <- 0;
       muKK[a < yKK & yKK <= b] <- 1/2;
@@ -200,6 +200,8 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
 
 ###########################################################################
 # HISTORY:
+# 2010-10-14
+# o TYPO FIX: Used name 'fitPeaks' instead of 'fitValleys'.
 # 2010-10-07
 # o Now callNaiveGenotypes() utilizes fitNaiveGenotypes().
 # o Added more detailed verbose to callNaiveGenotypes().

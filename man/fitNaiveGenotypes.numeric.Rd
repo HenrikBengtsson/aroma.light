@@ -19,7 +19,7 @@
    Fit naive genotype model from a normal sample.
  }
 
- \usage{\method{fitNaiveGenotypes}{numeric}(y, cn=rep(2, length(y)), subsetToFit=NULL, flavor=c("density"), adjust=1.5, ..., censorAt=c(-0.5, +1.5), verbose=FALSE)}
+ \usage{\method{fitNaiveGenotypes}{numeric}(y, cn=rep(2, length(y)), subsetToFit=NULL, flavor=c("density"), adjust=1.5, ..., censorAt=c(-0.1, 1.1), verbose=FALSE)}
 
  \arguments{
   \item{y}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J containing allele B fractions
