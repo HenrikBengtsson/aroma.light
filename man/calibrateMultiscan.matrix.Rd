@@ -123,6 +123,7 @@
  \examples{\dontrun{# For an example, see help(normalizeAffine).}}
 
  \seealso{
+   \code{\link{1. Calibration and Normalization}}.
    \code{\link[aroma.light:normalizeAffine.matrix]{*normalizeAffine}()}.
    For more information see \code{\link{matrix}}.
  }

@@ -112,6 +112,7 @@
 # \examples{\dontrun{# For an example, see help(normalizeAffine).}}
 #
 # \seealso{
+#   @see "1. Calibration and Normalization".
 #   @seemethod "normalizeAffine".
 #   @seeclass
 # }
