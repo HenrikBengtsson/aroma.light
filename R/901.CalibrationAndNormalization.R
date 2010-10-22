@@ -24,7 +24,7 @@
 #   In Bengtsson et al (2004) we give evidence that microarray scanners
 #   can introduce a significant bias in data. This bias, which is
 #   about 15-25 out of 65535, \emph{will} introduce intensity dependency
-#   in the log-ratios, as explained in Bengtsson \& 
+#   in the log-ratios, as explained in Bengtsson & 
 #   \enc{Hössjer}{Hossjer} (2006).
 #
 #   In Bengtsson et al (2004) we find that this bias is stable across
@@ -32,8 +32,10 @@
 #   in order to tell if this is true over a longer time period. 
 #
 #   To calibrate signals for scanner biases, scan the same array at
-#   multiple PMT-settings (in decreasing order) at three or more PMT
-#   settings. Do this \emph{without} washing, cleaning or by other 
+#   multiple PMT-settings at three or more (K >= 3) different 
+#   PMT settings (preferably in decreasing order).
+#   While doing this, \emph{do not adjust the laser power settings}.
+#   Also, do the multiscan \emph{without} washing, cleaning or by other 
 #   means changing the array between subsequent scans. 
 #   Although not necessary, it is preferred that the array 
 #   remains in the scanner between subsequent scans. This will simplify
@@ -56,7 +58,7 @@
 # }
 #
 # \section{Affine normalization}{
-#   In Bengtsson \& \enc{Hössjer}{Hossjer} (2006), we carry out a detailed
+#   In Bengtsson & \enc{Hössjer}{Hossjer} (2006), we carry out a detailed
 #   study on how biases in each channel introduce so called 
 #   intensity-dependent log-ratios among other systematic artifacts. 
 #   Data with (additive) bias in each channel is said to be \emph{affinely} 
@@ -151,7 +153,7 @@
 #   Why not quantile normalization? 
 #   Affine normalization can be though of a special case of quantile 
 #   normalization that is more robust than the latter. 
-#   See Bengtsson \& \enc{Hössjer}{Hossjer} (2006) for details.
+#   See Bengtsson & \enc{Hössjer}{Hossjer} (2006) for details.
 #   Quantile normalization is probably better to apply than curve-fit 
 #   normalization methods, but less robust than affine normalization, 
 #   especially at extreme (low and high) intensities.
