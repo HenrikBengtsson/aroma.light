@@ -55,6 +55,12 @@
 #   Multiscan calibration may sometimes be skipped, especially if affine 
 #   normalization is applied immediately after, but we do recommend that
 #   every lab check at least once if their scanner introduce bias.
+#   If the offsets in a scanner is already estimated from earlier
+#   multiscan analyses, or known by other means, they can readily be
+#   subtracted from the signals of each channel.  If arrays are still
+#   multiscanned, it is possible to force the calibration method to
+#   fit the model with zero intercept (assuming the scanner offsets
+#   have been subtracted) by adding argument \code{center=FALSE}.
 # }
 #
 # \section{Affine normalization}{
@@ -161,6 +167,14 @@
 #   and if this is not satisfactory, quantile normalization may be applied.
 # }
 #
+# \section{Linear (proportional) normalization}{
+#   If the channel offsets are zero, already corrected for, or estimated
+#   by other means, it is possible to normalize the data robustly by
+#   fitting the above affine model without intercept, that is, fitting
+#   a truly linear model.  This is done adding argument \code{center=FALSE}
+#   when calling \code{normalizeAffine()}.
+# }
+#
 # @author
 #*/#########################################################################
 
@@ -170,6 +184,10 @@
 
 ############################################################################
 # HISTORY:
+# 2011-02-05
+# o DOCUMENTATION: Added paragraphs on how to do affine normalization 
+#   when channel offsets are known/zero.  Same for multiscan calibration
+#   when scanner offsets are known/zero. 
 # 2006-06-29
 # o Added to aroma.light instead.
 # 2005-02-02

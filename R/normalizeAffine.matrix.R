@@ -45,14 +45,14 @@
 #    weights given in argument \code{weights}.
 #  }
 #  \item{method}{A @character string specifying how the estimates are 
-#    robustified.  See @see "iwpca" for all accepted values.} 
+#    robustified.  See @seemethod "iwpca" for all accepted values.} 
 #  \item{constraint}{Constraint making the bias parameters identifiable.
 #    See @seemethod "fitIWPCA" for more details.}
 #  \item{satSignal}{Signals equal to or above this threshold will not
 #    be used in the fitting.}
 #  \item{...}{Other arguments passed to @seemethod "fitIWPCA" and in
-#   turn @see "iwpca". For example, the weight argument of @see "iwpca".
-#   See also below.}
+#   turn @seemethod "iwpca". For example, the weight argument 
+#   of @seemethod "iwpca".  See also below.}
 #  \item{.fitOnly}{If @TRUE, the data will not be back-transform.}
 # }
 #
@@ -97,6 +97,20 @@
 #  We do not use Tukey's biweight function for reasons similar to those
 #  outlined in @seemethod "calibrateMultiscan".
 # } 
+#
+# \section{Using known/previously estimated channel offsets}{
+#  If the channel offsets can be assumed to be known, then it is
+#  possible to fit the affine model with no (zero) offset, which
+#  formally is a linear (proportional) model, by specifying
+#  argument \code{center=FALSE}.
+#  In order to do this, the channel offsets have to be subtracted 
+#  from the signals manually before normalizing, e.g. 
+#  \code{Xa <- t(t(X)-a)} where \code{e} is @vector of length
+#  \code{ncol(X)}.  Then normalize by
+#  \code{Xn <- normalizeAffine(Xa, center=FALSE)}.
+#  You can assert that the model is fitted without offset by
+#  \code{stopifnot(all(attr(Xn, "modelFit")$adiag == 0))}.
+# }
 #
 # \details{
 #  A line is fitted robustly throught the \eqn{(y_R,y_G)} observations
@@ -197,6 +211,10 @@ setMethodS3("normalizeAffine", "matrix", function(X, weights=NULL, typeOfWeights
 
 ############################################################################
 # HISTORY:
+# 2011-02-05
+# o DOCUMENTATION: Added section on how to normalize when channel offsets
+#   are supposed to be known/zero.
+# o DOCUMENTATION: Fixed broken links to help for iwpca().
 # 2005-06-03
 # o Added argument 'typeOfWeights' to make it similar to other normalization
 #   methods, although only "datapoint" weights are allowed.
