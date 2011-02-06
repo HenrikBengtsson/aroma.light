@@ -49,7 +49,7 @@
 #    Defaults to one, if missing.
 #  }
 #
-#  \item{...}{Additional arguments accepted by @see "iwpca".
+#  \item{...}{Additional arguments accepted by @seemethod "iwpca".
 #   For instance, a N @vector of weights for each observation may be
 #    given, otherwise they get the same weight.
 #  }
@@ -118,7 +118,7 @@
 # \seealso{
 #   This is an internal method used by the @seemethod "calibrateMultiscan"
 #   and @seemethod "normalizeAffine" methods.
-#   Internally the function @see "iwpca" is used to fit a line 
+#   Internally the function @seemethod "iwpca" is used to fit a line 
 #   through the data cloud and the function @see "distanceBetweenLines" to
 #   find the closest point to the diagonal (1,1,...,1).
 # }
@@ -355,6 +355,8 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
 
 ###########################################################################
 # HISTORY:
+# 2011-02-05
+# o DOCUMENTATION: Fixed broken links to help for iwpca(). 
 # 2006-01-22
 # o Added Rdoc help on the returned parameters.
 # o If missing, 'baselineChannel' is now set to one before calling the

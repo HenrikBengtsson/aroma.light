@@ -55,14 +55,14 @@
    weights given in argument \code{weights}.
  }
  \item{method}{A \code{\link[base]{character}} string specifying how the estimates are
-   robustified.  See \code{\link{iwpca}}() for all accepted values.}
+   robustified.  See \code{\link[aroma.light:iwpca.matrix]{*iwpca}()} for all accepted values.}
  \item{constraint}{Constraint making the bias parameters identifiable.
    See \code{\link[aroma.light:fitIWPCA.matrix]{*fitIWPCA}()} for more details.}
  \item{satSignal}{Signals equal to or above this threshold will not
    be used in the fitting.}
  \item{...}{Other arguments passed to \code{\link[aroma.light:fitIWPCA.matrix]{*fitIWPCA}()} and in
-  turn \code{\link{iwpca}}(). For example, the weight argument of \code{\link{iwpca}}().
-  See also below.}
+  turn \code{\link[aroma.light:iwpca.matrix]{*iwpca}()}. For example, the weight argument
+  of \code{\link[aroma.light:iwpca.matrix]{*iwpca}()}.  See also below.}
  \item{.fitOnly}{If \code{\link[base:logical]{TRUE}}, the data will not be back-transform.}
 }
 
@@ -106,6 +106,19 @@
 
  We do not use Tukey's biweight function for reasons similar to those
  outlined in \code{\link[aroma.light:calibrateMultiscan.matrix]{*calibrateMultiscan}()}.
+}
+
+\section{Using known/previously estimated channel offsets}{
+ If the channel offsets can be assumed to be known, then it is
+ possible to fit the affine model with no (zero) offset, which
+ formally is a linear (proportional) model, by specifying
+ argument \code{center=FALSE}.
+ In order to do this, the channel offsets have to be subtracted
+ from the signals manually before normalizing, e.g.
+ \code{Xa <- t(t(X)-a)} where \code{e} is \code{\link[base]{vector}} of length
+ \code{Xn <- normalizeAffine(Xa, center=FALSE)}.
+ You can assert that the model is fitted without offset by
+ \code{stopifnot(all(attr(Xn, "modelFit")$adiag == 0))}.
 }
 
 \details{

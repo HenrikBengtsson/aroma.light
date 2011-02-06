@@ -59,7 +59,7 @@
    Defaults to one, if missing.
  }
 
- \item{...}{Additional arguments accepted by \code{\link{iwpca}}().
+ \item{...}{Additional arguments accepted by \code{\link[aroma.light:iwpca.matrix]{*iwpca}()}.
   For instance, a N \code{\link[base]{vector}} of weights for each observation may be
    given, otherwise they get the same weight.
  }
@@ -128,7 +128,7 @@
 \seealso{
   This is an internal method used by the \code{\link[aroma.light:calibrateMultiscan.matrix]{*calibrateMultiscan}()}
   and \code{\link[aroma.light:normalizeAffine.matrix]{*normalizeAffine}()} methods.
-  Internally the function \code{\link{iwpca}}() is used to fit a line
+  Internally the function \code{\link[aroma.light:iwpca.matrix]{*iwpca}()} is used to fit a line
   through the data cloud and the function \code{\link{distanceBetweenLines}}() to
   find the closest point to the diagonal (1,1,...,1).
 }

@@ -25,13 +25,13 @@
 #    weights given in argument \code{weights}.
 #  }
 #  \item{method}{A @character string specifying how the estimates are 
-#    robustified.  See @see "iwpca" for all accepted values.}
+#    robustified.  See @seemethod "iwpca" for all accepted values.}
 #  \item{constraint}{Constraint making the bias parameters identifiable.
 #    See @seemethod "fitIWPCA" for more details.}
 #  \item{satSignal}{Signals equal to or above this threshold is considered
 #    saturated signals.}
 #  \item{...}{Other arguments passed to @seemethod "fitIWPCA" and in
-#   turn @see "iwpca".}
+#   turn @seemethod "iwpca", e.g. \code{center} (see below).}
 #  \item{average}{A @function to calculate the average signals between calibrated scans.}
 #  \item{deviance}{A @function to calculate the deviance of the signals between calibrated scans.}
 #  \item{project}{If @TRUE, the calibrated data points projected onto the
@@ -96,6 +96,19 @@
 #  Moreover, using Tukey's biweight as is, that is, assuming homoscedastic
 #  noise, seems to introduce a (scale dependent) bias in the estimates 
 #  of the offset terms.
+# }
+#
+# \section{Using a known/previously estimated offset}{
+#  If the scanner offsets can be assumed to be known, for instance,
+#  from prior multiscan analyses on the scanner, then it is possible
+#  to fit the scanner model with no (zero) offset by specifying
+#  argument \code{center=FALSE}.
+#  Note that you cannot specify the offset.  Instead, subtract it
+#  from all signals before calibrating, e.g.
+#  \code{Xc <- calibrateMultiscan(X-e, center=FALSE)}
+#  where \code{e} is the scanner offset (a scalar).
+#  You can assert that the model is fitted without offset by
+#  \code{stopifnot(all(attr(Xc, "modelFit")$adiag == 0))}.
 # }
 #
 # \details{
@@ -206,6 +219,10 @@ setMethodS3("calibrateMultiscan", "matrix", function(X, weights=NULL, typeOfWeig
 
 ############################################################################
 # HISTORY:
+# 2011-02-05
+# o DOCUMENTATION: Added section on how to calibrate when scanner offsets
+#   are supposed to be known/zero.
+# o DOCUMENTATION: Fixed broken links to help for iwpca().
 # 2005-06-03
 # o Added argument 'typeOfWeights' to make it similar to other normalization
 #   methods, although only "datapoint" weights are allowed.
