@@ -116,6 +116,7 @@
  In order to do this, the channel offsets have to be subtracted
  from the signals manually before normalizing, e.g.
  \code{Xa <- t(t(X)-a)} where \code{e} is \code{\link[base]{vector}} of length
+ \code{ncol(X)}.  Then normalize by
  \code{Xn <- normalizeAffine(Xa, center=FALSE)}.
  You can assert that the model is fitted without offset by
  \code{stopifnot(all(attr(Xn, "modelFit")$adiag == 0))}.
