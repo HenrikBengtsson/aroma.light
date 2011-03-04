@@ -22,15 +22,16 @@
 
  \usage{
   \method{findPeaksAndValleys}{density}(x, tol=0, ...)
-  \method{findPeaksAndValleys}{numeric}(x, tol=0, ..., na.rm=TRUE)
+  \method{findPeaksAndValleys}{numeric}(x, ..., tol=0, na.rm=TRUE)
  }
 
  \arguments{
   \item{x}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} containing data points or
      a \code{\link[stats]{density}} object.}
+  \item{...}{Arguments passed to \code{\link[stats]{density}}.
+     Ignored if \code{x} is a \code{\link[stats]{density}} object.}
   \item{tol}{A non-negative \code{\link[base]{numeric}} threshold specifying the minimum
     density at the extreme point in order to accept it.}
-  \item{...}{Arguments passed to \code{\link[stats]{density}}.}
   \item{na.rm}{If \code{\link[base:logical]{TRUE}}, missing values are dropped, otherwise not.}
  }
 

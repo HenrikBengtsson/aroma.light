@@ -12,15 +12,16 @@
 # 
 # \usage{
 #  \method{findPeaksAndValleys}{density}(x, tol=0, ...)
-#  \method{findPeaksAndValleys}{numeric}(x, tol=0, ..., na.rm=TRUE)
+#  \method{findPeaksAndValleys}{numeric}(x, ..., tol=0, na.rm=TRUE)
 # }
 #
 # \arguments{
 #  \item{x}{A @numeric @vector containing data points or 
 #     a @see "stats::density" object.}
+#  \item{...}{Arguments passed to @see "stats::density".
+#     Ignored if \code{x} is a @see "stats::density" object.}
 #  \item{tol}{A non-negative @numeric threshold specifying the minimum
 #    density at the extreme point in order to accept it.}
-#  \item{...}{Arguments passed to @see "stats::density".}
 #  \item{na.rm}{If @TRUE, missing values are dropped, otherwise not.}
 # }
 #
@@ -72,7 +73,7 @@ setMethodS3("findPeaksAndValleys", "density", function(x, tol=0, ...) {
 }) # findPeaksAndValleys()
 
 
-setMethodS3("findPeaksAndValleys", "numeric", function(x, tol=0, ..., na.rm=TRUE) {
+setMethodS3("findPeaksAndValleys", "numeric", function(x, ..., tol=0, na.rm=TRUE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -94,6 +95,12 @@ setMethodS3("findPeaksAndValleys", "numeric", function(x, tol=0, ..., na.rm=TRUE
 
 ############################################################################
 # HISTORY:
+# 2011-03-03 [HB]
+# o BUG FIX: findPeaksAndValleys(x, to) were 'x' is numeric would use
+#   partial match and interpret 'to' as argument 'tol' and not part of
+#   '...' passed to density().  This problem was solved by placing '...'
+#   before argument 'tol'.  Thanks Oscar Rueda at the Cancer Reasearch UK
+#   for reporting and identify this bug.
 # 2010-10-08 [HB]
 # o Now findPeaksAndValleys() returns a object of class PeaksAndValleys,
 #   which extends data.frame.
