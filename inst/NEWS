@@ -27,7 +27,7 @@ o BUG FIX: findPeaksAndValleys(x, to) were 'x' is numeric would use
   partial match and interpret 'to' as argument 'tol' and not part of
   '...' passed to density().  This problem was solved by placing '...'
   before argument 'tol'.  Thanks Oscar Rueda at the Cancer Reasearch UK
-  for reporting and identify this bug.
+  for reporting on and identifying this bug.
 
 
 Version: 1.18.3 [2011-02-05]
