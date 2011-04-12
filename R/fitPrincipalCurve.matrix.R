@@ -48,7 +48,7 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
   # princurve v1.1-9 and before contains bugs. /HB 2008-05-26
   ver <- packageDescription("princurve")$Version;
   if (compareVersion(ver, "1.1-10") < 0) {
-    principal.curve <- principal.curve.hb;
+    throw("princurve v1.1-10 or newer is required: ", ver);
   }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -125,6 +125,11 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
 
 ###########################################################################
 # HISTORY:
+# 2011-04-12
+# o CLEANUP: Removed internal patch of principal.curve().  If an older
+#   version than princurve v1.1-10 is used, an informative error is
+#   thrown requesting an update.  The internal patch is part of the
+#   offical princurve v1.1-10 release (since 2009-10-04).
 # 2009-11-01
 # o Now fitPrincipalCurve() bug-fixed princurve v1.1-10.  If earlier 
 #   version are available, it used the internal patch.

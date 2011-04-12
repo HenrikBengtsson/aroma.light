@@ -111,11 +111,16 @@
 # @keyword "robust"
 #*/############################################################################
 setMethodS3("weightedMedian", "default", function(x, w, na.rm=NA, interpolate=is.null(ties), ties=NULL, method=c("quick", "shell"), ...) {
+  # Argument 'w':
   if (missing(w)) {
     # By default use weights that are one.
-    w <- rep(1, length(x));
+    w <- rep(1, times=length(x));
   }
 
+  naValue <- NA; 
+  storage.mode(naValue) <- storage.mode(x);
+
+  # Argument 'na.rm':
   if (is.na(na.rm)) {
     # There are no NAs
   } else if (identical(na.rm, TRUE)) {
@@ -124,7 +129,7 @@ setMethodS3("weightedMedian", "default", function(x, w, na.rm=NA, interpolate=is
     x <- .subset(x, tmp);
     w <- .subset(w, tmp);
   } else if (any(is.na(x))) {
-    return(NA);
+    return(naValue);
   }
 
   # Remove values with zero (and negative) weight. This will:
@@ -141,7 +146,7 @@ setMethodS3("weightedMedian", "default", function(x, w, na.rm=NA, interpolate=is
 
   # Are there any values left to calculate the weighted median of?
   if (n == 0) {
-    return(NA);
+    return(naValue);
   } else if (n == 1) {
     return(x);
   }
@@ -299,6 +304,8 @@ setMethodS3("weightedMedian", "default", function(x, w, na.rm=NA, interpolate=is
 
 ###############################################################################
 # HISTORY:
+# 2011-04-08
+# o Now weightedMedian() returns NA:s of the same mode as argument 'x'.
 # 2006-04-21
 # o Now negative weights are not check for, but instead treated as zero 
 #   weights.  This was done to minimize the overhead of the function.

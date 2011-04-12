@@ -44,7 +44,6 @@
 # @alias wpca
 # @alias fitPrincipalCurve
 # @alias backtransformPrincipalCurve
-# @alias principal.curve.hb % Internal patch of princurve::principal.curve().
 #
 # % Miscellaneous statistical functions
 # @alias likelihood
@@ -72,4 +71,3 @@
 # 2005-02-10
 # o Created to please R CMD check.
 ############################################################################
-

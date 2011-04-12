@@ -75,7 +75,7 @@ setMethodS3("sampleCorrelations", "matrix", function(X, MARGIN=1, pairs=NULL, np
   }
 
   # Pre-create result vector to optimize speed (and memory)
-  cors <- rep(NA, npairs);
+  cors <- rep(as.double(NA), times=npairs);
 
   if (MARGIN == 1) {
     for (kk in 1:npairs) {
@@ -100,6 +100,8 @@ setMethodS3("sampleCorrelations", "matrix", function(X, MARGIN=1, pairs=NULL, np
 
 ############################################################################
 # HISTORY: 
+# 2011-04-12
+# o Now using NAs of the correct storage type.
 # 2005-07-25
 # o Added Rdoc comments with a simple example.
 # 2005-04-07

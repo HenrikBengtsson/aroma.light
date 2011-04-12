@@ -15,10 +15,10 @@
 \alias{plotDensity.matrix}
 \alias{plotDensity.numeric}
 
-\title{Plots density distributions for a set of vector}
+\title{Plots density distributions for a set of vectors}
 
 \description{
- Plots density distributions for a set of vector.
+ Plots density distributions for a set of vectors.
 }
 
 \usage{\method{plotDensity}{list}(X, xlim=NULL, ylim=NULL, xlab=NULL, ylab="density (integrates to one)", col=1:length(X), lty=NULL, lwd=NULL, ..., add=FALSE)}

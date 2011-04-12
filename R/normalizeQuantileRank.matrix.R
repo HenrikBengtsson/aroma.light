@@ -137,7 +137,8 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
   maxNbrOfObservations <- nbrOfObservations;
 
   # Create a list S to hold the sorted values for each channels
-  S <- matrix(NA, nrow=maxNbrOfObservations, ncol=nbrOfChannels);
+  naValue <- as.double(NA);
+  S <- matrix(naValue, nrow=maxNbrOfObservations, ncol=nbrOfChannels);
 
   # Create a list O to hold the ordered indices for each channels
   O <- vector("list", nbrOfChannels);
@@ -262,6 +263,8 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
 
 ##############################################################################
 # HISTORY:
+# 2011-04-12
+# o Now using as.double(NA) instead of NA.
 # 2008-04-14
 # o Renamed normalizeQuantile() to normalizeQuantileRank().  Keeping the old
 #   name for backward compatibility.

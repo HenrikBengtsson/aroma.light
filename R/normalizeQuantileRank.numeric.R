@@ -64,7 +64,9 @@ setMethodS3("normalizeQuantileRank", "numeric", function(x, xTarget, ties=FALSE,
   nDiff <- (nTarget - n);
   if (nDiff > 0) {
     # Add hoc fix for differences in lengths.
-    x <- c(x, rep(NA, times=nDiff));
+    naValue <- NA;
+    storage.mode(naValue) <- storage.mode(x);
+    x <- c(x, rep(naValue, times=nDiff));
     n <- n + nDiff;
   }
 
@@ -121,6 +123,8 @@ setMethodS3("normalizeQuantile", "default", function(x, ...) {
 
 ##############################################################################
 # HISTORY:
+# 2011-04-12
+# o Now using NAs of the correct storage type.
 # 2008-04-14
 # o Renamed normalizeQuantile() to normalizeQuantileRank().  Keeping the old
 #   name for backward compatibility.
