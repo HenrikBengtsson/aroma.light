@@ -62,23 +62,35 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ## Former internal n.kn() is now available as n.knots() in stats v2.14.0.
+  rVer <- as.character(getRversion());
+  if (compareVersion(rVer, "2.14.0") >= 0) {
+    ## Cannot use n.knots <- stats:::n.knots because then
+    ## R CMD check will complain with R 2.13.x and before.
+    n.knots <- getAnywhere("n.knots")$obj[[1]];
+    # Sanity check
+    stopifnot(is.function(n.knots));
+  } else {
+    n.knots <- function(n) {
+        ## Number of inner knots
+        if (n < 50L) n
+        else trunc({
+            a1 <- log2( 50)
+            a2 <- log2(100)
+            a3 <- log2(140)
+            a4 <- log2(200)
+            if	(n < 200L) 2^(a1+(a2-a1)*(n-50)/150)
+            else if (n < 800L) 2^(a2+(a3-a2)*(n-200)/600)
+            else if (n < 3200L) 2^(a3+(a4-a3)*(n-800)/2400)
+            else 200 + (n-3200)^0.2
+        })
+    } # n.knots()
+  }
+
+
   smooth.spline.prepare <- function(x, w=NULL, df=5, spar=NULL, cv=FALSE, all.knots=FALSE, df.offset=0, penalty=1, control.spar=list()) {
     sknotl <- function(x) {
-      n.kn <- function(n) {
-        if (n < 50) 
-          n
-        else trunc({
-          a1 <- log(50, 2)
-          a2 <- log(100, 2)
-          a3 <- log(140, 2)
-          a4 <- log(200, 2)
-          if (n < 200) 2^(a1 + (a2 - a1) * (n - 50)/150) else if (n < 
-            800) 2^(a2 + (a3 - a2) * (n - 200)/600) else if (n < 
-            3200) 2^(a3 + (a4 - a3) * (n - 800)/2400) else 200 + 
-            (n - 3200)^0.2
-        })
-      }
-      nk <- n.kn(n <- length(x))
+      nk <- n.knots(n <- length(x))
       c(rep(x[1], 3), x[seq(1, n, len = nk)], rep(x[n], 3))
     }
     contr.sp <- list(low=-1.5, high=1.5, tol=1e-04, eps=2e-08, maxit=500,
@@ -200,6 +212,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
       prep <- x;
     } else {
       xy <- xy.coords(x,y);
+str(list(x=x,y=y,xy=xy,w=w));
       prep <- smooth.spline.prepare(x=xy$x, w=w, df=df, spar=spar, cv=cv, all.knots=all.knots, df.offset=df.offset, penalty=penalty, control.spar=control.spar);
       y <- xy$y;
       rm(xy);
@@ -317,8 +330,13 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
     rm(x,y,w); # HB /2008-07-20
   }
   
-  # Precalculate a lot of thing for speeding up subsequent calls to smooth.spline()
+  # Precalculate a lot of thing for speeding up subsequent calls
+  # to smooth.spline()
   spline.prep <- smooth.spline.prepare(x=g$x, w=g$w,...);
+
+  # Sanity check
+  stopifnot(with(spline.prep, {length(w) == length(ux)}));
+
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Step 0. Initiation
@@ -333,7 +351,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   # The important is that we use these (x,yin) as our 
   # (x,y) in the rest of the algorithm.
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  sdR0 <- NA;
+  sdR0 <- as.double(NA);
   col <- 0;
   ready <- FALSE;
   iter <- 0;
@@ -385,6 +403,13 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
 
 ######################################################################
 # HISTORY
+# 2011-04-12
+# o Now using as.double(NA) instead of NA, which is logical.
+# o Interestingly, stats::smooth.spline() of R v2.14.0 now does
+#   very similar speedups as robustSmoothSpline() has done 
+#   internally in its smooth.spline.fit() since 2002.  Great.
+# o CLEANUP: Now robustSmoothSpline() utilizes stats:::n.knots() 
+#   internally, if running on R v2.14.0 or newer.
 # 2008-07-20
 # o MEMORY OPTIMIZATION: Removing more variables when done etc.
 #   Helping the garbage collector by doing x <- as.vector(x) before

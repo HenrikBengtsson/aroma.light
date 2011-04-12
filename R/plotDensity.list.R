@@ -5,7 +5,7 @@
 # @alias plotDensity.matrix
 # @alias plotDensity.numeric
 #
-# @title "Plots density distributions for a set of vector"
+# @title "Plots density distributions for a set of vectors"
 #
 # \description{
 #  @get "title".

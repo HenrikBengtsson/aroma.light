@@ -1,6 +1,19 @@
 Package: aroma.light
 ====================
 
+Version: 1.19.6 [2011-04-12]
+o CLEANUP: Removed internal patch of principal.curve().  If an older
+  version than princurve v1.1-10 is used, an informative error is
+  thrown requesting an update.  The internal patch is part of the
+  offical princurve v1.1-10 release (since 2009-10-04).
+o Now all methods allocate objects with NAs of the appropriate mode.
+o KNOWN ISSUES: Recent updates to smooth.spline() in R v2.14.0 
+  causes robustSmoothSpline() to break in some cases.
+
+
+Version: 1.19.5 [2011-04-08]
+o Now weightedMedian() returns NA:s of the same mode as argument 'x'.
+
 
 Version: 1.19.4 [2011-03-03]
 o Same updates as in v1.18.4.

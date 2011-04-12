@@ -80,7 +80,8 @@ setMethodS3("backtransformAffine", "matrix", function(X, a=NULL, b=NULL, project
   } else if (is.matrix(a)) {
     # Create a full matrix and filled column by column by the columns in 'a'
     t <- a;
-    a <- matrix(NA, nrow=nobs, ncol=ndims);
+    naValue <- as.double(NA);
+    a <- matrix(naValue, nrow=nobs, ncol=ndims);
     for (cc in 1:ndims) {
       # Loop over the columns in a0 too.
       col <- ((cc-1) %% ncol(t)) + 1;
@@ -99,7 +100,8 @@ setMethodS3("backtransformAffine", "matrix", function(X, a=NULL, b=NULL, project
     } else if (is.matrix(b)) {
       # Create a full matrix and filled column by column by the columns in 'b'
       t <- b;
-      b <- matrix(NA, nrow=nobs, ncol=ndims);
+      naValue <- as.double(NA);
+      b <- matrix(naValue, nrow=nobs, ncol=ndims);
       for (cc in 1:ndims) {
         # Loop over the columns in a0 too.
         col <- ((cc-1) %% ncol(t)) + 1;
@@ -151,6 +153,8 @@ setMethodS3("backtransformAffine", "matrix", function(X, a=NULL, b=NULL, project
 
 ############################################################################
 # HISTORY:
+# 2011-04-12
+# o Now using as.double(NA) instead of NA.
 # 2006-06-03
 # o Minor to merge two different threads of this code.
 # o Method passes the tests in the example code (again).

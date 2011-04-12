@@ -46,7 +46,9 @@ setMethodS3("sampleTuples", "default", function(x, size, length, ...) {
     throw("Argument 'length' must be one or greater: ", length);
 
   # Sample tuples
-  tuples <- matrix(NA, nrow=size, ncol=length);
+  naValue <- NA;
+  storage.mode(naValue) <- storage.mode(x);
+  tuples <- matrix(naValue, nrow=size, ncol=length);
   for (kk in seq(length=size)) {
     tuples[kk,] <- sample(x, size=length, ...);
   }
@@ -57,6 +59,8 @@ setMethodS3("sampleTuples", "default", function(x, size, length, ...) {
 
 ############################################################################
 # HISTORY: 
+# 2011-04-12
+# o Now using NAs of the correct storage type.
 # 2005-07-25
 # o Created generic sampleTuples().
 # 2005-04-07
