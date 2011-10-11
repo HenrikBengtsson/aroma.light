@@ -31,13 +31,14 @@
 #
 # @author
 #*/######################################################################### 
-setMethodS3("plotMvsA", "matrix", function(X, Alab="A", Mlab="M", Alim=c(0,16), Mlim=c(-1,1)*diff(Alim), pch=".", ..., add=FALSE) {
+setMethodS3("plotMvsA", "matrix", function(X, Alab="A", Mlab="M", Alim=c(0,16), Mlim=c(-1,1)*diff(Alim)*aspectRatio, aspectRatio=1, pch=".", ..., add=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'X':
-  if (ncol(X) != 2)
+  if (ncol(X) != 2) {
     throw("Argument 'X' must have exactly two columns: ", ncol(X));
+  }
 
   if (!add) {
     plot(NA, xlab=Alab, ylab=Mlab, xlim=Alim, ylim=Mlim);
@@ -56,6 +57,9 @@ setMethodS3("plotMvsA", "matrix", function(X, Alab="A", Mlab="M", Alim=c(0,16), 
 
 ############################################################################
 # HISTORY:
+# 2011-06-26
+# o Added argument 'aspectRatio' to plotMvsA().  It can be used to adjust
+#   the range of the 'Mlim' argument relative to the 'Alim' argument.
 # 2005-09-06
 # o Coercing to doubles to avoid overflow when multiplying to integers.
 # o Now non-positive signals are excluded.

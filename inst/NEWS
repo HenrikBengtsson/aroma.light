@@ -1,6 +1,11 @@
 Package: aroma.light
 ====================
 
+Version: 1.21.1 [2011-06-26]
+o Added argument 'aspectRatio' to plotMvsA().  It can be used to adjust
+  the range of the 'Mlim' argument relative to the 'Alim' argument.
+
+
 Version: 1.21.0 [2011-04-13]
 o The version number was bumped for the Bioconductor devel version.
 
