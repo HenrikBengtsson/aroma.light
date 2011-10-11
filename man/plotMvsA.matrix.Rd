@@ -18,7 +18,7 @@
   Plot log-ratios vs log-intensities.
 }
 
-\usage{\method{plotMvsA}{matrix}(X, Alab="A", Mlab="M", Alim=c(0, 16), Mlim=c(-1, 1) * diff(Alim), pch=".", ..., add=FALSE)}
+\usage{\method{plotMvsA}{matrix}(X, Alab="A", Mlab="M", Alim=c(0, 16), Mlim=c(-1, 1) * diff(Alim) * aspectRatio, aspectRatio=1, pch=".", ..., add=FALSE)}
 
 \arguments{
  \item{X}{Nx2 \code{\link[base]{matrix}} with two channels and N observations.}
