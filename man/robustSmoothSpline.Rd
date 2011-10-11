@@ -12,7 +12,7 @@
 
 \title{Robust fit of a Smoothing Spline}
 
-\usage{\method{robustSmoothSpline}{default}(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), sdCriteria=2e-04, reps=1e-15, plotCurves=FALSE)}
+\usage{\method{robustSmoothSpline}{default}(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), sdCriteria=2e-04, reps=1e-15, tol=1e-06 * IQR(x), plotCurves=FALSE)}
 
 \description{
   Fits a smoothing spline robustly using the \eqn{L_1} norm. Currently, the
@@ -43,6 +43,7 @@
            steps. Default value is 2e-4.}
   \item{reps}{Small positive number added to residuals to avoid division by
            zero when calculating new weights for next iteration.}
+  \item{tol}{Passed to \code{\link[stats]{smooth.spline}} (R >= 2.14.0).}
   \item{plotCurves}{If \code{\link[base:logical]{TRUE}}, the fitted splines are added to the current
         plot, otherwise not.}
 }

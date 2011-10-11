@@ -1,6 +1,17 @@
 Package: aroma.light
 ====================
 
+Version: 1.21.2 [2011-10-10]
+o Updated robustSmoothSpline() such that it works with the new
+  "uniqueness" scheme of smooth.spline() in R v2.14.0 and newer.
+  It is tricky, because robustSmoothSpline() is a reiterative 
+  algorithm which requires that the choosen "unique" x:s does
+  not change in each iteration.  Previously, 'signif(x, 6)' was
+  used to identify unique x:s, which gives the same set of values
+  when called twice, whereas this is not true for the new choice
+  with 'round((x - mean(x))/tol)'.
+
+
 Version: 1.21.1 [2011-06-26]
 o Added argument 'aspectRatio' to plotMvsA().  It can be used to adjust
   the range of the 'Mlim' argument relative to the 'Alim' argument.

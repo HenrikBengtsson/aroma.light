@@ -14,6 +14,7 @@
 #  \item{X}{Nx2 @matrix with two channels and N observations.}
 #  \item{Alab,Mlab}{Labels on the x and y axes.}
 #  \item{Alim,Mlim}{Plot range on the A and M axes.}
+#  \item{aspectRatio}{Aspect ratio between \code{Mlim} and \code{Alim}.}
 #  \item{pch}{Plot symbol used.}
 #  \item{...}{Additional arguments accepted by @see "graphics::points".}
 #  \item{add}{If @TRUE, data points are plotted in the current plot, 
