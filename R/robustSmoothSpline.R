@@ -34,6 +34,7 @@
 #            steps. Default value is 2e-4.}
 #   \item{reps}{Small positive number added to residuals to avoid division by
 #            zero when calculating new weights for next iteration.}
+#   \item{tol}{Passed to @see "stats::smooth.spline" (R >= 2.14.0).}
 #   \item{plotCurves}{If @TRUE, the fitted splines are added to the current
 #         plot, otherwise not.}
 # }
@@ -53,7 +54,7 @@
 # @keyword "smooth"
 # @keyword "robust"
 #*/############################################################################
-setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), sdCriteria=2e-4, reps=1e-15, plotCurves=FALSE) {
+setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), sdCriteria=2e-4, reps=1e-15, tol=1e-6*IQR(x), plotCurves=FALSE) {
   require(stats) || throw("Package not loaded: stats");  # smooth.spline()
 
   # To please RMD CMD check for R v2.6.0
@@ -63,13 +64,36 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## Former internal n.kn() is now available as n.knots() in stats v2.14.0.
-  rVer <- as.character(getRversion());
-  if (compareVersion(rVer, "2.14.0") >= 0) {
+  rVer <- getRversion();
+  if (rVer >= "2.14.0") {
     ## Cannot use n.knots <- stats:::n.knots because then
     ## R CMD check will complain with R 2.13.x and before.
     n.knots <- getAnywhere("n.knots")$obj[[1]];
     # Sanity check
     stopifnot(is.function(n.knots));
+
+    whichUnique <- function(x, ...) {
+      # We need to make sure that 'g$x == x' below. /HB 2011-10-10
+      xx <- x;
+      keep <- rep(TRUE, times=length(x));
+      while (TRUE) {
+        idxs <- which(keep);
+        xx <- round((x[idxs] - mean(x[idxs]))/tol);  # de-mean to avoid possible overflow
+        dups <- duplicated(xx);
+        if (!any(dups)) {
+          break;
+        }
+        keep[idxs[dups]] <- FALSE;
+      } # while()
+      nd <- keep;
+  
+      # Sanity check
+      stopifnot(length(nd) == length(x));
+
+      which(nd);
+    } # whichUnique()
+
+    stats.smooth.spline <- smooth.spline;
   } else {
     n.knots <- function(n) {
         ## Number of inner knots
@@ -85,19 +109,36 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
             else 200 + (n-3200)^0.2
         })
     } # n.knots()
-  }
+
+    whichUnique <- function(x, ...) {
+      tx <- signif(x, 6);
+      utx <- unique(sort(tx));
+      otx <- match(utx, tx);
+      otx;
+    } # whichUnique()
+
+    stats.smooth.spline <- function(..., tol) {
+      smooth.spline(...);
+    }
+  } # if (rVer ...)
 
 
-  smooth.spline.prepare <- function(x, w=NULL, df=5, spar=NULL, cv=FALSE, all.knots=FALSE, df.offset=0, penalty=1, control.spar=list()) {
+  smooth.spline.prepare <- function(x, w=NULL, df=5, spar=NULL, cv=FALSE, all.knots=FALSE, df.offset=0, penalty=1, control.spar=list(), tol=1e-6*IQR(x)) {
     sknotl <- function(x) {
       nk <- n.knots(n <- length(x))
       c(rep(x[1], 3), x[seq(1, n, len = nk)], rep(x[n], 3))
     }
-    contr.sp <- list(low=-1.5, high=1.5, tol=1e-04, eps=2e-08, maxit=500,
-                     trace=getOption("verbose"))
-    contr.sp[(namc <- names(control.spar))] <- control.spar
-    if (!all(sapply(contr.sp[1:4], is.double)) || contr.sp$tol < 0 ||
-             contr.sp$eps <= 0 || contr.sp$maxit <= 0) 
+
+    contr.sp <- list(low = -1.5, # low = 0.      was default till R 1.3.x
+                     high = 1.5,
+                     tol = 1e-4, # tol = 0.001   was default till R 1.3.x
+                     eps = 2e-8, # eps = 0.00244 was default till R 1.3.x
+                     maxit = 500, trace = getOption("verbose"));
+ 
+    contr.sp[names(control.spar)] <- control.spar
+
+    if (!all(sapply(contr.sp[1:4], is.numeric)) || contr.sp$tol < 0 ||
+             contr.sp$eps <= 0 || contr.sp$maxit <= 0)
       stop("invalid `control.spar'")
     # ------------ Differences from smooth.spline BEGIN -----------
     n <- length(x)
@@ -105,25 +146,29 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
       rep(1, n)
     else {
       if (n != length(w)) 
-        stop("lengths of x and w must match")
+        stop("lengths of 'x' and 'w' must match")
       if (any(w < 0)) 
         stop("all weights should be non-negative")
       if (all(w == 0)) 
         stop("some weights should be positive")
       (w * sum(w > 0))/sum(w)
     }
-    x <- signif(x, 6)
-    ux <- unique(sort(x))
-    nx <- length(ux)
-    if (nx <= 3) 
-        stop("need at least for unique `x' values")
+
+    uIdxs <- whichUnique(x);
+    ux <- sort(x[uIdxs]);
+    nx <- length(ux);
+    if (nx == n) {
+      ox <- 1:n;
+    } else {
+      ox <- match(x, ux);
+    }
+
+    if (nx <= 3)
+        stop("need at least four unique `x' values")
     if (cv && nx < n) 
         warning("crossvalidation with non-unique `x' seems doubtful")
     # ------------ Differences from smooth.spline BEGIN -----------
-    if (nx == n)
-      ox <- 1:n
-    else
-      ox <- match(x, ux)
+    # ...
     # ------------ Differences from smooth.spline END -----------
     r.ux <- ux[nx] - ux[1]
     xbar <- (ux - ux[1])/r.ux
@@ -156,6 +201,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
     object;
   } # smooth.spline.prepare()
 
+  
   
   smooth.spline.fit <- function(prep, y=NULL) {
     nx <- prep$nx
@@ -308,28 +354,47 @@ str(list(x=x,y=y,xy=xy,w=w));
   # we have to remove corresponding weights too. There is a small problem here;
   # if different weights are used for data points (x,y,w) with same x-value, which 
   # data points (x,y,w) should be used? Here we use the first one only. /HB 2005-01-24
-  tx <- signif(x, 6);
-  utx <- unique(sort(tx));
-  otx <- match(utx, tx);
-  w0 <- w[otx];
-  rm(tx, utx, otx); # /HB 2008-07-20
+
+
+  uIdxs <- whichUnique(x);
+  nu <- length(uIdxs);
+  w0 <- w[uIdxs];
+
+  # WORKAROUND
+  if (rVer >= "2.14.0") {
+    # We need to make sure that 'g$x == x' below. /HB 2011-10-10
+    x <- x[uIdxs];
+    y <- y[uIdxs];
+    w <- w[uIdxs];
+    uIdxs <- seq(along=x);
+  }
 
   if (inherits(x, "smooth.spline")) {
     g <- x;
   } else if (missing(w) || is.null(w)) {
     x <- as.vector(x);
     y <- as.vector(y);
-    g <- smooth.spline(x, y, ...);
+    g <- stats.smooth.spline(x, y, ..., tol=tol);
+
+    # Sanity check /HB 2011-10-10
+    stopifnot(length(g$x) == nu);
+##    stopifnot(all.equal(sort(g$x), sort(x[uIdxs]), tolerance=1e-6));
+
     rm(x,y); # HB /2008-07-20
   } else {
 #    warning("Robust *weighted* smoothing splines are not implemented yet!")
     x <- as.vector(x);
     y <- as.vector(y);
     w <- as.vector(w);
-    g <- smooth.spline(x, y, w=w, ...);
+    g <- stats.smooth.spline(x, y, w=w, ..., tol=tol);
+
+    # Sanity check /HB 2011-10-10
+    stopifnot(length(g$x) == nu);
+##    stopifnot(all.equal(sort(g$x), sort(x[uIdxs]), tolerance=1e-6));
+
     rm(x,y,w); # HB /2008-07-20
   }
-  
+
   # Precalculate a lot of thing for speeding up subsequent calls
   # to smooth.spline()
   spline.prep <- smooth.spline.prepare(x=g$x, w=g$w,...);
@@ -395,7 +460,7 @@ str(list(x=x,y=y,xy=xy,w=w));
       lines(g, col=(col<-col+1));
 
     sdR0 <- sdR;
-  }
+  } # while ( ... )
 
   g;
 }) # robustSmoothSpline()
@@ -403,6 +468,15 @@ str(list(x=x,y=y,xy=xy,w=w));
 
 ######################################################################
 # HISTORY
+# 2011-10-10
+# o Updated robustSmoothSpline() such that it works with the new
+#   "uniqueness" scheme of smooth.spline() in R v2.14.0 and newer.
+#   It is tricky, because robustSmoothSpline() is a reiterative 
+#   algorithm which requires that the choosen "unique" x:s does
+#   not change in each iteration.  Previously, 'signif(x, 6)' was
+#   used to identify unique x:s, which gives the same set of values
+#   when called twice, whereas this is not true for the new choice
+#   with 'round((x - mean(x))/tol)'.
 # 2011-04-12
 # o Now using as.double(NA) instead of NA, which is logical.
 # o Interestingly, stats::smooth.spline() of R v2.14.0 now does
