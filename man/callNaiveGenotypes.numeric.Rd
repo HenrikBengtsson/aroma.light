@@ -19,7 +19,7 @@
    Calls genotypes in a normal sample.
  }
 
- \usage{\method{callNaiveGenotypes}{numeric}(y, cn=rep(2, length(y)), flavor=c("density"), ..., modelFit=NULL, verbose=FALSE)}
+ \usage{\method{callNaiveGenotypes}{numeric}(y, cn=rep(2, length(y)), ..., modelFit=NULL, verbose=FALSE)}
 
  \arguments{
   \item{y}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J containing allele B fractions
@@ -28,7 +28,6 @@
     total copy number in \eqn{\{0,1,2,NA\}} at each locus.  This can be
     used to specify which loci are diploid and which are not, e.g.
     autosomal and sex chromosome copy numbers.}
-  \item{flavor}{A \code{\link[base]{character}} string specifying the type of algorithm used.}
   \item{...}{Additional arguments passed to \code{\link[aroma.light:fitNaiveGenotypes.numeric]{*fitNaiveGenotypes}()}.}
   \item{modelFit}{A optional model fit as returned
     by \code{\link[aroma.light:fitNaiveGenotypes.numeric]{*fitNaiveGenotypes}()}.}

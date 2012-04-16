@@ -42,7 +42,7 @@
 #   Internally @see "findPeaksAndValleys" is used to identify the thresholds.
 # }
 #*/########################################################################### 
-setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), subsetToFit=NULL, flavor=c("density"), adjust=1.5, ..., censorAt=c(-0.1,1.1), verbose=FALSE) {
+setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), subsetToFit=NULL, flavor=c("density", "fixed"), adjust=1.5, ..., censorAt=c(-0.1,1.1), verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -179,23 +179,44 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), s
     yT <- yKK[is.finite(yKK)];
     n <- length(yT);
 
-    fit <- findPeaksAndValleys(yT, adjust=adjust, ...);
-    verbose && cat(verbose, "Identified extreme points in density of BAF:");
-    verbose && print(verbose, fit);
+    if (flavor == "density") {
+      fit <- findPeaksAndValleys(yT, adjust=adjust, ...);
+      verbose && cat(verbose, "Identified extreme points in density of BAF:");
+      verbose && print(verbose, fit);
 
-    fitValleys <- subset(fit, type == "valley");
-    nbrOfGenotypeGroups <- nrow(fitValleys) + 1L;
-    verbose && cat(verbose, "Local minimas (\"valleys\") in BAF:");
-    verbose && print(verbose, fitValleys);
+      fitValleys <- subset(fit, type == "valley");
+      nbrOfGenotypeGroups <- nrow(fitValleys) + 1L;
+      verbose && cat(verbose, "Local minimas (\"valleys\") in BAF:");
+      verbose && print(verbose, fitValleys);
+      tau <- fitValleys$x;
+    } else if (flavor == "fixed") {
+      args <- list(...);
+      tau <- args$tau;
+      if (is.null(tau)) {
+        tau <- seq(length=cnKK) / (cnKK + 1L);
+      }
+      nbrOfGenotypeGroups <- length(tau) + 1L;
+    }
+
+    # Sanity check
+    stopifnot(length(tau) == nbrOfGenotypeGroups - 1L);
 
     # Store
-    fitList[[kk]] <- list(
+    fitKK <- list(
+      flavor = flavor,
       cn=cnKK,
-      nbrOfGenotypeGroups=nbrOfGenotypeGroups,
-      fit=fit,
-      fitValleys=fitValleys,
+      nbrOfGenotypeGroups=nbrOfGenotypeGroups,  # Not really used
+      tau=tau,
       n=n
     );
+
+    if (flavor == "density") {
+      fitKK$fit <- fit;
+      fitKK$fitValleys <- fitValleys;
+    }
+
+    fitList[[kk]] <- fitKK;
+
     verbose && exit(verbose);
   } # for (kk ...)
 
@@ -209,6 +230,10 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), s
 
 ###########################################################################
 # HISTORY:
+# 2012-04-16
+# o Added support for fitNaiveGenotypes(..., flavor="fixed").
+# o GENERALIZATION: Now fitNaiveGenotypes() returns also 'flavor' and 
+#   'tau'.  The latter are the genotype threshholds used by the caller.
 # 2010-10-14
 # o TYPO FIX: Used name 'fitPeaks' instead of 'fitValleys'.
 # 2010-10-12
