@@ -18,7 +18,6 @@
 #    total copy number in \eqn{\{0,1,2,NA\}} at each locus.  This can be 
 #    used to specify which loci are diploid and which are not, e.g. 
 #    autosomal and sex chromosome copy numbers.}
-#  \item{flavor}{A @character string specifying the type of algorithm used.}
 #  \item{...}{Additional arguments passed to @seemethod "fitNaiveGenotypes".}
 #  \item{modelFit}{A optional model fit as returned 
 #    by @seemethod "fitNaiveGenotypes".}
@@ -47,7 +46,7 @@
 #   Internally @seemethod "fitNaiveGenotypes" is used to identify the thresholds.
 # }
 #*/########################################################################### 
-setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), flavor=c("density"), ..., modelFit=NULL, verbose=FALSE) {
+setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), ..., modelFit=NULL, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -69,9 +68,6 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
     unknown <- paste(uniqueCNs[unknown], collapse=", ");
     stop("Argument 'cn' contains unknown CN levels: ", unknown);
   }
-
-  # Argument 'flavor':
-  flavor <- match.arg(flavor);
 
   # Argument 'modelFit':
   if (!is.null(modelFit)) {
@@ -100,14 +96,13 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
  
 
   verbose && enter(verbose, "Calling genotypes from allele B fractions (BAFs)");
-  verbose && cat(verbose, "Flavor: ", flavor);
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Fit naive genotype model?
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (is.null(modelFit)) {
     verbose && enter(verbose, "Fitting naive genotype model");
-    modelFit <- fitNaiveGenotypes(y=y, cn=cn, flavor=flavor, ..., verbose=verbose);
+    modelFit <- fitNaiveGenotypes(y=y, cn=cn, ..., verbose=verbose);
     verbose && print(verbose, modelFit);
     verbose && exit(verbose);
   }
@@ -150,27 +145,31 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
     verbose && cat(verbose, "Model fit:");
     verbose && print(verbose, fitKK);
 
-    fitValleys <- fitKK$fitValleys;
-    nbrOfGenotypeGroups <- nrow(fitValleys) + 1L;
-    verbose && cat(verbose, "Local minimas (\"valleys\") in BAF:");
-    verbose && print(verbose, fitValleys);
+    tau <- fitKK$tau;
+    if (is.null(tau)) {
+      # Backward compatibility
+      fitValleys <- fitKK$fitValleys;
+      verbose && cat(verbose, "Local minimas (\"valleys\") in BAF:");
+      verbose && print(verbose, fitValleys);
+      tau <- fitValleys$x;
+      # Not needed anymore
+      rm(fitValleys);
+    }
+    verbose && printf(verbose, "Genotype threshholds [%d]: %s\n", length(tau), hpaste(tau));
+
 
     # Call genotypes
     muKK <- rep(naValue, length(yKK));
     if (cnKK == 1) {
       verbose && cat(verbose, "TCN=1 => BAF in {0,1}.");
-      # Sanity check
-      stopifnot(nbrOfGenotypeGroups == 2);
-      a <- fitValleys$x[1];
+      a <- tau[1];
       verbose && printf(verbose, "Call regions: A = (-Inf,%.3f], B = (%.3f,+Inf)\n", a, a);
       muKK[yKK <= a] <- 0;
       muKK[a < yKK] <- 1;
     } else if (cnKK == 2) {
       verbose && cat(verbose, "TCN=2 => BAF in {0,1/2,1}.");
-      # Sanity check
-      stopifnot(nbrOfGenotypeGroups == 3);
-      a <- fitValleys$x[1];
-      b <- fitValleys$x[2]; 
+      a <- tau[1];
+      b <- tau[2]; 
       verbose && printf(verbose, "Call regions: AA = (-Inf,%.3f], AB = (%.3f,%.3f], BB = (%.3f,+Inf)\n", a, a, b, b);
       muKK[yKK <= a] <- 0;
       muKK[a < yKK & yKK <= b] <- 1/2;
@@ -200,6 +199,11 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
 
 ###########################################################################
 # HISTORY:
+# 2012-04-16
+# o CLEANUP: Dropped argument 'flavor' of callNaiveGenotypes(); it is
+#   now passed to fitNaiveGenotypes() via '...'.
+# o GENERALIZATION: Now callNaiveGenotypes() no longer relies on 'modelFit' 
+#   to hold a 'fitValleys' element, but rather a 'tau' element.
 # 2010-10-14
 # o TYPO FIX: Used name 'fitPeaks' instead of 'fitValleys'.
 # 2010-10-07
