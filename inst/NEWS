@@ -1,6 +1,10 @@
 Package: aroma.light
 ====================
 
+Version: 1.25.2 [2012-04-16]
+o 'R CMD check' no longer complaints about .Internal() calls.
+
+
 Version: 1.25.1 [2012-04-16]
 o Added support for fitNaiveGenotypes(..., flavor="fixed").
 o CLEANUP: Dropped argument 'flavor' of callNaiveGenotypes(); it 

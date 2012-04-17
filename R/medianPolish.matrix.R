@@ -49,6 +49,12 @@
 # @keyword "algebra"
 #*/######################################################################### 
 setMethodS3("medianPolish", "matrix", function(X, tol=0.01, maxIter=10, na.rm=NA, ..., .addExtra=TRUE) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Local functions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  code <- "function(x, partial) { .Internal(psort(x, partial))[partial] }";
+  psortGet <- eval(parse(text=code));
+
   dim <- dim(X);
   nrow <- dim[1];
   ncol <- dim[2];
@@ -107,18 +113,18 @@ setMethodS3("medianPolish", "matrix", function(X, tol=0.01, maxIter=10, na.rm=NA
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     rhalf <- (nrow+1)/2;
     if (nrow %% 2 == 1) {
-      rMedian <- function(x) .Internal(psort(x, rhalf))[rhalf];
+      rMedian <- function(x) psortGet(x, rhalf);
     } else {
       rpartial <- c(rhalf, rhalf+1);
-      rMedian <- function(x) sum(.Internal(psort(x, rpartial))[rpartial])/2;
+      rMedian <- function(x) sum(psortGet(x, rpartial))/2;
     }
 
     chalf <- (ncol+1)/2;
     if (ncol %% 2 == 1) {
-      cMedian <- function(x) .Internal(psort(x, chalf))[chalf];
+      cMedian <- function(x) psortGet(x, chalf);
     } else {
       cpartial <- c(chalf, chalf+1);
-      cMedian <- function(x) sum(.Internal(psort(x, cpartial))[cpartial])/2;
+      cMedian <- function(x) sum(psortGet(x, cpartial))/2;
     }
     
     oldSum <- 0;
@@ -165,6 +171,8 @@ setMethodS3("medianPolish", "matrix", function(X, tol=0.01, maxIter=10, na.rm=NA
 
 ############################################################################
 # HISTORY:
+# 2012-04-16
+# o Added local function psortGet() to medianPolish().
 # 2006-05-16
 # o Created from stats::medpolish().
 ############################################################################

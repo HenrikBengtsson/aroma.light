@@ -111,6 +111,21 @@
 # @keyword "robust"
 #*/############################################################################
 setMethodS3("weightedMedian", "default", function(x, w, na.rm=NA, interpolate=is.null(ties), ties=NULL, method=c("quick", "shell"), ...) {
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Local functions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  code <- "function(x, partial) { .Internal(psort(x, partial))[partial] }";
+  psortGet <- eval(parse(text=code));
+
+  qsort <- function(x) {
+    ## .Internal(qsort(x, TRUE));  # index.return=TRUE
+    sort.int(x, index.return=TRUE, method="quick");
+  } # qsort()
+
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Validate arguments
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'w':
   if (missing(w)) {
     # By default use weights that are one.
@@ -162,10 +177,10 @@ setMethodS3("weightedMedian", "default", function(x, w, na.rm=NA, interpolate=is
     n <- length(x);
     half <- (n+1)/2;
     if (n%%2 == 1) {
-      return(.Internal(psort(x, half))[half]);
+      return(psortGet(x, half));
     } else {
       partial <- c(half, half+1);
-     return(sum(.Internal(psort(x, partial))[partial])/2);
+      return(sum(psortGet(x, partial))/2);
     }
   }
   
@@ -180,11 +195,13 @@ setMethodS3("weightedMedian", "default", function(x, w, na.rm=NA, interpolate=is
   # Order the values and order the weights
   if (identical(method, "quick")) {
     # Using new (from R v1.5.0) internal quick sort.
-    l <- .Internal(qsort(x, TRUE));  # index.return=TRUE
+    l <- qsort(x);                   # index.return=TRUE
     x <- .subset2(l, 1);             # l$x
     w <- .subset(w, .subset2(l, 2)); # l$index
   } else {
-    ord <- .Internal(order(TRUE, FALSE, x));  # == order(x)
+    # .Internal() calls are no longer allowed. /HB 2012-04-16
+    ## ord <- .Internal(order(TRUE, FALSE, x));  # == order(x)
+    ord <- order(x);
     x <- .subset(x, ord);
     w <- .subset(w, ord);
   }
@@ -304,6 +321,10 @@ setMethodS3("weightedMedian", "default", function(x, w, na.rm=NA, interpolate=is
 
 ###############################################################################
 # HISTORY:
+# 2012-04-16
+# o Added local function qsort() to weightedMedian(), which was adopted
+#   from calculateResidualSet() for ProbeLevelModel in aroma.affymatrix 2.5.0.
+# o Added local function psortGet() to weightedMedian().
 # 2011-04-08
 # o Now weightedMedian() returns NA:s of the same mode as argument 'x'.
 # 2006-04-21
