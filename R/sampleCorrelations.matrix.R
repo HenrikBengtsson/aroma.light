@@ -43,6 +43,16 @@
 #*/######################################################################### 
 setMethodS3("sampleCorrelations", "matrix", function(X, MARGIN=1, pairs=NULL, npairs=max(5000, nrow(X)), ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Local functions
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  corFast <- function(x, y, ...) {
+    ## .Internal() calls are no longer allowed. /HB 2012-04-16
+    ## # 3 == "pairwise.complete.obs"
+    ## .Internal(cor(x, y, as.integer(3), FALSE));
+    cor(x=x, y=y, use="pairwise.complete.obs", method="pearson");
+  } # corFast()
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'X'
@@ -82,24 +92,26 @@ setMethodS3("sampleCorrelations", "matrix", function(X, MARGIN=1, pairs=NULL, np
       pair <- pairs[kk,];
       x <- X[pair[1],];
       y <- X[pair[2],];
-      # 3 == "pairwise.complete.obs"
-      cors[kk] <- .Internal(cor(x, y, as.integer(3), FALSE));
+      cors[kk] <- corFast(x,y);
     }
   } else {
     for (kk in 1:npairs) {
       pair <- pairs[kk,];
       x <- X[,pair[1]];
       y <- X[,pair[2]];
-      cors[kk] <- .Internal(cor(x, y, as.integer(3), FALSE));
+      cors[kk] <- corFast(x,y);
     }
   }
 
   cors;
-})
+}) # sampleCorrelations()
 
 
 ############################################################################
 # HISTORY: 
+# 2012-04-16
+# o sampleCorrelations() no longer utilizes .Internal() calls.
+# o Added internal corFast() to sampleCorrelations().
 # 2011-04-12
 # o Now using NAs of the correct storage type.
 # 2005-07-25
