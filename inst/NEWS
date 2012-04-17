@@ -1,6 +1,10 @@
 Package: aroma.light
 ====================
 
+Version: 1.25.3 [2012-04-16]
+o Package no longer depends on R.methodsS3, only imports.
+
+
 Version: 1.25.2 [2012-04-16]
 o 'R CMD check' no longer complaints about .Internal() calls.
 

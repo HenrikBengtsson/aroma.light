@@ -4,7 +4,6 @@
 
 
 .onAttach <- function(libname, pkgname) {
-  # To please R CMD check
   requireX <- base::require;
   if (requireX("R.oo")) {
     pkg <- Package(pkgname);
