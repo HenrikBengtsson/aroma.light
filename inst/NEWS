@@ -11,9 +11,10 @@ o 'R CMD check' no longer complaints about .Internal() calls.
 
 Version: 1.25.1 [2012-04-16]
 o Added support for fitNaiveGenotypes(..., flavor="fixed").
+o GENERALIZATION: Now fitNaiveGenotypes() returns also 'flavor' and 
+  'tau'.  The latter are the genotype threshholds used by the caller. 
 o CLEANUP: Dropped argument 'flavor' of callNaiveGenotypes(); it 
   is instead passed to fitNaiveGenotypes() via '...'.
-
 
 Version: 1.25.0 [2012-03-30]
 o The version number was bumped for the Bioconductor devel version.
