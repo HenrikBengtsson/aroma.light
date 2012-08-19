@@ -71,6 +71,10 @@
 #
 # \section{License}{
 #   The releases of this package is licensed under 
+#   GPL version 2 or newer.
+#
+#   NB: Except for the \code{robustSmoothSpline()} method, 
+#   it is alright to distribute the rest of the package under
 #   LGPL version 2.1 or newer.
 #
 #   The development code of the packages is under a private licence 
@@ -102,4 +106,3 @@
 #     Lund University, 2002.\cr
 # }
 #*/#########################################################################
-

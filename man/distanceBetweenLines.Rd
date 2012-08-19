@@ -52,7 +52,7 @@
 for (zzz in 0) {
 
 # This example requires plot3d() in R.basic [http://www.braju.com/R/]
-if (!require(R.basic)) break
+if (!require(pkgName <- "R.basic", character.only=TRUE)) break
 
 layout(matrix(1:4, nrow=2, ncol=2, byrow=TRUE))
 
