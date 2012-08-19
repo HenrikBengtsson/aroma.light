@@ -81,7 +81,7 @@
   for (zzz in 0) {
 
 # This example requires plot3d() in R.basic [http://www.braju.com/R/]
-if (!require(R.basic)) break
+if (!require(pkgName <- "R.basic", character.only=TRUE)) break
 
 # -------------------------------------------------------------
 # A first example

@@ -1,3 +1,16 @@
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
+
 ############################################################################/**
 # @RdocDefault robustSmoothSpline
 #
@@ -46,7 +59,9 @@
 # @examples "../incl/robustSmoothSpline.Rex"
 #
 # \seealso{
-#   @see "stats::smooth.spline".
+#   This implementation of this function was adopted from 
+#   @see "stats::smooth.spline" of the \pkg{stats} package.
+#   Because of this, this function is also licensed under GPL~v2.
 # }
 #
 # @author
@@ -63,6 +78,62 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  getNativeSplineFitFunction <- function() {
+    # Locate all native Fortran routines
+    pkgName <- "stats";
+    fcns <- getDLLRegisteredRoutines(pkgName)$.Fortran;
+
+    # Starting with R v2.15.1 patched (rev 60026)
+    key <- "rbart";
+    if (is.element(key, names(fcns))) {
+      nparams <- fcns[[key]]$numParameters;
+      if (nparams == 20) {
+        fcn <- function(prep, ybar, wbar, yssw, nx, nk, ...) {
+          .Fortran(key, as.double(prep$penalty), as.double(prep$dofoff),
+             x=as.double(prep$xbar), y=as.double(ybar), w=as.double(wbar),
+             ssw=as.double(yssw), as.integer(nx), as.double(prep$knot),
+             as.integer(prep$nk), coef=double(nk), ty=double(nx), 
+             lev=double(nx), crit=double(1), iparms=prep$iparms, 
+             spar=prep$spar, parms=unlist(prep$contr.sp[1:4]),
+             scratch=double(17L * nk + 1L),
+             ld4=4L, ldnk=1L, ier=integer(1L),
+             DUP=TRUE, PACKAGE=pkgName);
+        } # fcn()
+        return(fcn);
+      }
+
+      throw(sprintf("Non-supported number of parameters for internal spline function %s(): %d", key, nparams));
+    }
+
+    # Prior to R v2.15.1 patched (rev 60026)
+    key <- "qsbart";
+    if (is.element(key, names(fcns))) {
+      nparams <- fcns[[key]]$numParameters;
+      if (nparams == 21) {
+        fcn <- function(prep, ybar, wbar, yssw, nx, nk, ...) {
+          .Fortran(key, as.double(prep$penalty), as.double(prep$dofoff),
+             x=as.double(prep$xbar), y=as.double(ybar), w=as.double(wbar), 
+             ssw=as.double(yssw), as.integer(nx), as.double(prep$knot), 
+             as.integer(prep$nk), coef=double(nk), ty=double(nx), 
+             lev=double(nx), crit=double(1), iparms=prep$iparms, 
+             spar=prep$spar, parms=unlist(prep$contr.sp[1:4]), 
+             isetup=as.integer(0),
+             scrtch=double((17 + nk) * nk),
+             ld4=as.integer(4), ldnk=as.integer(1), ier=integer(1),
+             DUP=FALSE, PACKAGE=pkgName);
+        } # fcn()
+        return(fcn);
+      }
+
+      throw(sprintf("Non-supported number of parameters for internal spline function %s(): %d", key, nparams));
+    }
+
+    # Failed to locate native function
+    pd <- packageDescription("aroma.light");
+    throw(sprintf("INTERNAL ERROR of robustSmoothSline(): Failed to locate an internal spline function for %s. Please report this to the package maintainer (%s) of %s.", R.version$version.string, pd$Maintainer, pd$Package));
+  } # getNativeSplineFitFunction()
+
+
   ## Former internal n.kn() is now available as n.knots() in stats v2.14.0.
   rVer <- getRversion();
   if (rVer >= "2.14.0") {
@@ -231,15 +302,9 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
     }
   
     nk <- prep$nk
-  
-    fit <- .Fortran("qsbart", as.double(prep$penalty), as.double(prep$dofoff), 
-      x=as.double(prep$xbar), y=as.double(ybar), w=as.double(wbar), 
-      ssw=as.double(yssw), as.integer(nx), as.double(prep$knot), 
-      as.integer(prep$nk), coef=double(nk), ty=double(nx), lev=double(nx), 
-      crit=double(1), iparms=prep$iparms, spar=prep$spar, parms=unlist(prep$contr.sp[1:4]), 
-      isetup=as.integer(0), scrtch=double((17 + nk) * nk), ld4=as.integer(4),
-      ldnk=as.integer(1), ier=integer(1), DUP=FALSE,
-      PACKAGE="stats");
+
+    fit <- fitFcn(prep=prep, ybar=ybar, wbar=wbar, yssw=yssw, nx=nx, nk=nk);
+
     # Clean up. /HB 2008-07-20
     rm(prep, yssw, nk);
 
@@ -416,6 +481,10 @@ str(list(x=x,y=y,xy=xy,w=w));
   # The important is that we use these (x,yin) as our 
   # (x,y) in the rest of the algorithm.
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Get a wrapper to the internal .Fortran() function
+  # which is not part of the public API of R. /HB 2012-08-19
+  fitFcn <- getNativeSplineFitFunction();
+
   sdR0 <- as.double(NA);
   col <- 0;
   ready <- FALSE;
@@ -468,6 +537,13 @@ str(list(x=x,y=y,xy=xy,w=w));
 
 ######################################################################
 # HISTORY
+# 2012-08-19
+# o Added local getNativeSplineFitFunction() function to
+#   robustSmoothSpline() which returns a wrapper to a proper
+#   native and internal spline fit function of R.
+# o Make it clear that robustSmoothSpline() is under GPL (>= 2),
+#   because it is adapted from smooth.spline() of R by R Core Team.
+#   Added a GPL source code header.
 # 2011-10-10
 # o Updated robustSmoothSpline() such that it works with the new
 #   "uniqueness" scheme of smooth.spline() in R v2.14.0 and newer.

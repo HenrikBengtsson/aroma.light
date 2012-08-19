@@ -1,6 +1,21 @@
 Package: aroma.light
 ====================
 
+Version: 1.26.0 [2012-08-19]
+o Changed the license of aroma.light to GPL (>= 2) from
+  of LGPL (>= 2), because some of the implementation was
+  adopted from GPL (>= 2) code, i.e. robustSmoothSpline()
+  uses code from stats::smooth.spline().
+o R CMD check no longer warns about some examples depending
+  on the R.basic package.
+
+
+Version: 1.25.4 [2012-08-19]
+o WORKAROUND: Now robustSmoothSpline() robustly locates the
+  proper native R fit function for smooth splines, which vary
+  with different releases of R.
+
+
 Version: 1.25.3 [2012-04-16]
 o Package no longer depends on R.methodsS3, only imports.
 
