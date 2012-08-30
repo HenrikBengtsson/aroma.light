@@ -1,6 +1,12 @@
 Package: aroma.light
 ====================
 
+Version: 1.26.1 [2012-08-30]
+o BUG FIX: robustSmoothSpline() would not work with most
+  recent R devel versions.
+o Updated the package dependencies.
+
+
 Version: 1.26.0 [2012-08-19]
 o Changed the license of aroma.light to GPL (>= 2) from
   LGPL (>= 2), because some of the implementation was
