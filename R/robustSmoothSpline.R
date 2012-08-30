@@ -88,8 +88,13 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
     if (is.element(key, names(fcns))) {
       nparams <- fcns[[key]]$numParameters;
       if (nparams == 20) {
+        expr <- parse(text="stats:::C_rbart");
+        routine <- eval(expr);
+        # Sanity check
+        stopifnot(inherits(routine, "FortranRoutine"));
         fcn <- function(prep, ybar, wbar, yssw, nx, nk, ...) {
-          .Fortran(key, as.double(prep$penalty), as.double(prep$dofoff),
+          .Fortran(routine, 
+             as.double(prep$penalty), as.double(prep$dofoff),
              x=as.double(prep$xbar), y=as.double(ybar), w=as.double(wbar),
              ssw=as.double(yssw), as.integer(nx), as.double(prep$knot),
              as.integer(prep$nk), coef=double(nk), ty=double(nx), 
@@ -537,6 +542,10 @@ str(list(x=x,y=y,xy=xy,w=w));
 
 ######################################################################
 # HISTORY
+# 2012-08-30
+# o BUG FIX: Now local getNativeSplineFitFunction() sets up the
+#   function such that it is called via a FortranRoutine object,
+#   rather than by name.
 # 2012-08-19
 # o Added local getNativeSplineFitFunction() function to
 #   robustSmoothSpline() which returns a wrapper to a proper
