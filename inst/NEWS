@@ -1,6 +1,16 @@
 Package: aroma.light
 ====================
 
+Version: 1.27.0 [2012-08-30]
+o CLEANUP: Removed weightedMedian(), which has been moved
+  to the matrixStats package.
+o BACKWARD COMPATIBILITY: Now package depends on the 
+  matrixStats (>= 0.5.2) package, so that weightedMedian()
+  is still available when loading this package.  In future
+  releases, matrixStats will be downgraded to only be a
+  suggested package.
+
+
 Version: 1.26.1 [2012-08-30]
 o BUG FIX: robustSmoothSpline() would not work with most
   recent R devel versions.

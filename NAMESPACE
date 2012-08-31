@@ -1,4 +1,4 @@
-import(R.methodsS3)
+import("R.methodsS3")
 
 # Export all public methods, that is, those without a preceeding dot
 # in their names.
