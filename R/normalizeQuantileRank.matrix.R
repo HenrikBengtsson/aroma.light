@@ -62,7 +62,7 @@
 # }
 #
 # \seealso{
-#   @see "stats::median", @see "weightedMedian",
+#   @see "stats::median", @see "matrixStats::weightedMedian",
 #   @see "base::mean" and @see "stats::weighted.mean".
 #   @seemethod "normalizeQuantileSpline".
 # }
