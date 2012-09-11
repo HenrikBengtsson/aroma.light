@@ -1,5 +1,5 @@
 Package: aroma.light
-Version: 1.27.0-1
+Version: 1.27.0-2
 Date: 2012-08-30
 Title: Light-weight methods for normalization and visualization of microarray data using only basic R data types
 Author: Henrik Bengtsson <henrikb@braju.com>
@@ -12,4 +12,4 @@ License: GPL (>= 2)
 biocViews: Infrastructure, Microarray, OneChannel, TwoChannel, MultiChannel, Visualization, Preprocessing
 URL: http://www.aroma-project.org/
 LazyLoad: TRUE
-Encoding: UTF-8
+Encoding: latin2
