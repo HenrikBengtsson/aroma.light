@@ -1,6 +1,11 @@
 Package: aroma.light
 ====================
 
+Version: 1.27.1 [2012-09-12]
+o ROBUSTNESS: Replaced an .Internal(psort(...)) call  in
+  medianPolish() with a call to matrixStats:::.psortKM().
+
+
 Version: 1.27.0 [2012-08-30]
 o CLEANUP: Removed weightedMedian(), which has been moved
   to the matrixStats package.
