@@ -9,12 +9,12 @@
 
 \name{plotXYCurve.matrix}
 \alias{plotXYCurve.matrix}
-\alias{plotXYCurve.matrix}
-
 
 \title{Plot the relationship between two variables as a smooth curve}
 
-\usage{\method{plotXYCurve}{matrix}(X, Y, col=1:nrow(X), lwd=NULL, xlim=NULL, ylim=xlim, xlab=NULL, ylab=NULL, ..., add=FALSE)}
+\usage{
+\method{plotXYCurve}{matrix}(X, Y, col=1:nrow(X), lwd=NULL, xlim=NULL, ylim=xlim, xlab=NULL, ylab=NULL, ..., add=FALSE)
+}
 
 \description{
   Plot the relationship between two variables as a smooth curve.
@@ -43,7 +43,7 @@
   Internally \code{\link{plotXYCurve.numeric}}() is used.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 
 

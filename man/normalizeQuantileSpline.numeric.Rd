@@ -9,12 +9,12 @@
 
 \name{normalizeQuantileSpline.numeric}
 \alias{normalizeQuantileSpline.numeric}
-\alias{normalizeQuantileSpline.numeric}
-
 
 \title{Normalizes the empirical distribution of a single sample to a target distribution}
 
-\usage{\method{normalizeQuantileSpline}{numeric}(x, w=NULL, xTarget, sortTarget=TRUE, ..., robust=TRUE)}
+\usage{
+\method{normalizeQuantileSpline}{numeric}(x, w=NULL, xTarget, sortTarget=TRUE, ..., robust=TRUE)
+}
 
 \description{
   Normalizes the empirical distribution of a single sample to a target distribution.
@@ -49,7 +49,7 @@
   \code{\link[aroma.light:normalizeQuantileRank.numeric]{*normalizeQuantileRank}()}.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \references{
   [1] H. Bengtsson, R. Irizarry, B. Carvalho, and T. Speed, \emph{Estimation and assessment of raw copy numbers at the single locus level}, Bioinformatics, 2008.

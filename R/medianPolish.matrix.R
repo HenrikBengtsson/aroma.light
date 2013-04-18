@@ -38,7 +38,7 @@
 #   there are no @NA values.
 # }
 #
-# @author
+# @author "HB"
 #
 # @examples "../incl/medianPolish.matrix.Rex"
 #
@@ -47,7 +47,7 @@
 # }
 #
 # @keyword "algebra"
-#*/######################################################################### 
+#*/#########################################################################
 setMethodS3("medianPolish", "matrix", function(X, tol=0.01, maxIter=10, na.rm=NA, ..., .addExtra=TRUE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
@@ -64,7 +64,7 @@ setMethodS3("medianPolish", "matrix", function(X, tol=0.01, maxIter=10, na.rm=NA
 
   # Overall effects
   t <- 0;
-  
+
   # Row effects
   r <- vector("double", nrow);
 
@@ -79,28 +79,28 @@ setMethodS3("medianPolish", "matrix", function(X, tol=0.01, maxIter=10, na.rm=NA
       rdelta <- apply(X, MARGIN=1, FUN=median, na.rm=na.rm);
       X <- X - rdelta;
       r <- r + rdelta
-  
+
       # Fit the overall effects
       delta <- median(c, na.rm=na.rm)
       c <- c - delta
       t <- t + delta
-      
+
       # Fit the column effects
       cdelta <- apply(X, MARGIN=2, FUN=median, na.rm=na.rm);
       X <- X - matrix(cdelta, nrow=nrow, ncol=ncol, byrow=TRUE)
       c <- c + cdelta
-  
+
       # Fit the overall effects
       delta <- median(r, na.rm=na.rm)
       r <- r - delta
       t <- t + delta
-  
+
       # Fit the overall effects
       newSum <- sum(abs(X), na.rm=na.rm);
       converged <- (newSum == 0 || abs(newSum - oldSum) < tol * newSum);
       if (converged)
           break;
-      
+
       oldSum <- newSum;
     } # for (ii ...)
   } else {
@@ -127,39 +127,39 @@ setMethodS3("medianPolish", "matrix", function(X, tol=0.01, maxIter=10, na.rm=NA
       # Average x(chalf) and x(chalf+1).
       cMedian <- function(x) sum(.psortKM(x, k=chalf+1L, m=2L))/2;
     }
-    
+
     oldSum <- 0;
     for (ii in 1:maxIter) {
       # Fit the row effects
       rdelta <- apply(X, MARGIN=1, FUN=cMedian);
       X <- X - rdelta;
       r <- r + rdelta;
-  
+
       # Fit the overall effects
       delta <- cMedian(c);
       c <- c - delta;
       t <- t + delta;
-      
+
       # Fit the column effects
       cdelta <- apply(X, MARGIN=2, FUN=rMedian);
       X <- X - matrix(cdelta, nrow=nrow, ncol=ncol, byrow=TRUE)
       c <- c + cdelta;
-  
+
       # Fit the overall effects
       delta <- rMedian(r);
       r <- r - delta;
       t <- t + delta;
-  
+
       # Fit the overall effects
       newSum <- sum(abs(X), na.rm=FALSE);
       converged <- (newSum == 0 || abs(newSum - oldSum) < tol * newSum);
       if (converged)
           break;
-      
+
       oldSum <- newSum;
     } # for (ii ...)
   }
-  
+
   res <- list(overall=t, row=r, col=c, residuals=X, converged=converged);
   if (.addExtra) {
     res$name <- name;

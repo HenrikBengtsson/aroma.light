@@ -9,8 +9,6 @@
 
  \name{fitNaiveGenotypes.numeric}
 \alias{fitNaiveGenotypes.numeric}
-\alias{fitNaiveGenotypes.numeric}
-
  \alias{fitNaiveGenotypes}
 
  \title{Fit naive genotype model from a normal sample}
@@ -19,7 +17,9 @@
    Fit naive genotype model from a normal sample.
  }
 
- \usage{\method{fitNaiveGenotypes}{numeric}(y, cn=rep(2, length(y)), subsetToFit=NULL, flavor=c("density", "fixed"), adjust=1.5, ..., censorAt=c(-0.1, 1.1), verbose=FALSE)}
+ \usage{
+\method{fitNaiveGenotypes}{numeric}(y, cn=rep(2, length(y)), subsetToFit=NULL, flavor=c("density", "fixed"), adjust=1.5, ..., censorAt=c(-0.1, 1.1), verbose=FALSE)
+}
 
  \arguments{
   \item{y}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J containing allele B fractions
@@ -45,7 +45,7 @@
    Returns a \code{\link[base]{list}} of \code{\link[base]{list}}s.
  }
 
- \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+ \author{Henrik Bengtsson}
 
  \seealso{
    To call genotypes see \code{\link[aroma.light:callNaiveGenotypes.numeric]{*callNaiveGenotypes}()}.

@@ -11,7 +11,7 @@
 # }
 #
 # \arguments{
-#   \item{X}{a @list with @numeric @vectors.  The @vectors may be of 
+#   \item{X}{a @list with @numeric @vectors.  The @vectors may be of
 #     different lengths.}
 #   \item{xTarget}{The target empirical distribution.  If @NULL, the target
 #     distribution is calculated as the average empirical distribution of
@@ -26,17 +26,14 @@
 #
 # \section{Missing values}{
 #   Missing values are excluded.
-#   Values that are @NA remain @NA after normalization. 
+#   Values that are @NA remain @NA after normalization.
 #   No new @NAs are introduced.
 # }
-# 
-# \author{
-#   Henrik Bengtsson, Statistics Department, 
-#   University of California at Berkeley.
-# }
+#
+# @author "HB"
 #
 # \seealso{
-#   The target empirical distribution is calculated as the average 
+#   The target empirical distribution is calculated as the average
 #   using @seemethod "averageQuantile".
 #   Each @vector is normalized toward this target disribution using
 #   @see "normalizeQuantileSpline.numeric".

@@ -9,8 +9,6 @@
 
 \name{plotMvsA.matrix}
 \alias{plotMvsA.matrix}
-\alias{plotMvsA.matrix}
-
 
 \title{Plot log-ratios vs log-intensities}
 
@@ -18,7 +16,9 @@
   Plot log-ratios vs log-intensities.
 }
 
-\usage{\method{plotMvsA}{matrix}(X, Alab="A", Mlab="M", Alim=c(0, 16), Mlim=c(-1, 1) * diff(Alim) * aspectRatio, aspectRatio=1, pch=".", ..., add=FALSE)}
+\usage{
+\method{plotMvsA}{matrix}(X, Alab="A", Mlab="M", Alim=c(0, 16), Mlim=c(-1, 1) * diff(Alim) * aspectRatio, aspectRatio=1, pch=".", ..., add=FALSE)
+}
 
 \arguments{
  \item{X}{Nx2 \code{\link[base]{matrix}} with two channels and N observations.}
@@ -40,5 +40,5 @@
   Returns nothing.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 \keyword{methods}

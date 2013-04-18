@@ -20,7 +20,7 @@
 #   \item{xlab, ylab}{The x and y labels.}
 #   \item{curveFit}{The @function used to fit the curve.  The two first
 #     arguments of the function must take \code{x} and \code{y}, and the
-#     function must return a @list with fitted elements \code{x} and 
+#     function must return a @list with fitted elements \code{x} and
 #     \code{y}.}
 #   \item{...}{Additional arguments passed to @see "graphics::lines"
 #     used to draw the curve.}
@@ -40,7 +40,7 @@
 #   @see "plotXYCurve.matrix".
 # }
 #
-# @author
+# @author "HB"
 #
 # @keyword "nonparametric"
 # @keyword "multivariate"

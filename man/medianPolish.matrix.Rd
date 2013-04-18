@@ -9,8 +9,6 @@
 
 \name{medianPolish.matrix}
 \alias{medianPolish.matrix}
-\alias{medianPolish.matrix}
-
 
 \title{Median polish}
 
@@ -18,7 +16,9 @@
   Median polish.
 }
 
-\usage{\method{medianPolish}{matrix}(X, tol=0.01, maxIter=10, na.rm=NA, ..., .addExtra=TRUE)}
+\usage{
+\method{medianPolish}{matrix}(X, tol=0.01, maxIter=10, na.rm=NA, ..., .addExtra=TRUE)
+}
 
 \arguments{
  \item{X}{N-times-K \code{\link[base]{matrix}}}
@@ -48,7 +48,7 @@
   there are no \code{\link[base]{NA}} values.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \examples{
 

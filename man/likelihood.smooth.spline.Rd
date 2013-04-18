@@ -9,12 +9,12 @@
 
 \name{likelihood.smooth.spline}
 \alias{likelihood.smooth.spline}
-\alias{likelihood.smooth.spline}
-
 
 \title{Calculate the log likelihood of a smoothing spline given the data}
 
-\usage{\method{likelihood}{smooth.spline}(object, x=NULL, y=NULL, w=NULL, base=exp(1), rel.tol=.Machine$double.eps^(1/8), ...)}
+\usage{
+\method{likelihood}{smooth.spline}(object, x=NULL, y=NULL, w=NULL, base=exp(1), rel.tol=.Machine$double.eps^(1/8), ...)
+}
 
 \arguments{
   \item{object}{The smooth.spline object.}
@@ -125,7 +125,7 @@ print(l)
   \code{\link[stats]{smooth.spline}} and \code{\link{robustSmoothSpline}}().
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 
 \keyword{methods}

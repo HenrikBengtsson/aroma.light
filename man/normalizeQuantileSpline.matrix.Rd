@@ -9,12 +9,12 @@
 
 \name{normalizeQuantileSpline.matrix}
 \alias{normalizeQuantileSpline.matrix}
-\alias{normalizeQuantileSpline.matrix}
-
 
 \title{Weighted sample quantile normalization}
 
-\usage{\method{normalizeQuantileSpline}{matrix}(X, xTarget, ...)}
+\usage{
+\method{normalizeQuantileSpline}{matrix}(X, xTarget, ...)
+}
 
 \description{
   Normalizes channels so they all have the same average sample
@@ -66,7 +66,7 @@ plotXYCurve(X, Xn2, xlim=xlim, main="The three normalized distributions")
   \code{\link[aroma.light:normalizeQuantileRank.matrix]{*normalizeQuantileRank}()}.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \references{
   [1] H. Bengtsson, R. Irizarry, B. Carvalho, and T. Speed, \emph{Estimation and assessment of raw copy numbers at the single locus level}, Bioinformatics, 2008.

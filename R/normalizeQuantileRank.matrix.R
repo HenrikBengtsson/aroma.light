@@ -19,17 +19,17 @@
 # \arguments{
 #   \item{X}{a numerical NxK @matrix with the K columns representing the
 #     channels and the N rows representing the data points.}
-#   \item{robust}{If @TRUE, the (weighted) median function is used for 
+#   \item{robust}{If @TRUE, the (weighted) median function is used for
 #            calculating the average sample distribution, otherwise the
 #            (weighted) mean function is used.}
 #   \item{ties}{Should ties be specially treated or not?}
 #   \item{weights}{If @NULL, non-weighted normalization is done.
-#     If channel weights, this should be a @vector of length K specifying 
+#     If channel weights, this should be a @vector of length K specifying
 #     the weights for each channel.
-#     If signal weights, it should be an NxK @matrix specifying the 
+#     If signal weights, it should be an NxK @matrix specifying the
 #     weights for each signal.
 #   }
-#   \item{typeOfWeights}{A @character string specifying the type of 
+#   \item{typeOfWeights}{A @character string specifying the type of
 #     weights given in argument \code{weights}.}
 #   \item{...}{Not used.}
 # }
@@ -39,14 +39,14 @@
 # }
 #
 # \section{Missing values}{
-#   Missing values are excluded when estimating the "common" (the baseline) 
-#   distribution. Values that are @NA before remain @NA. No new @NAs are 
+#   Missing values are excluded when estimating the "common" (the baseline)
+#   distribution. Values that are @NA before remain @NA. No new @NAs are
 #   introduced.
 # }
-# 
+#
 # \section{Weights}{
 #   Currently only channel weights are support due to the way quantile
-#   normalization is done. 
+#   normalization is done.
 #   If signal weights are given, channel weights are calculated from these
 #   by taking the mean of the signal weights in each channel.
 # }
@@ -57,8 +57,8 @@
 #   Adopted from Gordon Smyth (\url{http://www.statsci.org/}) in 2002 \& 2006.
 #   Original code by Ben Bolstad at Statistics Department, University of
 #   California.
-#   Support for calculating the average sample distribution using (weighted) 
-#   mean or median was added by @get "author".
+#   Support for calculating the average sample distribution using (weighted)
+#   mean or median was added by Henrik Bengtsson.
 # }
 #
 # \seealso{
@@ -74,9 +74,9 @@
 setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FALSE, weights=NULL, typeOfWeights=c("channel", "signal"), ...) {
   zeroOneWeightsOnly <- TRUE;  # Until supported otherwise.
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   nbrOfChannels <- ncol(X);
   if(nbrOfChannels == 1)
     return(X);
@@ -101,7 +101,7 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
       stop("Argument 'weights' must not contain NA values.");
 
     if (any(weights < 0 | weights > 1)) {
-      stop("Argument 'weights' out of range [0,1]: ", 
+      stop("Argument 'weights' out of range [0,1]: ",
            paste(weights[weights < 0.0 | weights > 1.0], collapse=", "));
     }
 
@@ -131,9 +131,9 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
   } # if (!is.null(weights))
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 0. Setup
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   maxNbrOfObservations <- nbrOfObservations;
 
   # Create a list S to hold the sorted values for each channels
@@ -150,9 +150,9 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
   quantiles <- (0:(maxNbrOfObservations-1))/(maxNbrOfObservations-1);
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 1. Get the sample quantile for all channels (columns)
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   for (cc in 1:nbrOfChannels) {
     values <- X[,cc];
 
@@ -188,11 +188,11 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
     S[,cc] <- Scc;
   }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  # 2. Calculate the average sample distribution, of each quantile 
-  #    across all columns. This can be done robustly or not and 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # 2. Calculate the average sample distribution, of each quantile
+  #    across all columns. This can be done robustly or not and
   #    with weights or not.
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   useWeighted <- (!is.null(channelWeights) & any(channelWeights != 1));
   if (robust) {
     if (useWeighted) {
@@ -211,13 +211,13 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
   # Assert that xTarget is of then same length as number of observations
   stopifnot(length(xTarget) == maxNbrOfObservations);
 
-  
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 3. For all columns, get for each sample quantile the value of
   #    average sample distribution at that quantile.
   #
   # Input: X[r,c], xTarget[r], O[[c]][r], nbrOfFiniteObservations[c].
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   for (cc in 1:nbrOfChannels) {
     # Get the number of non-NA observations
     nobs <- nbrOfFiniteObservations[cc];
@@ -273,7 +273,7 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
 # 2006-02-08
 # o Rd bug fix: Fixed broken links to help for median() and weighted.mean().
 # 2005-06-03
-# o Replaced arguments 'channelWeights' and 'signalWeights' with 'weights' 
+# o Replaced arguments 'channelWeights' and 'signalWeights' with 'weights'
 #   and 'typeOfWeights'.
 # o Added Rdoc help on weights.
 # 2005-03-23

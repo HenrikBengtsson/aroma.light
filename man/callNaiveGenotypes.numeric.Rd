@@ -9,8 +9,6 @@
 
  \name{callNaiveGenotypes.numeric}
 \alias{callNaiveGenotypes.numeric}
-\alias{callNaiveGenotypes.numeric}
-
  \alias{callNaiveGenotypes}
 
  \title{Calls genotypes in a normal sample}
@@ -19,7 +17,9 @@
    Calls genotypes in a normal sample.
  }
 
- \usage{\method{callNaiveGenotypes}{numeric}(y, cn=rep(2, length(y)), ..., modelFit=NULL, verbose=FALSE)}
+ \usage{
+\method{callNaiveGenotypes}{numeric}(y, cn=rep(2, length(y)), ..., modelFit=NULL, verbose=FALSE)
+}
 
  \arguments{
   \item{y}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J containing allele B fractions
@@ -101,7 +101,7 @@ abline(v=fit$x)
    Positive infinity (+\code{\link[base:is.finite]{Inf}}) always gives genotype call 1.
  }
 
- \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+ \author{Henrik Bengtsson}
 
  \seealso{
    Internally \code{\link[aroma.light:fitNaiveGenotypes.numeric]{*fitNaiveGenotypes}()} is used to identify the thresholds.

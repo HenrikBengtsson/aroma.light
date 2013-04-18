@@ -15,25 +15,25 @@
 #  \item{X}{An Nx2 @matrix where the columns represent the two channels
 #    to be normalized.}
 #  \item{weights}{If @NULL, non-weighted normalization is done.
-#    If data-point weights are used, this should be a @vector of length 
-#    N of data point weights used when estimating the normalization 
+#    If data-point weights are used, this should be a @vector of length
+#    N of data point weights used when estimating the normalization
 #    function.
 #  }
-#  \item{typeOfWeights}{A @character string specifying the type of 
+#  \item{typeOfWeights}{A @character string specifying the type of
 #    weights given in argument \code{weights}.
 #  }
 #  \item{method}{@character string specifying which method to use when
 #    fitting the intensity-dependent function.
 #    Supported methods:
-#     \code{"loess"} (better than lowess), 
+#     \code{"loess"} (better than lowess),
 #     \code{"lowess"} (classic; supports only zero-one weights),
 #     \code{"spline"} (more robust than lowess at lower and upper
 #                      intensities; supports only zero-one weights),
 #     \code{"robustSpline"} (better than spline).
 #  }
-#  \item{bandwidth}{A @double value specifying the bandwidth of the 
+#  \item{bandwidth}{A @double value specifying the bandwidth of the
 #   estimator used.
-#  } 
+#  }
 #  \item{satSignal}{Signals equal to or above this threshold will not
 #    be used in the fitting.
 #  }
@@ -53,23 +53,23 @@
 # \section{Weighted normalization}{
 #  Each data point, that is, each row in \code{X}, which is a
 #  vector of length 2, can be assigned a weight in [0,1] specifying how much
-#  it should \emph{affect the fitting of the affine normalization function}. 
-#  Weights are given by argument \code{weights}, which should be a @numeric 
+#  it should \emph{affect the fitting of the normalization function}.
+#  Weights are given by argument \code{weights}, which should be a @numeric
 #  @vector of length N.
 #
-#  Note that the lowess and the spline method only support zero-one 
+#  Note that the lowess and the spline method only support zero-one
 #  \{0,1\} weights.
 #  For such methods, all weights that are less than a half are set to zero.
 # }
 #
 # \section{Details on loess}{
-#  For @see "stats::loess", the arguments \code{family="symmetric"}, 
-#  \code{degree=1}, \code{span=3/4}, 
-#  \code{control=loess.control(trace.hat="approximate"}, 
+#  For @see "stats::loess", the arguments \code{family="symmetric"},
+#  \code{degree=1}, \code{span=3/4},
+#  \code{control=loess.control(trace.hat="approximate"},
 #  \code{iterations=5}, \code{surface="direct")} are used.
 # }
 #
-# @author
+# @author "HB"
 #
 # \examples{
 #  @include "../incl/fitXYCurve.matrix.Rex"
@@ -84,10 +84,10 @@ setMethodS3("fitXYCurve", "matrix", function(X, weights=NULL, typeOfWeights=c("d
     stop("Curve-fit normalization requires two channels only: ", ncol(X));
   }
   if (nrow(X) < 3) {
-    stop("Curve-fit normalization requires at least three observations: ", 
+    stop("Curve-fit normalization requires at least three observations: ",
                                                                    nrow(X));
   }
-  
+
   # Argument: 'satSignal'
   if (satSignal < 0) {
     stop("Argument 'satSignal' is negative: ", satSignal);
@@ -110,7 +110,7 @@ setMethodS3("fitXYCurve", "matrix", function(X, weights=NULL, typeOfWeights=c("d
       stop("Argument 'weights' must not contain NA values.");
 
     if (any(weights < 0 | weights > 1)) {
-      stop("Argument 'weights' out of range [0,1]: ", 
+      stop("Argument 'weights' out of range [0,1]: ",
            paste(weights[weights < 0.0 | weights > 1.0], collapse=", "));
     }
 
@@ -131,7 +131,7 @@ setMethodS3("fitXYCurve", "matrix", function(X, weights=NULL, typeOfWeights=c("d
 
   # Argument: 'bandwidth'
   if (is.null(bandwidth)) {
-    bandwidths <- c("loess"=0.75, "lowess"=0.3, "robustSpline"=0.75, 
+    bandwidths <- c("loess"=0.75, "lowess"=0.3, "robustSpline"=0.75,
                     "spline"=0.75);
     bandwidth <- bandwidths[method];
   } else if (!is.numeric(bandwidth) || bandwidth <= 0 || bandwidth > 1) {
@@ -140,10 +140,10 @@ setMethodS3("fitXYCurve", "matrix", function(X, weights=NULL, typeOfWeights=c("d
     stop("Argument 'bandwidth' must be a scalar: ", paste(bandwidth, collapse=", "));
   }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 2. Prepare data
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Use only positive non-saturated observations to estimate the 
+  # Use only positive non-saturated observations to estimate the
   # normalization function
   isValid <- (is.finite(X) & (X <= satSignal));
   isValid <- (isValid[,1] & isValid[,2]);
@@ -158,9 +158,9 @@ setMethodS3("fitXYCurve", "matrix", function(X, weights=NULL, typeOfWeights=c("d
   rm(X, isValid); # Not needed anymore
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 3. Fit the curve
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (method == "lowess") {
     keep <- if (!is.null(datapointWeights)) (datapointWeights > 0) else TRUE;
     x <- x[keep];
@@ -169,9 +169,9 @@ setMethodS3("fitXYCurve", "matrix", function(X, weights=NULL, typeOfWeights=c("d
     fit <- lowess(x=x, y=y, f=bandwidth, ...);
     fit$predictY <- function(x) approx(fit, xout=x, ties=mean)$y;
   } else if (method == "loess") {
-    fit <- loess(formula=y ~ x, weights=datapointWeights, 
-                 family="symmetric", degree=1, span=bandwidth, 
-                 control=loess.control(trace.hat="approximate", 
+    fit <- loess(formula=y ~ x, weights=datapointWeights,
+                 family="symmetric", degree=1, span=bandwidth,
+                 control=loess.control(trace.hat="approximate",
                  iterations=5, surface="direct"), ...);
 
     fit$predictY <- function(x) predict(fit, newdata=x);

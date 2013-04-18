@@ -4,12 +4,12 @@
 # \encoding{latin1}
 #
 # \description{
-#   @eval "getDescription(aroma.light)" 
+#   @eval "getDescription(aroma.light)"
 # }
 #
 # \section{Requirements}{
 #   This package requires the \pkg{R.oo} package [1].
-# } 
+# }
 #
 # \section{Installation}{
 #   To install this package, see \url{http://www.braju.com/R/}.
@@ -32,7 +32,7 @@
 #   \enumerate{
 #     \item @see "normalizeQuantileRank.list", @see "normalizeQuantileSpline.list" - normalizes, on the intensity scale, for differences in empirical distribution between channels.
 #   }
-#    
+#
 #   To normalize two-channel arrays:
 #   \enumerate{
 #     \item @see "normalizeAffine.matrix" - normalizes, on the intensity scale, for differences in offset and scale between channels.  This will also correct for intensity-dependent affects on the log scale.
@@ -44,11 +44,11 @@
 #     \item @see "normalizeAffine.matrix" - normalizes, on the intensity scale, for differences in offset and scale between channels.  This will minimize the curvature on the log scale between any two channels.
 #   }
 # }
-# 
+#
 # \section{Further readings}{
-#   Several of the normalization methods proposed in [3]-[6] are 
+#   Several of the normalization methods proposed in [3]-[6] are
 #   available in this package.
-# } 
+# }
 #
 # \section{How to cite this package}{
 #   Whenever using this package, please cite [2] as\cr
@@ -63,33 +63,33 @@
 #    \item At the moment, nothing.
 #  }
 #
-#  If you consider to contribute, make sure it is not already 
+#  If you consider to contribute, make sure it is not already
 #  implemented by downloading the latest "devel" version!
-# } 
+# }
 #
-# @author
+# @author "*"
 #
 # \section{License}{
-#   The releases of this package is licensed under 
+#   The releases of this package is licensed under
 #   GPL version 2 or newer.
 #
-#   NB: Except for the \code{robustSmoothSpline()} method, 
+#   NB: Except for the \code{robustSmoothSpline()} method,
 #   it is alright to distribute the rest of the package under
 #   LGPL version 2.1 or newer.
 #
-#   The development code of the packages is under a private licence 
+#   The development code of the packages is under a private licence
 #   (where applicable) and patches sent to the author fall under the
 #   latter license, but will be, if incorporated, released under the
 #   "release" license above.
 # }
-# 
+#
 # \references{
-#  Some of the reference below can be found at 
+#  Some of the reference below can be found at
 #  \url{http://www.maths.lth.se/bioinformatics/publications/}.\cr
 #
 # [1] @include "../incl/BengtssonH_2003.bib.Rdoc" \cr
 #
-# [2] H. Bengtsson, \emph{aroma - An R Object-oriented Microarray 
+# [2] H. Bengtsson, \emph{aroma - An R Object-oriented Microarray
 #     Analysis environment}, Preprints in Mathematical Sciences (manuscript
 #     in preparation), Mathematical Statistics, Centre for Mathematical
 #     Sciences, Lund University, 2004.\cr

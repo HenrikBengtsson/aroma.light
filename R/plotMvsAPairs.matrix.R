@@ -17,7 +17,7 @@
 #  \item{Alim,Mlim}{Plot range on the A and M axes.}
 #  \item{pch}{Plot symbol used.}
 #  \item{...}{Additional arguments accepted by @see "graphics::points".}
-#  \item{add}{If @TRUE, data points are plotted in the current plot, 
+#  \item{add}{If @TRUE, data points are plotted in the current plot,
 #    otherwise a new plot is created.}
 # }
 #
@@ -25,7 +25,7 @@
 #  Log-ratios and log-intensities are calculated for each neighboring pair
 #  of channels (columns) and plotted. Thus, in total there will be K-1
 #  data set plotted.
-#  
+#
 #  The colors used for the plotted pairs are 1, 2, and so on. To change
 #  the colors, use a different color palette.
 # }
@@ -34,8 +34,8 @@
 #   Returns nothing.
 # }
 #
-# @author
-#*/######################################################################### 
+# @author "HB"
+#*/#########################################################################
 setMethodS3("plotMvsAPairs", "matrix", function(X, Alab="A", Mlab="M", Alim=c(0,16), Mlim=c(-1,1)*diff(Alim), pch=".", ..., add=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -49,7 +49,7 @@ setMethodS3("plotMvsAPairs", "matrix", function(X, Alab="A", Mlab="M", Alim=c(0,
   }
 
   nbrOfChannels <- ncol(X);
- 
+
   # Do not plot (or generate false) M vs A for  non-positive signals.
   X[X <= 0] <- NA;
 

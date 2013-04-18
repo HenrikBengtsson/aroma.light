@@ -9,8 +9,6 @@
 
 \name{fitPrincipalCurve.matrix}
 \alias{fitPrincipalCurve.matrix}
-\alias{fitPrincipalCurve.matrix}
-
 
 \encoding{latin1}
 
@@ -20,7 +18,9 @@
   Fit a principal curve in K dimensions.
 }
 
-\usage{\method{fitPrincipalCurve}{matrix}(X, ..., verbose=FALSE)}
+\usage{
+\method{fitPrincipalCurve}{matrix}(X, ..., verbose=FALSE)
+}
 
 \arguments{
  \item{X}{An NxK \code{\link[base]{matrix}} (K>=2) where the columns represent the dimension.}
@@ -34,12 +34,12 @@
 }
 
 \section{Missing values}{
- The estimation of the affine normalization function will only be made
+ The estimation of the normalization function will only be made
  based on complete observations, i.e. observations that contains no \code{\link[base]{NA}}
  values in any of the channels.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \references{
   [1] Hastie, T. and Stuetzle, W, \emph{Principal Curves}, JASA, 1989.

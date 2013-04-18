@@ -21,7 +21,7 @@
 #  Returns nothing.
 # }
 #
-# @author
+# @author "HB"
 #*/###########################################################################
 setMethodS3("print", "SmoothSplineLikelihood", function(x, digits=getOption("digits"), ...) {
   # To please R CMD check...

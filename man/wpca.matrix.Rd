@@ -9,12 +9,12 @@
 
 \name{wpca.matrix}
 \alias{wpca.matrix}
-\alias{wpca.matrix}
-
 
 \title{Light-weight Weighted Principal Component Analysis}
 
-\usage{\method{wpca}{matrix}(x, w=NULL, center=TRUE, scale=FALSE, method=c("dgesdd", "dgesvd", "dsvdc"), swapDirections=FALSE, ...)}
+\usage{
+\method{wpca}{matrix}(x, w=NULL, center=TRUE, scale=FALSE, method=c("dgesdd", "dgesvd", "dsvdc"), swapDirections=FALSE, ...)
+}
 
 \description{
   Calculates the (weighted) principal components of a matrix, that is,
@@ -212,7 +212,7 @@ par(opar)
 
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \references{
   [1] J. Demmel and  J. Dongarra, \emph{DOE2000 Progress Report}, 2004.

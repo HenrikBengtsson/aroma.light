@@ -9,8 +9,6 @@
 
 \name{backtransformAffine.matrix}
 \alias{backtransformAffine.matrix}
-\alias{backtransformAffine.matrix}
-
 
 \title{Reverse affine transformation}
 
@@ -18,7 +16,9 @@
   Reverse affine transformation.
 }
 
-\usage{\method{backtransformAffine}{matrix}(X, a=NULL, b=NULL, project=FALSE, ...)}
+\usage{
+\method{backtransformAffine}{matrix}(X, a=NULL, b=NULL, project=FALSE, ...)
+}
 
 \arguments{
  \item{X}{An NxK \code{\link[base]{matrix}} containing data to be backtransformed.}

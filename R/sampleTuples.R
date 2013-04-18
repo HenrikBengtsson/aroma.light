@@ -4,8 +4,8 @@
 # @title "Sample tuples of elements from a set"
 #
 # \description{
-#   @get "title".  
-#   The elements within a sampled tuple are unique, i.e. no two elements 
+#   @get "title".
+#   The elements within a sampled tuple are unique, i.e. no two elements
 #   are the same.
 # }
 #
@@ -22,7 +22,7 @@
 #   Returns a NxK @matrix where N = \code{size} and K = \code{length}.
 # }
 #
-# @author
+# @author "HB"
 #
 # @examples "../incl/sampleTuples.Rex"
 #
@@ -31,7 +31,7 @@
 # }
 #
 # @keyword utilities
-#*/######################################################################### 
+#*/#########################################################################
 setMethodS3("sampleTuples", "default", function(x, size, length, ...) {
   # Argument 'x':
   if (length(x) < 1)
@@ -58,7 +58,7 @@ setMethodS3("sampleTuples", "default", function(x, size, length, ...) {
 
 
 ############################################################################
-# HISTORY: 
+# HISTORY:
 # 2011-04-12
 # o Now using NAs of the correct storage type.
 # 2005-07-25

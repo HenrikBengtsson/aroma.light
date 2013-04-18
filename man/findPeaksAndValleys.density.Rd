@@ -9,8 +9,6 @@
 
  \name{findPeaksAndValleys.density}
 \alias{findPeaksAndValleys.density}
-\alias{findPeaksAndValleys.density}
-
  \alias{findPeaksAndValleys}
  \alias{findPeaksAndValleys.numeric}
 
@@ -82,7 +80,7 @@ plot(d, lwd=2, main="c(x1b,x2b,x3b)")
 abline(v=fit$x)
 }
 
- \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+ \author{Henrik Bengtsson}
 
 
 \keyword{methods}

@@ -33,7 +33,7 @@
 #   Internally @see "plotXYCurve.numeric" is used.
 # }
 #
-# @author
+# @author "HB"
 #
 # @keyword "nonparametric"
 # @keyword "multivariate"

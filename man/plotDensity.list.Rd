@@ -9,8 +9,6 @@
 
 \name{plotDensity.list}
 \alias{plotDensity.list}
-\alias{plotDensity.list}
-
 \alias{plotDensity.data.frame}
 \alias{plotDensity.matrix}
 \alias{plotDensity.numeric}
@@ -21,7 +19,9 @@
  Plots density distributions for a set of vectors.
 }
 
-\usage{\method{plotDensity}{list}(X, xlim=NULL, ylim=NULL, xlab=NULL, ylab="density (integrates to one)", col=1:length(X), lty=NULL, lwd=NULL, ..., add=FALSE)}
+\usage{
+\method{plotDensity}{list}(X, xlim=NULL, ylim=NULL, xlab=NULL, ylab="density (integrates to one)", col=1:length(X), lty=NULL, lwd=NULL, ..., add=FALSE)
+}
 
 \arguments{
  \item{X}{A single of \code{\link[base]{list}} of \code{\link[base]{numeric}} \code{\link[base]{vector}}s, a \code{\link[base]{numeric}} \code{\link[base]{matrix}},
@@ -37,5 +37,5 @@
   otherwise a new is created.}
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 \keyword{methods}

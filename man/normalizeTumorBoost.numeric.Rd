@@ -9,8 +9,6 @@
 
  \name{normalizeTumorBoost.numeric}
 \alias{normalizeTumorBoost.numeric}
-\alias{normalizeTumorBoost.numeric}
-
  \alias{normalizeTumorBoost}
 
  \title{Normalizes allele B fractions for a tumor given a match normal}
@@ -25,7 +23,9 @@
   unchanged afterwards.
  }
 
- \usage{\method{normalizeTumorBoost}{numeric}(betaT, betaN, muN=callNaiveGenotypes(betaN), flavor=c("v4", "v3", "v2", "v1"), preserveScale=TRUE, ...)}
+ \usage{
+\method{normalizeTumorBoost}{numeric}(betaT, betaN, muN=callNaiveGenotypes(betaN), flavor=c("v4", "v3", "v2", "v1"), preserveScale=TRUE, ...)
+}
 
  \arguments{
   \item{betaT, betaN}{Two \code{\link[base]{numeric}} \code{\link[base]{vector}}s each of length J with

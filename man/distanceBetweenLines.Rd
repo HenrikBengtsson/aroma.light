@@ -26,7 +26,9 @@
   is minimal.
 }
 
-\usage{\method{distanceBetweenLines}{default}(ax, bx, ay, by, ...)}
+\usage{
+\method{distanceBetweenLines}{default}(ax, bx, ay, by, ...)
+}
 
 \arguments{
  \item{ax,bx}{Offset and direction \code{\link[base]{vector}} of length K for line \eqn{z_x}.}
@@ -46,7 +48,7 @@
        at the optimal point \eqn{(s,t)}.}
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \examples{
 for (zzz in 0) {

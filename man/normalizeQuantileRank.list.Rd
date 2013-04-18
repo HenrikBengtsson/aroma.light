@@ -9,8 +9,6 @@
 
  \name{normalizeQuantileRank.list}
 \alias{normalizeQuantileRank.list}
-\alias{normalizeQuantileRank.list}
-
  \alias{list.normalizeQuantile}
 \alias{normalizeQuantile.list}
 \alias{normalizeQuantile,list-method}
@@ -18,7 +16,9 @@
 
  \title{Normalizes the empirical distribution of a set of samples to a target distribution}
 
- \usage{\method{normalizeQuantileRank}{list}(X, xTarget=NULL, ...)}
+ \usage{
+\method{normalizeQuantileRank}{list}(X, xTarget=NULL, ...)
+}
 
  \description{
    Normalizes the empirical distribution of a set of samples to a target distribution.  The samples may differ in size.

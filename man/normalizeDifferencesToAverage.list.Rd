@@ -9,8 +9,6 @@
 
 \name{normalizeDifferencesToAverage.list}
 \alias{normalizeDifferencesToAverage.list}
-\alias{normalizeDifferencesToAverage.list}
-
 \alias{normalizeDifferencesToAverage}
 
 \title{Rescales channel vectors to get the same average}
@@ -19,7 +17,9 @@
  Rescales channel vectors to get the same average.
 }
 
-\usage{\method{normalizeDifferencesToAverage}{list}(x, baseline=1, FUN=median, ...)}
+\usage{
+\method{normalizeDifferencesToAverage}{list}(x, baseline=1, FUN=median, ...)
+}
 
 \arguments{
   \item{x}{A \code{\link[base]{numeric}} \code{\link[base]{list}} of length K.}
@@ -71,5 +71,5 @@ plot(x, y, col=col, ylim=c(-10,10));
 plot(x, yN, col=col, ylim=c(-10,10));
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 \keyword{methods}

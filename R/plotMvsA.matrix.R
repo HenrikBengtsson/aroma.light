@@ -17,12 +17,12 @@
 #  \item{aspectRatio}{Aspect ratio between \code{Mlim} and \code{Alim}.}
 #  \item{pch}{Plot symbol used.}
 #  \item{...}{Additional arguments accepted by @see "graphics::points".}
-#  \item{add}{If @TRUE, data points are plotted in the current plot, 
+#  \item{add}{If @TRUE, data points are plotted in the current plot,
 #    otherwise a new plot is created.}
 # }
 #
 # \details{
-#  Red channel is assumed to be in column one and green in column two. 
+#  Red channel is assumed to be in column one and green in column two.
 #  Log-ratio are calculated taking channel one over channel two.
 # }
 #
@@ -30,8 +30,8 @@
 #   Returns nothing.
 # }
 #
-# @author
-#*/######################################################################### 
+# @author "HB"
+#*/#########################################################################
 setMethodS3("plotMvsA", "matrix", function(X, Alab="A", Mlab="M", Alim=c(0,16), Mlim=c(-1,1)*diff(Alim)*aspectRatio, aspectRatio=1, pch=".", ..., add=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments

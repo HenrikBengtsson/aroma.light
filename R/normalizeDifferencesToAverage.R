@@ -26,8 +26,8 @@
 #
 # @examples "../incl/normalizeDifferencesToAverage.Rex"
 #
-# @author
-#*/########################################################################### 
+# @author "HB"
+#*/###########################################################################
 setMethodS3("normalizeDifferencesToAverage", "list", function(x, baseline=1, FUN=median, ...) {
   # Argument 'x':
   if (!is.list(x)) {
@@ -41,7 +41,7 @@ setMethodS3("normalizeDifferencesToAverage", "list", function(x, baseline=1, FUN
   if (!is.null(baseline)) {
     baseline <- as.integer(baseline);
     if (baseline < 1 && baseline > ndim) {
-      throw(sprintf("Argument 'baseline' is out of range [1,%d]: %d", 
+      throw(sprintf("Argument 'baseline' is out of range [1,%d]: %d",
                                                            ndim, baseline));
     }
   }

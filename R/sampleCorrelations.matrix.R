@@ -14,8 +14,8 @@
 #  \item{X}{An NxK @matrix where N >= 2 and K >= 2.}
 #  \item{MARGIN}{The dimension (1 or 2) in which the observations are.
 #    If \code{MARGIN==1} (\code{==2}), each row (column) is an observation.}
-#  \item{pairs}{If a Lx2 @matrix, the L index pairs for which the 
-#    correlations are calculated. 
+#  \item{pairs}{If a Lx2 @matrix, the L index pairs for which the
+#    correlations are calculated.
 #    If @NULL, pairs of observations are sampled.}
 #  \item{npairs}{The number of correlations to calculate.}
 #  \item{...}{Not used.}
@@ -25,7 +25,7 @@
 #   Returns a @double @vector of length \code{npairs}.
 # }
 #
-# @author
+# @author "HB"
 #
 # @examples "../incl/sampleCorrelations.matrix.Rex"
 #
@@ -34,13 +34,13 @@
 # }
 #
 # \references{
-#  [1] A. Ploner, L. Miller, P. Hall, J. Bergh & Y. Pawitan. 
+#  [1] A. Ploner, L. Miller, P. Hall, J. Bergh & Y. Pawitan.
 #      \emph{Correlation test to assess low-level processing of high-density
 #      oligonucleotide microarray data}. BMC Bioinformatics, 2005, vol 6.
 # }
 #
 # @keyword utilities
-#*/######################################################################### 
+#*/#########################################################################
 setMethodS3("sampleCorrelations", "matrix", function(X, MARGIN=1, pairs=NULL, npairs=max(5000, nrow(X)), ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
@@ -80,7 +80,7 @@ setMethodS3("sampleCorrelations", "matrix", function(X, MARGIN=1, pairs=NULL, np
 
   # Are 'pairs' and 'npairs' consistent with each other?
   if (nrow(pairs) < npairs) {
-    throw("The number of pairs in 'pairs' is smaller than 'npairs': ", 
+    throw("The number of pairs in 'pairs' is smaller than 'npairs': ",
                                             nrow(pairs), " < ", npairs);
   }
 
@@ -108,7 +108,7 @@ setMethodS3("sampleCorrelations", "matrix", function(X, MARGIN=1, pairs=NULL, np
 
 
 ############################################################################
-# HISTORY: 
+# HISTORY:
 # 2012-04-16
 # o sampleCorrelations() no longer utilizes .Internal() calls.
 # o Added internal corFast() to sampleCorrelations().

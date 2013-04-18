@@ -1,20 +1,32 @@
 Package: aroma.light
 ====================
 
+Version: 1.31.1 [2011-04-18]
+o Same updates as in v1.30.1.
+
+
 Version: 1.31.0 [2013-04-03]
-o The version number was bumped for the Bioconductor devel version. 
+o The version number was bumped for the Bioconductor devel version.
+
+
+Version: 1.30.1 [2013-04-18]
+o Now backtransformPrincipalCurve() preserves dimension names.
+o BUG FIX: backtransformPrincipalCurve() gave an error if the
+  pricipal curve was fitted using data with missing values.
+o BUG FIX: fitPrincipalCurve() would not preserve dimension
+  names if data contain missing values.
 
 
 Version: 1.30.0 [2012-04-03]
-o The version number was bumped for the Bioconductor release version. 
+o The version number was bumped for the Bioconductor release version.
 
 
 Version: 1.29.0 [2012-10-01]
-o The version number was bumped for the Bioconductor devel version. 
+o The version number was bumped for the Bioconductor devel version.
 
 
 Version: 1.28.0 [2012-10-01]
-o The version number was bumped for the Bioconductor release version. 
+o The version number was bumped for the Bioconductor release version.
 
 
 Version: 1.27.1 [2012-09-12]
@@ -25,7 +37,7 @@ o ROBUSTNESS: Replaced an .Internal(psort(...)) call  in
 Version: 1.27.0 [2012-08-30]
 o CLEANUP: Removed weightedMedian(), which has been moved
   to the matrixStats package.
-o BACKWARD COMPATIBILITY: Now package depends on the 
+o BACKWARD COMPATIBILITY: Now package depends on the
   matrixStats (>= 0.5.2) package, so that weightedMedian()
   is still available when loading this package.  In future
   releases, matrixStats will be downgraded to only be a
@@ -63,9 +75,9 @@ o 'R CMD check' no longer complaints about .Internal() calls.
 
 Version: 1.25.1 [2012-04-16]
 o Added support for fitNaiveGenotypes(..., flavor="fixed").
-o GENERALIZATION: Now fitNaiveGenotypes() returns also 'flavor' and 
-  'tau'.  The latter are the genotype threshholds used by the caller. 
-o CLEANUP: Dropped argument 'flavor' of callNaiveGenotypes(); it 
+o GENERALIZATION: Now fitNaiveGenotypes() returns also 'flavor' and
+  'tau'.  The latter are the genotype threshholds used by the caller.
+o CLEANUP: Dropped argument 'flavor' of callNaiveGenotypes(); it
   is instead passed to fitNaiveGenotypes() via '...'.
 
 Version: 1.25.0 [2012-03-30]
@@ -87,7 +99,7 @@ o The version number was bumped for the Bioconductor release version.
 Version: 1.21.2 [2011-10-10]
 o Updated robustSmoothSpline() such that it works with the new
   "uniqueness" scheme of smooth.spline() in R v2.14.0 and newer.
-  It is tricky, because robustSmoothSpline() is a reiterative 
+  It is tricky, because robustSmoothSpline() is a reiterative
   algorithm which requires that the choosen "unique" x:s does
   not change in each iteration.  Previously, 'signif(x, 6)' was
   used to identify unique x:s, which gives the same set of values
@@ -114,7 +126,7 @@ o CLEANUP: Removed internal patch of principal.curve().  If an older
   thrown requesting an update.  The internal patch is part of the
   offical princurve v1.1-10 release (since 2009-10-04).
 o Now all methods allocate objects with NAs of the appropriate mode.
-o KNOWN ISSUES: Recent updates to smooth.spline() in R v2.14.0 
+o KNOWN ISSUES: Recent updates to smooth.spline() in R v2.14.0
   causes robustSmoothSpline() to break in some cases.
 
 
@@ -151,7 +163,7 @@ o BUG FIX: findPeaksAndValleys(x, to) were 'x' is numeric would use
 
 
 Version: 1.18.3 [2011-02-05]
-o DOCUMENTATION: Added paragraphs on how to do affine normalization 
+o DOCUMENTATION: Added paragraphs on how to do affine normalization
   when channel offsets are known/zero.  Same for multiscan calibration
   when scanner offsets are known/zero.
 o DOCUMENTATION: Fixed broken links to help for iwpca().
@@ -168,7 +180,7 @@ o These updates were supposed to be in v1.17.7, but we forgot
   to commit them to the BioC repository before the new BioC release.
 o Argument 'censorAt' for fitNaiveGenotypes() has new default.
 o BUG FIX: fitNaiveGenotypes(..., subsetToFit=<logical>) would throw
-  an exception reporting "Some elements of argument 'subsetToFit' is 
+  an exception reporting "Some elements of argument 'subsetToFit' is
   out of range ...".
 
 
@@ -196,7 +208,7 @@ o Added findPeaksAndValleys() for the 'density' class, which then
 
 Version: 1.17.3 [2010-09-18]
 o ROBUSTNESS: Now normalizeFragmentLength() asserts that arguments
-  'fragmentLengths' and 'y' contain at least some finite values and 
+  'fragmentLengths' and 'y' contain at least some finite values and
   specifies the same number of units.  In addition, the method also
   gives more informative error messages in case it cannot fit the
   normalization function due to non-finite values.
@@ -232,7 +244,7 @@ o R devel assumes ASCII encoding unless specified. Added explicit
 
 
 Version: 1.15.3 [2010-04-04]
-o Added normalizeDifferencesToAverage(), normalizeTumorBoost(), 
+o Added normalizeDifferencesToAverage(), normalizeTumorBoost(),
   callNaiveGenotypes() and internal findPeaksAndValleys(),
   which all were moved from the aroma.cn package.
 
@@ -270,7 +282,7 @@ o Fixed a few broken Rd links.
 
 Version: 1.13.3 [2009-07-15]
 o ADDED: fit- and backtransformXYCurve().
-o Added attribute 'processingTime' to the fit object returned 
+o Added attribute 'processingTime' to the fit object returned
   by fitPrincipalCurve().
 
 
@@ -291,8 +303,8 @@ o Replacing old HOWTOCITE with a standard CITATION file.
 o BUG FIX: Previous bug fix in backtransformPrincipalCurve() regarding
   argument 'dimension' broke the initial purpose of this argument. Since
   both use cases are still of interest, how the subsetting is done is now
-  based on whether the number of dimensions of the input data and the 
-  model fit match or not. See help and example code for 
+  based on whether the number of dimensions of the input data and the
+  model fit match or not. See help and example code for
   'backtransformPrincipalCurve.matrix'.
 
 
@@ -308,7 +320,7 @@ o The version number was bumped for the Bioconductor release version.
 
 
 Version: 1.11.2 [2009-02-08]
-o BUG FIX: An error was thrown in backtransformPrincipalCurve() 
+o BUG FIX: An error was thrown in backtransformPrincipalCurve()
   when argument 'dimensions' was specified.
 
 
@@ -326,7 +338,7 @@ o The version number was bumped for the Bioconductor release version.
 
 Version: 1.9.2 [2008-09-11]
 o Added argument 'onMissing' to normalizeFragmentLength() for specifying
-  how to normalize (if at all) data points for which the fragment lengths 
+  how to normalize (if at all) data points for which the fragment lengths
   are unknown.  For backward compatibility, we start off by having it
   "ignore" by default.
 o MEMORY OPTIMIZATION: robustSmoothSpline() is now cleaning out
@@ -342,7 +354,7 @@ o The version number was bumped for the Bioconductor devel version.
 
 
 Version: 1.8.1 [2008-05-10]
-o BUG FIX: If the 'subsetToFit' of normalizeFragmentLength() was 
+o BUG FIX: If the 'subsetToFit' of normalizeFragmentLength() was
   shorter than the number of data points, an exception was thrown.
   The test was supposed to assert that the subset was not greater
   than the number of data points.
@@ -419,15 +431,15 @@ o Made the package truely standalone except from R.oo.  Previously package
 
 Version: 0.1.6 [2006-05-22]
 o Added a namespace for the package.
-o Added 'biocViews' since the package will eventually be added 
+o Added 'biocViews' since the package will eventually be added
   to the Bioconductor project.
 o Added medianPolish() which is much faster than stats::medpolish()
   when there are no NA.
 o Added plotDensity() for list of vectors as well as for matrices.
 o Added normalizeQuantile() for lists of vectors as well as for a
   single vector of numerics.  To calculate the target quantile there
-  is a new function averageQuantile(), which is also for lists of 
-  vectors.  It latter does not support robust estimatation of the 
+  is a new function averageQuantile(), which is also for lists of
+  vectors.  It latter does not support robust estimatation of the
   average, because it safes memory.
 o Updated normalizeQuantile() for matrices according to the updates
   in the limma package.
@@ -453,20 +465,20 @@ o Now fitIWPCA() does not return the data matrix. This is to save memory.
 
 Version: 0.1.2 [2005-09-06]
 o All plot methods displaying log-ratios now assures that no fake
-  log-ratios are calculated due to two negative raw signals.  
+  log-ratios are calculated due to two negative raw signals.
   Similarily, methods display log-intensities now assures that the
-  log-intensities are calculated as doubles to avoid possible 
+  log-intensities are calculated as doubles to avoid possible
   overflow warnings for too large integers.
 
 
 Version: 0.1.1 [2005-07-26]
 o Added sampleCorrelations() and sampleTuples().
-o Now argument 'interpolate' of weightedMedian() defaults to TRUE only 
+o Now argument 'interpolate' of weightedMedian() defaults to TRUE only
   if 'ties' is NULL.
 
 
 Version: 0.1.0 [2005-06-03]
-o Created. Most of the matrix methods were copied from the R.basic 
+o Created. Most of the matrix methods were copied from the R.basic
   and the aroma packages. The purpose of this package is to provide
   a standalone package, which does not require any of the aroma
   classes. This will allow the methods to be used by end users as
