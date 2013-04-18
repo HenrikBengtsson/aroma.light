@@ -4,11 +4,11 @@
 # @title "Normalizes signals for PCR fragment-length effects"
 #
 # \description{
-#  @get "title". Some or all signals are used to estimated the 
+#  @get "title". Some or all signals are used to estimated the
 #  normalization function.  All signals are normalized.
 # }
-# 
-# @synopsis 
+#
+# @synopsis
 #
 # \arguments{
 #   \item{y}{A @numeric @vector of length K of signals to be normalized
@@ -17,11 +17,11 @@
 #   \item{targetFcns}{An optional @list of E @functions; one per enzyme.
 #     If @NULL, the data is normalized to have constant fragment-length
 #     effects (all equal to zero on the log-scale).}
-#   \item{subsetToFit}{The subset of data points used to fit the 
+#   \item{subsetToFit}{The subset of data points used to fit the
 #      normalization function.
 #      If @NULL, all data points are considered.}
 #   \item{onMissing}{Specifies how data points for which there is no
-#      fragment length is normalized. 
+#      fragment length is normalized.
 #      If \code{"ignore"}, the values are not modified.
 #      If \code{"median"}, the values are updated to have the same
 #      robust average as the other data points.
@@ -39,8 +39,8 @@
 #  It is assumed that the fragment-length effects from multiple enzymes
 #  added (with equal weights) on the intensity scale.
 #  The fragment-length effects are fitted for each enzyme separately based
-#  on units that are exclusively for that enzyme. 
-#  \emph{If there are no or very such units for an enzyme, the assumptions 
+#  on units that are exclusively for that enzyme.
+#  \emph{If there are no or very such units for an enzyme, the assumptions
 #  of the model are not met and the fit will fail with an error.}
 #  Then, from the above single-enzyme fits the average effect across
 #  enzymes is the calculated for each unit that is on multiple enzymes.
@@ -50,18 +50,18 @@
 #   It is possible to specify custom target function effects for each
 #   enzyme via argument \code{targetFcns}.  This argument has to be a
 #   @list containing one @function per enzyme and ordered in the same
-#   order as the enzyme are in the columns of argument 
+#   order as the enzyme are in the columns of argument
 #   \code{fragmentLengths}.
 #   For instance, if one wish to normalize the signals such that their
 #   mean signal as a function of fragment length effect is contantly
-#   equal to 2200 (or the intensity scale), the use 
+#   equal to 2200 (or the intensity scale), the use
 #   \code{targetFcns=function(fl, ...) log2(2200)} which completely
-#   ignores fragment-length argument 'fl' and always returns a 
+#   ignores fragment-length argument 'fl' and always returns a
 #   constant.
 #   If two enzymes are used, then use
 #   \code{targetFcns=rep(list(function(fl, ...) log2(2200)), 2)}.
 #
-#   Note, if \code{targetFcns} is @NULL, this corresponds to 
+#   Note, if \code{targetFcns} is @NULL, this corresponds to
 #   \code{targetFcns=rep(list(function(fl, ...) 0), ncol(fragmentLengths))}.
 #
 #   Alternatively, if one wants to only apply minimial corrections to
@@ -75,14 +75,14 @@
 #   @include "../incl/normalizeFragmentLength-ex2.Rex"
 # }
 #
-# @author
+# @author "HB"
 #
 # \references{
 #   [1] @include "../incl/BengtssonH_etal_2008.bib.Rdoc" \cr
-# } 
+# }
 #
 # @keyword "nonparametric"
-# @keyword "robust" 
+# @keyword "robust"
 #*/###########################################################################
 setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, targetFcns=NULL, subsetToFit=NULL, onMissing=c("ignore", "median"), .isLogged=TRUE, ..., .returnFit=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -102,7 +102,7 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
     if (is.vector(fragmentLengths)) {
       fragmentLengths <- as.matrix(fragmentLengths);
     } else {
-      throw("Argument 'fragmentLengths' must be a matrix: ", 
+      throw("Argument 'fragmentLengths' must be a matrix: ",
                                                 class(fragmentLengths)[[1]]);
     }
   }
@@ -161,7 +161,7 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
       }
     }
   }
-  
+
   # Argument 'subsetToFit':
   if (!is.null(subsetToFit)) {
     subsetToFit <- as.integer(subsetToFit);
@@ -339,7 +339,7 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
   ok <- is.finite(dy) & okY;
   rm(okY);
   y[ok] <- y[ok] - dy[ok];
-  
+
   if (.returnFit) {
     attr(y, "modelFit") <- fits;
   }
@@ -352,7 +352,7 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
 # HISTORY:
 # 2010-09-18
 # o ROBUSTNESS: Now normalizeFragmentLength() asserts that arguments
-#   'fragmentLengths' and 'y' contain at least some finite values and 
+#   'fragmentLengths' and 'y' contain at least some finite values and
 #   specifies the same number of units.  In addition, the method also
 #   gives more informative error messages in case it cannot fit the
 #   normalization function due to non-finite values.
@@ -360,11 +360,11 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
 # o Now onMissing="median" estimates the median on using the subset to fit.
 # 2008-09-10
 # o Added argument 'onMissing' to normalizeFragmentLength() for specifying
-#   how to normalize (if at all) data points for which the fragment lengths 
+#   how to normalize (if at all) data points for which the fragment lengths
 #   are unknown.  For backward compatibility, we start of by having it
 #   "ignore" by default.
 # 2008-05-10
-# o BUG FIX: If the 'subsetToFit' was shorter than the number of data 
+# o BUG FIX: If the 'subsetToFit' was shorter than the number of data
 #   points, an exception was thrown.  The test was supposed to be assert
 #   that the subset was not greater than the number of data points.
 # 2008-04-14
@@ -372,11 +372,11 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
 # 2007-11-29
 # o BUG FIX: The implemented multi-enzyme model was not the one in mind;
 #   The correction for the multi-enzyme data points was not right.
-#   Have now created an updated example that displays the normalized 
+#   Have now created an updated example that displays the normalized
 #   log-ratios (as a function of fragment length as well as they densities).
 #   The example does also test the case for non-aliquot mixing proportions
 #   between enzymes. This is actually automagically corrected for by the
-#   way the model was set up, i.e. there is no need to estimate the 
+#   way the model was set up, i.e. there is no need to estimate the
 #   mixing proportions.
 # 2007-11-19
 # o Added Rdoc examples. From these simulation examples, it looks like the

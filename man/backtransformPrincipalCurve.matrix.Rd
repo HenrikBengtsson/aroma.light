@@ -9,8 +9,6 @@
 
 \name{backtransformPrincipalCurve.matrix}
 \alias{backtransformPrincipalCurve.matrix}
-\alias{backtransformPrincipalCurve.matrix}
-
 \alias{backtransformPrincipalCurve.numeric}
 
 \title{Reverse transformation of principal-curve fit}
@@ -19,7 +17,9 @@
   Reverse transformation of principal-curve fit.
 }
 
-\usage{\method{backtransformPrincipalCurve}{matrix}(X, fit, dimensions=NULL, targetDimension=NULL, ...)}
+\usage{
+\method{backtransformPrincipalCurve}{matrix}(X, fit, dimensions=NULL, targetDimension=NULL, ...)
+}
 
 \arguments{
  \item{X}{An NxK \code{\link[base]{matrix}} containing data to be backtransformed.}

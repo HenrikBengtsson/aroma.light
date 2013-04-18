@@ -43,7 +43,7 @@
 #   Argument \code{dimensions} can be used to backtransform a subset of
 #   dimensions (K) based on a subset of the fitted dimensions (L).
 #   If \eqn{K = L}, then both \code{X} and \code{fit} is subsetted.
-#   If \eqn{K <> L}, then it is assumed that \code{X} is already 
+#   If \eqn{K <> L}, then it is assumed that \code{X} is already
 #   subsetted/expanded and only \code{fit} is subsetted.
 # }
 #
@@ -52,16 +52,17 @@
 # \seealso{
 #   @seemethod "fitPrincipalCurve"
 # }
-#*/#########################################################################  
+#*/#########################################################################
 setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions=NULL, targetDimension=NULL, ...) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'X'
   if (!is.numeric(X)) {
     stop("Argument 'X' is not numeric: ", mode(X));
   }
 
+  dimnamesX <- dimnames(X);
   dimX <- dim(X);
   K <- dimX[2];
   if (!is.matrix(X)) {
@@ -90,15 +91,15 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
       stop("Argument 'targetDimension' should be a scalar or NULL.");
     }
     if (targetDimension < 1 | targetDimension > L) {
-      stop("Argument 'targetDimension' is out of range [1,", L, "]: ", 
+      stop("Argument 'targetDimension' is out of range [1,", L, "]: ",
                                                            targetDimension);
     }
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Transform towards a target dimension?
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   hasTargetDimension <- (!is.null(targetDimension));
   if (hasTargetDimension) {
     lambda <- fit$s[,targetDimension];
@@ -107,9 +108,9 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Subset dimensions?
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   s <- fit$s;
   if (!is.null(dimensions)) {
     s <- s[,dimensions,drop=FALSE];
@@ -122,16 +123,19 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Find backtransformations and backtransform data
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   naValue <- NA;
   mode(naValue) <- mode(X);
   Xhat <- matrix(naValue, nrow=dimX[1], ncol=dimX[2]);
 
+  okLambda <- is.finite(lambda);
+
   for (kk in seq(length=L)) {
     sKK <- s[,kk];
-    fitKK <- smooth.spline(sKK, lambda, ...);
+    ok <- (is.finite(sKK) & okLambda);
+    fitKK <- smooth.spline(sKK[ok], lambda[ok], ...);
 
     Xkk <- X[,kk];
     keep <- which(is.finite(Xkk));
@@ -147,6 +151,8 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
   rm(sKK, lambda, fitKK, XhatKK, keep, s);
 
   dim(Xhat) <- dimX;
+  dimnames(Xhat) <- dimnamesX;
+
   Xhat;
 }) # backtransformPrincipalCurve()
 
@@ -158,11 +164,15 @@ setMethodS3("backtransformPrincipalCurve", "numeric", function(X, ...) {
 
 ###########################################################################
 # HISTORY:
+# 2013-04-18
+# o BUG FIX: backtransformPrincipalCurve() gave an error if the
+#   pricipal curve was fitted using data with missing values.
+#   Now backtransformPrincipalCurve() preserves dimension names.
 # 2009-05-29
-# o BUG FIX: Previous bug fix inbacktransformPrincipalCurve() regarding
+# o BUG FIX: Previous bug fix in backtransformPrincipalCurve() regarding
 #   argument 'dimension' broke the initial purpose of this argument. Since
 #   both use cases are still of interest, how the subsetting is done is now
-#   based on whether the number of dimensions of the input data and the 
+#   based on whether the number of dimensions of the input data and the
 #   model fit match or not. See help(backtransformPrincipalCurve.matrix).
 #   Added several cases to the example code for testing this.
 # o Added more Rdoc comments.
@@ -172,7 +182,7 @@ setMethodS3("backtransformPrincipalCurve", "numeric", function(X, ...) {
 #   number of columns requested.  The Rd example now illustrates this.
 #   Thanks to Pierre Neuvial, UC Berkeley for the troublshooting and fix.
 # 2009-02-08
-# o An error was thrown in backtransformPrincipalCurve() if argument 
+# o An error was thrown in backtransformPrincipalCurve() if argument
 #   'dimensions' was specified.
 # o BUG FIX:
 # 2009-01-12

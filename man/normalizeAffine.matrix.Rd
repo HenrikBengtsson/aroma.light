@@ -9,8 +9,6 @@
 
 \name{normalizeAffine.matrix}
 \alias{normalizeAffine.matrix}
-\alias{normalizeAffine.matrix}
-
 
 \encoding{latin1}
 
@@ -41,7 +39,9 @@
   easy to rescale the data afterwards as demonstrated in the example.
 }
 
-\usage{\method{normalizeAffine}{matrix}(X, weights=NULL, typeOfWeights=c("datapoint"), method="L1", constraint=0.05, satSignal=2^16 - 1, ..., .fitOnly=FALSE)}
+\usage{
+\method{normalizeAffine}{matrix}(X, weights=NULL, typeOfWeights=c("datapoint"), method="L1", constraint=0.05, satSignal=2^16 - 1, ..., .fitOnly=FALSE)
+}
 
 \arguments{
  \item{X}{An NxK \code{\link[base]{matrix}} (K>=2) where the columns represent the channels,
@@ -130,7 +130,7 @@
  residuals, i.e. the fit is done in \eqn{L_1}.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \references{
   [1] Henrik Bengtsson and Ola \enc{Hössjer}{Hossjer}, \emph{Methodological Study of Affine Transformations of Gene Expression Data}, Methodological study of affine transformations of gene expression data with proposed robust non-parametric multi-dimensional normalization method, BMC Bioinformatics, 2006, 7:100.

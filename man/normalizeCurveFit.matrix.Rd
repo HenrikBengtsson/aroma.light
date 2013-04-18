@@ -9,8 +9,6 @@
 
 \name{normalizeCurveFit.matrix}
 \alias{normalizeCurveFit.matrix}
-\alias{normalizeCurveFit.matrix}
-
 \alias{normalizeLoess.matrix}
 \alias{normalizeLowess.matrix}
 \alias{normalizeSpline.matrix}
@@ -39,7 +37,9 @@
   normalization.
 }
 
-\usage{\method{normalizeCurveFit}{matrix}(X, weights=NULL, typeOfWeights=c("datapoint"), method=c("loess", "lowess", "spline", "robustSpline"), bandwidth=NULL, satSignal=2^16 - 1, ...)}
+\usage{
+\method{normalizeCurveFit}{matrix}(X, weights=NULL, typeOfWeights=c("datapoint"), method=c("loess", "lowess", "spline", "robustSpline"), bandwidth=NULL, satSignal=2^16 - 1, ...)
+}
 
 \arguments{
  \item{X}{An Nx2 \code{\link[base]{matrix}} where the columns represent the two channels
@@ -91,7 +91,7 @@
 }
 
 \section{Missing values}{
- The estimation of the affine normalization function will only be made
+ The estimation of the normalization function will only be made
  based on complete non-saturated observations, i.e. observations that
  contains no \code{\link[base]{NA}} values nor saturated values as defined by \code{satSignal}.
 }
@@ -99,7 +99,7 @@
 \section{Weighted normalization}{
  Each data point, that is, each row in \code{X}, which is a
  vector of length 2, can be assigned a weight in [0,1] specifying how much
- it should \emph{affect the fitting of the affine normalization function}.
+ it should \emph{affect the fitting of the normalization function}.
  Weights are given by argument \code{weights}, which should be a \code{\link[base]{numeric}}
  \code{\link[base]{vector}} of length N. Regardless of weights, all data points are
  \emph{normalized} based on the fitted normalization function.
@@ -116,7 +116,7 @@
  \code{iterations=5}, \code{surface="direct")} are used.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \references{
   [1] M. \enc{Åstrand}{Astrand},

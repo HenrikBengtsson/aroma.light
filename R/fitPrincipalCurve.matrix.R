@@ -24,12 +24,12 @@
 # }
 #
 # \section{Missing values}{
-#  The estimation of the affine normalization function will only be made
+#  The estimation of the normalization function will only be made
 #  based on complete observations, i.e. observations that contains no @NA
 #  values in any of the channels.
 # }
 #
-# @author
+# @author "HB"
 #
 # \references{
 #   [1] Hastie, T. and Stuetzle, W, \emph{Principal Curves}, JASA, 1989.
@@ -41,7 +41,7 @@
 #   @seemethod "backtransformPrincipalCurve".
 #   @see "princurve::principal.curve".
 # }
-#*/######################################################################### 
+#*/#########################################################################
 setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
   require("princurve") || throw("Package not loaded: princurve");
 
@@ -51,9 +51,9 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
     throw("princurve v1.1-10 or newer is required: ", ver);
   }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   n <- nrow(X);
   p <- ncol(X);
 
@@ -81,12 +81,14 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
 
   verbose && enter(verbose, "Identifying missing values");
   # princurve::principal.curve() does not handle missing values.
-  keep <- rep(TRUE, n);
-  for (cc in seq(length=p))
+  keep <- rep(TRUE, times=n);
+  for (cc in seq(length=p)) {
     keep <- keep & is.finite(X[,cc]);
+  }
   anyMissing <- (!all(keep));
-  if (anyMissing)
-    X <- X[keep,];
+  if (anyMissing) {
+    X <- X[keep,, drop=FALSE];
+  }
   verbose && exit(verbose);
 
   verbose && cat(verbose, "Data size after removing non-finite data points: ", nrow(X), "x", p);
@@ -103,9 +105,11 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
   verbose && printf(verbose, "Processing time/iteration: %.1fs (%.1fs/iteration)\n", t[3], t[3]/fit$nbrOfIterations);
   verbose && exit(verbose);
 
+  # Expand, iff missing values were dropped
   if (anyMissing) {
     values <- matrix(as.double(NA), nrow=n, ncol=p);
     values[keep,] <- fit$s;
+    dimnames(values) <- dimnames(fit$s);
     fit$s <- values;
     values <- rep(as.double(NA), times=n);
     for (ff in c("tag", "lambda")) {
@@ -125,13 +129,16 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
 
 ###########################################################################
 # HISTORY:
+# 2013-04-18
+# o BUG FIX: fitPrincipalCurve() would not preserve dimension names
+#   if data contain missing values.
 # 2011-04-12
 # o CLEANUP: Removed internal patch of principal.curve().  If an older
 #   version than princurve v1.1-10 is used, an informative error is
 #   thrown requesting an update.  The internal patch is part of the
 #   offical princurve v1.1-10 release (since 2009-10-04).
 # 2009-11-01
-# o Now fitPrincipalCurve() bug-fixed princurve v1.1-10.  If earlier 
+# o Now fitPrincipalCurve() bug-fixed princurve v1.1-10.  If earlier
 #   version are available, it used the internal patch.
 # 2009-07-15
 # o Added attribute 'processingTime' to the fit object returned by

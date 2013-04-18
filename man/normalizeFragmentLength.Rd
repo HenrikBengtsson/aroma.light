@@ -6,80 +6,82 @@
 % by the Rdoc compiler part of the R.oo package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \name{normalizeFragmentLength}
+\name{normalizeFragmentLength}
 \alias{normalizeFragmentLength.default}
 \alias{normalizeFragmentLength}
 
- \title{Normalizes signals for PCR fragment-length effects}
+\title{Normalizes signals for PCR fragment-length effects}
 
- \description{
-  Normalizes signals for PCR fragment-length effects. Some or all signals are used to estimated the
-  normalization function.  All signals are normalized.
- }
+\description{
+ Normalizes signals for PCR fragment-length effects. Some or all signals are used to estimated the
+ normalization function.  All signals are normalized.
+}
 
- \usage{\method{normalizeFragmentLength}{default}(y, fragmentLengths, targetFcns=NULL, subsetToFit=NULL, onMissing=c("ignore", "median"), .isLogged=TRUE, ..., .returnFit=FALSE)}
+\usage{
+\method{normalizeFragmentLength}{default}(y, fragmentLengths, targetFcns=NULL, subsetToFit=NULL, onMissing=c("ignore", "median"), .isLogged=TRUE, ..., .returnFit=FALSE)
+}
 
- \arguments{
-   \item{y}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length K of signals to be normalized
-     across E enzymes.}
-   \item{fragmentLengths}{An \code{\link[base]{integer}} KxE \code{\link[base]{matrix}} of fragment lengths.}
-   \item{targetFcns}{An optional \code{\link[base]{list}} of E \code{\link[base]{function}}s; one per enzyme.
-     If \code{\link[base]{NULL}}, the data is normalized to have constant fragment-length
-     effects (all equal to zero on the log-scale).}
-   \item{subsetToFit}{The subset of data points used to fit the
-      normalization function.
-      If \code{\link[base]{NULL}}, all data points are considered.}
-   \item{onMissing}{Specifies how data points for which there is no
-      fragment length is normalized.
-      If \code{"ignore"}, the values are not modified.
-      If \code{"median"}, the values are updated to have the same
-      robust average as the other data points.
-   }
-   \item{.isLogged}{A \code{\link[base]{logical}}.}
-   \item{...}{Additional arguments passed to \code{\link[stats]{lowess}}.}
-   \item{.returnFit}{A \code{\link[base]{logical}}.}
- }
+\arguments{
+  \item{y}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length K of signals to be normalized
+    across E enzymes.}
+  \item{fragmentLengths}{An \code{\link[base]{integer}} KxE \code{\link[base]{matrix}} of fragment lengths.}
+  \item{targetFcns}{An optional \code{\link[base]{list}} of E \code{\link[base]{function}}s; one per enzyme.
+    If \code{\link[base]{NULL}}, the data is normalized to have constant fragment-length
+    effects (all equal to zero on the log-scale).}
+  \item{subsetToFit}{The subset of data points used to fit the
+     normalization function.
+     If \code{\link[base]{NULL}}, all data points are considered.}
+  \item{onMissing}{Specifies how data points for which there is no
+     fragment length is normalized.
+     If \code{"ignore"}, the values are not modified.
+     If \code{"median"}, the values are updated to have the same
+     robust average as the other data points.
+  }
+  \item{.isLogged}{A \code{\link[base]{logical}}.}
+  \item{...}{Additional arguments passed to \code{\link[stats]{lowess}}.}
+  \item{.returnFit}{A \code{\link[base]{logical}}.}
+}
 
- \value{
-   Returns a \code{\link[base]{numeric}} \code{\link[base]{vector}} of the normalized signals.
- }
+\value{
+  Returns a \code{\link[base]{numeric}} \code{\link[base]{vector}} of the normalized signals.
+}
 
- \section{Multi-enzyme normalization}{
-  It is assumed that the fragment-length effects from multiple enzymes
-  added (with equal weights) on the intensity scale.
-  The fragment-length effects are fitted for each enzyme separately based
-  on units that are exclusively for that enzyme.
-  \emph{If there are no or very such units for an enzyme, the assumptions
-  of the model are not met and the fit will fail with an error.}
-  Then, from the above single-enzyme fits the average effect across
-  enzymes is the calculated for each unit that is on multiple enzymes.
- }
+\section{Multi-enzyme normalization}{
+ It is assumed that the fragment-length effects from multiple enzymes
+ added (with equal weights) on the intensity scale.
+ The fragment-length effects are fitted for each enzyme separately based
+ on units that are exclusively for that enzyme.
+ \emph{If there are no or very such units for an enzyme, the assumptions
+ of the model are not met and the fit will fail with an error.}
+ Then, from the above single-enzyme fits the average effect across
+ enzymes is the calculated for each unit that is on multiple enzymes.
+}
 
- \section{Target functions}{
-   It is possible to specify custom target function effects for each
-   enzyme via argument \code{targetFcns}.  This argument has to be a
-   \code{\link[base]{list}} containing one \code{\link[base]{function}} per enzyme and ordered in the same
-   order as the enzyme are in the columns of argument
-   \code{fragmentLengths}.
-   For instance, if one wish to normalize the signals such that their
-   mean signal as a function of fragment length effect is contantly
-   equal to 2200 (or the intensity scale), the use
-   \code{targetFcns=function(fl, ...) log2(2200)} which completely
-   ignores fragment-length argument 'fl' and always returns a
-   constant.
-   If two enzymes are used, then use
-   \code{targetFcns=rep(list(function(fl, ...) log2(2200)), 2)}.
+\section{Target functions}{
+  It is possible to specify custom target function effects for each
+  enzyme via argument \code{targetFcns}.  This argument has to be a
+  \code{\link[base]{list}} containing one \code{\link[base]{function}} per enzyme and ordered in the same
+  order as the enzyme are in the columns of argument
+  \code{fragmentLengths}.
+  For instance, if one wish to normalize the signals such that their
+  mean signal as a function of fragment length effect is contantly
+  equal to 2200 (or the intensity scale), the use
+  \code{targetFcns=function(fl, ...) log2(2200)} which completely
+  ignores fragment-length argument 'fl' and always returns a
+  constant.
+  If two enzymes are used, then use
+  \code{targetFcns=rep(list(function(fl, ...) log2(2200)), 2)}.
 
-   Note, if \code{targetFcns} is \code{\link[base]{NULL}}, this corresponds to
-   \code{targetFcns=rep(list(function(fl, ...) 0), ncol(fragmentLengths))}.
+  Note, if \code{targetFcns} is \code{\link[base]{NULL}}, this corresponds to
+  \code{targetFcns=rep(list(function(fl, ...) 0), ncol(fragmentLengths))}.
 
-   Alternatively, if one wants to only apply minimial corrections to
-   the signals, then one can normalize toward target functions that
-   correspond to the fragment-length effect of the average array.
- }
+  Alternatively, if one wants to only apply minimial corrections to
+  the signals, then one can normalize toward target functions that
+  correspond to the fragment-length effect of the average array.
+}
 
- \examples{
-   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\examples{
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Example 1: Single-enzyme fragment-length normalization of 6 arrays
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Number samples
@@ -144,7 +146,7 @@ for (kk in 1:I) {
 }
 
 
-   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Example 2: Two-enzyme fragment-length normalization of 6 arrays
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 set.seed(0xbeef);
@@ -336,14 +338,14 @@ for (ii in 1:I) {
 }
 
 
- }
+}
 
- \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
- \references{
-   [1] H. Bengtsson, R. Irizarry, B. Carvalho, and T. Speed, \emph{Estimation and assessment of raw copy numbers at the single locus level}, Bioinformatics, 2008.
+\references{
+  [1] H. Bengtsson, R. Irizarry, B. Carvalho, and T. Speed, \emph{Estimation and assessment of raw copy numbers at the single locus level}, Bioinformatics, 2008.
  \cr
- }
+}
 
 
 

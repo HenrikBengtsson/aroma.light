@@ -27,12 +27,12 @@
 #   otherwise a new is created.}
 # }
 #
-# @author
+# @author "HB"
 #*/#########################################################################
 setMethodS3("plotDensity", "list", function(X, xlim=NULL, ylim=NULL, xlab=NULL, ylab="density (integrates to one)", col=1:length(X), lty=NULL, lwd=NULL, ..., add=FALSE) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'X':
   nbrOfSamples <- length(X);
 
@@ -56,9 +56,9 @@ setMethodS3("plotDensity", "list", function(X, xlim=NULL, ylim=NULL, xlab=NULL, 
     lwd <- rep(lwd, length.out=nbrOfSamples);
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Generate all densities first and figure out the plot limits.
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ds <- list();
   xlimDef <- c(NA,NA);
   ylimDef <- c(0,NA);
@@ -74,9 +74,9 @@ setMethodS3("plotDensity", "list", function(X, xlim=NULL, ylim=NULL, xlab=NULL, 
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Plot the densities
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (is.null(xlim))
     xlim <- xlimDef;
   if (is.null(ylim))

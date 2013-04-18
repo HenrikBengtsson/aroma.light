@@ -9,8 +9,6 @@
 
 \name{normalizeAverage.matrix}
 \alias{normalizeAverage.matrix}
-\alias{normalizeAverage.matrix}
-
 \alias{normalizeAverage.list}
 
 \title{Rescales channel vectors to get the same average}
@@ -19,7 +17,9 @@
  Rescales channel vectors to get the same average.
 }
 
-\usage{\method{normalizeAverage}{matrix}(x, baseline=1, avg=median, targetAvg=2200, ...)}
+\usage{
+\method{normalizeAverage}{matrix}(x, baseline=1, avg=median, targetAvg=2200, ...)
+}
 
 \arguments{
   \item{x}{A \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}} (or \code{\link[base]{list}} of length K).}
@@ -35,5 +35,5 @@
  Returns a normalized \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}} (or \code{\link[base]{list}} of length K).
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 \keyword{methods}

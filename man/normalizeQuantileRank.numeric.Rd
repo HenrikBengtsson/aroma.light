@@ -9,8 +9,6 @@
 
  \name{normalizeQuantileRank.numeric}
 \alias{normalizeQuantileRank.numeric}
-\alias{normalizeQuantileRank.numeric}
-
  \alias{numeric.normalizeQuantile}
 \alias{normalizeQuantile.numeric}
 \alias{normalizeQuantile,numeric-method}
@@ -18,7 +16,9 @@
 
  \title{Normalizes the empirical distribution of a single sample to a target distribution}
 
- \usage{\method{normalizeQuantileRank}{numeric}(x, xTarget, ties=FALSE, ...)}
+ \usage{
+\method{normalizeQuantileRank}{numeric}(x, xTarget, ties=FALSE, ...)
+}
 
  \description{
    Normalizes the empirical distribution of a single sample to a target distribution.

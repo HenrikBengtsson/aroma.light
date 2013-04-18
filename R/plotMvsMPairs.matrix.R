@@ -17,7 +17,7 @@
 #  \item{xlim,ylim}{Plot range on the x and y axes.}
 #  \item{pch}{Plot symbol used.}
 #  \item{...}{Additional arguments accepted by @see "graphics::points".}
-#  \item{add}{If @TRUE, data points are plotted in the current plot, 
+#  \item{add}{If @TRUE, data points are plotted in the current plot,
 #    otherwise a new plot is created.}
 # }
 #
@@ -30,8 +30,8 @@
 #   Returns nothing.
 # }
 #
-# @author
-#*/######################################################################### 
+# @author "HB"
+#*/#########################################################################
 setMethodS3("plotMvsMPairs", "matrix", function(X, xlab="M", ylab="M", xlim=c(-1,1)*6, ylim=xlim, pch=".", ..., add=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -46,7 +46,7 @@ setMethodS3("plotMvsMPairs", "matrix", function(X, xlab="M", ylab="M", xlim=c(-1
 
   # Do not plot (or generate false) M vs A for  non-positive signals.
   X[X <= 0] <- NA;
-  
+
   npairs <- ncol(X)/2;
   for (kk in npairs-1) {
     R <- X[,2*kk-1];

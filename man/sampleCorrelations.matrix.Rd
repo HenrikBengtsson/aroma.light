@@ -9,8 +9,6 @@
 
 \name{sampleCorrelations.matrix}
 \alias{sampleCorrelations.matrix}
-\alias{sampleCorrelations.matrix}
-
 
 \title{Calculates the correlation for random pairs of observations}
 
@@ -18,7 +16,9 @@
   Calculates the correlation for random pairs of observations.
 }
 
-\usage{\method{sampleCorrelations}{matrix}(X, MARGIN=1, pairs=NULL, npairs=max(5000, nrow(X)), ...)}
+\usage{
+\method{sampleCorrelations}{matrix}(X, MARGIN=1, pairs=NULL, npairs=max(5000, nrow(X)), ...)
+}
 
 \arguments{
  \item{X}{An NxK \code{\link[base]{matrix}} where N >= 2 and K >= 2.}
@@ -35,7 +35,7 @@
   Returns a \code{\link[base]{double}} \code{\link[base]{vector}} of length \code{npairs}.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \examples{
 

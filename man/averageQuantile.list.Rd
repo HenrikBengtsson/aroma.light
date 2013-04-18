@@ -9,12 +9,12 @@
 
 \name{averageQuantile.list}
 \alias{averageQuantile.list}
-\alias{averageQuantile.list}
-
 
 \title{Gets the average empirical distribution}
 
-\usage{\method{averageQuantile}{list}(X, ...)}
+\usage{
+\method{averageQuantile}{list}(X, ...)
+}
 
 \description{
   Gets the average empirical distribution for a set of samples of different sizes.

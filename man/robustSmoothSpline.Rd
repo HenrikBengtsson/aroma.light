@@ -12,7 +12,9 @@
 
 \title{Robust fit of a Smoothing Spline}
 
-\usage{\method{robustSmoothSpline}{default}(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), sdCriteria=2e-04, reps=1e-15, tol=1e-06 * IQR(x), plotCurves=FALSE)}
+\usage{
+\method{robustSmoothSpline}{default}(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), sdCriteria=2e-04, reps=1e-15, tol=1e-06 * IQR(x), plotCurves=FALSE)
+}
 
 \description{
   Fits a smoothing spline robustly using the \eqn{L_1} norm. Currently, the
@@ -84,7 +86,7 @@ legend(5,120, c(
   Because of this, this function is also licensed under GPL~v2.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 
 

@@ -9,8 +9,6 @@
 
 \name{iwpca.matrix}
 \alias{iwpca.matrix}
-\alias{iwpca.matrix}
-
 
 \title{Fits an R-dimensional hyperplane using iterative re-weighted PCA}
 
@@ -18,7 +16,9 @@
   Fits an R-dimensional hyperplane using iterative re-weighted PCA.
 }
 
-\usage{\method{iwpca}{matrix}(X, w=NULL, R=1, method=c("symmetric", "bisquare", "tricube", "L1"), maxIter=30, acc=1e-04, reps=0.02, fit0=NULL, ...)}
+\usage{
+\method{iwpca}{matrix}(X, w=NULL, R=1, method=c("symmetric", "bisquare", "tricube", "L1"), maxIter=30, acc=1e-04, reps=0.02, fit0=NULL, ...)
+}
 
 \arguments{
  \item{X}{N-times-K \code{\link[base]{matrix}} where N is the number of observations and
@@ -65,7 +65,7 @@
   multiplied by the weights given by argument \code{w}, if specified.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \examples{
 for (zzz in 0) {

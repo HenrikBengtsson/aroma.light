@@ -18,7 +18,9 @@
   are the same.
 }
 
-\usage{\method{sampleTuples}{default}(x, size, length, ...)}
+\usage{
+\method{sampleTuples}{default}(x, size, length, ...)
+}
 
 \arguments{
  \item{x}{A set of elements to sample from.}
@@ -31,7 +33,7 @@
   Returns a NxK \code{\link[base]{matrix}} where N = \code{size} and K = \code{length}.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 \examples{
 pairs <- sampleTuples(1:10, size=5, length=2)

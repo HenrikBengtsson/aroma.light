@@ -25,7 +25,7 @@
 #  Returns a normalized @numeric NxK @matrix (or @list of length K).
 # }
 #
-# @author
+# @author "HB"
 #*/###########################################################################
 setMethodS3("normalizeAverage", "matrix", function(x, baseline=1, avg=median, targetAvg=2200, ...) {
   # Estimate the scale for each channel

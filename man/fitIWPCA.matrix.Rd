@@ -9,8 +9,6 @@
 
 \name{fitIWPCA.matrix}
 \alias{fitIWPCA.matrix}
-\alias{fitIWPCA.matrix}
-
 
 \title{Robust fit of linear subspace through multidimensional data}
 
@@ -18,7 +16,9 @@
   Robust fit of linear subspace through multidimensional data.
 }
 
-\usage{\method{fitIWPCA}{matrix}(X, constraint=c("diagonal", "baseline", "max"), baselineChannel=NULL, ..., aShift=rep(0, ncol(X)), Xmin=NULL)}
+\usage{
+\method{fitIWPCA}{matrix}(X, constraint=c("diagonal", "baseline", "max"), baselineChannel=NULL, ..., aShift=rep(0, ncol(X)), Xmin=NULL)
+}
 
 \arguments{
  \item{X}{NxK \code{\link[base]{matrix}} where N is the number of observations and
@@ -121,7 +121,7 @@
       closest to \eqn{L} by \eqn{t=a*(1,1,...,1)}.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 
 %examples "fitMultiIWPCA.matrix.Rex"
 

@@ -9,8 +9,6 @@
 
  \name{calibrateMultiscan.matrix}
 \alias{calibrateMultiscan.matrix}
-\alias{calibrateMultiscan.matrix}
-
 
  \encoding{latin1}
 
@@ -20,7 +18,9 @@
    Weighted affine calibration of a multiple re-scanned channel.
  }
 
- \usage{\method{calibrateMultiscan}{matrix}(X, weights=NULL, typeOfWeights=c("datapoint"), method="L1", constraint="diagonal", satSignal=2^16 - 1, ..., average=median, deviance=NULL, project=FALSE, .fitOnly=FALSE)}
+ \usage{
+\method{calibrateMultiscan}{matrix}(X, weights=NULL, typeOfWeights=c("datapoint"), method="L1", constraint="diagonal", satSignal=2^16 - 1, ..., average=median, deviance=NULL, project=FALSE, .fitOnly=FALSE)
+}
 
  \arguments{
   \item{X}{An NxK \code{\link[base]{matrix}} (K>=2) where the columns represent the
@@ -126,7 +126,7 @@
   (IWPCA).
  }
 
- \author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+ \author{Henrik Bengtsson}
 
  \references{
    [1] H. Bengtsson, J. Vallon-Christersson and G. \enc{Jönsson}{Jonsson}, \emph{Calibration and assessment of channel-specific biases in microarray data with extended dynamical range}, BMC Bioinformatics, 5:177, 2004.

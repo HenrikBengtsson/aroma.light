@@ -9,8 +9,6 @@
 
 \name{plotMvsMPairs.matrix}
 \alias{plotMvsMPairs.matrix}
-\alias{plotMvsMPairs.matrix}
-
 
 \title{Plot log-ratios vs log-ratios for all pairs of columns}
 
@@ -18,7 +16,9 @@
   Plot log-ratios vs log-ratios for all pairs of columns.
 }
 
-\usage{\method{plotMvsMPairs}{matrix}(X, xlab="M", ylab="M", xlim=c(-1, 1) * 6, ylim=xlim, pch=".", ..., add=FALSE)}
+\usage{
+\method{plotMvsMPairs}{matrix}(X, xlab="M", ylab="M", xlim=c(-1, 1) * 6, ylim=xlim, pch=".", ..., add=FALSE)
+}
 
 \arguments{
  \item{X}{Nx2K \code{\link[base]{matrix}} where N is the number of observations and
@@ -40,5 +40,5 @@
   Returns nothing.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 \keyword{methods}

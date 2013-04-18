@@ -10,9 +10,7 @@
 \name{print.SmoothSplineLikelihood}
 \alias{print.SmoothSplineLikelihood}
 \alias{SmoothSplineLikelihood.print}
-\alias{print.SmoothSplineLikelihood}
 \alias{print,SmoothSplineLikelihood-method}
-
 
 \title{Prints an SmoothSplineLikelihood object}
 
@@ -21,7 +19,9 @@
  \code{\link{likelihood.smooth.spline}()}.
 }
 
-\usage{\method{print}{SmoothSplineLikelihood}(x, digits=getOption("digits"), ...)}
+\usage{
+\method{print}{SmoothSplineLikelihood}(x, digits=getOption("digits"), ...)
+}
 
 \arguments{
   \item{x}{Object to be printed.}
@@ -33,6 +33,6 @@
  Returns nothing.
 }
 
-\author{Henrik Bengtsson (\url{http://www.braju.com/R/})}
+\author{Henrik Bengtsson}
 \keyword{internal}
 \keyword{methods}
