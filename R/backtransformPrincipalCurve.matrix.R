@@ -117,6 +117,7 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
     if (K == L) {
       X <- X[,dimensions,drop=FALSE];
       dimX <- dim(X);
+      dimnamesX <-   dimnames(X);
     }
     dimS <- dim(s);
     L <- dimS[2];
