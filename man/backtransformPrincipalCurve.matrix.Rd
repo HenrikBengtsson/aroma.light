@@ -39,6 +39,11 @@
   The backtransformed NxK (or NxD) \code{\link[base]{matrix}}.
 }
 
+\details{
+  Each column in X ("dimension") is backtransformed independentently
+  of the others.
+}
+
 \section{Target dimension}{
   By default, the backtransform is such that afterward the signals are
   approximately proportional to the (first) principal curve as fitted
