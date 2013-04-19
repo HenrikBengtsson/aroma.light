@@ -37,12 +37,29 @@ xlim <- c(0, 1.04*max(x))
 ylim <- range(c(y,yN), na.rm=TRUE)
 
 
-# Display raw and backtransform data
+# Pairwise signals vs x before and after transform
 layout(matrix(1:4, nrow=2, byrow=TRUE))
-par(mar=c(4,4,2,1)+0.1)
-for (rr in 1:2) {
+par(mar=c(4,4,3,2)+0.1)
+for (cc in 1:3) {
+  ylab <- substitute(y[c], env=list(c=cc))
+  plot(NA, xlim=xlim, ylim=ylim, xlab="x", ylab=ylab)
+  abline(h=a[cc], lty=3)
+  mtext(side=4, at=a[cc], sprintf("a=%g", a[cc]), 
+        cex=0.8, las=2, line=0, adj=1.1, padj=-0.2)
+  points(x, y[,cc])
+  points(x, yN[,cc], col="tomato")
+  legend("topleft", col=c("black", "tomato"), pch=19,
+                    c("orignal", "transformed"), bty="n")
+}
+title(main="Pairwise signals vs x before and after transform", outer=TRUE, line=-2)
+
+
+# Pairwise signals before and after transform
+layout(matrix(1:4, nrow=2, byrow=TRUE))
+par(mar=c(4,4,3,2)+0.1)
+for (rr in 3:2) {
   ylab <- substitute(y[c], env=list(c=rr))
-  for (cc in 2:3) {
+  for (cc in 1:2) {
     if (cc == rr) { 
       plot.new()
       next
@@ -52,15 +69,8 @@ for (rr in 1:2) {
     abline(a=0, b=1, lty=2)
     points(y[,c(cc,rr)])
     points(yN[,c(cc,rr)], col="tomato")
+    legend("topleft", col=c("black", "tomato"), pch=19,
+                      c("orignal", "transformed"), bty="n")
   }
 }
-
-
-layout(matrix(1:4, nrow=2, byrow=TRUE))
-par(mar=c(4,4,2,1)+0.1)
-for (cc in 1:3) {
-  ylab <- substitute(y[c], env=list(c=cc))
-  plot(NA, xlim=xlim, ylim=ylim, xlab="x", ylab=ylab)
-  points(x, y[,cc])
-  points(x, yN[,cc], col="tomato")
-}
+title(main="Pairwise signals before and after transform", outer=TRUE, line=-2)

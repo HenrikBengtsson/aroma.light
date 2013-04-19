@@ -81,7 +81,7 @@
  implemented by downloading the latest "devel" version!
 }
 
-\author{Henrik Bengtsson}
+\author{Henrik Bengtsson, Pierre Neuvial}
 
 \section{License}{
   The releases of this package is licensed under
