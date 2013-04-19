@@ -80,6 +80,7 @@ o GENERALIZATION: Now fitNaiveGenotypes() returns also 'flavor' and
 o CLEANUP: Dropped argument 'flavor' of callNaiveGenotypes(); it
   is instead passed to fitNaiveGenotypes() via '...'.
 
+
 Version: 1.25.0 [2012-03-30]
 o The version number was bumped for the Bioconductor devel version.
 
