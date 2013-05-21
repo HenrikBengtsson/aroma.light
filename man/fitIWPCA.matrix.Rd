@@ -17,7 +17,8 @@
 }
 
 \usage{
-\method{fitIWPCA}{matrix}(X, constraint=c("diagonal", "baseline", "max"), baselineChannel=NULL, ..., aShift=rep(0, ncol(X)), Xmin=NULL)
+\method{fitIWPCA}{matrix}(X, constraint=c("diagonal", "baseline", "max"), baselineChannel=NULL, ...,
+  aShift=rep(0, ncol(X)), Xmin=NULL)
 }
 
 \arguments{

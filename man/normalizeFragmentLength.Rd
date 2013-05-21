@@ -18,7 +18,8 @@
 }
 
 \usage{
-\method{normalizeFragmentLength}{default}(y, fragmentLengths, targetFcns=NULL, subsetToFit=NULL, onMissing=c("ignore", "median"), .isLogged=TRUE, ..., .returnFit=FALSE)
+\method{normalizeFragmentLength}{default}(y, fragmentLengths, targetFcns=NULL, subsetToFit=NULL,
+  onMissing=c("ignore", "median"), .isLogged=TRUE, ..., .returnFit=FALSE)
 }
 
 \arguments{

@@ -17,7 +17,8 @@
 }
 
 \usage{
-\method{plotMvsAPairs}{matrix}(X, Alab="A", Mlab="M", Alim=c(0, 16), Mlim=c(-1, 1) * diff(Alim), pch=".", ..., add=FALSE)
+\method{plotMvsAPairs}{matrix}(X, Alab="A", Mlab="M", Alim=c(0, 16), Mlim=c(-1, 1) * diff(Alim), pch=".",
+  ..., add=FALSE)
 }
 
 \arguments{

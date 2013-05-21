@@ -18,7 +18,8 @@
 }
 
 \usage{
-\method{fitXYCurve}{matrix}(X, weights=NULL, typeOfWeights=c("datapoint"), method=c("loess", "lowess", "spline", "robustSpline"), bandwidth=NULL, satSignal=2^16 - 1, ...)
+\method{fitXYCurve}{matrix}(X, weights=NULL, typeOfWeights=c("datapoint"), method=c("loess", "lowess",
+  "spline", "robustSpline"), bandwidth=NULL, satSignal=2^16 - 1, ...)
 }
 
 \arguments{

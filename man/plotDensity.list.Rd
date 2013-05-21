@@ -20,7 +20,8 @@
 }
 
 \usage{
-\method{plotDensity}{list}(X, xlim=NULL, ylim=NULL, xlab=NULL, ylab="density (integrates to one)", col=1:length(X), lty=NULL, lwd=NULL, ..., add=FALSE)
+\method{plotDensity}{list}(X, xlim=NULL, ylim=NULL, xlab=NULL, ylab="density (integrates to one)",
+  col=1:length(X), lty=NULL, lwd=NULL, ..., add=FALSE)
 }
 
 \arguments{

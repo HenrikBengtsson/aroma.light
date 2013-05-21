@@ -17,7 +17,8 @@
 \title{Weighted sample quantile normalization}
 
 \usage{
-\method{normalizeQuantileRank}{matrix}(X, ties=FALSE, robust=FALSE, weights=NULL, typeOfWeights=c("channel", "signal"), ...)
+\method{normalizeQuantileRank}{matrix}(X, ties=FALSE, robust=FALSE, weights=NULL,
+  typeOfWeights=c("channel", "signal"), ...)
 }
 
 \description{

@@ -13,7 +13,8 @@
 \title{Robust fit of a Smoothing Spline}
 
 \usage{
-\method{robustSmoothSpline}{default}(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), sdCriteria=2e-04, reps=1e-15, tol=1e-06 * IQR(x), plotCurves=FALSE)
+\method{robustSmoothSpline}{default}(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50),
+  sdCriteria=2e-04, reps=1e-15, tol=1e-06 * IQR(x), plotCurves=FALSE)
 }
 
 \description{
