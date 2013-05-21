@@ -17,7 +17,8 @@
 }
 
 \usage{
-\method{plotMvsA}{matrix}(X, Alab="A", Mlab="M", Alim=c(0, 16), Mlim=c(-1, 1) * diff(Alim) * aspectRatio, aspectRatio=1, pch=".", ..., add=FALSE)
+\method{plotMvsA}{matrix}(X, Alab="A", Mlab="M", Alim=c(0, 16), Mlim=c(-1, 1) * diff(Alim) * aspectRatio,
+  aspectRatio=1, pch=".", ..., add=FALSE)
 }
 
 \arguments{

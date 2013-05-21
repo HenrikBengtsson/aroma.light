@@ -40,7 +40,8 @@
 }
 
 \usage{
-\method{normalizeAffine}{matrix}(X, weights=NULL, typeOfWeights=c("datapoint"), method="L1", constraint=0.05, satSignal=2^16 - 1, ..., .fitOnly=FALSE)
+\method{normalizeAffine}{matrix}(X, weights=NULL, typeOfWeights=c("datapoint"), method="L1",
+  constraint=0.05, satSignal=2^16 - 1, ..., .fitOnly=FALSE)
 }
 
 \arguments{

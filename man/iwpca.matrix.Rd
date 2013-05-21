@@ -17,7 +17,8 @@
 }
 
 \usage{
-\method{iwpca}{matrix}(X, w=NULL, R=1, method=c("symmetric", "bisquare", "tricube", "L1"), maxIter=30, acc=1e-04, reps=0.02, fit0=NULL, ...)
+\method{iwpca}{matrix}(X, w=NULL, R=1, method=c("symmetric", "bisquare", "tricube", "L1"), maxIter=30,
+  acc=1e-04, reps=0.02, fit0=NULL, ...)
 }
 
 \arguments{

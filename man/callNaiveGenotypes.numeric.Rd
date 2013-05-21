@@ -18,7 +18,7 @@
  }
 
  \usage{
-\method{callNaiveGenotypes}{numeric}(y, cn=rep(2, length(y)), ..., modelFit=NULL, verbose=FALSE)
+\method{callNaiveGenotypes}{numeric}(y, cn=rep(2L, length(y)), ..., modelFit=NULL, verbose=FALSE)
 }
 
  \arguments{

@@ -13,7 +13,8 @@
 \title{Plot the relationship between two variables as a smooth curve}
 
 \usage{
-\method{plotXYCurve}{numeric}(x, y, lwd=2, col=1, dlwd=1, dcol=NA, xlim=NULL, ylim=xlim, xlab=NULL, ylab=NULL, curveFit=smooth.spline, ..., add=FALSE)
+\method{plotXYCurve}{numeric}(x, y, lwd=2, col=1, dlwd=1, dcol=NA, xlim=NULL, ylim=xlim, xlab=NULL,
+  ylab=NULL, curveFit=smooth.spline, ..., add=FALSE)
 }
 
 \description{

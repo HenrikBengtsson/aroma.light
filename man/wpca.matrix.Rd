@@ -13,7 +13,8 @@
 \title{Light-weight Weighted Principal Component Analysis}
 
 \usage{
-\method{wpca}{matrix}(x, w=NULL, center=TRUE, scale=FALSE, method=c("dgesdd", "dgesvd", "dsvdc"), swapDirections=FALSE, ...)
+\method{wpca}{matrix}(x, w=NULL, center=TRUE, scale=FALSE, method=c("dgesdd", "dgesvd", "dsvdc"),
+  swapDirections=FALSE, ...)
 }
 
 \description{

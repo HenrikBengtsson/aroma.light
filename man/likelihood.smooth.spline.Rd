@@ -13,7 +13,8 @@
 \title{Calculate the log likelihood of a smoothing spline given the data}
 
 \usage{
-\method{likelihood}{smooth.spline}(object, x=NULL, y=NULL, w=NULL, base=exp(1), rel.tol=.Machine$double.eps^(1/8), ...)
+\method{likelihood}{smooth.spline}(object, x=NULL, y=NULL, w=NULL, base=exp(1),
+  rel.tol=.Machine$double.eps^(1/8), ...)
 }
 
 \arguments{

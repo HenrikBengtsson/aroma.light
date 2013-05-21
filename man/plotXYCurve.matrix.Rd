@@ -13,7 +13,8 @@
 \title{Plot the relationship between two variables as a smooth curve}
 
 \usage{
-\method{plotXYCurve}{matrix}(X, Y, col=1:nrow(X), lwd=NULL, xlim=NULL, ylim=xlim, xlab=NULL, ylab=NULL, ..., add=FALSE)
+\method{plotXYCurve}{matrix}(X, Y, col=1:nrow(X), lwd=NULL, xlim=NULL, ylim=xlim, xlab=NULL, ylab=NULL,
+  ..., add=FALSE)
 }
 
 \description{
