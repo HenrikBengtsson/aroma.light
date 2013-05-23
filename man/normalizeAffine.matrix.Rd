@@ -17,7 +17,7 @@
 \description{
   Weighted affine normalization between channels and arrays.
 
-  This method will both remove curvature in the M vs A plots that are
+  This method will remove curvature in the M vs A plots that are
   due to an affine transformation of the data. In other words, if there
   are (small or large) biases in the different (red or green) channels,
   biases that can be equal too, you will get curvature in the M vs A plots
