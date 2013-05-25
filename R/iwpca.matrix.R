@@ -24,13 +24,13 @@
 #    If a @function, it is used to calculate weights for next iteration
 #    based on the current iteration's residuals.}
 #  \item{maxIter}{Maximum number of iterations.}
-#  \item{acc}{The (Euclidean) distance between two subsequent parameters 
+#  \item{acc}{The (Euclidean) distance between two subsequent parameters
 #    fit for which the algorithm is considered to have converged.}
 #  \item{reps}{Small value to be added to the residuals before the
 #    the weights are calculated based on their inverse. This is to avoid
 #    infinite weights.}
-#  \item{fit0}{A @list containing elements \code{vt} and \code{pc} 
-#    specifying an initial fit. 
+#  \item{fit0}{A @list containing elements \code{vt} and \code{pc}
+#    specifying an initial fit.
 #    If @NULL, the initial guess will be equal to the (weighted) PCA fit.}
 #  \item{...}{Additional arguments accepted by @seemethod "wpca".}
 # }
@@ -49,7 +49,7 @@
 #   the "residuals".
 #   If \code{method=="L1"}, the internal weights are 1 / sum(abs(r) + reps).
 #   This is the same as \code{method=function(r) 1/sum(abs(r)+reps)}.
-#   The "residuals" are orthogonal Euclidean distance of the principal 
+#   The "residuals" are orthogonal Euclidean distance of the principal
 #   components R,R+1,...,K.
 #   In each iteration before doing WPCA, the internal weighted are
 #   multiplied by the weights given by argument \code{w}, if specified.
@@ -64,7 +64,7 @@
 # }
 #
 # @keyword "algebra"
-#*/######################################################################### 
+#*/#########################################################################
 setMethodS3("iwpca", "matrix", function(X, w=NULL, R=1, method=c("symmetric", "bisquare", "tricube", "L1"), maxIter=30, acc=1e-4, reps=0.02, fit0=NULL, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 1. Verify the arguments
@@ -90,15 +90,15 @@ setMethodS3("iwpca", "matrix", function(X, w=NULL, R=1, method=c("symmetric", "b
   # Argument: 'fit0'
   if (!is.null(fit0)) {
     if (!all(c("vt", "pc") %in% names(fit0))) {
-      throw("Argument 'fit0' is missing element 'vt' or 'pc': ", 
+      throw("Argument 'fit0' is missing element 'vt' or 'pc': ",
                                         paste(names(fit0), collapse=", "));
     }
   }
-  
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 2. Fit the model
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   Ulast <- 1/.Machine$double.eps; # A large number
   iter <- 0;
   isConverged <- FALSE;
@@ -112,7 +112,7 @@ setMethodS3("iwpca", "matrix", function(X, w=NULL, R=1, method=c("symmetric", "b
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       if (!is.null(w0))
         w <- w0 * w;
-  
+
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # Fit N-dimensional weighted PCA.
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -124,7 +124,7 @@ setMethodS3("iwpca", "matrix", function(X, w=NULL, R=1, method=c("symmetric", "b
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Get the fitted line L
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    # Get fitted eigenvectors (u1,u2,...,uN) 
+    # Get fitted eigenvectors (u1,u2,...,uN)
     # with ui*uj = 0; i!=j and ui*ui = 1.
     U <- fit$vt;
     colnames(U) <- rownames(U) <- NULL;
@@ -164,7 +164,8 @@ setMethodS3("iwpca", "matrix", function(X, w=NULL, R=1, method=c("symmetric", "b
         w <- rep(.Machine$double.eps, length(r));
         ii <- (r < 1);
         w[ii] <- (1-r[ii]^2)^2;
-        rm(ii);
+        # Not needed anymore
+        ii <- NULL;
       } else if (method == "tricube") {
         # Add small number to residuals to avoid infinite weights
         r <- abs(r) + reps;
@@ -174,7 +175,8 @@ setMethodS3("iwpca", "matrix", function(X, w=NULL, R=1, method=c("symmetric", "b
         w <- rep(.Machine$double.eps, length(r));
         ii <- (r < 1);
         w[ii] <- (1-r[ii]^3)^3;
-        rm(ii);
+        # Not needed anymore
+        ii <- NULL;
       }
     } else if (is.function(method)) {
       # Pass also the "fitted values" to the weight function.
@@ -183,7 +185,7 @@ setMethodS3("iwpca", "matrix", function(X, w=NULL, R=1, method=c("symmetric", "b
       w <- method(r);
 
       # Combine w_i = ||w_{i,j}||_2 (Euclidean distance), if needed.
-      if (is.matrix(w) && ncol(w) > 1) { 
+      if (is.matrix(w) && ncol(w) > 1) {
         w <- sqrt(rowSums(w^2)/ncol(w));
       } else {
         w <- as.vector(w);
@@ -195,7 +197,8 @@ setMethodS3("iwpca", "matrix", function(X, w=NULL, R=1, method=c("symmetric", "b
       w[is.na(w)] <- 0;
     }
 
-    rm(r);
+    # Not needed anymore
+    r <- NULL;
   } # while(...)
 
   fit$w <- w;
@@ -221,8 +224,8 @@ setMethodS3("iwpca", "matrix", function(X, w=NULL, R=1, method=c("symmetric", "b
 # 2005-02-08
 # o Added "symmetric" (now default) and "tricube" too.
 # 2005-02-07
-# o Argument 'method' is now how the weights are calculated from the 
-#   residuals, not how residuals are combined across dimensions. 
+# o Argument 'method' is now how the weights are calculated from the
+#   residuals, not how residuals are combined across dimensions.
 #   Method "L2" is therefore removed, because it corresponds to wpca().
 # o Added support for weight functions via argument 'method'. The function
 #   must take a matrix of residuals as the first argument.

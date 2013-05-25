@@ -15,7 +15,7 @@
 #   \item{X}{A @numeric NxK @matrix with the K columns representing the
 #     channels and the N rows representing the data points.}
 #   \item{xTarget}{A @numeric @vector of length N.}
-#   \item{...}{Additional arguments passed to 
+#   \item{...}{Additional arguments passed to
 #     @see "normalizeQuantileSpline.numeric".}
 # }
 #
@@ -40,7 +40,7 @@
 #
 # \references{
 #   [1] @include "../incl/BengtssonH_etal_2008.bib.Rdoc" \cr
-# } 
+# }
 #
 # @keyword "nonparametric"
 # @keyword "multivariate"
@@ -56,14 +56,13 @@ setMethodS3("normalizeQuantileSpline", "matrix", function(X, xTarget, ...) {
     throw("Argument 'xTarget' is of different length than the number of rows in 'X': ", length(xTarget) , " != ", nrow(X));
   }
 
-  # Sort the target distribution once 
+  # Sort the target distribution once
   xTarget <- sort(xTarget, na.last=TRUE);
 
   # Normalize each of the columns towards the target distribution
   for (cc in seq(length=ncol(X))) {
-    X[,cc] <- normalizeQuantileSpline(X[,cc], xTarget=xTarget, 
+    X[,cc] <- normalizeQuantileSpline(X[,cc], xTarget=xTarget,
                                                       sortTarget=FALSE, ...);
-    gc <- gc();
   }
 
   X;
@@ -72,6 +71,8 @@ setMethodS3("normalizeQuantileSpline", "matrix", function(X, xTarget, ...) {
 
 ##############################################################################
 # HISTORY:
+# 2013-05-25
+# o SPEEDUP: Removed gc() called for every column.
 # 2007-02-04
 # o Created from normalizeQuantile.matrix.R.
 ##############################################################################

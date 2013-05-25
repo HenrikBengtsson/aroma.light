@@ -19,13 +19,17 @@ setMethodS3("backtransformXYCurve", "matrix", function(X, fit, targetChannel=1, 
   # Nothing to do?
   if (length(keep) > 0) {
     X <- X[keep,,drop=FALSE];
-  
+
     xN <- fit$predictY(X[,targetChannel]);
     delta <- xN - X[,targetChannel];
-    rm(xN);
-  
+
+    # Not needed anymore
+    xN <- NULL;
+
     XN[keep,-targetChannel] <- X[,-targetChannel] - delta;
-    rm(keep,delta);
+
+    # Not needed anymore
+    keep <- delta <- NULL;
   }
 
   XN;

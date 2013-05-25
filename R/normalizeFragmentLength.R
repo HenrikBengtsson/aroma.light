@@ -226,7 +226,8 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
       fit <- lowess(fl[ok], y[ok], ...);
       class(fit) <- "lowess";
     })
-    rm(ok);
+    # Not needed anymore
+    ok <- NULL;
 
     if (.returnFit)
       fits[[ee]] <- fit;
@@ -250,10 +251,11 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
       }
     }
 
-    rm(fit, fl);
-
+    # Not needed anymore
+    fit <- fl <- NULL;
   } # for (ee ...)
-  rm(hasFL, isSingleEnzymed);
+  # Not needed anymore
+  hasFL <- isSingleEnzymed <- NULL;
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -305,12 +307,15 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
         if (!is.null(targetFcns)) {
           muT[isMissing] <- median(muT[ok], na.rm=TRUE);
         }
-        rm(ok);
+        # Not needed anymore
+        ok <- NULL;
       } # if (onMissing == "median")
     }
-    rm(isMissing);
+    # Not needed anymore
+    isMissing <- NULL;
   }
-  rm(countFL);
+  # Not needed anymore
+  countFL <- NULL;
 
   if (.isLogged) {
     mu <- log2(mu);
@@ -327,9 +332,11 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
   } else {
     dy <- (mu - muT);
   }
-  rm(mu);
+  # Not needed anymore
+  mu <- NULL;
   if (!is.null(targetFcns)) {
-    rm(muT);
+    # Not needed anymore
+    muT <- NULL;
   }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -337,7 +344,8 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Transform signals
   ok <- is.finite(dy) & okY;
-  rm(okY);
+  # Not needed anymore
+  okY <- NULL;
   y[ok] <- y[ok] - dy[ok];
 
   if (.returnFit) {

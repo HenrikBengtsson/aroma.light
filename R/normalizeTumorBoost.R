@@ -155,7 +155,8 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
     b[idxs] <- betaT[idxs]/betaN[idxs];
     idxs <- whichVector(!isDown & !isBetaNOne);
     b[idxs] <- (1-betaT[idxs])/(1-betaN[idxs]);
-    rm(isDown, idxs);
+    # Not needed anymore
+    isDown <- idxs <- NULL;
 
     # Treat the case when the estimated SNP effect is zero
     # Then we want the normalized value to be exactly zero or one.
@@ -173,7 +174,8 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
     b[idxs] <- betaT[idxs]/betaN[idxs];
     idxs <- whichVector((isHet & !isDown & !isBetaNOne) | (isHomB & !isBetaNOne));
     b[idxs] <- (1-betaT[idxs])/(1-betaN[idxs]);
-    rm(isDown, isHet, isHomA, isHomB, idxs);
+    # Not needed anymore
+    isDown <- isHet <- isHomA <- isHomB <- idxs <- NULL;
   } else if (flavor == "v4") {
     # This is the published TumorBoost normalization method
     b <- rep(1, length(delta));
@@ -183,7 +185,8 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
     b[idxs] <- betaT[idxs]/betaN[idxs];
     idxs <- whichVector(isHet & !isDown);
     b[idxs] <- (1-betaT[idxs])/(1-betaN[idxs]);
-    rm(isDown, isHet, idxs);
+    # Not needed anymore
+    isDown <- isHet <- idxs <- NULL;
   }
 
   delta <- b * delta;
@@ -231,8 +234,8 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
     idxs <- whichVector(isHet & !isDown);
     betaTN[idxs] <- 1/2 + sf * (betaTN[idxs] - 1/2);
 
-    # Clean up
-    rm(isDown, isHom, isHet, idxs, eta, etaC);
+    # Not needed anymore
+    isDown <- isHom <- isHet <- idxs <- eta <- etaC <- NULL;
   } else {
     sf <- as.double(NA);
   }

@@ -35,7 +35,7 @@
 #  \item{project}{
 #    returned (K values per data point are returned).
 #    If @TRUE, the backtransformed values "\code{(X-a)/b}" are projected
-#    onto the line L(a,b) so that all columns 
+#    onto the line L(a,b) so that all columns
 #    will be identical.
 #  }
 #  \item{...}{Not used.}
@@ -57,7 +57,7 @@
 # \seealso{
 #   @seeclass
 # }
-#*/######################################################################### 
+#*/#########################################################################
 setMethodS3("backtransformAffine", "matrix", function(X, a=NULL, b=NULL, project=FALSE, ...) {
 
   # Dimensions of 'X'
@@ -66,7 +66,7 @@ setMethodS3("backtransformAffine", "matrix", function(X, a=NULL, b=NULL, project
   if (ndims == 1) {
     stop("Can not fit affine multiscan model. Matrix must contain at least two columns (scans): ", ndims);
   }
-  
+
   # If argument 'a' is a list assume it contains the elements 'a' and 'b'.
   if (is.list(a)) {
     b <- a$b;
@@ -88,12 +88,13 @@ setMethodS3("backtransformAffine", "matrix", function(X, a=NULL, b=NULL, project
       value <- rep(t[,col], length.out=nobs);
       a[,cc] <- value;
     }
-    rm(t);
+    # Not needed anymore
+    t <- NULL;
   } else if (!is.null(a)) {
     stop(paste("Unknown data type of argument 'a':", class(a)[1]));
   }
 
-  if (!project) {  
+  if (!project) {
     if (is.vector(b)) {
       # Create a full matrix and filled row by row with 'b'
       b <- matrix(b, nrow=nobs, ncol=ndims, byrow=TRUE);
@@ -114,7 +115,7 @@ setMethodS3("backtransformAffine", "matrix", function(X, a=NULL, b=NULL, project
   }
 
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 2. Subtract the bias and rescale
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (!is.null(a))
@@ -130,7 +131,7 @@ setMethodS3("backtransformAffine", "matrix", function(X, a=NULL, b=NULL, project
   #      estimate xhat in y = a + b*xhat.
   ########################################################################
   if (project) {
-    # In theory: 
+    # In theory:
     #  ytilde <- projectUontoV(y-a,b) + a;
     #  xtilde <- (ytilde-a)/b;
     # In practice:
