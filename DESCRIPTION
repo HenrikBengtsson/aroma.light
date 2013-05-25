@@ -1,8 +1,8 @@
 Package: aroma.light
 Version: 1.31.3
-Depends: R (>= 2.10.0), matrixStats (>= 0.5.3)
+Depends: R (>= 2.10.0), matrixStats (>= 0.8.1)
 Imports: R.methodsS3 (>= 1.4.2)
-Suggests: R.oo (>= 1.9.9), R.utils (>= 1.16.2), princurve (>= 1.1-11)
+Suggests: R.oo (>= 1.13.0), R.utils (>= 1.23.2), princurve (>= 1.1-12)
 Date: 2013-05-25
 Title: Light-weight methods for normalization and visualization of microarray data using only basic R data types
 Authors@R: c(
