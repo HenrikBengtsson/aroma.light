@@ -91,12 +91,12 @@
 #   For Singular Value Decomposition, see @see "base::svd".
 #   For other implementations of Principal Component Analysis functions see
 #   (if they are installed):
-#   @see "stats::prcomp" in package \pkg{stats} and 
+#   @see "stats::prcomp" in package \pkg{stats} and
 #   \code{pca()} in package \pkg{pcurve}.
 # }
 #
 # @keyword "algebra"
-#*/######################################################################### 
+#*/#########################################################################
 setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, method=c("dgesdd", "dgesvd", "dsvdc"), swapDirections=FALSE, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 1. Verify the arguments
@@ -119,7 +119,7 @@ setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, meth
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 2. Weighted or non-weighted centering and rescaling of the data
-  # 
+  #
   # Note: The following split of (center == TRUE) and (center == FALSE)
   # is to minimize memory usage. In other words, the codes is longer,
   # but more memory efficient.
@@ -132,7 +132,7 @@ setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, meth
       # Calculates the weighted column means (recall that sum(w) == 1)
       xMean <- as.vector(w %*% x);                # a K vector
     }
-  
+
     if (center) {
       # Centers the data directly by subtracting the column means
       for (kk in 1:ncol(x))
@@ -143,7 +143,7 @@ setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, meth
       for (kk in 1:ncol(x))
         xc[,kk] <- x[,kk] - xMean[kk];
     }
-    
+
     if (scale) {
       if (is.null(w)) {
         # Non-weighted root-mean-squares
@@ -159,18 +159,20 @@ setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, meth
           sqrt(sum(v^2)/max(1, length(v)-1));
         }
       }
-      
+
       if (center) {
         xRMS <- apply(x, MARGIN=2, FUN=rms);
       } else {
         xRMS <- apply(xc, MARGIN=2, FUN=rms);
-        rm(xc); # Not needed anymore.
+        # Not needed anymore
+        xc <- NULL;
       }
 
       for (kk in 1:ncol(x))
         x[,kk] <- x[,kk] / xRMS[kk];
 
-      rm(xRMS,rms); # Not needed anymore.
+      # Not needed anymore
+      xRMS <- rms <- NULL;
     }
   } else {
     xMean <- rep(0, length=K);
@@ -180,7 +182,7 @@ setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, meth
   if (!is.null(w)) {
     x <- sqrt(w)*x;
   }
-  
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 3. Singular Value Decomposition, i.e. X = U D V'
   #
@@ -213,12 +215,13 @@ setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, meth
   # d  - a K vector containing the singular value of
   #      each principal component on its diagonal.
   #      It holds that d[1] >= d[2] >= ... d[K] >= 0.
-  
+
   # vt - a KxK transposed matrix whose columns contain the right
   #      singular vectors (eigenvector) of 'x'.
   #      It holds that t(v) %*% v == I
 
-  rm(x); # Not need anymore, in case a local copy has been created!
+  # Not need anymore, in case a local copy has been created!
+  x <- NULL;
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 4. The PCA principal components
@@ -229,8 +232,9 @@ setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, meth
   d <- duvt$d;
   vt <- duvt$vt;
   pc <- duvt$u;
-  rm(duvt); # Not need it anymore.
-  
+  # Not need anymore
+  duvt <- NULL;
+
   # Note: D == diag(duvt$d) is memory expensive since the dimensions of D
   # is the same as the dimensions of 'x'. Thus, it unwise to do:
   # pc <- duvt$u %*% diag(duvt$d);
@@ -240,9 +244,10 @@ setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, meth
   if (!is.null(w)) {
     # Rescale the principal components
     pc <- pc / sqrt(w);
-    rm(w); # Not needed anymore!
+    # Not need anymore
+    w <- NULL;
   }
-  
+
   if (swapDirections) {
     swap <- apply(vt, MARGIN=1, FUN=function(z) sum(sign(z)) < 0);
 
@@ -253,8 +258,8 @@ setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, meth
       pc[,kk] <- -pc[,kk];
     }
   }
-  
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 4. Return the parameter estimates
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   res <- list(pc=pc, d=d, vt=vt, xMean=xMean);

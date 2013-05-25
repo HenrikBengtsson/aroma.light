@@ -8,15 +8,15 @@
 # \description{
 #   @get "title".
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
 #  \item{y}{A @numeric @vector of length J containing allele B fractions
 #    for a normal sample.}
 #  \item{cn}{An optional @numeric @vector of length J specifying the true
-#    total copy number in \eqn{\{0,1,2,NA\}} at each locus.  This can be 
-#    used to specify which loci are diploid and which are not, e.g. 
+#    total copy number in \eqn{\{0,1,2,NA\}} at each locus.  This can be
+#    used to specify which loci are diploid and which are not, e.g.
 #    autosomal and sex chromosome copy numbers.}
 #  \item{subsetToFit}{An optional @integer or @logical @vector specifying
 #    which loci should be used for estimating the model.
@@ -26,7 +26,7 @@
 #    the empirical density estimator.}
 #  \item{...}{Additional arguments passed to @see "findPeaksAndValleys".}
 #  \item{censorAt}{A @double @vector of length two specifying the range
-#    for which values are considered finite.  Values below (above) this 
+#    for which values are considered finite.  Values below (above) this
 #    range are treated as -@Inf (+@Inf).}
 #  \item{verbose}{A @logical or a @see "R.utils::Verbose" object.}
 # }
@@ -38,10 +38,10 @@
 # @author
 #
 # \seealso{
-#   To call genotypes see @seemethod "callNaiveGenotypes". 
+#   To call genotypes see @seemethod "callNaiveGenotypes".
 #   Internally @see "findPeaksAndValleys" is used to identify the thresholds.
 # }
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), subsetToFit=NULL, flavor=c("density", "fixed"), adjust=1.5, ..., censorAt=c(-0.1,1.1), verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -124,8 +124,8 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), s
     cat <- R.utils::cat;
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
- 
+  }
+
 
   verbose && enter(verbose, "Fitting naive genotype model from normal allele B fractions (BAFs)");
   verbose && cat(verbose, "Flavor: ", flavor);
@@ -162,7 +162,7 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), s
   }
 
   # To please R CMD check
-  type <- NULL; rm(type);
+  type <- NULL; rm(list="type");
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Call genotypes
@@ -232,14 +232,14 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), s
 # HISTORY:
 # 2012-04-16
 # o Added support for fitNaiveGenotypes(..., flavor="fixed").
-# o GENERALIZATION: Now fitNaiveGenotypes() returns also 'flavor' and 
+# o GENERALIZATION: Now fitNaiveGenotypes() returns also 'flavor' and
 #   'tau'.  The latter are the genotype threshholds used by the caller.
 # 2010-10-14
 # o TYPO FIX: Used name 'fitPeaks' instead of 'fitValleys'.
 # 2010-10-12
 # o New default of argument 'censorAt' for fitNaiveGenotypes().
 # o BUG FIX: fitNaiveGenotypes(..., subsetToFit=<logical>) would throw
-#   an exception reporting "Some elements of argument 'subsetToFit' is 
+#   an exception reporting "Some elements of argument 'subsetToFit' is
 #   out of range ...".
 # 2010-10-07
 # o Created from callNaiveGenotypes.R.

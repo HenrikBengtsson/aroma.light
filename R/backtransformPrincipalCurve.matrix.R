@@ -154,7 +154,8 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
     Xhat[keep,kk] <- XhatKK;
   }
 
-  rm(sKK, lambda, fitKK, XhatKK, keep, s);
+  # Not needed anymore
+  sKK <- lambda <- fitKK <- XhatKK <- keep <- s <- NULL;
 
   dim(Xhat) <- dimX;
   dimnames(Xhat) <- dimnamesX;

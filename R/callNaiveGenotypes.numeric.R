@@ -8,18 +8,18 @@
 # \description{
 #   @get "title".
 # }
-# 
+#
 # @synopsis
 #
 # \arguments{
 #  \item{y}{A @numeric @vector of length J containing allele B fractions
 #    for a normal sample.}
 #  \item{cn}{An optional @numeric @vector of length J specifying the true
-#    total copy number in \eqn{\{0,1,2,NA\}} at each locus.  This can be 
-#    used to specify which loci are diploid and which are not, e.g. 
+#    total copy number in \eqn{\{0,1,2,NA\}} at each locus.  This can be
+#    used to specify which loci are diploid and which are not, e.g.
 #    autosomal and sex chromosome copy numbers.}
 #  \item{...}{Additional arguments passed to @seemethod "fitNaiveGenotypes".}
-#  \item{modelFit}{A optional model fit as returned 
+#  \item{modelFit}{A optional model fit as returned
 #    by @seemethod "fitNaiveGenotypes".}
 #  \item{verbose}{A @logical or a @see "R.utils::Verbose" object.}
 # }
@@ -27,7 +27,7 @@
 # \value{
 #   Returns a @numeric @vector of length J containing the genotype calls
 #   in allele B fraction space, that is, in [0,1] where 1/2 corresponds
-#   to a heterozygous call, and 0 and 1 corresponds to homozygous A 
+#   to a heterozygous call, and 0 and 1 corresponds to homozygous A
 #   and B, respectively.
 #   Non called genotypes have value @NA.
 # }
@@ -45,7 +45,7 @@
 # \seealso{
 #   Internally @seemethod "fitNaiveGenotypes" is used to identify the thresholds.
 # }
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), ..., modelFit=NULL, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -92,8 +92,8 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
     cat <- R.utils::cat;
     pushState(verbose);
     on.exit(popState(verbose));
-  } 
- 
+  }
+
 
   verbose && enter(verbose, "Calling genotypes from allele B fractions (BAFs)");
 
@@ -115,7 +115,7 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
   mu <- rep(naValue, times=J);
 
   # To please R CMD check
-  type <- NULL; rm(type);
+  type <- NULL; rm(list="type");
 
   # Fitted CNs
   cns <- sapply(modelFit, FUN=function(fit) fit$cn);
@@ -153,7 +153,7 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
       verbose && print(verbose, fitValleys);
       tau <- fitValleys$x;
       # Not needed anymore
-      rm(fitValleys);
+      fitValleys <- NULL;
     }
     verbose && printf(verbose, "Genotype threshholds [%d]: %s\n", length(tau), hpaste(tau));
 
@@ -169,7 +169,7 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
     } else if (cnKK == 2) {
       verbose && cat(verbose, "TCN=2 => BAF in {0,1/2,1}.");
       a <- tau[1];
-      b <- tau[2]; 
+      b <- tau[2];
       verbose && printf(verbose, "Call regions: AA = (-Inf,%.3f], AB = (%.3f,%.3f], BB = (%.3f,+Inf)\n", a, a, b, b);
       muKK[yKK <= a] <- 0;
       muKK[a < yKK & yKK <= b] <- 1/2;
@@ -202,7 +202,7 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
 # 2012-04-16
 # o CLEANUP: Dropped argument 'flavor' of callNaiveGenotypes(); it is
 #   now passed to fitNaiveGenotypes() via '...'.
-# o GENERALIZATION: Now callNaiveGenotypes() no longer relies on 'modelFit' 
+# o GENERALIZATION: Now callNaiveGenotypes() no longer relies on 'modelFit'
 #   to hold a 'fitValleys' element, but rather a 'tau' element.
 # 2010-10-14
 # o TYPO FIX: Used name 'fitPeaks' instead of 'fitValleys'.

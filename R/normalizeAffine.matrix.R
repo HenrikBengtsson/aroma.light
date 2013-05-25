@@ -195,7 +195,8 @@ setMethodS3("normalizeAffine", "matrix", function(X, weights=NULL, typeOfWeights
   # 4. Backtransform
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   X[isSaturated] <- Xsat;
-  rm(isSaturated,Xsat);
+  # Not needed anymore
+  isSaturated <- Xsat <- NULL;
 
   if (.fitOnly == FALSE) {
     X <- backtransformAffine(X, a=fit);

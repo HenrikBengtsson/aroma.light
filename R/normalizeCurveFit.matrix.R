@@ -203,7 +203,8 @@ setMethodS3("normalizeCurveFit", "matrix", function(X, weights=NULL, typeOfWeigh
 
   M <- log(Y[,1]/Y[,2], base=2);
   A <- log(Y[,1]*Y[,2], base=2)/2;
-  rm(Y);
+  # Not needed anymore
+  Y <- NULL;
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 3. Estimate the model
@@ -237,11 +238,12 @@ setMethodS3("normalizeCurveFit", "matrix", function(X, weights=NULL, typeOfWeigh
 
   ok <- is.finite(A);
   M[ok] <- M[ok] - fit$predictM(A[ok]);
-  rm(ok);
+  # Not needed anymore
+  ok <- NULL;
   X[,1] <- as.matrix(sqrt(2^(2*A+M)));
   X[,2] <- as.matrix(sqrt(2^(2*A-M)));
-
-  rm(A,M);
+  # Not needed anymore
+  A <- M <- NULL;
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 5. Return the normalized data

@@ -155,7 +155,8 @@ setMethodS3("fitXYCurve", "matrix", function(X, weights=NULL, typeOfWeights=c("d
     datapointWeights <- datapointWeights[isValid];
   }
 
-  rm(X, isValid); # Not needed anymore
+  # Not needed anymore
+  X <- isValid <- NULL;
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -165,7 +166,8 @@ setMethodS3("fitXYCurve", "matrix", function(X, weights=NULL, typeOfWeights=c("d
     keep <- if (!is.null(datapointWeights)) (datapointWeights > 0) else TRUE;
     x <- x[keep];
     y <- y[keep];
-    rm(keep);
+    # Not needed anymore
+    keep <- NULL;
     fit <- lowess(x=x, y=y, f=bandwidth, ...);
     fit$predictY <- function(x) approx(fit, xout=x, ties=mean)$y;
   } else if (method == "loess") {
@@ -179,7 +181,8 @@ setMethodS3("fitXYCurve", "matrix", function(X, weights=NULL, typeOfWeights=c("d
     keep <- if (!is.null(datapointWeights)) (datapointWeights > 0) else TRUE;
     x <- x[keep];
     y <- y[keep];
-    rm(keep);
+    # Not needed anymore
+    keep <- NULL;
     fit <- smooth.spline(x=x, y=y, spar=bandwidth, ...);
     fit$predictY <- function(x) predict(fit, x=x)$y;
   } else if (method == "robustSpline") {

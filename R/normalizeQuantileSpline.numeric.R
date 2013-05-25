@@ -16,9 +16,9 @@
 #   \item{xTarget}{a @numeric @vector of length \eqn{N}.}
 #   \item{sortTarget}{If @TRUE, argument \code{xTarget} is sorted.}
 #   \item{...}{Arguments passed to (@see "stats::smooth.spline"
-#      or @see "aroma.light::robustSmoothSpline"), e.g. \code{w} 
+#      or @see "aroma.light::robustSmoothSpline"), e.g. \code{w}
 #      for weights.}
-#   \item{robust}{If @TRUE, the normalization function is 
+#   \item{robust}{If @TRUE, the normalization function is
 #      estimated robustly.}
 # }
 #
@@ -43,7 +43,7 @@
 #
 # \references{
 #   [1] @include "../incl/BengtssonH_etal_2008.bib.Rdoc" \cr
-# } 
+# }
 #
 # @keyword "nonparametric"
 # @keyword "multivariate"
@@ -61,7 +61,7 @@ setMethodS3("normalizeQuantileSpline", "numeric", function(x, w=NULL, xTarget, s
       throw("Argument 'w' is not numeric: ", mode(w));
     }
     if (length(w) != n) {
-      throw("Argument 'w' is of different length than 'x': ", 
+      throw("Argument 'w' is of different length than 'x': ",
                                                        length(w), " != ", n);
     }
   }
@@ -71,7 +71,7 @@ setMethodS3("normalizeQuantileSpline", "numeric", function(x, w=NULL, xTarget, s
     throw("Argument 'xTarget' is not numeric: ", mode(xTarget));
   }
   if (length(xTarget) != n) {
-    throw("Argument 'xTarget' is of different length than 'x': ", 
+    throw("Argument 'xTarget' is of different length than 'x': ",
                                                length(xTarget), " != ", n);
   }
 
@@ -92,10 +92,7 @@ setMethodS3("normalizeQuantileSpline", "numeric", function(x, w=NULL, xTarget, s
     w <- w[o];
 
   # Not needed anymore
-  rm(o);
-
-  # Garbage collect
-  gc();
+  o <- NULL;
 
   # Keep only finite values
   ok <- (is.finite(xx) & is.finite(xTarget));
@@ -110,10 +107,7 @@ setMethodS3("normalizeQuantileSpline", "numeric", function(x, w=NULL, xTarget, s
   xTarget <- xTarget[ok];
 
   # Not needed anymore
-  rm(ok);
-
-  # Garbage collect
-  gc <- gc();
+  ok <- NULL;
 
   if (robust) {
     # robustSmoothSpline() does not return 'data'.
@@ -124,13 +118,10 @@ setMethodS3("normalizeQuantileSpline", "numeric", function(x, w=NULL, xTarget, s
   }
 
   # Not needed anymore
-  rm(xx, xTarget);
+  xx <- xTarget <- NULL;
 
   # Not needed below
   fit[c("x", "y", "w", "yin", "call")] <- NULL;  # Saves < 1MB, though.
-
-  # Garbage collect
-  gc <- gc();
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -147,6 +138,8 @@ setMethodS3("normalizeQuantileSpline", "numeric", function(x, w=NULL, xTarget, s
 
 ##############################################################################
 # HISTORY:
+# 2013-05-25
+# o SPEEDUP: Removed all three gc() calls.
 # 2007-03-28
 # o BUG FIX: Weights 'w' are now correctly ordered.
 # o BUG FIX: Due to an incorrect if(), TRUE & FALSE was swapped for 'robust'.

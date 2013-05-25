@@ -11,7 +11,7 @@
 # }
 #
 # \arguments{
-#   \item{X}{a @list with @numeric @vectors.  The @vectors may be of 
+#   \item{X}{a @list with @numeric @vectors.  The @vectors may be of
 #     different lengths.}
 #   \item{...}{Not used.}
 # }
@@ -33,7 +33,7 @@
 #
 # \author{
 #   Parts adopted from Gordon Smyth (\url{http://www.statsci.org/}) in 2002
-#   \& 2006.  Original code by Ben Bolstad at Statistics Department, 
+#   \& 2006.  Original code by Ben Bolstad at Statistics Department,
 #   University of California.
 # }
 #
@@ -42,9 +42,9 @@
 # @keyword "robust"
 #*/###########################################################################
 setMethodS3("averageQuantile", "list", function(X, ...) {
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   nbrOfChannels <- length(X);
   if(nbrOfChannels == 1)
     return(X);
@@ -59,9 +59,9 @@ setMethodS3("averageQuantile", "list", function(X, ...) {
   # Has NAs?
   # tt <- !is.na(Xcc);
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Get the sample quantile for all channels (columns)
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # A vector specifying the number of observations in each column
   nbrOfFiniteObservations <- rep(maxNbrOfObservations, times=nbrOfChannels);
 
@@ -92,7 +92,8 @@ setMethodS3("averageQuantile", "list", function(X, ...) {
     # Incremental mean
     xTarget <- xTarget + Scc;
   }
-  rm(Scc, Xcc);
+  # Not needed anymore
+  Scc <- Xcc <- NULL;
 
   xTarget <- xTarget/nbrOfChannels;
 
@@ -108,6 +109,6 @@ setMethodS3("averageQuantile", "list", function(X, ...) {
 # o BUG FIX: averageQuantile.list() did not deal with vectors of different
 #   length correctly. Thanks Alicia Oshlack, WEHI.
 # 2006-05-12
-# o Created from normalizeQuantile.matrix.R.  It has been optimized for 
+# o Created from normalizeQuantile.matrix.R.  It has been optimized for
 #   memory. Hence, the normalization is done using a two-pass procedure.
 ##############################################################################
