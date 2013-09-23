@@ -7,42 +7,42 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
- \name{callNaiveGenotypes.numeric}
+\name{callNaiveGenotypes.numeric}
 \alias{callNaiveGenotypes.numeric}
- \alias{callNaiveGenotypes}
+\alias{callNaiveGenotypes}
 
- \title{Calls genotypes in a normal sample}
+\title{Calls genotypes in a normal sample}
 
- \description{
-   Calls genotypes in a normal sample.
- }
+\description{
+  Calls genotypes in a normal sample.
+}
 
- \usage{
+\usage{
 \method{callNaiveGenotypes}{numeric}(y, cn=rep(2L, length(y)), ..., modelFit=NULL, verbose=FALSE)
 }
 
- \arguments{
-  \item{y}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J containing allele B fractions
-    for a normal sample.}
-  \item{cn}{An optional \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J specifying the true
-    total copy number in \eqn{\{0,1,2,NA\}} at each locus.  This can be
-    used to specify which loci are diploid and which are not, e.g.
-    autosomal and sex chromosome copy numbers.}
-  \item{...}{Additional arguments passed to \code{\link[aroma.light:fitNaiveGenotypes.numeric]{*fitNaiveGenotypes}()}.}
-  \item{modelFit}{A optional model fit as returned
-    by \code{\link[aroma.light:fitNaiveGenotypes.numeric]{*fitNaiveGenotypes}()}.}
-  \item{verbose}{A \code{\link[base]{logical}} or a \code{\link[R.utils]{Verbose}} object.}
- }
+\arguments{
+ \item{y}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J containing allele B fractions
+   for a normal sample.}
+ \item{cn}{An optional \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J specifying the true
+   total copy number in \eqn{\{0,1,2,NA\}} at each locus.  This can be
+   used to specify which loci are diploid and which are not, e.g.
+   autosomal and sex chromosome copy numbers.}
+ \item{...}{Additional arguments passed to \code{\link[aroma.light:fitNaiveGenotypes.numeric]{*fitNaiveGenotypes}()}.}
+ \item{modelFit}{A optional model fit as returned
+   by \code{\link[aroma.light:fitNaiveGenotypes.numeric]{*fitNaiveGenotypes}()}.}
+ \item{verbose}{A \code{\link[base]{logical}} or a \code{\link[R.utils]{Verbose}} object.}
+}
 
- \value{
-   Returns a \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J containing the genotype calls
-   in allele B fraction space, that is, in [0,1] where 1/2 corresponds
-   to a heterozygous call, and 0 and 1 corresponds to homozygous A
-   and B, respectively.
-   Non called genotypes have value \code{\link[base]{NA}}.
- }
+\value{
+  Returns a \code{\link[base]{numeric}} \code{\link[base]{vector}} of length J containing the genotype calls
+  in allele B fraction space, that is, in [0,1] where 1/2 corresponds
+  to a heterozygous call, and 0 and 1 corresponds to homozygous A
+  and B, respectively.
+  Non called genotypes have value \code{\link[base]{NA}}.
+}
 
- \examples{
+\examples{
 layout(matrix(1:3, ncol=1))
 par(mar=c(2,4,4,1)+0.1)
 
@@ -95,15 +95,15 @@ plotDensity(xx, adjust=1.5, lwd=2, col=seq(along=xx), main="(AA',AB',BB')")
 abline(v=fit$x)
 }
 
- \section{Missing and non-finite values}{
-   A missing value always gives a missing (\code{\link[base]{NA}}) genotype call.
-   Negative infinity (-\code{\link[base:is.finite]{Inf}}) always gives genotype call 0.
-   Positive infinity (+\code{\link[base:is.finite]{Inf}}) always gives genotype call 1.
- }
+\section{Missing and non-finite values}{
+  A missing value always gives a missing (\code{\link[base]{NA}}) genotype call.
+  Negative infinity (-\code{\link[base:is.finite]{Inf}}) always gives genotype call 0.
+  Positive infinity (+\code{\link[base:is.finite]{Inf}}) always gives genotype call 1.
+}
 
- \author{Henrik Bengtsson}
+\author{Henrik Bengtsson}
 
- \seealso{
-   Internally \code{\link[aroma.light:fitNaiveGenotypes.numeric]{*fitNaiveGenotypes}()} is used to identify the thresholds.
- }
+\seealso{
+  Internally \code{\link[aroma.light:fitNaiveGenotypes.numeric]{*fitNaiveGenotypes}()} is used to identify the thresholds.
+}
 \keyword{methods}
