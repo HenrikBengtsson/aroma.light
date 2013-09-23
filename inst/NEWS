@@ -3,6 +3,9 @@ Package: aroma.light
 
 Version: 1.31.5 [2013-09-23]
 o ROBUSTNESS: Now properly declaring all S3 methods in the NAMESPACE file.
+o CLEANUP: normalizeTumorBoost() now uses which() instead of
+  whichVector() of 'R.utils'.  Before R (< 2.11.0), which() used to be
+  10x slower than whichVector(), but now it's 3x faster.
 o CLEANUP: Now only using 'Authors@R' in DESCRIPTION, which is possible
   since R (>= 2.14.0).  Hence the new requirement on the version of R.
 o Bumped up package dependencies.
