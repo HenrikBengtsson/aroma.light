@@ -1,6 +1,13 @@
 Package: aroma.light
 ====================
 
+Version: 1.31.5 [2013-09-23]
+o ROBUSTNESS: Now properly declaring all S3 methods in the NAMESPACE file.
+o CLEANUP: Now only using 'Authors@R' in DESCRIPTION, which is possible
+  since R (>= 2.14.0).  Hence the new requirement on the version of R.
+o Bumped up package dependencies.
+
+
 Version: 1.31.4 [2013-09-10]
 o CLEANUP: Now package explicitly imports what it needs from matrixStats.
 o Bumped up package dependencies.

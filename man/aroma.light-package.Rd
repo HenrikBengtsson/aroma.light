@@ -66,7 +66,24 @@
 \section{How to cite this package}{
   Whenever using this package, please cite [2] as\cr
 
-  \emph{No citation information available.}
+  \preformatted{H. Bengtsson, P. Neuvial and T.P. SpeedTumorBoost: Normalization of allele-specific
+tumor copy numbers from a single pair of tumor-normal genotyping microarrays, BMC
+Bioinformatics, 2010 H. Bengtsson; K. Simpson; J. Bullard; K. Hansen.
+aroma.affymetrix: A generic framework in R for analyzing small to very large
+Affymetrix data sets in bounded memory, Tech Report #745, Department of Statistics,
+University of California, Berkeley, February 2008 H. Bengtsson, A. Ray, P. Spellman
+and T.P. Speed. A single-sample method for normalizing and combining
+full-resolutioncopy numbers from multiple platforms, labs and analysis methods,
+Bioinformatics, 2009 H. Bengtsson, R. Irizarry, B. Carvalho, & T.P. Speed.
+Estimation and assessment of raw copy numbers at the single locus level,
+Bioinformatics, 2008 H. Bengtsson & O. H<f6>ssjer. Methodological study of affine
+transformations of gene expressiondata with proposed robust non-parametric
+multi-dimensional normalization method, BMC Bioinformatics, 2006 H. Bengtsson, G.
+J<f6>nsson & J. Vallon-Christersson. Calibration and assessment of channel-specific
+biases in microarray data with extended dynamical range, BMC Bioinformatics, 2004 H.
+Bengtsson. aroma - An R Object-oriented Microarray Analysis environment, Preprint
+2004:18, Centre for Mathematical Sciences, Lund University, 2004}
+\emph{}
 
 }
 

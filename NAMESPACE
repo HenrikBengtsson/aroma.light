@@ -13,3 +13,74 @@ importFrom("matrixStats", "weightedMedian")
 # Export all public methods, that is, those without a preceeding dot
 # in their names.
 exportPattern("^[^\\.]")
+
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# S3 methods
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# data.frame
+S3method("plotDensity", "data.frame")
+
+# default
+S3method("distanceBetweenLines", "default")
+S3method("normalizeQuantile", "default")
+S3method("robustSmoothSpline", "default")
+S3method("sampleTuples", "default")
+
+# density
+S3method("findPeaksAndValleys", "density")
+
+# list
+S3method("averageQuantile", "list")
+S3method("normalizeDifferencesToAverage", "list")
+S3method("normalizeQuantileRank", "list")
+S3method("normalizeQuantileSpline", "list")
+S3method("plotDensity", "list")
+
+# matrix
+S3method("backtransformAffine", "matrix")
+S3method("backtransformPrincipalCurve", "matrix")
+S3method("backtransformXYCurve", "matrix")
+S3method("calibrateMultiscan", "matrix")
+S3method("fitIWPCA", "matrix")
+S3method("fitPrincipalCurve", "matrix")
+S3method("fitXYCurve", "matrix")
+S3method("iwpca", "matrix")
+S3method("medianPolish", "matrix")
+S3method("normalizeAffine", "matrix")
+S3method("normalizeCurveFit", "matrix")
+S3method("normalizeLoess", "matrix")
+S3method("normalizeLowess", "matrix")
+S3method("normalizeQuantileRank", "matrix")
+S3method("normalizeQuantileSpline", "matrix")
+S3method("normalizeRobustSpline", "matrix")
+S3method("normalizeSpline", "matrix")
+S3method("plotDensity", "matrix")
+S3method("plotMvsA", "matrix")
+S3method("plotMvsAPairs", "matrix")
+S3method("plotMvsMPairs", "matrix")
+S3method("plotXYCurve", "matrix")
+S3method("rowAverages", "matrix")
+S3method("sampleCorrelations", "matrix")
+S3method("wpca", "matrix")
+
+# numeric
+S3method("backtransformPrincipalCurve", "numeric")
+S3method("callNaiveGenotypes", "numeric")
+S3method("findPeaksAndValleys", "numeric")
+S3method("fitNaiveGenotypes", "numeric")
+S3method("normalizeQuantileRank", "numeric")
+S3method("normalizeQuantileSpline", "numeric")
+S3method("normalizeTumorBoost", "numeric")
+S3method("plotDensity", "numeric")
+S3method("plotXYCurve", "numeric")
+
+# smooth.spline
+S3method("likelihood", "smooth.spline")
+
+# SmoothSplineLikelihood
+S3method("print", "SmoothSplineLikelihood")
+
+# XYCurveFit
+S3method("lines", "XYCurveFit")
