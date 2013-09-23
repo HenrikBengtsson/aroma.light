@@ -5,11 +5,11 @@ uriPath <- strsplit(uri, split="/")[[1]][-1];
 
 if (regexpr("./$", uri) != -1) {
   upPath <- "../";
-} else if (regexpr("./index.rsp$", uri) != -1) {
+} else if (regexpr("./index.html.rsp$", uri) != -1) {
   upPath <- "../";
   uriPath <- uriPath[-length(uriPath)];
 } else {
-  upPath <- "index.rsp";
+  upPath <- "index.html.rsp";
   uriPath <- uriPath[-length(uriPath)];
 }
 %>
@@ -23,7 +23,7 @@ if (regexpr("./$", uri) != -1) {
  </div>
  <div style="float: right;">
   Admin: 
-  <a href="/admin/shutdown.rsp">shutdown</a>
+  <a href="/admin/shutdown.html.rsp">shutdown</a>
  </div>
  <br>
 </div>
