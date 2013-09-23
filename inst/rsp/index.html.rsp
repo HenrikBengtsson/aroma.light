@@ -31,7 +31,7 @@ htmlHelp <- function(topic=NULL, package=pkg) {
 
 <body>
 
-<%@include file="src/simpleHeader.rsp"%>
+<%@include file="src/simpleHeader.html.rsp"%>
 
 <h1>User's guide to <%=pkg%></h1>
 <p>
@@ -67,8 +67,8 @@ With microarray measurement we try to test a few different biological hypothesis
 In order for the microarray analysis to be successful, we need to be able to estimate the test variables with both high accuracy (low bias) and high precision (small spread).  Typically, this means that we need to get good estimates of the true biological signal.
 </p>
 
-<%@include file="preprocessing.rsp"%>
-<%@include file="bgcorrection.rsp"%>
+<%@include file="preprocessing.html.rsp"%>
+<%@include file="bgcorrection.html.rsp"%>
 
 <h3>A simple model</h3>
 <p>
@@ -91,9 +91,9 @@ library(<%=pkg%>)
 </pre>
 
 
-<%@include file="MultiscanCalibration/MultiscanCalibration.rsp"%>
-<%@include file="AffineNormalization/AffineNormalization.rsp"%>
-<!-- @include file="NormalizationWithWeights/NormalizationWithWeights.rsp" -->
+<%@include file="MultiscanCalibration/MultiscanCalibration.html.rsp"%>
+<%@include file="AffineNormalization/AffineNormalization.html.rsp"%>
+<!-- @include file="NormalizationWithWeights/NormalizationWithWeights.html.rsp" -->
 
 
 <a name="Additional documentation"></a>
@@ -102,8 +102,8 @@ library(<%=pkg%>)
 <a href="<%=htmlHelp()%>">Package's help index</a><br>
 </p>
 
-<%@include file="references.rsp"%>
+<%@include file="references.html.rsp"%>
 
-<%@include file="src/simpleFooter.rsp"%>
+<%@include file="src/simpleFooter.html.rsp"%>
 </body>
 </html>
