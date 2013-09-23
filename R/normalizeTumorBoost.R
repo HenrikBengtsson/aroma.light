@@ -151,16 +151,16 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
     isDown <- (betaT < betaN);
     isBetaNZero <- (betaN == 0);
     isBetaNOne <- (betaN == 1);
-    idxs <- whichVector(isDown & !isBetaNZero);
+    idxs <- which(isDown & !isBetaNZero);
     b[idxs] <- betaT[idxs]/betaN[idxs];
-    idxs <- whichVector(!isDown & !isBetaNOne);
+    idxs <- which(!isDown & !isBetaNOne);
     b[idxs] <- (1-betaT[idxs])/(1-betaN[idxs]);
     # Not needed anymore
     isDown <- idxs <- NULL;
 
     # Treat the case when the estimated SNP effect is zero
     # Then we want the normalized value to be exactly zero or one.
-    idxs <- whichVector(delta == 0);
+    idxs <- which(delta == 0);
 
   } else if (flavor == "v3") {
     b <- rep(1, length(delta));
@@ -170,9 +170,9 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
     isDown <- (betaT < betaN);
     isBetaNZero <- (betaN == 0);
     isBetaNOne <- (betaN == 1);
-    idxs <- whichVector((isHet & isDown & !isBetaNZero) | (isHomA & !isBetaNZero));
+    idxs <- which((isHet & isDown & !isBetaNZero) | (isHomA & !isBetaNZero));
     b[idxs] <- betaT[idxs]/betaN[idxs];
-    idxs <- whichVector((isHet & !isDown & !isBetaNOne) | (isHomB & !isBetaNOne));
+    idxs <- which((isHet & !isDown & !isBetaNOne) | (isHomB & !isBetaNOne));
     b[idxs] <- (1-betaT[idxs])/(1-betaN[idxs]);
     # Not needed anymore
     isDown <- isHet <- isHomA <- isHomB <- idxs <- NULL;
@@ -181,9 +181,9 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
     b <- rep(1, length(delta));
     isHet <- (muN != 0 & muN != 1);
     isDown <- (betaT < betaN);
-    idxs <- whichVector(isHet & isDown);
+    idxs <- which(isHet & isDown);
     b[idxs] <- betaT[idxs]/betaN[idxs];
-    idxs <- whichVector(isHet & !isDown);
+    idxs <- which(isHet & !isDown);
     b[idxs] <- (1-betaT[idxs])/(1-betaN[idxs]);
     # Not needed anymore
     isDown <- isHet <- idxs <- NULL;
@@ -200,7 +200,7 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
   # In very rare cases delta can be non-finite while betaT is.
   # This can happen whenever muN or betaN is non-finite.  Then:
   #   ok <- is.finite(delta);
-  #   ok <- whichVector(ok);
+  #   ok <- which(ok);
   #   betaTN[ok] <- betaT[ok] - delta[ok];
   # It can be debated whether one should correct a SNP in this case, for
   # which betaTN then become non-finite too.  If not correcting, we will
@@ -215,7 +215,7 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (preserveScale) {
     isHom <- (muN == 0 | muN == 1);
-    idxs <- whichVector(isHom);
+    idxs <- which(isHom);
 
     # Signal compression in homozygous SNPs before TBN
     eta <- median(abs(betaT[idxs]-1/2), na.rm=TRUE);
@@ -229,9 +229,9 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
     # Correct
     isHet <- !isHom;
     isDown <- (betaTN < 1/2);
-    idxs <- whichVector(isHet & isDown);
+    idxs <- which(isHet & isDown);
     betaTN[idxs] <- 1/2 - sf * (1/2 - betaTN[idxs]);
-    idxs <- whichVector(isHet & !isDown);
+    idxs <- which(isHet & !isDown);
     betaTN[idxs] <- 1/2 + sf * (betaTN[idxs] - 1/2);
 
     # Not needed anymore
@@ -262,6 +262,10 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
 
 ############################################################################
 # HISTORY:
+# 2010-09-23
+# o CLEANUP: normalizeTumorBoost() now uses which() instead of
+#   whichVector() of 'R.utils'.  The former used to be significantly
+#   slower than the latter, but that is no longer the case.
 # 2010-08-04
 # o Added argument 'preserveScale' to normalizeTumorBoost().
 # 2010-03-18
