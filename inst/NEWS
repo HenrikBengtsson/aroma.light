@@ -36,6 +36,7 @@ o The version number was bumped for the Bioc devel version.
 
 
 Version: 1.30.5 [2013-09-25]
+o Backport from v1.31.5: Declaring all S3 methods in NAMESPACE. 
 o Backport from v1.31.5: normalizeTumorBoost() now uses which(),
   which also removes one dependency on 'R.utils'.
 
