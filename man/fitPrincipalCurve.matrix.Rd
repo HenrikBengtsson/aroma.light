@@ -10,8 +10,6 @@
 \name{fitPrincipalCurve.matrix}
 \alias{fitPrincipalCurve.matrix}
 
-\encoding{latin1}
-
 \title{Fit a principal curve in K dimensions}
 
 \description{

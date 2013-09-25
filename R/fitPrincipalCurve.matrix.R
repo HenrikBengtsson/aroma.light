@@ -2,8 +2,6 @@
 # @set "class=matrix"
 # @RdocMethod fitPrincipalCurve
 #
-# \encoding{latin1}
-#
 # @title "Fit a principal curve in K dimensions"
 #
 # \description{
