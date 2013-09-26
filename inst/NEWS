@@ -1,6 +1,10 @@
 Package: aroma.light
 ====================
 
+Version: 1.31.6 [2013-09-25]
+o CLEANUP: Package now only imports 'matrixStats' (no longer attaches it).
+
+
 Version: 1.31.5 [2013-09-23]
 o ROBUSTNESS: Now properly declaring all S3 methods in the NAMESPACE file.
 o SPEEDUP/CLEANUP: normalizeTumorBoost() now uses which() instead of
