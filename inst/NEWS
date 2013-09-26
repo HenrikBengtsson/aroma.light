@@ -2,7 +2,6 @@ Package: aroma.light
 ====================
 
 Version: 1.31.6 [2013-09-25]
-o CLEANUP: Package now only imports 'matrixStats' (no longer attaches it).
 o CLEANUP: Package no longer use a fallback attachment of the
   'R.oo' package upon attachment.
 
