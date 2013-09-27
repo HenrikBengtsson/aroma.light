@@ -97,7 +97,7 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
     weights <- as.double(weights);
     dim(weights) <- dim;
 
-    if (any(is.na(weights)))
+    if (anyMissing(weights))
       stop("Argument 'weights' must not contain NA values.");
 
     if (any(weights < 0 | weights > 1)) {
@@ -119,7 +119,7 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
       }
 
       # Calculate channel weights
-      channelWeights <- apply(weights, MARGIN=2, FUN=mean);
+      channelWeights <- colMeans(weights);
 
       if (zeroOneWeightsOnly && any(weights > 0 & weights < 1)) {
         weights <- round(weights);
@@ -196,13 +196,13 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
   useWeighted <- (!is.null(channelWeights) & any(channelWeights != 1));
   if (robust) {
     if (useWeighted) {
-      xTarget <- apply(S, MARGIN=1, FUN=weightedMedian, w=channelWeights, na.rm=TRUE);
+      xTarget <- rowWeightedMedians(S, w=channelWeights, na.rm=TRUE);
     } else {
-      xTarget <- apply(S, MARGIN=1, FUN=median, na.rm=TRUE);
+      xTarget <- rowMedians(S, na.rm=TRUE);
     }
   } else {
     if (useWeighted) {
-      xTarget <- apply(S, MARGIN=1, FUN=weighted.mean, w=channelWeights, na.rm=TRUE);
+      xTarget <- rowWeightedMeans(S, w=channelWeights, na.rm=TRUE);
     } else {
       xTarget <- rowMeans(S, na.rm=TRUE);
     }
@@ -263,6 +263,9 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
 
 ##############################################################################
 # HISTORY:
+# 2013-09-26
+# o Now utilizing anyMissing(), rowMedians(), rowWeightedMedians(), and
+#   rowWeightedMeans().
 # 2011-04-12
 # o Now using as.double(NA) instead of NA.
 # 2008-04-14

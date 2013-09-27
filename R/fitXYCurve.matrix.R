@@ -106,7 +106,7 @@ setMethodS3("fitXYCurve", "matrix", function(X, weights=NULL, typeOfWeights=c("d
     # If 'weights' is an object of a class with as.double(), cast it.
     weights <- as.double(weights);
 
-    if (any(is.na(weights)))
+    if (anyMissing(weights))
       stop("Argument 'weights' must not contain NA values.");
 
     if (any(weights < 0 | weights > 1)) {
@@ -199,6 +199,8 @@ setMethodS3("fitXYCurve", "matrix", function(X, weights=NULL, typeOfWeights=c("d
 
 ############################################################################
 # HISTORY:
+# 2013-09-26
+# o Now utilizing anyMissing().
 # 2009-07-15
 # o Created from normalizeCurveFit.R.
 ############################################################################

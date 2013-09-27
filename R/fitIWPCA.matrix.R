@@ -19,12 +19,12 @@
 #   If @character it specifies which additional contraint to be used
 #   to specify the offset parameters along the fitted line;
 #
-#   If \code{"diagonal"}, the offset vector will be a point on the line 
-#   that is closest to the diagonal line (1,...,1). 
+#   If \code{"diagonal"}, the offset vector will be a point on the line
+#   that is closest to the diagonal line (1,...,1).
 #   With this constraint, all bias parameters are identifiable.
 #
 #   If \code{"baseline"} (requires argument \code{baselineChannel}), the
-#   estimates are such that of the bias and scale parameters of the 
+#   estimates are such that of the bias and scale parameters of the
 #   baseline channel is 0 and 1, respectively.
 #   With this constraint, all bias parameters are identifiable.
 #
@@ -34,13 +34,13 @@
 #   no negative signals are created in the backward transformation.
 #   If @numeric value, the offset vector will the point on the line
 #   such that after applying the backward transformation there are
-#   \code{constraint*N}. Note that \code{constraint==0} corresponds 
+#   \code{constraint*N}. Note that \code{constraint==0} corresponds
 #   approximately to \code{constraint=="max"}.
 #   With the latter two constraints, the bias parameters are only
 #   identifiable modulo the fitted line.
 #  }
 #
-#  \item{baselineChannel}{Index of channel toward which all other 
+#  \item{baselineChannel}{Index of channel toward which all other
 #    channels are conform.
 #    This argument is required if \code{constraint=="baseline"}.
 #    This argument is optional if \code{constraint=="diagonal"} and
@@ -65,14 +65,14 @@
 #       parameter estimates.
 #       It is made identifiable according to argument \code{constraint}.
 #   }
-#   \item{b}{A @double @vector \eqn{(b[1],...,b[K])}with scale 
+#   \item{b}{A @double @vector \eqn{(b[1],...,b[K])}with scale
 #       parameter estimates.  It is made identifiable by constraining
 #       \code{b[baselineChannel] == 1}.
 #       These estimates are idependent of argument \code{constraint}.
 #   }
 #   \item{adiag}{If identifiability constraint \code{"diagonal"},
 #       a @double @vector \eqn{(adiag[1],...,adiag[K])}, where
-#       \eqn{adiag[1] = adiag[2] = ... adiag[K]}, specifying the point 
+#       \eqn{adiag[1] = adiag[2] = ... adiag[K]}, specifying the point
 #       on the diagonal line that is closest to the fitted line,
 #       otherwise the zero vector.
 #   }
@@ -80,7 +80,7 @@
 #   }
 #   \item{converged}{@TRUE if the algorithm converged, otherwise @FALSE.
 #   }
-#   \item{nbrOfIterations}{The number of iterations for the algorithm 
+#   \item{nbrOfIterations}{The number of iterations for the algorithm
 #                           to converge, or zero if it did not converge.
 #   }
 #
@@ -94,7 +94,7 @@
 #   This method uses re-weighted principal component analysis (IWPCA)
 #   to fit a the nodel \eqn{y_n = a + bx_n + eps_n} where \eqn{y_n},
 #   \eqn{a}, \eqn{b}, and \eqn{eps_n} are vector of the K and \eqn{x_n}
-#   is a scalar. 
+#   is a scalar.
 #
 #   The algorithm is:
 #    For iteration i:
@@ -107,7 +107,7 @@
 #       where we have used the residuals of all but the first principal
 #       component.
 #    3) Find the point a on \eqn{L} that is closest to the
-#       line \eqn{D=(1,1,...,1)}. Similarily, denote the point on D that is 
+#       line \eqn{D=(1,1,...,1)}. Similarily, denote the point on D that is
 #       closest to \eqn{L} by \eqn{t=a*(1,1,...,1)}.
 # }
 #
@@ -118,7 +118,7 @@
 # \seealso{
 #   This is an internal method used by the @seemethod "calibrateMultiscan"
 #   and @seemethod "normalizeAffine" methods.
-#   Internally the function @seemethod "iwpca" is used to fit a line 
+#   Internally the function @seemethod "iwpca" is used to fit a line
 #   through the data cloud and the function @see "distanceBetweenLines" to
 #   find the closest point to the diagonal (1,1,...,1).
 # }
@@ -129,7 +129,7 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 0. Define local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  statistic <- function(X, ..., constraint="diagonal", Xmin=NULL, 
+  statistic <- function(X, ..., constraint="diagonal", Xmin=NULL,
                                baselineChannel=1, aShift=rep(0, ncol(X))) {
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Fit an K-dimensional line through the data using iterative
@@ -143,12 +143,12 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
     # Get the center of the fitted line...
     ax <- fit$xMean;
     names(ax) <- NULL;
-  
-    # ...and the fitted eigenvectors (u1,u2,...,uK) 
+
+    # ...and the fitted eigenvectors (u1,u2,...,uK)
     # with ui*uj = 0; i!=j and ui*ui = 1.
     U <- t(fit$vt);
     colnames(U) <- rownames(U) <- NULL;
-  
+
     # The fitted scale parameters b=(b[1],b[2],...,b[K]) where
     # the elements are rescaled such that b[1] == 1.
     # [ min(b[i]) == 1. Before it was such that b[1] == 1, but this
@@ -175,7 +175,7 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
       # y(t) is the diagonal line
       ay <- rep(0,length(ax));                                # (0,0,...,0)
       by <- rep(1,length(ay));                                # (1,1,...,1)
-  
+
       dbl <- distanceBetweenLines(ax=ax,bx=bx, ay=ay,by=by);
       a     <- as.vector(dbl$xs);
       adiag <- as.vector(dbl$yt);
@@ -185,10 +185,10 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
       # the baseline channel is zero, i.e. for which a[baselineChannel]==0.
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # The scale parameters are already such that b[baselineChannel]==1.
-      #   y[c,i] = a[c] + b[c]*x[c,i] ; c = 1,...,C 
+      #   y[c,i] = a[c] + b[c]*x[c,i] ; c = 1,...,C
       #   y[b,i] = a[b] +      x[b,i] ; b - baseline channel
       # Similar to the constraint=="max" reasoning:
-      # For channel b, find t such that 
+      # For channel b, find t such that
       #   ax[b] + bx[b]*t == 0 <=> { bx[b]==1 } <=> t = -ax[b]
       # => a[c] <- ax[c] + bx[c]*t  <=> a[c] <- ax[c] - bx[c]*ax[b]
       a <- ax - bx*ax[baselineChannel];
@@ -201,12 +201,12 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # Find the minimal value of each X component.
       if (is.null(Xmin))
-        Xmin <- apply(X, MARGIN=2, FUN=min, na.rm=TRUE);
-      # For each component k, find the value t such that 
+        Xmin <- colMins(X, na.rm=TRUE);
+      # For each component k, find the value t such that
       #   ax[k] + bx[k]*t[k] == Xmin[k] <=> t[k] == (Xmin[k] - ax[k])/bx[k]
       t <- (Xmin-ax)/bx;
       # Choose minimum t[k]
-      # Now, amax <<= Xmin if amax <- ax - bx[k]*min(t) where <<= (\prec) 
+      # Now, amax <<= Xmin if amax <- ax - bx[k]*min(t) where <<= (\prec)
       # means componentswise less or equal than.
       a <- ax + bx*min(t);
       adiag <- rep(0, length(ax));
@@ -218,14 +218,13 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # Find the alpha quantile value of each X component.
       if (is.null(Xmin)) {
-        Xmin <- apply(X, MARGIN=2, FUN=quantile, prob=constraint, 
-                                                               na.rm=TRUE);
+        Xmin <- colQuantiles(X, prob=constraint, na.rm=TRUE);
       }
-      # For each component k, find the value t such that 
+      # For each component k, find the value t such that
       #   ax[k] + bx[k]*t[k] == Xmin[k] <=> t[k] == (Xmin[k] - ax[k])/bx[k]
       t <- (Xmin-ax)/bx;
       # Choose minimum t[k]
-      # Now, amax <<= Xmin if amax <- ax - bx[k]*min(t) where <<= (\prec) 
+      # Now, amax <<= Xmin if amax <- ax - bx[k]*min(t) where <<= (\prec)
       # means componentswise less or equal than.
       a <- ax + bx*min(t);
       adiag <- rep(0, length(ax));
@@ -235,12 +234,12 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
     t <- c(a=a);
     t <- c(t, b=bx);
     t <- c(t, adiag=adiag);
-    t <- c(t, U=as.vector(U));    
+    t <- c(t, U=as.vector(U));
     t <- c(t, niter=fit$nbrOfIterations * (fit$converged*2-1));
     t;
   } # statistic()
 
-  
+
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 1. Verify the arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -276,10 +275,10 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
   # Argument: 'baselineChannel'
   if (!is.null(baselineChannel)) {
     if (!is.numeric(baselineChannel) || length(baselineChannel) != 1) {
-      stop("Argument 'baselineChannel' must be a single numeric: ", 
+      stop("Argument 'baselineChannel' must be a single numeric: ",
                                                            baselineChannel);
     }
-    
+
     if (baselineChannel < 1 || baselineChannel > ncol(X)) {
       stop("Argument 'baselineChannel' is out of range [1,", ncol(X),"]: ",
                                                            baselineChannel);
@@ -308,19 +307,19 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
   # 2. Prepare the data
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (identical(constraint, "max")) {
-     Xmin <- apply(X, MARGIN=2, FUN=min, na.rm=TRUE);
+     Xmin <- colMins(X, na.rm=TRUE);
   } else {
      Xmin <- NULL;
   }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 3. Fit the model
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Use only finite observations
-  isFinite <- apply(X, MARGIN=1, FUN=function(r) all(is.finite(r)));
+  isFinite <- apply(X, MARGIN=1L, FUN=function(r) all(is.finite(r)));
 
   # Number of finite observations
-  N  <- sum(isFinite); 
+  N  <- sum(isFinite);
 
   # Validate the number of finite observations
   if (N < K) {
@@ -328,7 +327,7 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
                          "observations ", "(rows) as columns:", N, "<", K);
   }
 
-  t0 <- statistic(X[isFinite,], constraint=constraint,  
+  t0 <- statistic(X[isFinite,], constraint=constraint,
           Xmin=Xmin, baselineChannel=baselineChannel, aShift=aShift, ...);
   t  <- NULL;
 
@@ -348,15 +347,17 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 5. Return the parameter estimates
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  list(a=a, b=b, adiag=adiag, eigen=U, 
+  list(a=a, b=b, adiag=adiag, eigen=U,
                    converged=converged, nbrOfIterations=niter, t0=t0, t=t);
 }) # fitIWPCA()
 
 
 ###########################################################################
 # HISTORY:
+# 2013-09-26
+# o Now utilizing colMins() and colQuantiles() of 'matrixStats'.
 # 2011-02-05
-# o DOCUMENTATION: Fixed broken links to help for iwpca(). 
+# o DOCUMENTATION: Fixed broken links to help for iwpca().
 # 2006-01-22
 # o Added Rdoc help on the returned parameters.
 # o If missing, 'baselineChannel' is now set to one before calling the

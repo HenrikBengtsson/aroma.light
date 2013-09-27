@@ -17,14 +17,14 @@
 #    multiple scans of one channel (a two-color array contains two
 #    channels) to be calibrated.}
 #  \item{weights}{If @NULL, non-weighted normalization is done.
-#    If data-point weights are used, this should be a @vector of length 
-#    N of data point weights used when estimating the normalization 
+#    If data-point weights are used, this should be a @vector of length
+#    N of data point weights used when estimating the normalization
 #    function.
 #  }
-#  \item{typeOfWeights}{A @character string specifying the type of 
+#  \item{typeOfWeights}{A @character string specifying the type of
 #    weights given in argument \code{weights}.
 #  }
-#  \item{method}{A @character string specifying how the estimates are 
+#  \item{method}{A @character string specifying how the estimates are
 #    robustified.  See @seemethod "iwpca" for all accepted values.}
 #  \item{constraint}{Constraint making the bias parameters identifiable.
 #    See @seemethod "fitIWPCA" for more details.}
@@ -41,7 +41,7 @@
 # }
 #
 # \value{
-#   If \code{average} is specified or \code{project} is @TRUE, 
+#   If \code{average} is specified or \code{project} is @TRUE,
 #   an Nx1 @matrix is returned, otherwise an NxK @matrix is returned.
 #   If \code{deviance} is specified, a deviance Nx1 @matrix is returned
 #   as attribute \code{deviance}.
@@ -50,7 +50,7 @@
 #
 # \section{Negative, non-positive, and saturated values}{
 #   Affine multiscan calibration applies also to negative values, which are
-#   therefor also calibrated, if they exist. 
+#   therefor also calibrated, if they exist.
 #
 #   Saturated signals in any scan are set to @NA. Thus, they will not be
 #   used to estimate the calibration function, nor will they affect an
@@ -66,13 +66,13 @@
 # \section{Weighted normalization}{
 #  Each data point/observation, that is, each row in \code{X}, which is a
 #  vector of length K, can be assigned a weight in [0,1] specifying how much
-#  it should \emph{affect the fitting of the calibration function}. 
+#  it should \emph{affect the fitting of the calibration function}.
 #  Weights are given by argument \code{weights},
-#  which should be a @numeric @vector of length N. Regardless of weights, 
+#  which should be a @numeric @vector of length N. Regardless of weights,
 #  all data points are \emph{calibrated} based on the fitted calibration
 #  function.
 # }
-# 
+#
 # \section{Robustness}{
 #  By default, the model fit of multiscan calibration is done in \eqn{L_1}
 #  (\code{method="L1"}). This way, outliers affect the parameter estimates
@@ -81,20 +81,20 @@
 #  When calculating the average calibrated signal from multiple scans,
 #  by default the median is used, which further robustify against outliers.
 #
-#  For further robustness, downweight outliers such as saturated signals, 
+#  For further robustness, downweight outliers such as saturated signals,
 #  if possible.
 #
-#  Tukey's biweight function is supported, but not used by default because 
+#  Tukey's biweight function is supported, but not used by default because
 #  then a "bandwidth" parameter has to selected. This can indeed be done
 #  automatically by estimating the standard deviation, for instance using
-#  MAD. However, since scanner signals have heteroscedastic noise 
-#  (standard deviation is approximately proportional to the non-logged 
-#  signal), Tukey's bandwidth parameter has to be a function of the 
-#  signal too, cf. @see "stats::loess".  We have experimented with this 
-#  too, but found that it does not significantly improve the robustness 
+#  MAD. However, since scanner signals have heteroscedastic noise
+#  (standard deviation is approximately proportional to the non-logged
+#  signal), Tukey's bandwidth parameter has to be a function of the
+#  signal too, cf. @see "stats::loess".  We have experimented with this
+#  too, but found that it does not significantly improve the robustness
 #  compared to \eqn{L_1}.
 #  Moreover, using Tukey's biweight as is, that is, assuming homoscedastic
-#  noise, seems to introduce a (scale dependent) bias in the estimates 
+#  noise, seems to introduce a (scale dependent) bias in the estimates
 #  of the offset terms.
 # }
 #
@@ -129,7 +129,7 @@
 #   @seemethod "normalizeAffine".
 #   @seeclass
 # }
-#*/######################################################################### 
+#*/#########################################################################
 setMethodS3("calibrateMultiscan", "matrix", function(X, weights=NULL, typeOfWeights=c("datapoint"), method="L1", constraint="diagonal", satSignal=2^16-1, ..., average=median, deviance=NULL, project=FALSE, .fitOnly=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 1. Verify the arguments
@@ -139,7 +139,7 @@ setMethodS3("calibrateMultiscan", "matrix", function(X, weights=NULL, typeOfWeig
     stop("Multiscan calibratation requires at least two scans: ", ncol(X));
   if (nrow(X) < 3)
     stop("Multiscan calibratation requires at least three observations: ", nrow(X));
-  
+
   # Argument: 'satSignal'
   if (satSignal < 0)
     stop("Argument 'satSignal' is negative: ", satSignal);
@@ -153,11 +153,11 @@ setMethodS3("calibrateMultiscan", "matrix", function(X, weights=NULL, typeOfWeig
     # If 'weights' is an object of a class with as.double(), cast it.
     weights <- as.double(weights);
 
-    if (any(is.na(weights)))
+    if (anyMissing(weights))
       stop("Argument 'weights' must not contain NA values.");
 
     if (any(weights < 0 | weights > 1)) {
-      stop("Argument 'weights' out of range [0,1]: ", 
+      stop("Argument 'weights' out of range [0,1]: ",
            paste(weights[weights < 0.0 | weights > 1.0], collapse=", "));
     }
 
@@ -182,19 +182,19 @@ setMethodS3("calibrateMultiscan", "matrix", function(X, weights=NULL, typeOfWeig
     throw("Argument 'deviance' must be a function or NULL: ", class(deviance)[1]);
   }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 2. Prepare the data
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Use non-saturated observations (non-finite values are taken care of by
   # the fitIWPCASpatial() function.
   X[(X >= satSignal)] <- NA;
-  
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 3. Fit the model
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   fit <- fitIWPCA(X, w=datapointWeights, method=method, constraint=constraint, ...);
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 4. Backtransform
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (.fitOnly == FALSE) {
@@ -208,8 +208,8 @@ setMethodS3("calibrateMultiscan", "matrix", function(X, weights=NULL, typeOfWeig
       attr(X, "deviance") <- as.matrix(deviance);
     }
   }
-  
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 5. Return the backtransformed data
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   attr(X, "modelFit") <- fit;
@@ -219,6 +219,8 @@ setMethodS3("calibrateMultiscan", "matrix", function(X, weights=NULL, typeOfWeig
 
 ############################################################################
 # HISTORY:
+# 2013-09-26
+# o Now utilizing anyMissing().
 # 2011-02-05
 # o DOCUMENTATION: Added section on how to calibrate when scanner offsets
 #   are supposed to be known/zero.

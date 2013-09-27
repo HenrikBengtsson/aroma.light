@@ -151,7 +151,7 @@ setMethodS3("normalizeCurveFit", "matrix", function(X, weights=NULL, typeOfWeigh
     # If 'weights' is an object of a class with as.double(), cast it.
     weights <- as.double(weights);
 
-    if (any(is.na(weights)))
+    if (anyMissing(weights))
       stop("Argument 'weights' must not contain NA values.");
 
     if (any(weights < 0 | weights > 1)) {
@@ -272,6 +272,8 @@ setMethodS3("normalizeRobustSpline", "matrix", function(X, ...) {
 
 ############################################################################
 # HISTORY:
+# 2013-09-26
+# o Now utilizing anyMissing().
 # 2005-06-03
 # o Added argument 'typeOfWeights' to make it similar to other normalization
 #   methods, although only "datapoint" weights are allowed.

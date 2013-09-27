@@ -112,7 +112,7 @@ setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, meth
   if (!is.null(w)) {
     w <- rep(w, length.out=N);
     w <- w/sum(w);
-    if (any(is.na(w)))
+    if (anyMissing(w))
       stop("Argument 'w' has missing values.");
   }
 
@@ -270,6 +270,8 @@ setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, meth
 
 ############################################################################
 # HISTORY:
+# 2013-09-26
+# o Now utilizing anyMissing().
 # 2006-06-26
 # o Function would not work in R v2.4.0 devel, because argument 'method' was
 #   removed from La.svd().

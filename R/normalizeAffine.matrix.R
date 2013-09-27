@@ -155,7 +155,7 @@ setMethodS3("normalizeAffine", "matrix", function(X, weights=NULL, typeOfWeights
     # If 'weights' is an object of a class with as.double(), cast it.
     weights <- as.double(weights);
 
-    if (any(is.na(weights)))
+    if (anyMissing(weights))
       stop("Argument 'weights' must not contain NA values.");
 
     if (any(weights < 0 | weights > 1)) {
@@ -212,6 +212,8 @@ setMethodS3("normalizeAffine", "matrix", function(X, weights=NULL, typeOfWeights
 
 ############################################################################
 # HISTORY:
+# 2013-09-26
+# o Now utilizing anyMissing().
 # 2011-02-05
 # o DOCUMENTATION: Added section on how to normalize when channel offsets
 #   are supposed to be known/zero.
