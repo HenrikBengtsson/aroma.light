@@ -66,7 +66,7 @@
             SNPs, which effectly is v4 where the normalized allele B
             fractions for homozygous SNPs becomes 0 and 1.}
   \item{v2: ...}
-  \item{v1: TumorBoost where correction factor is force to one, i.e.
+  \item{v1: TumorBoost where correction factor is forced to one, i.e.
             \eqn{\eta_j=1}.  As explained in [1], this is a suboptimal
             normalization method.  See also the discussion in the
             paragraph following Eqn (12) in [1].}
