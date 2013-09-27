@@ -48,15 +48,16 @@
 #
 # @keyword "algebra"
 #*/#########################################################################
-setMethodS3("medianPolish", "matrix", function(X, tol=0.01, maxIter=10, na.rm=NA, ..., .addExtra=TRUE) {
+setMethodS3("medianPolish", "matrix", function(X, tol=0.01, maxIter=10L, na.rm=NA, ..., .addExtra=TRUE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  .psortKM <- matrixStats:::.psortKM;
+  ns <- getNamespace("matrixStats")
+  .psortKM <- get(".psortKM", mode="function", envir=ns);
 
   dim <- dim(X);
-  nrow <- dim[1];
-  ncol <- dim[2];
+  nrow <- dim[1L];
+  ncol <- dim[2L];
 
   if (.addExtra) {
     name <- deparse(substitute(X));
@@ -66,34 +67,34 @@ setMethodS3("medianPolish", "matrix", function(X, tol=0.01, maxIter=10, na.rm=NA
   t <- 0;
 
   # Row effects
-  r <- vector("double", nrow);
+  r <- vector("double", length=nrow);
 
   # Column effects
-  c <- vector("double", ncol);
+  c <- vector("double", length=ncol);
 
-  hasNa <- (!is.na(na.rm) && any(is.na(X)));
+  hasNa <- (!is.na(na.rm) && anyMissing(X));
   if (hasNa) {
     oldSum <- 0;
     for (ii in 1:maxIter) {
       # Fit the row effects
-      rdelta <- apply(X, MARGIN=1, FUN=median, na.rm=na.rm);
+      rdelta <- rowMedians(X, na.rm=na.rm);
       X <- X - rdelta;
-      r <- r + rdelta
+      r <- r + rdelta;
 
       # Fit the overall effects
-      delta <- median(c, na.rm=na.rm)
-      c <- c - delta
-      t <- t + delta
+      delta <- median(c, na.rm=na.rm);
+      c <- c - delta;
+      t <- t + delta;
 
       # Fit the column effects
-      cdelta <- apply(X, MARGIN=2, FUN=median, na.rm=na.rm);
-      X <- X - matrix(cdelta, nrow=nrow, ncol=ncol, byrow=TRUE)
-      c <- c + cdelta
+      cdelta <- colMedians(X, na.rm=na.rm);
+      X <- X - matrix(cdelta, nrow=nrow, ncol=ncol, byrow=TRUE);
+      c <- c + cdelta;
 
       # Fit the overall effects
-      delta <- median(r, na.rm=na.rm)
-      r <- r - delta
-      t <- t + delta
+      delta <- median(r, na.rm=na.rm);
+      r <- r - delta;
+      t <- t + delta;
 
       # Fit the overall effects
       newSum <- sum(abs(X), na.rm=na.rm);
@@ -131,7 +132,7 @@ setMethodS3("medianPolish", "matrix", function(X, tol=0.01, maxIter=10, na.rm=NA
     oldSum <- 0;
     for (ii in 1:maxIter) {
       # Fit the row effects
-      rdelta <- apply(X, MARGIN=1, FUN=cMedian);
+      rdelta <- apply(X, MARGIN=1L, FUN=cMedian);
       X <- X - rdelta;
       r <- r + rdelta;
 
@@ -141,8 +142,8 @@ setMethodS3("medianPolish", "matrix", function(X, tol=0.01, maxIter=10, na.rm=NA
       t <- t + delta;
 
       # Fit the column effects
-      cdelta <- apply(X, MARGIN=2, FUN=rMedian);
-      X <- X - matrix(cdelta, nrow=nrow, ncol=ncol, byrow=TRUE)
+      cdelta <- apply(X, MARGIN=2L, FUN=rMedian);
+      X <- X - matrix(cdelta, nrow=nrow, ncol=ncol, byrow=TRUE);
       c <- c + cdelta;
 
       # Fit the overall effects
@@ -172,6 +173,11 @@ setMethodS3("medianPolish", "matrix", function(X, tol=0.01, maxIter=10, na.rm=NA
 
 ############################################################################
 # HISTORY:
+# 2013-09-26
+# o CLEANUP: No longer utilizes ':::'.
+# o SPEEDUP: Now utilizing anyMissing() and (col|row)Medians() of the
+#   'matrixStats' package.
+# o TWEAKS: Using integer (e.g. 1L) where possible
 # 2012-09-12
 # o ROBUSTNESS: Replaced an .Internal(psort(...)) call with a call to
 #   matrixStats:::.psortKM() in medianPolish().

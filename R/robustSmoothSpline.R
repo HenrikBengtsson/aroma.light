@@ -411,7 +411,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   # Argument: 'w'
   if (is.numeric(w)) {
     w <- as.double(w);
-    if (any(is.na(w))) {
+    if (anyMissing(w)) {
       stop("Weights with value NA are not allowed.");
     }
     if (any(w < 0 | w > 1)) {
@@ -550,6 +550,8 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
 
 ######################################################################
 # HISTORY
+# 2013-09-26
+# o Now utilizing anyMissing().
 # 2012-08-30
 # o BUG FIX: Now local getNativeSplineFitFunction() sets up the
 #   function such that it is called via a FortranRoutine object,

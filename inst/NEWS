@@ -1,6 +1,11 @@
 Package: aroma.light
 ====================
 
+Version: 1.31.7 [2013-09-26]
+o SPEEDUP: Now all package functions utilizes 'matrixStats' functions
+  where possible, e.g. anyMissing(), colMins(), and rowWeightedMedians().
+
+
 Version: 1.31.6 [2013-09-25]
 o CLEANUP: Package no longer use a fallback attachment of the
   'R.oo' package upon attachment.
@@ -41,13 +46,13 @@ o The version number was bumped for the Bioc devel version.
 
 
 Version: 1.30.5 [2013-09-25]
-o Backport from v1.31.5: Declaring all S3 methods in NAMESPACE. 
+o Backport from v1.31.5: Declaring all S3 methods in NAMESPACE.
 o Backport from v1.31.5: normalizeTumorBoost() now uses which(),
   which also removes one dependency on 'R.utils'.
 
 
 Version: 1.30.4 [2013-09-25]
-o Backport from v1.31.4: Now package explicitly imports what it 
+o Backport from v1.31.4: Now package explicitly imports what it
   needs from matrixStats.
 
 

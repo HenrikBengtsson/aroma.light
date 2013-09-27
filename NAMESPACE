@@ -8,8 +8,14 @@ importFrom("R.oo", "Package")
 importFrom("R.oo", "getPosition")
 importFrom("R.oo", "startupMessage")
 
+importFrom("matrixStats", "anyMissing")
+importFrom("matrixStats", "colMedians")
+importFrom("matrixStats", "colMins")
+importFrom("matrixStats", "colQuantiles")
+importFrom("matrixStats", "rowMedians")
+importFrom("matrixStats", "rowWeightedMedians")
+importFrom("matrixStats", "rowWeightedMeans")
 importFrom("matrixStats", "weightedMedian")
-
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # EXPORTS

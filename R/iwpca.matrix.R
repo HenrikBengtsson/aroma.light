@@ -142,7 +142,7 @@ setMethodS3("iwpca", "matrix", function(X, w=NULL, R=1, method=c("symmetric", "b
     r <- fit$pc[,-c(1:R), drop=FALSE];
 
     # Residuals in orthogonal Euclidean distance
-    if (any(is.na(r))) {
+    if (anyMissing(r)) {
       # Sometimes some residuals become NAs.
       r <- sqrt(rowSums(r^2, na.rm=TRUE));
     } else {
@@ -193,7 +193,7 @@ setMethodS3("iwpca", "matrix", function(X, w=NULL, R=1, method=c("symmetric", "b
     }
 
     # Sometimes some weights become NAs (not sure why). Set them to zero.
-    if (any(is.na(w))) {
+    if (anyMissing(w)) {
       w[is.na(w)] <- 0;
     }
 
@@ -214,6 +214,8 @@ setMethodS3("iwpca", "matrix", function(X, w=NULL, R=1, method=c("symmetric", "b
 
 ############################################################################
 # HISTORY:
+# 2013-09-26
+# o Now utilizing anyMissing().
 # 2006-04-25
 # o Updated the example to first plot data from all viewpoints, then just
 #   the lines.  Faster since the lines are only fitted once and nicer.
