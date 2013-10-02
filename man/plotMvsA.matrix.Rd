@@ -9,6 +9,7 @@
 
 \name{plotMvsA.matrix}
 \alias{plotMvsA.matrix}
+\alias{plotMvsA}
 
 \title{Plot log-ratios vs log-intensities}
 

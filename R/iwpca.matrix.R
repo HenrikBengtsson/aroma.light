@@ -1,6 +1,7 @@
 #########################################################################/**
 # @set "class=matrix"
 # @RdocMethod iwpca
+# @alias iwpca
 #
 # @title "Fits an R-dimensional hyperplane using iterative re-weighted PCA"
 #

@@ -1,6 +1,7 @@
 #########################################################################/**
 # @set "class=matrix"
 # @RdocMethod backtransformAffine
+# @alias backtransformAffine
 #
 # @title "Reverse affine transformation"
 #

@@ -1,6 +1,7 @@
 #########################################################################/**
 # @class matrix
 # @RdocMethod plotMvsA
+# @alias plotMvsA
 #
 # @title "Plot log-ratios vs log-intensities"
 #

@@ -2,6 +2,7 @@
 # @set "class=matrix"
 # @RdocMethod backtransformPrincipalCurve
 # @alias backtransformPrincipalCurve.numeric
+# @alias backtransformPrincipalCurve
 #
 # @title "Reverse transformation of principal-curve fit"
 #

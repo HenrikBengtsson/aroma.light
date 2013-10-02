@@ -1,6 +1,7 @@
 #########################################################################/**
 # @set "class=matrix"
 # @RdocMethod wpca
+# @alias wpca
 #
 # @title "Light-weight Weighted Principal Component Analysis"
 #

@@ -9,6 +9,7 @@
 
 \name{fitPrincipalCurve.matrix}
 \alias{fitPrincipalCurve.matrix}
+\alias{fitPrincipalCurve}
 
 \title{Fit a principal curve in K dimensions}
 

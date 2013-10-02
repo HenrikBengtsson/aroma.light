@@ -9,6 +9,7 @@
 
 \name{wpca.matrix}
 \alias{wpca.matrix}
+\alias{wpca}
 
 \title{Light-weight Weighted Principal Component Analysis}
 

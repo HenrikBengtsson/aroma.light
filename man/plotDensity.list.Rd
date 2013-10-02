@@ -12,6 +12,7 @@
 \alias{plotDensity.data.frame}
 \alias{plotDensity.matrix}
 \alias{plotDensity.numeric}
+\alias{plotDensity}
 
 \title{Plots density distributions for a set of vectors}
 

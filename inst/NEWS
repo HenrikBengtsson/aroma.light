@@ -1,6 +1,11 @@
 Package: aroma.light
 ====================
 
+Version: 1.31.8 [2013-10-02]
+o DOCUMENTATION: More generic functions are now "aliased" under
+  relevant corresponding methods.
+
+
 Version: 1.31.7 [2013-09-27]
 o SPEEDUP: Now all package functions utilizes 'matrixStats' functions
   where possible, e.g. anyMissing(), colMins(), and rowWeightedMedians().

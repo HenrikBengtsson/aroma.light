@@ -1,6 +1,7 @@
 #########################################################################/**
 # @set "class=matrix"
 # @RdocMethod medianPolish
+# @alias medianPolish
 #
 # @title "Median polish"
 #

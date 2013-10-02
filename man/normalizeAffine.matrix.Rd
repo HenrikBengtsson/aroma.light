@@ -9,6 +9,7 @@
 
 \name{normalizeAffine.matrix}
 \alias{normalizeAffine.matrix}
+\alias{normalizeAffine}
 
 \encoding{latin1}
 

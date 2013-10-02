@@ -10,15 +10,16 @@
 \name{normalizeQuantileSpline.matrix}
 \alias{normalizeQuantileSpline.matrix}
 
-\title{Weighted sample quantile normalization}
+\title{Normalizes the empirical distribution of one or more samples to a target distribution}
 
 \usage{
 \method{normalizeQuantileSpline}{matrix}(X, xTarget, ...)
 }
 
 \description{
-  Normalizes channels so they all have the same average sample
-  distributions.
+  Normalizes the empirical distribution of one or more samples to a target distribution.
+  After normalization, all samples have the same average empirical
+  density distribution.
 }
 
 \arguments{
@@ -30,13 +31,15 @@
 }
 
 \value{
+  Returns an object of the same type and dimensions as the input.
   Returns an NxK \code{\link[base]{matrix}}.
 }
 
 \section{Missing values}{
   Both argument \code{X} and \code{xTarget} may contain non-finite values.
   These values do not affect the estimation of the normalization function.
-  Non-finite values in \code{X}, remain in the output.
+  Missing values and other non-finite values in \code{X},
+  remain in the output as is.  No new missing values are introduced.
 }
 
 \examples{
@@ -61,12 +64,21 @@ plotDensity(Xn2, lwd=2, xlim=xlim, main="The three normalized distributions")
 plotXYCurve(X, Xn2, xlim=xlim, main="The three normalized distributions")
 }
 
-\seealso{
-  Internally \code{\link{normalizeQuantileSpline.numeric}}() is used.
-  \code{\link[aroma.light:normalizeQuantileRank.matrix]{*normalizeQuantileRank}()}.
-}
-
 \author{Henrik Bengtsson}
+
+\seealso{
+  %%The target distribution can be calculated as the average
+  %%using \code{\link[aroma.light:averageQuantile.matrix]{*averageQuantile}()}.
+
+  Internally either \code{\link[aroma.light]{robustSmoothSpline}} or
+  \code{\link[stats]{smooth.spline}} is used.
+
+  An alternative normalization method that is also normalizing the
+  empirical densities of samples is \code{\link[aroma.light:normalizeQuantileRank.matrix]{*normalizeQuantileRank}()}.
+  Contrary to this method, that method requires that all samples are
+  based on the exact same set of data points and it is also more likely
+  to over-correct in the tails of the distributions.
+}
 
 \references{
   [1] H. Bengtsson, R. Irizarry, B. Carvalho, and T. Speed, \emph{Estimation and assessment of raw copy numbers at the single locus level}, Bioinformatics, 2008.
