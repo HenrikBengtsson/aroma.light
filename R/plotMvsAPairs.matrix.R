@@ -1,6 +1,7 @@
 #########################################################################/**
 # @class matrix
 # @RdocMethod plotMvsAPairs
+# @alias plotMvsAPairs
 #
 # @title "Plot log-ratios/log-intensities for all unique pairs of data vectors"
 #

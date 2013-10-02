@@ -1,10 +1,15 @@
 #########################################################################/**
 # @set "class=matrix"
 # @RdocMethod normalizeCurveFit
-# @alias "normalizeLoess.matrix"
-# @alias "normalizeLowess.matrix"
-# @alias "normalizeSpline.matrix"
-# @alias "normalizeRobustSpline.matrix"
+# @alias normalizeLoess.matrix
+# @alias normalizeLowess.matrix
+# @alias normalizeSpline.matrix
+# @alias normalizeRobustSpline.matrix
+# @alias normalizeCurveFit
+# @alias normalizeLoess
+# @alias normalizeLowess
+# @alias normalizeSpline
+# @alias normalizeRobustSpline
 #
 # \encoding{latin1}
 #

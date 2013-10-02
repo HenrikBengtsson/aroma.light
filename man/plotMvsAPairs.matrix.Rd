@@ -9,6 +9,7 @@
 
 \name{plotMvsAPairs.matrix}
 \alias{plotMvsAPairs.matrix}
+\alias{plotMvsAPairs}
 
 \title{Plot log-ratios/log-intensities for all unique pairs of data vectors}
 

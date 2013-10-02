@@ -1,6 +1,7 @@
 ########################################################################/**
 # @set "class=matrix"
 # @RdocMethod fitIWPCA
+# @alias fitIWPCA
 #
 # @title "Robust fit of linear subspace through multidimensional data"
 #

@@ -1,6 +1,7 @@
 #########################################################################/**
 # @set "class=matrix"
 # @RdocMethod calibrateMultiscan
+# @alias calibrateMultiscan
 #
 # \encoding{latin1}
 #

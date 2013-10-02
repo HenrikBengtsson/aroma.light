@@ -9,6 +9,7 @@
 
 \name{averageQuantile.list}
 \alias{averageQuantile.list}
+\alias{averageQuantile}
 
 \title{Gets the average empirical distribution}
 

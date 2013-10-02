@@ -9,6 +9,7 @@
 
 \name{iwpca.matrix}
 \alias{iwpca.matrix}
+\alias{iwpca}
 
 \title{Fits an R-dimensional hyperplane using iterative re-weighted PCA}
 

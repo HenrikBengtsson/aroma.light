@@ -9,6 +9,7 @@
 
 \name{medianPolish.matrix}
 \alias{medianPolish.matrix}
+\alias{medianPolish}
 
 \title{Median polish}
 

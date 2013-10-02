@@ -10,6 +10,7 @@
 \name{backtransformPrincipalCurve.matrix}
 \alias{backtransformPrincipalCurve.matrix}
 \alias{backtransformPrincipalCurve.numeric}
+\alias{backtransformPrincipalCurve}
 
 \title{Reverse transformation of principal-curve fit}
 

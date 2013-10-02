@@ -9,6 +9,7 @@
 
 \name{fitIWPCA.matrix}
 \alias{fitIWPCA.matrix}
+\alias{fitIWPCA}
 
 \title{Robust fit of linear subspace through multidimensional data}
 

@@ -10,6 +10,7 @@
 \name{normalizeAverage.matrix}
 \alias{normalizeAverage.matrix}
 \alias{normalizeAverage.list}
+\alias{normalizeAverage}
 
 \title{Rescales channel vectors to get the same average}
 

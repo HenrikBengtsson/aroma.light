@@ -2,27 +2,12 @@
 # @RdocDocumentation "Non-documented objects"
 #
 # % Calibration and normalization functions
-# @alias fitIWPCA
-# @alias calibrateMultiscan
-# @alias normalizeAffine
-# @alias normalizeAverage
-# @alias backtransformAffine
 # @alias normalizeQuantile
 # @alias normalizeQuantile.default
 # @alias normalizeQuantileRank
 # @alias normalizeQuantileSpline
-# @alias normalizeCurveFit
-# @alias normalizeLoess
-# @alias normalizeLowess
-# @alias normalizeRobustSpline
-# @alias normalizeSpline
-# @alias averageQuantile
 #
 # % Plot functions
-# @alias plotMvsA
-# @alias plotMvsAPairs
-# @alias plotMvsMPairs
-# @alias plotDensity
 # @alias plotXYCurve
 # @alias lines.XYCurveFit
 #
@@ -30,7 +15,6 @@
 # @alias rowAverages
 # @alias rowAverages.matrix
 # @alias sampleCorrelations
-# @alias medianPolish
 # @alias backtransformXYCurve
 # @alias backtransformXYCurve.matrix
 #
@@ -38,12 +22,6 @@
 # @alias projectUontoV
 # @alias scalarProduct
 # @alias tr
-#
-# % Advanced linear-algebra
-# @alias iwpca
-# @alias wpca
-# @alias fitPrincipalCurve
-# @alias backtransformPrincipalCurve
 #
 # % Miscellaneous statistical functions
 # @alias likelihood

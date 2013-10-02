@@ -2,42 +2,56 @@
 # @set "class=list"
 # @RdocMethod normalizeQuantileSpline
 #
-# @title "Normalizes the empirical distribution of a set of samples to a target distribution"
+# @title "Normalizes the empirical distribution of one or more samples to a target distribution"
 #
 # @synopsis
 #
 # \description{
-#   @get "title".  The samples may differ in size.
+#   @get "title".
+#   After normalization, all samples have the same average empirical
+#   density distribution.
 # }
 #
 # \arguments{
-#   \item{X}{a @list with @numeric @vectors.  The @vectors may be of
-#     different lengths.}
-#   \item{xTarget}{The target empirical distribution.  If @NULL, the target
-#     distribution is calculated as the average empirical distribution of
-#     the samples.}
+#   \item{X}{a @list of length K with @numeric @vectors that may be off different lenghts.}
+#   \item{xTarget}{The target empirical distribution.
+#     If @NULL, the target distribution is calculated as the average
+#     empirical distribution of the samples.
+#   }
 #   \item{...}{Passed to @see "normalizeQuantileSpline.numeric".}
 # }
 #
 # \value{
-#   Returns a @list of normalized @numeric @vector of the same lengths as the
+#   Returns an object of the same type and dimensions as the input.
+#   @list of normalized @numeric @vector of the same lengths as the
 #   corresponding ones in the input matrix.
 # }
 #
 # \section{Missing values}{
-#   Missing values are excluded.
-#   Values that are @NA remain @NA after normalization.
-#   No new @NAs are introduced.
+#   Both argument \code{X} and \code{xTarget} may contain non-finite values.
+#   These values do not affect the estimation of the normalization function.
+#   Missing values and other non-finite values in \code{X},
+#   remain in the output as is.  No new missing values are introduced.
 # }
 #
 # @author "HB"
 #
 # \seealso{
-#   The target empirical distribution is calculated as the average
+#   The target distribution can be calculated as the average
 #   using @seemethod "averageQuantile".
-#   Each @vector is normalized toward this target disribution using
-#   @see "normalizeQuantileSpline.numeric".
-#   @seemethod "normalizeQuantileRank".
+#
+#   Internally either @see "aroma.light::robustSmoothSpline" or
+#   @see "stats::smooth.spline" is used.
+#
+#   An alternative normalization method that is also normalizing the
+#   empirical densities of samples is @seemethod "normalizeQuantileRank".
+#   Contrary to this method, that method requires that all samples are
+#   based on the exact same set of data points and it is also more likely
+#   to over-correct in the tails of the distributions.
+# }
+#
+# \references{
+#   [1] @include "../incl/BengtssonH_etal_2008.bib.Rdoc" \cr
 # }
 #
 # @keyword "nonparametric"

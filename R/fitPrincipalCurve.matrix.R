@@ -1,6 +1,7 @@
 #########################################################################/**
 # @set "class=matrix"
 # @RdocMethod fitPrincipalCurve
+# @alias fitPrincipalCurve
 #
 # @title "Fit a principal curve in K dimensions"
 #

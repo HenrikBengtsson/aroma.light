@@ -9,6 +9,7 @@
 
 \name{backtransformAffine.matrix}
 \alias{backtransformAffine.matrix}
+\alias{backtransformAffine}
 
 \title{Reverse affine transformation}
 

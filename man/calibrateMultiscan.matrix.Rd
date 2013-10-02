@@ -9,6 +9,7 @@
 
 \name{calibrateMultiscan.matrix}
 \alias{calibrateMultiscan.matrix}
+\alias{calibrateMultiscan}
 
 \encoding{latin1}
 

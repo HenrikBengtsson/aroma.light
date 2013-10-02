@@ -1,6 +1,7 @@
 ###########################################################################/**
 # @set "class=list"
 # @RdocMethod averageQuantile
+# @alias averageQuantile
 #
 # @title "Gets the average empirical distribution"
 #

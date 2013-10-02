@@ -1,6 +1,7 @@
 #########################################################################/**
 # @class matrix
 # @RdocMethod plotMvsMPairs
+# @alias plotMvsMPairs
 #
 # @title "Plot log-ratios vs log-ratios for all pairs of columns"
 #

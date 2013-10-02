@@ -1,6 +1,7 @@
 #########################################################################/**
 # @set "class=matrix"
 # @RdocMethod normalizeAffine
+# @alias normalizeAffine
 #
 # \encoding{latin1}
 #
