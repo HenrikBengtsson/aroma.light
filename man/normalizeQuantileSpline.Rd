@@ -16,9 +16,9 @@
 \title{Normalizes the empirical distribution of one or more samples to a target distribution}
 
 \usage{
-\method{normalizeQuantileSpline}{numeric}(x, w=NULL, xTarget, sortTarget=TRUE, ..., robust=TRUE)
-\method{normalizeQuantileSpline}{matrix}(X, w=NULL, xTarget=NULL, sortTarget=TRUE, ..., robust=TRUE)
-\method{normalizeQuantileSpline}{list}(X, w=NULL, xTarget=NULL, sortTarget=TRUE, ..., robust=TRUE)
+\method{normalizeQuantileSpline}{numeric}(x, w=NULL, xTarget, sortTarget=TRUE, robust=TRUE, ...)
+\method{normalizeQuantileSpline}{matrix}(X, w=NULL, xTarget=NULL, sortTarget=TRUE, robust=TRUE, ...)
+\method{normalizeQuantileSpline}{list}(X, w=NULL, xTarget=NULL, sortTarget=TRUE, robust=TRUE, ...)
 }
 
 \description{
@@ -40,10 +40,10 @@
     calculated as the average empirical distribution of the samples.}
   \item{sortTarget}{If \code{\link[base:logical]{TRUE}}, argument \code{xTarget} will be sorted,
     otherwise it is assumed to be already sorted.}
-  \item{...}{Arguments passed to (\code{\link[stats]{smooth.spline}}
-     or \code{\link[aroma.light]{robustSmoothSpline}}).}
   \item{robust}{If \code{\link[base:logical]{TRUE}}, the normalization function is
      estimated robustly.}
+  \item{...}{Arguments passed to (\code{\link[stats]{smooth.spline}}
+     or \code{\link[aroma.light]{robustSmoothSpline}}).}
 }
 
 \value{
