@@ -14,7 +14,6 @@
 
 \usage{
 \method{normalizeQuantileSpline}{matrix}(X, xTarget, ...)
-\method{normalizeQuantileSpline}{matrix}(X, xTarget, ...)
 }
 
 \description{
