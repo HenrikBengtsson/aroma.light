@@ -1,12 +1,14 @@
 ###########################################################################/**
 # @RdocGeneric normalizeQuantileSpline
 # @alias normalizeQuantileSpline.numeric
+# @alias normalizeQuantileSpline.matrix
 # @alias normalizeQuantileSpline.list
 #
 # @title "Normalizes the empirical distribution of one or more samples to a target distribution"
 #
 # \usage{
 # @usage normalizeQuantileSpline,numeric
+# @usage normalizeQuantileSpline,matrix
 # @usage normalizeQuantileSpline,list
 # }
 #
@@ -17,18 +19,20 @@
 # }
 #
 # \arguments{
-#   \item{x, X}{a @numeric @vector of length N or a @list of length N
-#     with @numeric @vectors.
-#     If a @list, then the @vectors may be of different lengths.}
-#   \item{w}{an optional @numeric @vector of length \eqn{N} of weights.}
+#   \item{x, X}{A single (\eqn{K=1}) @numeric @vector of length \eqn{N},
+#     a @numeric \eqn{NxK} @matrix, or a @list of length \eqn{K} with
+#     @numeric @vectors, where \eqn{K} represents the number of samples
+#     and \eqn{N} the number of data points.}
+#   \item{w}{An optional @numeric @vector of length \eqn{N} of weights
+#     specific to each data point.}
 #   \item{xTarget}{The target empirical distribution as a \emph{sorted}
 #     @numeric @vector of length \eqn{M}.
 #     If @NULL and \code{X} is a @list, then the target distribution is
 #     calculated as the average empirical distribution of the samples.}
-#   \item{sortTarget}{If @TRUE, argument \code{xTarget} is sorted.}
+#   \item{sortTarget}{If @TRUE, argument \code{xTarget} will be sorted,
+#     otherwise it is assumed to be already sorted.}
 #   \item{...}{Arguments passed to (@see "stats::smooth.spline"
-#      or @see "aroma.light::robustSmoothSpline"), e.g. \code{w}
-#      for weights.}
+#      or @see "aroma.light::robustSmoothSpline").}
 #   \item{robust}{If @TRUE, the normalization function is
 #      estimated robustly.}
 # }
@@ -43,6 +47,8 @@
 #   Missing values and other non-finite values in \code{X},
 #   remain in the output as is.  No new missing values are introduced.
 # }
+#
+# @examples "../incl/normalizeQuantileSpline.matrix.Rex"
 #
 # @author "HB"
 #
@@ -69,20 +75,57 @@
 # @keyword "robust"
 #*/###########################################################################
 setMethodS3("normalizeQuantileSpline", "list", function(X, w=NULL, xTarget=NULL, sortTarget=TRUE, ..., robust=TRUE) {
-  # Get the target quantile for all channels (columns)?
+  # Argument 'xTarget':
   if (is.null(xTarget)) {
+    # Get the target quantile for all channels?
     xTarget <- averageQuantile(X);
+    sortTarget <- FALSE;
+  } else if (!is.numeric(xTarget)) {
+    throw("Argument 'xTarget' is not numeric: ", mode(xTarget));
+  }
+
+  # Sort target distribution?
+  if (sortTarget) {
+    xTarget <- sort(xTarget, na.last=TRUE);
   }
 
   # Normalizes the data
   nTarget <- length(xTarget);
   X <- lapply(X, FUN=function(x) {
-    normalizeQuantileSpline(x, w=w, xTarget=xTarget, sortTarget=sortTarget,
+    normalizeQuantileSpline(x, w=w, xTarget=xTarget, sortTarget=FALSE,
                             ..., robust=robust);
   })
 
   X;
 })
+
+
+setMethodS3("normalizeQuantileSpline", "matrix", function(X, w=NULL, xTarget=NULL, sortTarget=TRUE, ..., robust=TRUE) {
+  # Argument 'xTarget':
+  if (is.null(xTarget)) {
+    # Get the target quantile for all channels?
+    xTarget <- averageQuantile(X);
+    sortTarget <- FALSE;
+  } else if (!is.numeric(xTarget)) {
+    throw("Argument 'xTarget' is not numeric: ", mode(xTarget));
+  }
+  if (length(xTarget) != nrow(X)) {
+    throw("Argument 'xTarget' is of different length than the number of rows in 'X': ", length(xTarget) , " != ", nrow(X));
+  }
+
+  # Sort target distribution?
+  if (sortTarget) {
+    xTarget <- sort(xTarget, na.last=TRUE);
+  }
+
+  # Normalize each of the columns towards the target distribution
+  for (cc in seq(length=ncol(X))) {
+    X[,cc] <- normalizeQuantileSpline(X[,cc], w=w, xTarget=xTarget,
+                              sortTarget=FALSE, ..., robust=robust);
+  }
+
+  X;
+}) # normalizeQuantileSpline.matrix()
 
 
 setMethodS3("normalizeQuantileSpline", "numeric", function(x, w=NULL, xTarget, sortTarget=TRUE, ..., robust=TRUE) {
@@ -171,14 +214,16 @@ setMethodS3("normalizeQuantileSpline", "numeric", function(x, w=NULL, xTarget, s
 }) # normalizeQuantileSpline.numeric()
 
 
-
 ##############################################################################
 # HISTORY:
+# 2013-10-08
+# o SPEEDUP: Now normalizeQuantileSpline(..., sortTarget=TRUE) sorts the
+#   target only once for lists of vectors just as done for matrices.
 # 2013-10-07
 # o normalizeQuantileSpline() for list:s gained explicit argument 'w',
 #   'sortTarget' and 'robust'.
 # 2013-05-25
-# o SPEEDUP: Removed all three gc() calls.
+# o SPEEDUP: Removed all gc() calls.
 # 2008-04-14
 # o Added normalizeQuantileSpline() for list:s, which works analogously as
 #   normalizeQuantileRank() for list:s.
