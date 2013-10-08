@@ -13,7 +13,8 @@
 \title{Normalizes the empirical distribution of one or more samples to a target distribution}
 
 \usage{
-\method{normalizeQuantileSpline}{matrix}(X, xTarget, ...)
+ \method{normalizeQuantileSpline}{matrix}(X, xTarget, ...)
+ \method{normalizeQuantileSpline}{matrix}(X, xTarget, ...)
 }
 
 \description{
@@ -68,13 +69,13 @@ plotXYCurve(X, Xn2, xlim=xlim, main="The three normalized distributions")
 
 \seealso{
   %%The target distribution can be calculated as the average
-  %%using \code{\link[aroma.light:averageQuantile.matrix]{*averageQuantile}()}.
+  %%using \code{\link{averageQuantile}}().
 
   Internally either \code{\link[aroma.light]{robustSmoothSpline}} or
   \code{\link[stats]{smooth.spline}} is used.
 
   An alternative normalization method that is also normalizing the
-  empirical densities of samples is \code{\link[aroma.light:normalizeQuantileRank.matrix]{*normalizeQuantileRank}()}.
+  empirical densities of samples is \code{\link{normalizeQuantileRank}}().
   Contrary to this method, that method requires that all samples are
   based on the exact same set of data points and it is also more likely
   to over-correct in the tails of the distributions.

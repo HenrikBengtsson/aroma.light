@@ -1,6 +1,6 @@
 #########################################################################/**
-# @class matrix
-# @RdocMethod sampleCorrelations
+# @RdocGeneric sampleCorrelations
+# @alias sampleCorrelations.matrix
 #
 # @title "Calculates the correlation for random pairs of observations"
 #
@@ -8,7 +8,9 @@
 #   @get "title".
 # }
 #
-# @synopsis
+# \usage{
+#  @usage sampleCorrelations,matrix
+# }
 #
 # \arguments{
 #  \item{X}{An NxK @matrix where N >= 2 and K >= 2.}

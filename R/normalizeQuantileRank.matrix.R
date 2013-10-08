@@ -1,15 +1,15 @@
 ###########################################################################/**
 # @set "class=matrix"
 # @RdocMethod normalizeQuantileRank
-# @aliasmethod normalizeQuantile
 #
-# @title "Weighted sample quantile normalization"
+# @title "Normalizes the empirical distribution of a set of samples to a common target distribution"
 #
-# @synopsis
+# \usage{
+#  @usage normalizeQuantileRank,matrix
+# }
 #
 # \description{
-#   Normalizes channels so they all have the same average sample
-#   distributions.
+#   @get "title".
 #
 #   The average sample distribution is calculated either robustly or not
 #   by utilizing either \code{weightedMedian()} or \code{weighted.mean()}.
@@ -22,7 +22,8 @@
 #   \item{robust}{If @TRUE, the (weighted) median function is used for
 #            calculating the average sample distribution, otherwise the
 #            (weighted) mean function is used.}
-#   \item{ties}{Should ties be specially treated or not?}
+#   \item{ties}{Should ties in \code{x} be treated with care or not?
+#     For more details, see "limma:normalizeQuantiles".}
 #   \item{weights}{If @NULL, non-weighted normalization is done.
 #     If channel weights, this should be a @vector of length K specifying
 #     the weights for each channel.
@@ -35,13 +36,13 @@
 # }
 #
 # \value{
-#   Returns an NxK @matrix.
+#   Returns an object of the same shape as the input argument.
 # }
 #
 # \section{Missing values}{
-#   Missing values are excluded when estimating the "common" (the baseline)
-#   distribution. Values that are @NA before remain @NA. No new @NAs are
-#   introduced.
+#   Missing values are excluded when estimating the "common" (the baseline).
+#   Values that are @NA remain @NA after normalization.
+#   No new @NAs are introduced.
 # }
 #
 # \section{Weights}{
@@ -64,7 +65,7 @@
 # \seealso{
 #   @see "stats::median", @see "matrixStats::weightedMedian",
 #   @see "base::mean" and @see "stats::weighted.mean".
-#   @seemethod "normalizeQuantileSpline".
+#   @see "normalizeQuantileSpline".
 # }
 #
 # @keyword "nonparametric"

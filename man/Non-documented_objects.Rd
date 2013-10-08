@@ -11,20 +11,12 @@
 \title{Non-documented objects}
 
 
-% Calibration and normalization functions
-\alias{normalizeQuantile}
-\alias{normalizeQuantile.default}
-\alias{normalizeQuantileRank}
-\alias{normalizeQuantileSpline}
-
 % Plot functions
-\alias{plotXYCurve}
 \alias{lines.XYCurveFit}
 
 % Matrix operations
 \alias{rowAverages}
 \alias{rowAverages.matrix}
-\alias{sampleCorrelations}
 \alias{backtransformXYCurve}
 \alias{backtransformXYCurve.matrix}
 

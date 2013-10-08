@@ -4,7 +4,10 @@
 #
 # @title "Normalizes the empirical distribution of one or more samples to a target distribution"
 #
-# @synopsis
+# \usage{
+#  @usage normalizeQuantileSpline,matrix
+#  @usage normalizeQuantileSpline,matrix
+# }
 #
 # \description{
 #   @get "title".
@@ -38,13 +41,13 @@
 #
 # \seealso{
 #   %%The target distribution can be calculated as the average
-#   %%using @seemethod "averageQuantile".
+#   %%using @see "averageQuantile".
 #
 #   Internally either @see "aroma.light::robustSmoothSpline" or
 #   @see "stats::smooth.spline" is used.
 #
 #   An alternative normalization method that is also normalizing the
-#   empirical densities of samples is @seemethod "normalizeQuantileRank".
+#   empirical densities of samples is @see "normalizeQuantileRank".
 #   Contrary to this method, that method requires that all samples are
 #   based on the exact same set of data points and it is also more likely
 #   to over-correct in the tails of the distributions.

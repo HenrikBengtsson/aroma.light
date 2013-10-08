@@ -4,7 +4,9 @@
 #
 # @title "Plot the relationship between two variables as a smooth curve"
 #
-# @synopsis
+# \usage{
+#  @usage plotXYCurve,numeric
+# }
 #
 # \description{
 #   @get "title".

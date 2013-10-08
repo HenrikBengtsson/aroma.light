@@ -20,7 +20,7 @@
 }
 
 \usage{
-\method{print}{SmoothSplineLikelihood}(x, digits=getOption("digits"), ...)
+ \method{print}{SmoothSplineLikelihood}(x, digits=getOption("digits"), ...)
 }
 
 \arguments{
@@ -34,5 +34,7 @@
 }
 
 \author{Henrik Bengtsson}
+
+
 \keyword{internal}
 \keyword{methods}

@@ -1,0 +1,1 @@
+H. Bengtsson, A. Ray, P. Spellman and T.P. Speed, \emph{A single-sample method for normalizing and combining full-resolutioncopy numbers from multiple platforms, labs and analysis methods}, Bioinformatics, 2009.

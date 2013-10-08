@@ -1,10 +1,13 @@
 ###########################################################################/**
 # @set "class=matrix"
 # @RdocMethod plotXYCurve
+# @alias plotXYCurve
 #
 # @title "Plot the relationship between two variables as a smooth curve"
 #
-# @synopsis
+# \usage{
+#  @usage plotXYCurve,matrix
+# }
 #
 # \description{
 #   @get "title".

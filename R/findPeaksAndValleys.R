@@ -1,7 +1,6 @@
 ###########################################################################/**
-# @set "class=density"
-# @RdocMethod findPeaksAndValleys
-# @alias findPeaksAndValleys
+# @RdocGeneric findPeaksAndValleys
+# @alias findPeaksAndValleys.density
 # @alias findPeaksAndValleys.numeric
 #
 # @title "Finds extreme points in the empirical density estimated from data"
@@ -9,14 +8,14 @@
 # \description{
 #   @get "title".
 # }
-# 
+#
 # \usage{
-#  \method{findPeaksAndValleys}{density}(x, tol=0, ...)
-#  \method{findPeaksAndValleys}{numeric}(x, ..., tol=0, na.rm=TRUE)
+#  @usage findPeaksAndValleys,density
+#  @usage findPeaksAndValleys,numeric
 # }
 #
 # \arguments{
-#  \item{x}{A @numeric @vector containing data points or 
+#  \item{x}{A @numeric @vector containing data points or
 #     a @see "stats::density" object.}
 #  \item{...}{Arguments passed to @see "stats::density".
 #     Ignored if \code{x} is a @see "stats::density" object.}
@@ -26,7 +25,7 @@
 # }
 #
 # \value{
-#   Returns a @data.frame (of class 'PeaksAndValleys') containing 
+#   Returns a @data.frame (of class 'PeaksAndValleys') containing
 #   of "peaks" and "valleys" filtered by \code{tol}.
 # }
 #
@@ -34,12 +33,16 @@
 #
 # @author
 #
+# \seealso{
+#   This function is used by @see "callNaiveGenotypes".
+# }
+#
 # @keyword internal
-#*/########################################################################### 
+#*/###########################################################################
 setMethodS3("findPeaksAndValleys", "density", function(x, tol=0, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'x':
   d <- x;
 
@@ -76,7 +79,7 @@ setMethodS3("findPeaksAndValleys", "density", function(x, tol=0, ...) {
 setMethodS3("findPeaksAndValleys", "numeric", function(x, ..., tol=0, na.rm=TRUE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'na.rm':
   na.rm <- as.logical(na.rm);
   stopifnot(length(na.rm) == 1);
