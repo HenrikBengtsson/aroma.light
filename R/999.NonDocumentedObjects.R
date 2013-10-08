@@ -7,8 +7,6 @@
 # % Matrix operations
 # @alias rowAverages
 # @alias rowAverages.matrix
-# @alias backtransformXYCurve
-# @alias backtransformXYCurve.matrix
 #
 # % Simple linear-algebra
 # @alias projectUontoV
