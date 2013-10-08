@@ -14,7 +14,7 @@
 \title{Gets the average empirical distribution}
 
 \usage{
- \method{averageQuantile}{list}(X, ...)
+\method{averageQuantile}{list}(X, ...)
 }
 
 \description{

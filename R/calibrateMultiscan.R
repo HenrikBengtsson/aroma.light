@@ -11,7 +11,7 @@
 # }
 #
 # \usage{
-#  @usage calibrateMultiscan,matrix
+# @usage calibrateMultiscan,matrix
 # }
 #
 # \arguments{

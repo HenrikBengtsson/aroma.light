@@ -9,7 +9,7 @@
 # }
 #
 # \usage{
-#  @usage iwpca,matrix
+# @usage iwpca,matrix
 # }
 #
 # \arguments{

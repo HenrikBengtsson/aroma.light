@@ -18,7 +18,7 @@
 }
 
 \usage{
- \method{normalizeDifferencesToAverage}{list}(x, baseline=1, FUN=median, ...)
+\method{normalizeDifferencesToAverage}{list}(x, baseline=1, FUN=median, ...)
 }
 
 \arguments{

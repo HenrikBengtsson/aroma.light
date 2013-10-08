@@ -5,7 +5,7 @@
 # @title "Gets the average empirical distribution"
 #
 # \usage{
-#  @usage averageQuantile,list
+# @usage averageQuantile,list
 # }
 #
 # \description{

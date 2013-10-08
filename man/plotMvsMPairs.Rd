@@ -18,7 +18,7 @@
 }
 
 \usage{
- \method{plotMvsMPairs}{matrix}(X, xlab="M", ylab="M", xlim=c(-1, 1) * 6, ylim=xlim, pch=".", ...,
+\method{plotMvsMPairs}{matrix}(X, xlab="M", ylab="M", xlim=c(-1, 1) * 6, ylim=xlim, pch=".", ...,
   add=FALSE)
 }
 

@@ -5,7 +5,7 @@
 # @title "Normalizes the empirical distribution of a set of samples to a common target distribution"
 #
 # \usage{
-#  @usage normalizeQuantileRank,matrix
+# @usage normalizeQuantileRank,matrix
 # }
 #
 # \description{

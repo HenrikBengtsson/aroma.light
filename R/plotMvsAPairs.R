@@ -9,7 +9,7 @@
 # }
 #
 # \usage{
-#  @usage plotMvsAPairs,matrix
+# @usage plotMvsAPairs,matrix
 # }
 #
 # \arguments{

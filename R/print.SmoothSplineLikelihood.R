@@ -10,7 +10,7 @@
 # }
 #
 # \usage{
-#  @usage print,SmoothSplineLikelihood
+# @usage print,SmoothSplineLikelihood
 # }
 #
 # \arguments{

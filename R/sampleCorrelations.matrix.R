@@ -9,7 +9,7 @@
 # }
 #
 # \usage{
-#  @usage sampleCorrelations,matrix
+# @usage sampleCorrelations,matrix
 # }
 #
 # \arguments{

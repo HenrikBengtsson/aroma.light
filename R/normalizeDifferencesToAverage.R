@@ -9,7 +9,7 @@
 # }
 #
 # \usage{
-#  @usage normalizeDifferencesToAverage,list
+# @usage normalizeDifferencesToAverage,list
 # }
 #
 # \arguments{

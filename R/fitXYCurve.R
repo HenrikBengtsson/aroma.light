@@ -9,7 +9,7 @@
 # }
 #
 # \usage{
-#  @usage fitXYCurve,matrix
+# @usage fitXYCurve,matrix
 # }
 #
 # \arguments{

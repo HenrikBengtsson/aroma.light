@@ -18,7 +18,7 @@
 }
 
 \usage{
- \method{medianPolish}{matrix}(X, tol=0.01, maxIter=10L, na.rm=NA, ..., .addExtra=TRUE)
+\method{medianPolish}{matrix}(X, tol=0.01, maxIter=10L, na.rm=NA, ..., .addExtra=TRUE)
 }
 
 \arguments{

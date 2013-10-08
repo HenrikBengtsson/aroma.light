@@ -13,7 +13,7 @@
 \title{Normalizes the empirical distribution of a set of samples to a common target distribution}
 
 \usage{
- \method{normalizeQuantileRank}{matrix}(X, ties=FALSE, robust=FALSE, weights=NULL,
+\method{normalizeQuantileRank}{matrix}(X, ties=FALSE, robust=FALSE, weights=NULL,
   typeOfWeights=c("channel", "signal"), ...)
 }
 

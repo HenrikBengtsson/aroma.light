@@ -9,7 +9,7 @@
 # }
 #
 # \usage{
-#  @usage backtransformAffine,matrix
+# @usage backtransformAffine,matrix
 # }
 #
 # \arguments{

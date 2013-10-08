@@ -9,7 +9,7 @@
 # }
 #
 # \usage{
-#  @usage callNaiveGenotypes,numeric
+# @usage callNaiveGenotypes,numeric
 # }
 #
 # \arguments{

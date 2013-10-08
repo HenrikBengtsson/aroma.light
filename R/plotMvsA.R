@@ -9,7 +9,7 @@
 # }
 #
 # \usage{
-#  @usage plotMvsA,matrix
+# @usage plotMvsA,matrix
 # }
 #
 # \arguments{

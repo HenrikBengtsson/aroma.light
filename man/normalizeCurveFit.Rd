@@ -43,13 +43,13 @@
 }
 
 \usage{
- \method{normalizeCurveFit}{matrix}(X, weights=NULL, typeOfWeights=c("datapoint"),
+\method{normalizeCurveFit}{matrix}(X, weights=NULL, typeOfWeights=c("datapoint"),
   method=c("loess", "lowess", "spline", "robustSpline"), bandwidth=NULL,
   satSignal=2^16 - 1, ...)
- \method{normalizeLoess}{matrix}(X, ...)
- \method{normalizeLowess}{matrix}(X, ...)
- \method{normalizeSpline}{matrix}(X, ...)
- \method{normalizeRobustSpline}{matrix}(X, ...)
+\method{normalizeLoess}{matrix}(X, ...)
+\method{normalizeLowess}{matrix}(X, ...)
+\method{normalizeSpline}{matrix}(X, ...)
+\method{normalizeRobustSpline}{matrix}(X, ...)
 }
 
 \arguments{

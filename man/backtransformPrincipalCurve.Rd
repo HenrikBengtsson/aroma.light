@@ -19,8 +19,8 @@
 }
 
 \usage{
- \method{backtransformPrincipalCurve}{matrix}(X, fit, dimensions=NULL, targetDimension=NULL, ...)
- \method{backtransformPrincipalCurve}{numeric}(X, ...)
+\method{backtransformPrincipalCurve}{matrix}(X, fit, dimensions=NULL, targetDimension=NULL, ...)
+\method{backtransformPrincipalCurve}{numeric}(X, ...)
 }
 
 \arguments{

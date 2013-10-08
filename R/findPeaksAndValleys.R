@@ -10,8 +10,8 @@
 # }
 #
 # \usage{
-#  @usage findPeaksAndValleys,density
-#  @usage findPeaksAndValleys,numeric
+# @usage findPeaksAndValleys,density
+# @usage findPeaksAndValleys,numeric
 # }
 #
 # \arguments{

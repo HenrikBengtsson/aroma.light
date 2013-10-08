@@ -13,8 +13,8 @@
 \title{Normalizes the empirical distribution of one or more samples to a target distribution}
 
 \usage{
- \method{normalizeQuantileSpline}{matrix}(X, xTarget, ...)
- \method{normalizeQuantileSpline}{matrix}(X, xTarget, ...)
+\method{normalizeQuantileSpline}{matrix}(X, xTarget, ...)
+\method{normalizeQuantileSpline}{matrix}(X, xTarget, ...)
 }
 
 \description{
@@ -28,7 +28,7 @@
     channels and the N rows representing the data points.}
   \item{xTarget}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length N.}
   \item{...}{Additional arguments passed to
-    \code{\link{normalizeQuantileSpline.numeric}}().}
+    \code{\link{normalizeQuantileSpline}}() for \code{\link[base]{numeric}}:s.}
 }
 
 \value{

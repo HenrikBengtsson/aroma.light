@@ -6,7 +6,7 @@
 # @title "Plot the relationship between two variables as a smooth curve"
 #
 # \usage{
-#  @usage plotXYCurve,matrix
+# @usage plotXYCurve,matrix
 # }
 #
 # \description{
@@ -19,7 +19,7 @@
 #   \item{lwd}{A @vector of line widths to be used for each of columns.}
 #   \item{xlim, ylim}{The x and y plotting limits.}
 #   \item{xlab, ylab}{The x and y labels.}
-#   \item{...}{Additional arguments passed to @see "plotXYCurve.numeric".}
+#   \item{...}{Additional arguments passed to @see "plotXYCurve" for @numeric:s.}
 #   \item{add}{If @TRUE, the graph is added to the current plot, otherwise
 #     a new plot is created.}
 # }

@@ -24,7 +24,7 @@
 }
 
 \usage{
- \method{normalizeTumorBoost}{numeric}(betaT, betaN, muN=callNaiveGenotypes(betaN),
+\method{normalizeTumorBoost}{numeric}(betaT, betaN, muN=callNaiveGenotypes(betaN),
   flavor=c("v4", "v3", "v2", "v1"), preserveScale=TRUE, ...)
 }
 

@@ -15,8 +15,8 @@
 \title{Normalizes the empirical distribution of one or more samples to a target distribution}
 
 \usage{
- \method{normalizeQuantileSpline}{numeric}(x, w=NULL, xTarget, sortTarget=TRUE, ..., robust=TRUE)
- \method{normalizeQuantileSpline}{list}(X, w=NULL, xTarget=NULL, sortTarget=TRUE, ..., robust=TRUE)
+\method{normalizeQuantileSpline}{numeric}(x, w=NULL, xTarget, sortTarget=TRUE, ..., robust=TRUE)
+\method{normalizeQuantileSpline}{list}(X, w=NULL, xTarget=NULL, sortTarget=TRUE, ..., robust=TRUE)
 }
 
 \description{

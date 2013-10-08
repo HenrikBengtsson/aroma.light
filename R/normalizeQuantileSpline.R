@@ -6,8 +6,8 @@
 # @title "Normalizes the empirical distribution of one or more samples to a target distribution"
 #
 # \usage{
-#  @usage normalizeQuantileSpline,numeric
-#  @usage normalizeQuantileSpline,list
+# @usage normalizeQuantileSpline,numeric
+# @usage normalizeQuantileSpline,list
 # }
 #
 # \description{

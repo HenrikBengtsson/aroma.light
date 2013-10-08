@@ -10,8 +10,8 @@
 # }
 #
 # \usage{
-#  @usage backtransformPrincipalCurve,matrix
-#  @usage backtransformPrincipalCurve,numeric
+# @usage backtransformPrincipalCurve,matrix
+# @usage backtransformPrincipalCurve,numeric
 # }
 #
 # \arguments{
