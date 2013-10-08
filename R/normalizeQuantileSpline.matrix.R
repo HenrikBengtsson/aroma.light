@@ -6,7 +6,6 @@
 #
 # \usage{
 # @usage normalizeQuantileSpline,matrix
-# @usage normalizeQuantileSpline,matrix
 # }
 #
 # \description{
