@@ -84,7 +84,7 @@ legend(5,120, c(
 \seealso{
   This implementation of this function was adopted from
   \code{\link[stats]{smooth.spline}} of the \pkg{stats} package.
-  Because of this, this function is also licensed under GPL~v2.
+  Because of this, this function is also licensed under GPL v2.
 }
 
 \author{Henrik Bengtsson}
