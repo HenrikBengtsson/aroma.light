@@ -10,20 +10,22 @@
 \alias{averageQuantile}
 
 \alias{averageQuantile.list}
+\alias{averageQuantile.matrix}
 
 \title{Gets the average empirical distribution}
 
 \usage{
 \method{averageQuantile}{list}(X, ...)
+\method{averageQuantile}{matrix}(X, ...)
 }
 
 \description{
-  Gets the average empirical distribution for a set of samples of different sizes.
+  Gets the average empirical distribution for a set of samples.
 }
 
 \arguments{
-  \item{X}{a \code{\link[base]{list}} with \code{\link[base]{numeric}} \code{\link[base]{vector}}s.  The \code{\link[base]{vector}}s may be of
-    different lengths.}
+  \item{X}{A \code{\link[base]{list}} with K \code{\link[base]{numeric}} \code{\link[base]{vector}}s, or a \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}}.
+    If a \code{\link[base]{list}}, the \code{\link[base]{vector}}s may be of different lengths.}
   \item{...}{Not used.}
 }
 

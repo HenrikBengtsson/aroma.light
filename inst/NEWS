@@ -2,6 +2,7 @@ Package: aroma.light
 ====================
 
 Version: 1.31.10 [2013-10-08]
+o Added averageQuantile() for matrices in addition to lists.
 o SPEEDUP: Now normalizeQuantileSpline(..., sortTarget=TRUE) sorts the
   target only once for lists of vectors just as done for matrices.
 o DOCUMENTATION: Merged the documentation for normalizeQuantileSpline()
