@@ -31,10 +31,10 @@
 #     calculated as the average empirical distribution of the samples.}
 #   \item{sortTarget}{If @TRUE, argument \code{xTarget} will be sorted,
 #     otherwise it is assumed to be already sorted.}
-#   \item{...}{Arguments passed to (@see "stats::smooth.spline"
-#      or @see "aroma.light::robustSmoothSpline").}
 #   \item{robust}{If @TRUE, the normalization function is
 #      estimated robustly.}
+#   \item{...}{Arguments passed to (@see "stats::smooth.spline"
+#      or @see "aroma.light::robustSmoothSpline").}
 # }
 #
 # \value{
@@ -74,7 +74,7 @@
 # @keyword "multivariate"
 # @keyword "robust"
 #*/###########################################################################
-setMethodS3("normalizeQuantileSpline", "list", function(X, w=NULL, xTarget=NULL, sortTarget=TRUE, ..., robust=TRUE) {
+setMethodS3("normalizeQuantileSpline", "list", function(X, w=NULL, xTarget=NULL, sortTarget=TRUE, robust=TRUE, ...) {
   # Argument 'xTarget':
   if (is.null(xTarget)) {
     # Get the target quantile for all channels?
@@ -93,14 +93,14 @@ setMethodS3("normalizeQuantileSpline", "list", function(X, w=NULL, xTarget=NULL,
   nTarget <- length(xTarget);
   X <- lapply(X, FUN=function(x) {
     normalizeQuantileSpline(x, w=w, xTarget=xTarget, sortTarget=FALSE,
-                            ..., robust=robust);
+                            robust=TRUE, ...);
   })
 
   X;
 })
 
 
-setMethodS3("normalizeQuantileSpline", "matrix", function(X, w=NULL, xTarget=NULL, sortTarget=TRUE, ..., robust=TRUE) {
+setMethodS3("normalizeQuantileSpline", "matrix", function(X, w=NULL, xTarget=NULL, sortTarget=TRUE, robust=TRUE, ...) {
   # Argument 'xTarget':
   if (is.null(xTarget)) {
     # Get the target quantile for all channels?
@@ -121,14 +121,14 @@ setMethodS3("normalizeQuantileSpline", "matrix", function(X, w=NULL, xTarget=NUL
   # Normalize each of the columns towards the target distribution
   for (cc in seq(length=ncol(X))) {
     X[,cc] <- normalizeQuantileSpline(X[,cc], w=w, xTarget=xTarget,
-                              sortTarget=FALSE, ..., robust=robust);
+                              sortTarget=FALSE, robust=robust, ...);
   }
 
   X;
 }) # normalizeQuantileSpline.matrix()
 
 
-setMethodS3("normalizeQuantileSpline", "numeric", function(x, w=NULL, xTarget, sortTarget=TRUE, ..., robust=TRUE) {
+setMethodS3("normalizeQuantileSpline", "numeric", function(x, w=NULL, xTarget, sortTarget=TRUE, robust=TRUE, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
