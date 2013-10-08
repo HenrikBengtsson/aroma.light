@@ -1,7 +1,6 @@
 ###########################################################################/**
-# @set "class=numeric"
-# @RdocMethod normalizeTumorBoost
-# @alias normalizeTumorBoost
+# @RdocGeneric normalizeTumorBoost
+# @alias normalizeTumorBoost.numeric
 #
 # @title "Normalizes allele B fractions for a tumor given a match normal"
 #
@@ -15,7 +14,9 @@
 #  unchanged afterwards.
 # }
 #
-# @synopsis
+# \usage{
+#  @usage normalizeTumorBoost,numeric
+# }
 #
 # \arguments{
 #  \item{betaT, betaN}{Two @numeric @vectors each of length J with
@@ -93,10 +94,7 @@
 # @author "HB, PN"
 #
 # \references{
-#  [1] H. Bengtsson, P. Neuvial & T.P. Speed,
-#      \emph{TumorBoost: Normalization of allele-specific tumor copy numbers
-#      from a single pair of tumor-normal genotyping microarrays},
-#      BMC Bioinformatics, 2010, 11:245. [PMID 20462408]\cr
+# [1] @include "../incl/BengtssonNeuvial_2010.bib.Rdoc" \cr
 # }
 #*/###########################################################################
 setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNaiveGenotypes(betaN), flavor=c("v4", "v3", "v2", "v1"), preserveScale=TRUE, ...) {

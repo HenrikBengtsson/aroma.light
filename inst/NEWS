@@ -1,6 +1,17 @@
 Package: aroma.light
 ====================
 
+Version: 1.31.9 [2013-10-07]
+o Now library(aroma.light, quietly=TRUE) attached the package 
+  completely silently without any messages.
+o Now the 'aroma.light' Package object is also available when the
+  package is only loaded (but not attached).
+o DOCUMENTATION: Merged the documentation for normalizeQuantileRank()
+  for numeric vectors and lists.
+o DOCUMENTATION: Now documention S3 methods under their corresponding
+  generic function.
+
+
 Version: 1.31.8 [2013-10-02]
 o DOCUMENTATION: More generic functions are now "aliased" under
   relevant corresponding methods.

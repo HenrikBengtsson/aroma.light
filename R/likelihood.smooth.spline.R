@@ -22,7 +22,7 @@
 # }
 #
 # \description{
-#  Calculate the (log) likelihood of a spline given the data used to fit 
+#  Calculate the (log) likelihood of a spline given the data used to fit
 #  the spline, \eqn{g}. The likelihood consists of two main parts:
 #  1) (weighted) residuals sum of squares, and 2) a penalty term. The
 #  penalty term consists of a \emph{smoothing parameter} \eqn{lambda}
@@ -58,7 +58,7 @@
 #   The roughness penalty for the smoothing spline, \eqn{g}, fitted
 #   from data in the interval \eqn{[a,b]} is defined as
 #       \deqn{J(g) = \int_a^b g''(t) dt}
-#   which is the same as 
+#   which is the same as
 #       \deqn{J(g) = g'(b) - g'(a)}
 #   The latter is calculated internally by using
 #   @see "stats::predict.smooth.spline".
@@ -72,7 +72,8 @@
 #
 # @author
 #
-# @keyword "smooth"
+# @keyword smooth
+# @keyword internal
 #*/###########################################################################
 setMethodS3("likelihood", "smooth.spline", function(object, x=NULL, y=NULL, w=NULL, base=exp(1), rel.tol=.Machine$double.eps^(1/8), ...) {
   ## require(stats); # smooth.spline()  # Loaded by default
@@ -105,7 +106,7 @@ setMethodS3("likelihood", "smooth.spline", function(object, x=NULL, y=NULL, w=NU
   if (is.null(yg))
     yg <- predict(g, x)$y;
   wrss <- sum(w * (y-yg)^2);
-  
+
   # The smoothing parameter
   lambda <- g$lambda
 
@@ -115,10 +116,10 @@ setMethodS3("likelihood", "smooth.spline", function(object, x=NULL, y=NULL, w=NU
   Jg <- integrate(function(x) predict(gbis, x=x)$y,
                   lower=ab[1], upper=ab[2],
                   rel.tol=rel.tol, stop.on.error=FALSE)$value
-  
+
   # The penalty term
   penalty <- -lambda * Jg;
-  
+
   # The log likelihood
   l <- -(wrss + penalty);
 
@@ -145,7 +146,7 @@ setMethodS3("likelihood", "smooth.spline", function(object, x=NULL, y=NULL, w=NU
 ############################################################################
 # HISTORY:
 # 2007-01-01
-# o Removed any code to make method backward compatibility with 
+# o Removed any code to make method backward compatibility with
 #   R < 1.9.0, which was before 'modreg' was merged into 'stats'.
 # 2005-06-03
 # o now returns an object of class SmoothSplineLikelihood.

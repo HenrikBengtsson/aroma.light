@@ -1,8 +1,8 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # IMPORTS
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-importFrom("R.methodsS3", "setMethodS3")
 importFrom("R.methodsS3", "throw")
+importFrom("R.methodsS3", "setMethodS3")
 
 importFrom("R.oo", "Package")
 importFrom("R.oo", "getPosition")
@@ -13,9 +13,8 @@ importFrom("matrixStats", "colMedians")
 importFrom("matrixStats", "colMins")
 importFrom("matrixStats", "colQuantiles")
 importFrom("matrixStats", "rowMedians")
-importFrom("matrixStats", "rowWeightedMedians")
 importFrom("matrixStats", "rowWeightedMeans")
-importFrom("matrixStats", "weightedMedian")
+importFrom("matrixStats", "rowWeightedMedians")
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # EXPORTS

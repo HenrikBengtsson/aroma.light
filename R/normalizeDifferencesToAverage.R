@@ -1,7 +1,6 @@
 ###########################################################################/**
-# @set "class=list"
-# @RdocMethod normalizeDifferencesToAverage
-# @alias normalizeDifferencesToAverage
+# @RdocGeneric normalizeDifferencesToAverage
+# @alias normalizeDifferencesToAverage.list
 #
 # @title "Rescales channel vectors to get the same average"
 #
@@ -9,7 +8,9 @@
 #  @get "title".
 # }
 #
-# @synopsis
+# \usage{
+#  @usage normalizeDifferencesToAverage,list
+# }
 #
 # \arguments{
 #   \item{x}{A @numeric @list of length K.}

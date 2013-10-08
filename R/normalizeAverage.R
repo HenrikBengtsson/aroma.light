@@ -1,8 +1,7 @@
 ###########################################################################/**
-# @set "class=matrix"
-# @RdocMethod normalizeAverage
+# @RdocGeneric normalizeAverage
 # @alias normalizeAverage.list
-# @alias normalizeAverage
+# @alias normalizeAverage.matrix
 #
 # @title "Rescales channel vectors to get the same average"
 #
@@ -10,7 +9,10 @@
 #  @get "title".
 # }
 #
-# @synopsis
+# \usage{
+#  @usage normalizeAverage,matrix
+#  @usage normalizeAverage,list
+# }
 #
 # \arguments{
 #   \item{x}{A @numeric NxK @matrix (or @list of length K).}

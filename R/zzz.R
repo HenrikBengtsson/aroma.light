@@ -3,8 +3,13 @@
 .conflicts.OK <- TRUE
 
 
-.onAttach <- function(libname, pkgname) {
+.onLoad <- function(libname, pkgname) {
+  ns <- getNamespace(pkgname);
   pkg <- Package(pkgname);
-  assign(pkgname, pkg, pos=getPosition(pkg));
+  assign(pkgname, pkg, envir=ns);
+}
+
+.onAttach <- function(libname, pkgname) {
+  pkg <- get(pkgname, envir=getNamespace(pkgname));
   startupMessage(pkg);
 }

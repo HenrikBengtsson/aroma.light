@@ -9,21 +9,16 @@
 
 \name{normalizeQuantileRank.matrix}
 \alias{normalizeQuantileRank.matrix}
-\alias{matrix.normalizeQuantile}
-\alias{normalizeQuantile.matrix}
-\alias{normalizeQuantile,matrix-method}
 
-
-\title{Weighted sample quantile normalization}
+\title{Normalizes the empirical distribution of a set of samples to a common target distribution}
 
 \usage{
-\method{normalizeQuantileRank}{matrix}(X, ties=FALSE, robust=FALSE, weights=NULL,
+ \method{normalizeQuantileRank}{matrix}(X, ties=FALSE, robust=FALSE, weights=NULL,
   typeOfWeights=c("channel", "signal"), ...)
 }
 
 \description{
-  Normalizes channels so they all have the same average sample
-  distributions.
+  Normalizes the empirical distribution of a set of samples to a common target distribution.
 
   The average sample distribution is calculated either robustly or not
   by utilizing either \code{weightedMedian()} or \code{weighted.mean()}.
@@ -36,7 +31,8 @@
   \item{robust}{If \code{\link[base:logical]{TRUE}}, the (weighted) median function is used for
            calculating the average sample distribution, otherwise the
            (weighted) mean function is used.}
-  \item{ties}{Should ties be specially treated or not?}
+  \item{ties}{Should ties in \code{x} be treated with care or not?
+    For more details, see "limma:normalizeQuantiles".}
   \item{weights}{If \code{\link[base]{NULL}}, non-weighted normalization is done.
     If channel weights, this should be a \code{\link[base]{vector}} of length K specifying
     the weights for each channel.
@@ -49,13 +45,13 @@
 }
 
 \value{
-  Returns an NxK \code{\link[base]{matrix}}.
+  Returns an object of the same shape as the input argument.
 }
 
 \section{Missing values}{
-  Missing values are excluded when estimating the "common" (the baseline)
-  distribution. Values that are \code{\link[base]{NA}} before remain \code{\link[base]{NA}}. No new \code{\link[base]{NA}}s are
-  introduced.
+  Missing values are excluded when estimating the "common" (the baseline).
+  Values that are \code{\link[base]{NA}} remain \code{\link[base]{NA}} after normalization.
+  No new \code{\link[base]{NA}}s are introduced.
 }
 
 \section{Weights}{
@@ -94,7 +90,7 @@ plotDensity(Xn, lwd=2, xlim=xlim, main="The three normalized distributions")
 \seealso{
   \code{\link[stats]{median}}, \code{\link[matrixStats]{weightedMedian}},
   \code{\link[base]{mean}}() and \code{\link[stats]{weighted.mean}}.
-  \code{\link[aroma.light:normalizeQuantileSpline.matrix]{*normalizeQuantileSpline}()}.
+  \code{\link{normalizeQuantileSpline}}().
 }
 
 

@@ -9,7 +9,9 @@
 #  \code{\link{likelihood.smooth.spline}()}.
 # }
 #
-# @synopsis
+# \usage{
+#  @usage print,SmoothSplineLikelihood
+# }
 #
 # \arguments{
 #   \item{x}{Object to be printed.}
@@ -22,6 +24,8 @@
 # }
 #
 # @author "HB"
+#
+# @keyword internal
 #*/###########################################################################
 setMethodS3("print", "SmoothSplineLikelihood", function(x, digits=getOption("digits"), ...) {
   # To please R CMD check...
