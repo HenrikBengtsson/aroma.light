@@ -19,8 +19,8 @@
 }
 
 \usage{
- \method{normalizeAverage}{matrix}(x, baseline=1, avg=median, targetAvg=2200, ...)
- \method{normalizeAverage}{list}(x, baseline=1, avg=median, targetAvg=2200, ...)
+\method{normalizeAverage}{matrix}(x, baseline=1, avg=median, targetAvg=2200, ...)
+\method{normalizeAverage}{list}(x, baseline=1, avg=median, targetAvg=2200, ...)
 }
 
 \arguments{

@@ -12,10 +12,10 @@
 # }
 #
 # \usage{
-#  @usage plotDensity,data.frame
-#  @usage plotDensity,matrix
-#  @usage plotDensity,numeric
-#  @usage plotDensity,list
+# @usage plotDensity,data.frame
+# @usage plotDensity,matrix
+# @usage plotDensity,numeric
+# @usage plotDensity,list
 # }
 #
 # \arguments{

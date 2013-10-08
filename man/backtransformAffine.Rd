@@ -18,7 +18,7 @@
 }
 
 \usage{
- \method{backtransformAffine}{matrix}(X, a=NULL, b=NULL, project=FALSE, ...)
+\method{backtransformAffine}{matrix}(X, a=NULL, b=NULL, project=FALSE, ...)
 }
 
 \arguments{

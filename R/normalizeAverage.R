@@ -10,8 +10,8 @@
 # }
 #
 # \usage{
-#  @usage normalizeAverage,matrix
-#  @usage normalizeAverage,list
+# @usage normalizeAverage,matrix
+# @usage normalizeAverage,list
 # }
 #
 # \arguments{

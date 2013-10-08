@@ -5,7 +5,7 @@
 # @title "Light-weight Weighted Principal Component Analysis"
 #
 # \usage{
-#  @usage wpca,matrix
+# @usage wpca,matrix
 # }
 #
 # \description{

@@ -18,7 +18,7 @@
 }
 
 \usage{
- \method{fitNaiveGenotypes}{numeric}(y, cn=rep(2L, length(y)), subsetToFit=NULL,
+\method{fitNaiveGenotypes}{numeric}(y, cn=rep(2L, length(y)), subsetToFit=NULL,
   flavor=c("density", "fixed"), adjust=1.5, ..., censorAt=c(-0.1, 1.1), verbose=FALSE)
 }
 

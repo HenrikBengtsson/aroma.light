@@ -34,11 +34,11 @@
 # }
 #
 # \usage{
-#  @usage normalizeCurveFit,matrix
-#  @usage normalizeLoess,matrix
-#  @usage normalizeLowess,matrix
-#  @usage normalizeSpline,matrix
-#  @usage normalizeRobustSpline,matrix
+# @usage normalizeCurveFit,matrix
+# @usage normalizeLoess,matrix
+# @usage normalizeLowess,matrix
+# @usage normalizeSpline,matrix
+# @usage normalizeRobustSpline,matrix
 # }
 #
 # \arguments{

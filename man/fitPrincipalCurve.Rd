@@ -18,7 +18,7 @@
 }
 
 \usage{
- \method{fitPrincipalCurve}{matrix}(X, ..., verbose=FALSE)
+\method{fitPrincipalCurve}{matrix}(X, ..., verbose=FALSE)
 }
 
 \arguments{

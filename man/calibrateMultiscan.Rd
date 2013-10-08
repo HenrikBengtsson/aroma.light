@@ -20,7 +20,7 @@
 }
 
 \usage{
- \method{calibrateMultiscan}{matrix}(X, weights=NULL, typeOfWeights=c("datapoint"), method="L1",
+\method{calibrateMultiscan}{matrix}(X, weights=NULL, typeOfWeights=c("datapoint"), method="L1",
   constraint="diagonal", satSignal=2^16 - 1, ..., average=median, deviance=NULL,
   project=FALSE, .fitOnly=FALSE)
 }

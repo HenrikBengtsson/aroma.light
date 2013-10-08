@@ -8,9 +8,9 @@
 # @title "Normalizes the empirical distribution of one of more samples to a target distribution"
 #
 # \usage{
-#  @usage normalizeQuantileRank,numeric
-#  @usage normalizeQuantileRank,list
-#  @usage normalizeQuantile,default
+# @usage normalizeQuantileRank,numeric
+# @usage normalizeQuantileRank,list
+# @usage normalizeQuantile,default
 # }
 #
 # \description{

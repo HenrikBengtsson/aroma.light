@@ -14,7 +14,7 @@
 \title{Plot the relationship between two variables as a smooth curve}
 
 \usage{
- \method{plotXYCurve}{matrix}(X, Y, col=1:nrow(X), lwd=NULL, xlim=NULL, ylim=xlim, xlab=NULL, ylab=NULL,
+\method{plotXYCurve}{matrix}(X, Y, col=1:nrow(X), lwd=NULL, xlim=NULL, ylim=xlim, xlab=NULL, ylab=NULL,
   ..., add=FALSE)
 }
 
@@ -28,7 +28,7 @@
   \item{lwd}{A \code{\link[base]{vector}} of line widths to be used for each of columns.}
   \item{xlim, ylim}{The x and y plotting limits.}
   \item{xlab, ylab}{The x and y labels.}
-  \item{...}{Additional arguments passed to \code{\link{plotXYCurve.numeric}}().}
+  \item{...}{Additional arguments passed to \code{\link{plotXYCurve}}() for \code{\link[base]{numeric}}:s.}
   \item{add}{If \code{\link[base:logical]{TRUE}}, the graph is added to the current plot, otherwise
     a new plot is created.}
 }

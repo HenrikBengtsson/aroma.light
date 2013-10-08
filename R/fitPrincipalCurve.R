@@ -9,7 +9,7 @@
 # }
 #
 # \usage{
-#  @usage fitPrincipalCurve,matrix
+# @usage fitPrincipalCurve,matrix
 # }
 #
 # \arguments{

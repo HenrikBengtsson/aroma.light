@@ -17,9 +17,9 @@
 \title{Normalizes the empirical distribution of one of more samples to a target distribution}
 
 \usage{
- \method{normalizeQuantileRank}{numeric}(x, xTarget, ties=FALSE, ...)
- \method{normalizeQuantileRank}{list}(X, xTarget=NULL, ...)
- \method{normalizeQuantile}{default}(x, ...)
+\method{normalizeQuantileRank}{numeric}(x, xTarget, ties=FALSE, ...)
+\method{normalizeQuantileRank}{list}(X, xTarget=NULL, ...)
+\method{normalizeQuantile}{default}(x, ...)
 }
 
 \description{

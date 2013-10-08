@@ -20,7 +20,7 @@
 }
 
 \usage{
- \method{print}{SmoothSplineLikelihood}(x, digits=getOption("digits"), ...)
+\method{print}{SmoothSplineLikelihood}(x, digits=getOption("digits"), ...)
 }
 
 \arguments{

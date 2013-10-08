@@ -5,8 +5,8 @@
 # @title "Normalizes the empirical distribution of one or more samples to a target distribution"
 #
 # \usage{
-#  @usage normalizeQuantileSpline,matrix
-#  @usage normalizeQuantileSpline,matrix
+# @usage normalizeQuantileSpline,matrix
+# @usage normalizeQuantileSpline,matrix
 # }
 #
 # \description{
@@ -20,7 +20,7 @@
 #     channels and the N rows representing the data points.}
 #   \item{xTarget}{A @numeric @vector of length N.}
 #   \item{...}{Additional arguments passed to
-#     @see "normalizeQuantileSpline.numeric".}
+#     @see "normalizeQuantileSpline" for @numeric:s.}
 # }
 #
 # \value{

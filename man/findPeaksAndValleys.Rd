@@ -19,8 +19,8 @@
 }
 
 \usage{
- \method{findPeaksAndValleys}{density}(x, tol=0, ...)
- \method{findPeaksAndValleys}{numeric}(x, ..., tol=0, na.rm=TRUE)
+\method{findPeaksAndValleys}{density}(x, tol=0, ...)
+\method{findPeaksAndValleys}{numeric}(x, ..., tol=0, na.rm=TRUE)
 }
 
 \arguments{

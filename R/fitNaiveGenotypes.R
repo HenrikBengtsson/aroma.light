@@ -9,7 +9,7 @@
 # }
 #
 # \usage{
-#  @usage fitNaiveGenotypes,numeric
+# @usage fitNaiveGenotypes,numeric
 # }
 #
 # \arguments{

@@ -9,7 +9,7 @@
 # }
 #
 # \usage{
-#  @usage medianPolish,matrix
+# @usage medianPolish,matrix
 # }
 #
 # \arguments{

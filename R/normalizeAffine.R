@@ -32,7 +32,7 @@
 # }
 #
 # \usage{
-#  @usage normalizeAffine,matrix
+# @usage normalizeAffine,matrix
 # }
 #
 # \arguments{

@@ -18,7 +18,7 @@
 }
 
 \usage{
- \method{sampleCorrelations}{matrix}(X, MARGIN=1, pairs=NULL, npairs=max(5000, nrow(X)), ...)
+\method{sampleCorrelations}{matrix}(X, MARGIN=1, pairs=NULL, npairs=max(5000, nrow(X)), ...)
 }
 
 \arguments{

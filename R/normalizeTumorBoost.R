@@ -15,7 +15,7 @@
 # }
 #
 # \usage{
-#  @usage normalizeTumorBoost,numeric
+# @usage normalizeTumorBoost,numeric
 # }
 #
 # \arguments{
