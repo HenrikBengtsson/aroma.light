@@ -85,8 +85,9 @@ plotXYCurve(X, Xn2, xlim=xlim, main="The three normalized distributions")
   The target distribution can be calculated as the average
   using \code{\link{averageQuantile}}().
 
-  Internally either \code{\link[aroma.light]{robustSmoothSpline}} or
-  \code{\link[stats]{smooth.spline}} is used.
+  Internally either
+  \code{\link[aroma.light]{robustSmoothSpline}} (\code{robust=TRUE}) or
+  \code{\link[stats]{smooth.spline}} (\code{robust=FALSE}) is used.
 
   An alternative normalization method that is also normalizing the
   empirical densities of samples is \code{\link{normalizeQuantileRank}}().

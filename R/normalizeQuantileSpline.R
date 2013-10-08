@@ -56,8 +56,9 @@
 #   The target distribution can be calculated as the average
 #   using @see "averageQuantile".
 #
-#   Internally either @see "aroma.light::robustSmoothSpline" or
-#   @see "stats::smooth.spline" is used.
+#   Internally either
+#   @see "aroma.light::robustSmoothSpline" (\code{robust=TRUE}) or
+#   @see "stats::smooth.spline" (\code{robust=FALSE}) is used.
 #
 #   An alternative normalization method that is also normalizing the
 #   empirical densities of samples is @see "normalizeQuantileRank".
