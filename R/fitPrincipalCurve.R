@@ -1,8 +1,6 @@
 #########################################################################/**
 # @RdocGeneric fitPrincipalCurve
 # @alias fitPrincipalCurve.matrix
-# @alias backtransformXYCurve
-# @alias backtransformXYCurve.matrix
 #
 # @title "Fit a principal curve in K dimensions"
 #
@@ -132,8 +130,6 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
 
 ###########################################################################
 # HISTORY:
-# 2013-10-08
-# o DOCUMENTATION: Added backtransformXYCurve() alias to this help page.
 # 2013-04-18
 # o BUG FIX: fitPrincipalCurve() would not preserve dimension names
 #   if data contain missing values.

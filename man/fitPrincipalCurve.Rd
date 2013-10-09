@@ -10,8 +10,6 @@
 \alias{fitPrincipalCurve}
 
 \alias{fitPrincipalCurve.matrix}
-\alias{backtransformXYCurve}
-\alias{backtransformXYCurve.matrix}
 
 \title{Fit a principal curve in K dimensions}
 
