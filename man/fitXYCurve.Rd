@@ -10,6 +10,8 @@
 \alias{fitXYCurve}
 
 \alias{fitXYCurve.matrix}
+\alias{backtransformXYCurve}
+\alias{backtransformXYCurve.matrix}
 
 \title{Fitting a smooth curve through paired (x,y) data}
 

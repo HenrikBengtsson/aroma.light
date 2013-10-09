@@ -1,6 +1,8 @@
 #########################################################################/**
 # @RdocGeneric fitXYCurve
 # @alias fitXYCurve.matrix
+# @alias backtransformXYCurve
+# @alias backtransformXYCurve.matrix
 #
 # @title "Fitting a smooth curve through paired (x,y) data"
 #
@@ -200,6 +202,8 @@ setMethodS3("fitXYCurve", "matrix", function(X, weights=NULL, typeOfWeights=c("d
 
 ############################################################################
 # HISTORY:
+# 2013-10-08
+# o DOCUMENTATION: Added backtransformXYCurve() alias to this help page.
 # 2013-09-26
 # o Now utilizing anyMissing().
 # 2009-07-15
