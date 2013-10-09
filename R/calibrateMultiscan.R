@@ -136,9 +136,9 @@ setMethodS3("calibrateMultiscan", "matrix", function(X, weights=NULL, typeOfWeig
   # 1. Verify the arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument: 'X'
-  if (ncol(X) < 2)
+  if (ncol(X) < 2L)
     stop("Multiscan calibratation requires at least two scans: ", ncol(X));
-  if (nrow(X) < 3)
+  if (nrow(X) < 3L)
     stop("Multiscan calibratation requires at least three observations: ", nrow(X));
 
   # Argument: 'satSignal'
@@ -164,7 +164,7 @@ setMethodS3("calibrateMultiscan", "matrix", function(X, weights=NULL, typeOfWeig
 
     weights <- as.vector(weights);
 
-    if (length(weights) == 1) {
+    if (length(weights) == 1L) {
       weights <- rep(weights, length.out=nrow(X));
     } else if (length(weights) != nrow(X)) {
       stop("Argument 'weights' does not have the same length as the number of data points (rows) in the matrix: ", length(weights), " != ", nrow(X));
@@ -187,8 +187,8 @@ setMethodS3("calibrateMultiscan", "matrix", function(X, weights=NULL, typeOfWeig
   # 2. Prepare the data
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Use non-saturated observations (non-finite values are taken care of by
-  # the fitIWPCASpatial() function.
-  X[(X >= satSignal)] <- NA;
+  # the fitIWPCA() function.
+  X[(X >= satSignal)] <- NA_real_;
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 3. Fit the model
@@ -201,11 +201,11 @@ setMethodS3("calibrateMultiscan", "matrix", function(X, weights=NULL, typeOfWeig
   if (.fitOnly == FALSE) {
     X <- backtransformAffine(X, a=fit, project=project);
     if (project == FALSE && !is.null(average)) {
-      X <- apply(X, MARGIN=1, FUN=average, na.rm=TRUE);
+      X <- apply(X, MARGIN=1L, FUN=average, na.rm=TRUE);
       X <- as.matrix(X);
     }
     if (!is.null(deviance)) {
-      deviance <- apply(X, MARGIN=1, FUN=deviance, na.rm=TRUE);
+      deviance <- apply(X, MARGIN=1L, FUN=deviance, na.rm=TRUE);
       attr(X, "deviance") <- as.matrix(deviance);
     }
   }
