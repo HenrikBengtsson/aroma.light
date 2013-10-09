@@ -79,11 +79,11 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   nbrOfChannels <- ncol(X);
-  if(nbrOfChannels == 1)
+  if(nbrOfChannels == 1L)
     return(X);
 
   nbrOfObservations <- nrow(X);
-  if(nbrOfObservations == 1)
+  if(nbrOfObservations == 1L)
     return(X);
 
   # Argument 'typeOfWeights':
@@ -107,7 +107,7 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
     }
 
     if (typeOfWeights == "channel") {
-      if (length(weights) == 1) {
+      if (length(weights) == 1L) {
         weights <- rep(weights, length.out=nbrOfObservations);
       } else if (length(weights) != nbrOfObservations) {
         stop("Argument 'weights' (channel weights) does not have the same length as the number of rows in the matrix: ", length(weights), " != ", nbrOfChannels);
@@ -142,20 +142,20 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
   S <- matrix(naValue, nrow=maxNbrOfObservations, ncol=nbrOfChannels);
 
   # Create a list O to hold the ordered indices for each channels
-  O <- vector("list", nbrOfChannels);
+  O <- vector("list", length=nbrOfChannels);
 
   # A vector specifying the number of observations in each column
   nbrOfFiniteObservations <- rep(maxNbrOfObservations, times=nbrOfChannels);
 
   # Construct the sample quantiles
-  quantiles <- (0:(maxNbrOfObservations-1))/(maxNbrOfObservations-1);
+  quantiles <- (0:(maxNbrOfObservations-1L))/(maxNbrOfObservations-1L);
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 1. Get the sample quantile for all channels (columns)
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  for (cc in 1:nbrOfChannels) {
-    values <- X[,cc];
+  for (cc in seq(length=nbrOfChannels)) {
+    values <- X[,cc,drop=TRUE];
 
     if (!is.null(signalWeights)) {
       values[signalWeights[,cc] == 0] <- NA;
@@ -173,7 +173,7 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
       isOk <- !is.na(values);
 
       # Get the sample quantiles for those values
-      bins <- (0:(nobs-1))/(nobs-1);
+      bins <- (0:(nobs-1L))/(nobs-1L);
 
       # Record the order position for these values.
       O[[cc]] <- ((1:nbrOfObservations)[isOk])[Scc$ix];
@@ -187,7 +187,7 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
     }
 
     S[,cc] <- Scc;
-  }
+  } # for (cc ...)
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 2. Calculate the average sample distribution, of each quantile
@@ -219,7 +219,7 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
   #
   # Input: X[r,c], xTarget[r], O[[c]][r], nbrOfFiniteObservations[c].
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  for (cc in 1:nbrOfChannels) {
+  for (cc in seq(length=nbrOfChannels)) {
     # Get the number of non-NA observations
     nobs <- nbrOfFiniteObservations[cc];
 
@@ -231,9 +231,9 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
       # Get the sample quantiles for those values
       if (ties) {
         r <- rank(X[isOk,cc]);
-        bins <- (r-1)/(nobs-1);
+        bins <- (r-1)/(nobs-1L);
       } else {
-        bins <- (0:(nobs-1))/(nobs-1);
+        bins <- (0:(nobs-1L))/(nobs-1L);
       }
 
       # Interpolate to get the m's at positions specified by
@@ -247,19 +247,16 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
     } else {
       if (ties) {
         r <- rank(X[,cc]);
-        bins <- (r-1)/(nobs-1);
+        bins <- (r-1L)/(nobs-1L);
         X[,cc] <- approx(x=quantiles, y=xTarget, xout=bins, ties="ordered")$y;
       } else {
         X[O[[cc]],cc] <- xTarget;
       }
     }
-  }
+  } # for (cc ...)
 
   X;
 })
-
-
-
 
 
 ##############################################################################
