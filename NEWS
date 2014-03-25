@@ -1,6 +1,13 @@
 Package: aroma.light
 ====================
 
+Version: 1.33.1 [2014-03-25]
+o Now plotDensity() also supports density() objects.
+o CLEANUP: robustSmoothSpline() no longer uses DUP=FALSE in
+  an internal .Fortran() call.
+o Bumped up package dependencies.
+
+
 Version: 1.33.0 [2013-10-14]
 o The version number was bumped for the Bioc devel version.
 
