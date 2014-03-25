@@ -22,6 +22,8 @@
 # \arguments{
 #  \item{X}{A single of @list of @numeric @vectors or @see "stats::density"
 #     objects, a @numeric @matrix, or a @numeric @data.frame.}
+#  \item{W}{(optional) weights of similar data types and dimensions as
+#     \code{X}.}
 #  \item{xlim,ylim}{@character @vector of length 2. The x and y limits.}
 #  \item{xlab,ylab}{@character string for labels on x and y axis.}
 #  \item{col}{The color(s) of the curves.}
@@ -40,12 +42,57 @@
 #
 # @author "HB"
 #*/#########################################################################
-setMethodS3("plotDensity", "list", function(X, xlim=NULL, ylim=NULL, xlab=NULL, ylab="density (integrates to one)", col=1:length(X), lty=NULL, lwd=NULL, ..., add=FALSE) {
+setMethodS3("plotDensity", "list", function(X, W=NULL, xlim=NULL, ylim=NULL, xlab=NULL, ylab="density (integrates to one)", col=1:length(X), lty=NULL, lwd=NULL, ..., add=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Argument 'X':
   nbrOfSamples <- length(X);
+
+  # Argument 'W':
+  if (is.numeric(W)) {
+    nX <- sapply(X, FUN=length);
+    if (any(nX != nX[1L])) {
+      throw("If argument 'W' is a numeric vector or matrix, then all vectors of 'X' must of identical lengths, which is not the case.");
+    }
+    nX <- nX[1L];
+    if (is.vector(W)) {
+      nW <- length(W);
+      if (nW != nX) {
+        throw("Length of argument 'W' and the length of the elements of 'X' does not match: ", nW, " != ", nX);
+      }
+      # Coerce into a list of weights of the same number of elements as 'X'
+      W <- rep(list(W), times=nbrOfSamples);
+    } else if (is.matrix(W)) {
+      nW <- nrow(W);
+      if (nW != nX) {
+        throw("Number of rows of argument 'W' and the length of the elements of 'X' does not match: ", nW, " != ", nX);
+      }
+      # Coerce into a list of weights of the same number of elements as 'X'
+      Wx <- vector("list", length=ncol(W));
+      for (kk in 1:ncol(W)) Wx[[kk]] <- W[,kk,drop=TRUE];
+      W <- Wx;
+      Wx <- NULL; # Not needed anymore
+    }
+  } # if (is.numeric(W))
+
+  if (is.list(W)) {
+    if (length(W) != nbrOfSamples) {
+      throw("The lists of argument 'W' and 'X' do not have the same number of elements: ", length(W), " != ", nbrOfSamples);
+    }
+    for (kk in 1:nbrOfSamples) {
+      w <- W[[kk]];
+      nW <- length(w);
+      nX <- length(X[[kk]]);
+      if (nW != nX) {
+        throw(sprintf("Element #%d of arguments 'W' and 'X' are of different lengths: %d != %d", kk, nW, nX));
+      }
+      if (any(w < 0)) throw("Argument 'W' contains negative weights.");
+      w <- nW <- nX <- NULL; # Not needed anymore
+    }
+  } else if (!is.null(W)) {
+    throw("Argument 'W' must be a list, a numeric vector, or a numeric matrix: ", class(W)[1L]);
+  }
 
   # Argument 'xlab':
   if (is.null(xlab))
@@ -78,15 +125,32 @@ setMethodS3("plotDensity", "list", function(X, xlim=NULL, ylim=NULL, xlab=NULL, 
     if (inherits(x, "density")) {
       d <- x;
     } else {
-      x <- x[is.finite(x)];
-      suppressWarnings({
-        d <- density(x, ...);
-      })
+      w <- W[[kk]];
+      if (is.null(w)) {
+        keep <- is.finite(x);
+        x <- x[keep];
+        keep <- NULL; # Not needed anymore
+        suppressWarnings({
+          d <- density(x, ...);
+        });
+        x <- NULL; # Not needed anymore
+      } else {
+        keep <- is.finite(x) & is.finite(w);
+        x <- x[keep];
+        w <- w[keep];
+        keep <- NULL; # Not needed anymore
+        # Standardize to sum(w) == 1
+        w <- w / sum(w);
+        suppressWarnings({
+          d <- density(x, weights=w, ...);
+        });
+        x <- w <- NULL; # Not needed anymore
+      }
     }
     ds[[kk]] <- d;
-    xlimDef <- range(c(xlimDef, range(d$x, na.rm=TRUE)), na.rm=TRUE);
-    ylimDef <- range(c(ylimDef, range(d$y, na.rm=TRUE)), na.rm=TRUE);
-  }
+    xlimDef <- range(c(xlimDef, d$x), na.rm=TRUE);
+    ylimDef <- range(c(ylimDef, d$y), na.rm=TRUE);
+  } # for (kk ...)
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -114,42 +178,43 @@ setMethodS3("plotDensity", "list", function(X, xlim=NULL, ylim=NULL, xlab=NULL, 
 
 
 
-setMethodS3("plotDensity", "data.frame", function(X, xlab=NULL, ...) {
+setMethodS3("plotDensity", "data.frame", function(X, ..., xlab=NULL) {
   # Argument 'xlab':
   if (is.null(xlab))
     xlab <- substitute(X);
-  plotDensity(as.list(X), xlab=xlab, ...);
+  plotDensity(as.list(X), ..., xlab=xlab);
 })
 
 
 
-setMethodS3("plotDensity", "matrix", function(X, xlab=NULL, ...) {
+setMethodS3("plotDensity", "matrix", function(X, ..., xlab=NULL) {
   # Argument 'xlab':
   if (is.null(xlab))
     xlab <- substitute(X);
-  plotDensity(as.data.frame(X), xlab=xlab, ...);
+  plotDensity(as.data.frame(X), ..., xlab=xlab);
 })
 
 
-setMethodS3("plotDensity", "numeric", function(X, xlab=NULL, ...) {
+setMethodS3("plotDensity", "numeric", function(X, ..., xlab=NULL) {
   # Argument 'xlab':
   if (is.null(xlab))
     xlab <- substitute(X);
-  plotDensity(list(X), xlab=xlab, ...);
+  plotDensity(list(X), ..., xlab=xlab);
 })
 
 
-setMethodS3("plotDensity", "density", function(X, xlab=NULL, ...) {
+setMethodS3("plotDensity", "density", function(X, ..., xlab=NULL) {
   # Argument 'xlab':
   if (is.null(xlab))
     xlab <- substitute(X);
-  plotDensity(list(X), xlab=xlab, ...);
+  plotDensity(list(X), ..., xlab=xlab);
 })
 
 
 ##############################################################################
 # HISTORY:
 # 2014-03-25
+# o Now plotDensity() supports weights via argument 'W'.
 # o Now plotDensity() also supports density() objects.
 # 2006-05-12
 # o Created.
