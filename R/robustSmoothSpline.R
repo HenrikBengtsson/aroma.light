@@ -102,7 +102,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
              spar=prep$spar, parms=unlist(prep$contr.sp[1:4]),
              scratch=double(17L * nk + 1L),
              ld4=4L, ldnk=1L, ier=integer(1L),
-             DUP=TRUE, PACKAGE=pkgName);
+             PACKAGE=pkgName);
         } # fcn()
         return(fcn);
       }
@@ -125,7 +125,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
              isetup=as.integer(0),
              scrtch=double((17 + nk) * nk),
              ld4=as.integer(4), ldnk=as.integer(1), ier=integer(1),
-             DUP=FALSE, PACKAGE=pkgName);
+             PACKAGE=pkgName);
         } # fcn()
         return(fcn);
       }
@@ -550,6 +550,9 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
 
 ######################################################################
 # HISTORY
+# 2014-03-25
+# o CLEANUP: The internal .Fortran() calls no longer pass DUP=FALSE,
+#   which "may be disabled in future versions of R.".
 # 2013-09-26
 # o Now utilizing anyMissing().
 # 2012-08-30
