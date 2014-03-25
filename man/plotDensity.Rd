@@ -22,16 +22,19 @@
 }
 
 \usage{
-\method{plotDensity}{data.frame}(X, xlab=NULL, ...)
-\method{plotDensity}{matrix}(X, xlab=NULL, ...)
-\method{plotDensity}{numeric}(X, xlab=NULL, ...)
-\method{plotDensity}{list}(X, xlim=NULL, ylim=NULL, xlab=NULL, ylab="density (integrates to one)",
-  col=1:length(X), lty=NULL, lwd=NULL, ..., add=FALSE)
+\method{plotDensity}{data.frame}(X, ..., xlab=NULL)
+\method{plotDensity}{matrix}(X, ..., xlab=NULL)
+\method{plotDensity}{numeric}(X, ..., xlab=NULL)
+\method{plotDensity}{list}(X, W=NULL, xlim=NULL, ylim=NULL, xlab=NULL,
+  ylab="density (integrates to one)", col=1:length(X), lty=NULL, lwd=NULL, ...,
+  add=FALSE)
 }
 
 \arguments{
  \item{X}{A single of \code{\link[base]{list}} of \code{\link[base]{numeric}} \code{\link[base]{vector}}s or \code{\link[stats]{density}}
     objects, a \code{\link[base]{numeric}} \code{\link[base]{matrix}}, or a \code{\link[base]{numeric}} \code{\link[base]{data.frame}}.}
+ \item{W}{(optional) weights of similar data types and dimensions as
+    \code{X}.}
  \item{xlim,ylim}{\code{\link[base]{character}} \code{\link[base]{vector}} of length 2. The x and y limits.}
  \item{xlab,ylab}{\code{\link[base]{character}} string for labels on x and y axis.}
  \item{col}{The color(s) of the curves.}

@@ -1,6 +1,10 @@
 Package: aroma.light
 ====================
 
+Version: 1.33.2 [2014-03-25]
+o Now plotDensity() supports weights via argument 'W'.
+
+
 Version: 1.33.1 [2014-03-25]
 o Now plotDensity() also supports density() objects.
 o CLEANUP: robustSmoothSpline() no longer uses DUP=FALSE in
