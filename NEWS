@@ -2,6 +2,7 @@ Package: aroma.light
 ====================
 
 Version: 1.33.3 [2014-03-30]
+o Added pairedAlleleSpecificCopyNumbers().
 o Argument 'preserveScale' for normalizeTumorBoost() is now required.
   The goal with this is to in a future version migrate to use 
   preserveScale=FALSE as the default (was preserveScale=TRUE) in order 
