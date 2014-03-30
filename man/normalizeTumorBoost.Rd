@@ -24,8 +24,8 @@
 }
 
 \usage{
-\method{normalizeTumorBoost}{numeric}(betaT, betaN, muN=callNaiveGenotypes(betaN),
-  flavor=c("v4", "v3", "v2", "v1"), preserveScale=TRUE, ...)
+\method{normalizeTumorBoost}{numeric}(betaT, betaN, muN=callNaiveGenotypes(betaN), preserveScale,
+  flavor=c("v4", "v3", "v2", "v1"), ...)
 }
 
 \arguments{
@@ -33,12 +33,12 @@
     tumor and normal allele B fractions, respectively.}
  \item{muN}{An optional \code{\link[base]{vector}} of length J containing
     normal genotypes calls in (0,1/2,1,\code{\link[base]{NA}}) for (AA,AB,BB).}
- \item{flavor}{A \code{\link[base]{character}} string specifying the type of
-    correction applied.}
  \item{preserveScale}{If \code{\link[base:logical]{TRUE}}, SNPs that are heterozygous in the
    matched normal are corrected for signal compression using an estimate
    of signal compression based on the amount of correction performed
    by TumorBoost on SNPs that are homozygous in the matched normal.}
+ \item{flavor}{A \code{\link[base]{character}} string specifying the type of
+    correction applied.}
  \item{...}{Argument passed to \code{\link{callNaiveGenotypes}}(), if called.}
 }
 
@@ -74,6 +74,12 @@
 }
 
 \section{Preserving scale}{
+ \emph{As of \pkg{aroma.light} v1.33.3 (March 30, 2014),
+ argument \code{preserveScale} no longer has a default value and has
+ to be specified explicitly.  This is done in order to change the
+ default to \code{\link[base:logical]{FALSE}} in a future version, while minizing the risk
+ for surprises.}
+
  Allele B fractions are more or less compressed toward a half, e.g.
  the signals for homozygous SNPs are slightly away from zero and one.
  The TumorBoost method decreases the correlation in allele B fractions
@@ -96,7 +102,8 @@
  (in the matched normal).
 
  The option of preserving the scale is \emph{not} discussed in the
- TumorBoost paper [1].
+ TumorBoost paper [1], which presents the \code{preserveScale=FALSE}
+ version.
 }
 
 \examples{
@@ -122,11 +129,11 @@ plot(pos, betaN, col=col, ylim=ylim)
 plot(pos, betaT, col=col, ylim=ylim)
 
 # TumorBoost w/ naive genotype calls
-betaTN <- normalizeTumorBoost(betaT=betaT, betaN=betaN)
+betaTN <- normalizeTumorBoost(betaT=betaT, betaN=betaN, preserveScale=FALSE)
 plot(pos, betaTN, col=col, ylim=ylim)
 
 # TumorBoost w/ external multi-sample genotype calls
-betaTNx <- normalizeTumorBoost(betaT=betaT, betaN=betaN, muN=muN)
+betaTNx <- normalizeTumorBoost(betaT=betaT, betaN=betaN, muN=muN, preserveScale=FALSE)
 plot(pos, betaTNx, col=col, ylim=ylim)
 }
 
