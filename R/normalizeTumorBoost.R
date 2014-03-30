@@ -23,12 +23,12 @@
 #     tumor and normal allele B fractions, respectively.}
 #  \item{muN}{An optional @vector of length J containing
 #     normal genotypes calls in (0,1/2,1,@NA) for (AA,AB,BB).}
-#  \item{flavor}{A @character string specifying the type of
-#     correction applied.}
 #  \item{preserveScale}{If @TRUE, SNPs that are heterozygous in the
 #    matched normal are corrected for signal compression using an estimate
 #    of signal compression based on the amount of correction performed
 #    by TumorBoost on SNPs that are homozygous in the matched normal.}
+#  \item{flavor}{A @character string specifying the type of
+#     correction applied.}
 #  \item{...}{Argument passed to @see "callNaiveGenotypes", if called.}
 # }
 #
@@ -64,6 +64,12 @@
 # }
 #
 # \section{Preserving scale}{
+#  \emph{As of \pkg{aroma.light} v1.33.3 (March 30, 2014),
+#  argument \code{preserveScale} no longer has a default value and has
+#  to be specified explicitly.  This is done in order to change the
+#  default to @FALSE in a future version, while minizing the risk
+#  for surprises.}
+#
 #  Allele B fractions are more or less compressed toward a half, e.g.
 #  the signals for homozygous SNPs are slightly away from zero and one.
 #  The TumorBoost method decreases the correlation in allele B fractions
@@ -86,7 +92,8 @@
 #  (in the matched normal).
 #
 #  The option of preserving the scale is \emph{not} discussed in the
-#  TumorBoost paper [1].
+#  TumorBoost paper [1], which presents the \code{preserveScale=FALSE}
+#  version.
 # }
 #
 # @examples "../incl/normalizeTumorBoost.Rex"
@@ -97,7 +104,7 @@
 # [1] @include "../incl/BengtssonNeuvial_2010.bib.Rdoc" \cr
 # }
 #*/###########################################################################
-setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNaiveGenotypes(betaN), flavor=c("v4", "v3", "v2", "v1"), preserveScale=TRUE, ...) {
+setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNaiveGenotypes(betaN), preserveScale, flavor=c("v4", "v3", "v2", "v1"), ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -125,6 +132,9 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
     stop("Argument 'muN' contains unknown values: ", unknownStr);
   }
 
+  # Argument: 'preserveScale':
+  preserveScale <- as.logical(preserveScale);
+
   # Argument: 'flavor':
   flavor <- match.arg(flavor);
 
@@ -145,7 +155,7 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
   if (flavor == "v1") {
     b <- 1;
   } else if (flavor == "v2") {
-    b <- rep(1, length(delta));
+    b <- rep(1, times=length(delta));
     isDown <- (betaT < betaN);
     isBetaNZero <- (betaN == 0);
     isBetaNOne <- (betaN == 1);
@@ -161,7 +171,7 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
     idxs <- which(delta == 0);
 
   } else if (flavor == "v3") {
-    b <- rep(1, length(delta));
+    b <- rep(1, times=length(delta));
     isHomA <- (muN == 0);
     isHomB <- (muN == 1);
     isHet <- (!isHomA & !isHomB);
@@ -176,7 +186,7 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
     isDown <- isHet <- isHomA <- isHomB <- idxs <- NULL;
   } else if (flavor == "v4") {
     # This is the published TumorBoost normalization method
-    b <- rep(1, length(delta));
+    b <- rep(1, times=length(delta));
     isHet <- (muN != 0 & muN != 1);
     isDown <- (betaT < betaN);
     idxs <- which(isHet & isDown);
@@ -235,7 +245,7 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
     # Not needed anymore
     isDown <- isHom <- isHet <- idxs <- eta <- etaC <- NULL;
   } else {
-    sf <- as.double(NA);
+    sf <- NA_real_;
   }
 
 
@@ -260,6 +270,9 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
 
 ############################################################################
 # HISTORY:
+# 2014-03-30
+# o Argument 'preserveScale' for normalizeTumorBoost() is now required.
+# o Swapped the order of argument 'flavor' and 'preserveScale'.
 # 2010-09-23
 # o CLEANUP: normalizeTumorBoost() now uses which() instead of
 #   whichVector() of 'R.utils'.  The former used to be significantly

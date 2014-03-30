@@ -20,9 +20,9 @@ plot(pos, betaN, col=col, ylim=ylim)
 plot(pos, betaT, col=col, ylim=ylim)
 
 # TumorBoost w/ naive genotype calls
-betaTN <- normalizeTumorBoost(betaT=betaT, betaN=betaN)
+betaTN <- normalizeTumorBoost(betaT=betaT, betaN=betaN, preserveScale=FALSE)
 plot(pos, betaTN, col=col, ylim=ylim)
 
 # TumorBoost w/ external multi-sample genotype calls
-betaTNx <- normalizeTumorBoost(betaT=betaT, betaN=betaN, muN=muN)
+betaTNx <- normalizeTumorBoost(betaT=betaT, betaN=betaN, muN=muN, preserveScale=FALSE)
 plot(pos, betaTNx, col=col, ylim=ylim)

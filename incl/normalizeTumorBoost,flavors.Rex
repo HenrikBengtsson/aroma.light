@@ -26,7 +26,7 @@ stopifnot(all(muN[isBB] == 1))
 # TumorBoost normalization with different flavors
 betaTNs <- list()
 for (flavor in c("v1", "v2", "v3", "v4")) {
-  betaTN <- normalizeTumorBoost(betaT=betaT, betaN=betaN, flavor=flavor)
+  betaTN <- normalizeTumorBoost(betaT=betaT, betaN=betaN, preserveScale=FALSE, flavor=flavor)
 
   # Assert that no non-finite values are introduced
   stopifnot(all(is.finite(betaTN)))
