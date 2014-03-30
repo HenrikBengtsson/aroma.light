@@ -81,48 +81,56 @@ setMethodS3("pairedAlleleSpecificCopyNumbers", "numeric", function(thetaT, betaT
   isSnp <- (!is.na(betaT) & !is.na(muN));
   nbrOfSnps <- sum(isSnp);
 
-  thetaTs <- thetaT[isSnp] * matrix(c(betaT[isSnp], 1-betaT[isSnp]), ncol=2L);
+  thetaTs <- thetaT[isSnp] * matrix(c(1-betaT[isSnp], betaT[isSnp]), ncol=2L);
   stopifnot(nrow(thetaTs) == nbrOfSnps);
 
-  thetaNs <- thetaN[isSnp] * matrix(c(betaN[isSnp], 1-betaN[isSnp]), ncol=2L);
+  thetaNs <- thetaN[isSnp] * matrix(c(1-betaN[isSnp], betaN[isSnp]), ncol=2L);
   stopifnot(nrow(thetaNs) == nbrOfSnps);
 
-  homAs <- which(muN[isSnp] == 0);
-  homBs <- which(muN[isSnp] == 1);
+  muNs <- muN[isSnp];
+  stopifnot(length(muNs) == nbrOfSnps);
+
+  isHomAs <- (muNs == 0);
+  isHomBs <- (muNs == 1);
+  stopifnot(length(isHomAs) == nbrOfSnps);
+  stopifnot(length(isHomBs) == nbrOfSnps);
+
+  muNs <- NULL; # Not needed anymore
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Calculate tumor (CA,CB) conditioned on genotype (for SNP only)
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   CTs <- thetaTs / thetaNs;
-  CTs[homAs,1L] <- 2*CTs[homAs,1L];
-  CTs[homAs,2L] <- 0;
-  CTs[homBs,1L] <- 0;
-  CTs[homBs,2L] <- 2*CTs[homBs,2L];
 
-  thetaTs <- thetaNs <- NULL; # Not needed anymore
+  CTs[isHomAs,1L] <- 2*CTs[isHomAs,1L];
+  CTs[isHomAs,2L] <- 0;
+
+  CTs[isHomBs,1L] <- 0;
+  CTs[isHomBs,2L] <- 2*CTs[isHomBs,2L];
+
+  thetaTs <- thetaNs <- isHomAs <- isHomBs <- NULL; # Not needed anymore
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Translate (CA,CB) to (CT,betaT)
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Total CN ratios
   CT <- betaT <- rep(NA_real_, times=J);
+
+  # Total CN ratios
   CT[isSnp] <- CTs[,1L] + CTs[,2L];
   CT[!isSnp] <- 2 * thetaT[!isSnp] / thetaN[!isSnp];
 
   # Tumor BAFs
   betaT[isSnp] <- CTs[,2L] / CT[isSnp];
 
-  CTs <- NULL; # Not needed anymore
+  CTs <- isSnp <- NULL; # Not needed anymore
 
+  # Sanity checks
   stopifnot(length(CT) == J);
   stopifnot(length(betaT) == J);
+  stopifnot(length(muN) == J);
 
-  # Sanity check: All homozygous tumor BAFs should be {0, 1}
-  stopifnot(all(na.omit(betaT[isSnp][homAs]) == 0));
-  stopifnot(all(na.omit(betaT[isSnp][homBs]) == 1));
-  isSnp <- homAs <- homBs <- NULL; # Not needed anymore
 
   # Return value
   data <- data.frame(CT=CT, betaT=betaT, muN=muN);
