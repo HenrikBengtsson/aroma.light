@@ -39,7 +39,7 @@
    by TumorBoost on SNPs that are homozygous in the matched normal.}
  \item{flavor}{A \code{\link[base]{character}} string specifying the type of
     correction applied.}
- \item{...}{Argument passed to \code{\link{callNaiveGenotypes}}(), if called.}
+ \item{...}{Not used.}
 }
 
 \value{
