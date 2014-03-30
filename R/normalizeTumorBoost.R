@@ -128,8 +128,7 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
   n <- length(unknown);
   if (n > 0) {
     unknown <- unique(muN[unknown]);
-    unknownStr <- paste(unknown, collapse=", ");
-    stop("Argument 'muN' contains unknown values: ", unknownStr);
+    stop("Argument 'muN' contains unknown values: ", hpaste(unknown));
   }
 
   # Argument: 'preserveScale':

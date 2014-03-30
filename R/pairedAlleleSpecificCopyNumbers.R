@@ -70,8 +70,7 @@ setMethodS3("pairedAlleleSpecificCopyNumbers", "numeric", function(thetaT, betaT
   n <- length(unknown);
   if (n > 0L) {
     unknown <- unique(muN[unknown]);
-    unknownStr <- hpaste(unknown, collapse=", ");
-    stop("Argument 'muN' contains unknown values: ", unknownStr);
+    stop("Argument 'muN' contains unknown values: ", hpaste(unknown));
   }
 
 
