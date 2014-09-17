@@ -34,7 +34,7 @@
 #*/#########################################################################
 setMethodS3("sampleTuples", "default", function(x, size, length, ...) {
   # Argument 'x':
-  if (length(x) < 1)
+  if (length(x) < 1L)
     throw("Argument 'x' must be a vector of length one or greater.");
 
   # Argument 'size':

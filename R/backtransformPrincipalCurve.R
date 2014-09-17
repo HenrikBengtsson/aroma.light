@@ -95,10 +95,10 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
   # Argument 'targetDimension':
   if (!is.null(targetDimension)) {
     targetDimension <- as.integer(targetDimension);
-    if (length(targetDimension) != 1) {
+    if (length(targetDimension) != 1L) {
       stop("Argument 'targetDimension' should be a scalar or NULL.");
     }
-    if (targetDimension < 1 | targetDimension > L) {
+    if (targetDimension < 1L | targetDimension > L) {
       stop("Argument 'targetDimension' is out of range [1,", L, "]: ",
                                                            targetDimension);
     }

@@ -87,7 +87,7 @@ setMethodS3("sampleCorrelations", "matrix", function(X, MARGIN=1, pairs=NULL, np
   }
 
   # Pre-create result vector to optimize speed (and memory)
-  cors <- rep(as.double(NA), times=npairs);
+  cors <- rep(NA_real_, times=npairs);
 
   if (MARGIN == 1) {
     for (kk in 1:npairs) {

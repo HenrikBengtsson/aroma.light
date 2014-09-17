@@ -130,13 +130,13 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
   }
 
   # Count the number of enzymes per units
-  countFL <- rep(as.integer(0), times=nbrOfDataPoints);
+  countFL <- rep(0L, times=nbrOfDataPoints);
   for (ee in allEnzymes) {
     countFL <- countFL + as.integer(hasFL[,ee]);
   }
 
   # Assert that there are units from a single enzyme
-  isSingleEnzymed <- (countFL == 1);
+  isSingleEnzymed <- (countFL == 1L);
   if (sum(isSingleEnzymed) == 0) {
     throw("Cannot fit normalization function, because none of the units are on fragments from a single enzyme, or equivalently, there exist no rows in argument 'fragmentLenghts' that only have one finite value.");
   }
@@ -144,7 +144,7 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
   # Argument 'targetFcns':
   if (!is.null(targetFcns)) {
     if (!is.list(targetFcns)) {
-      if (nbrOfEnzymes == 1) {
+      if (nbrOfEnzymes == 1L) {
         targetFcns <- list(targetFcns);
       } else {
         throw("Argument 'targetFcns' is not a list: ", class(targetFcns)[1]);
@@ -180,10 +180,9 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
   # Fit smooth curve to each enzyme separately
 
   # KxE matrix for sample (and target predictions)
-  naValue <- as.double(NA);
-  mu <- matrix(naValue, nrow=nbrOfDataPoints, ncol=nbrOfEnzymes);
+  mu <- matrix(NA_real_, nrow=nbrOfDataPoints, ncol=nbrOfEnzymes);
   if (!is.null(targetFcns)) {
-    muT <- matrix(naValue, nrow=nbrOfDataPoints, ncol=nbrOfEnzymes);
+    muT <- matrix(NA_real_, nrow=nbrOfDataPoints, ncol=nbrOfEnzymes);
   }
 
   if (.returnFit) {

@@ -43,7 +43,7 @@
 #   Internally @see "findPeaksAndValleys" is used to identify the thresholds.
 # }
 #*/###########################################################################
-setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), subsetToFit=NULL, flavor=c("density", "fixed"), adjust=1.5, ..., censorAt=c(-0.1,1.1), verbose=FALSE) {
+setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, times=length(y)), subsetToFit=NULL, flavor=c("density", "fixed"), adjust=1.5, ..., censorAt=c(-0.1,1.1), verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -53,15 +53,15 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), s
 
   # Argument 'cn':
   cn <- as.integer(cn);
-  if (length(cn) == 1) {
-    cn <- rep(cn, J);
+  if (length(cn) == 1L) {
+    cn <- rep(cn, times=J);
   } else if (length(cn) != J) {
     stop("The length of argument 'cn' does not match 'y': ",
                                             length(cn), " != ", J);
   }
   uniqueCNs <- sort(unique(cn));
   unknown <- which(!is.element(uniqueCNs, c(0,1,2,NA)));
-  if (length(unknown) > 0) {
+  if (length(unknown) > 0L) {
     unknown <- paste(uniqueCNs[unknown], collapse=", ");
     stop("Argument 'cn' contains unknown CN levels: ", unknown);
   }
@@ -88,7 +88,7 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), s
 
   # Argument 'adjust':
   adjust <- as.double(adjust);
-  if (length(adjust) != 1) {
+  if (length(adjust) != 1L) {
     stop("Argument 'adjust' must be single value: ", adjust);
   }
   if (adjust <= 0) {
@@ -106,23 +106,12 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), s
 
   # Argument 'censorAt':
   censorAt <- as.double(censorAt);
-  stopifnot(length(censorAt) == 2);
+  stopifnot(length(censorAt) == 2L);
   stopifnot(censorAt[1] <= censorAt[2]);
 
   # Argument 'verbose':
-  if (inherits(verbose, "Verbose")) {
-  } else if (is.numeric(verbose)) {
-    require("R.utils") || throw("Package not available: R.utils");
-    verbose <- Verbose(threshold=verbose);
-  } else {
-    verbose <- as.logical(verbose);
-    if (verbose) {
-      require("R.utils") || throw("Package not available: R.utils");
-      verbose <- Verbose(threshold=-1);
-    }
-  }
-  if (verbose && inherits(verbose, "Verbose")) {
-    cat <- R.utils::cat;
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
   }
@@ -134,32 +123,44 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), s
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Adjust signals
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  verbose && enter(verbose, "Censoring BAFs");
-  verbose && cat(verbose, "Before:");
-  verbose && summary(verbose, y);
-  verbose && print(verbose, sum(is.finite(y)));
+  if (verbose) {
+    enter(verbose, "Censoring BAFs");
+    cat(verbose, "Before:");
+    summary(verbose, y);
+    print(verbose, sum(is.finite(y)));
+  }
+
   # Censor values
   y[y < censorAt[1]] <- -Inf;
   y[y > censorAt[2]] <- +Inf;
-  verbose && cat(verbose, "After:");
-  verbose && summary(verbose, y);
-  verbose && print(verbose, sum(is.finite(y)));
-  verbose && exit(verbose);
+
+  if (verbose) {
+    cat(verbose, "After:");
+    summary(verbose, y);
+    print(verbose, sum(is.finite(y)));
+    exit(verbose);
+  }
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Subsetting
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (!is.null(subsetToFit)) {
-    verbose && enter(verbose, "Subsetting");
-    verbose && cat(verbose, "Number of data points before: ", length(y));
-    verbose && cat(verbose, "Number of true copy-number levels before: ", length(uniqueCNs));
+    if (verbose) {
+      enter(verbose, "Subsetting");
+      cat(verbose, "Number of data points before: ", length(y));
+      cat(verbose, "Number of true copy-number levels before: ", length(uniqueCNs));
+    }
+
     y <- y[subsetToFit];
     cn <- cn[subsetToFit];
-    uniqueCNs <- sort(unique(cn));
-    verbose && cat(verbose, "Number of data points afterward: ", length(y));
-    verbose && cat(verbose, "Number of true copy-number levels afterward: ", length(uniqueCNs));
-    verbose && exit(verbose);
+
+    if (verbose) {
+      uniqueCNs <- sort(unique(cn));
+      cat(verbose, "Number of data points afterward: ", length(y));
+      cat(verbose, "Number of true copy-number levels afterward: ", length(uniqueCNs));
+      exit(verbose);
+    }
   }
 
   # To please R CMD check

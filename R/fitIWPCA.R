@@ -127,12 +127,12 @@
 #
 # @keyword "algebra"
 #*/########################################################################
-setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline", "max"), baselineChannel=NULL, ..., aShift=rep(0, ncol(X)), Xmin=NULL) {
+setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline", "max"), baselineChannel=NULL, ..., aShift=rep(0, times=ncol(X)), Xmin=NULL) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 0. Define local functions
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   statistic <- function(X, ..., constraint="diagonal", Xmin=NULL,
-                               baselineChannel=1, aShift=rep(0, ncol(X))) {
+                               baselineChannel=1, aShift=rep(0, times=ncol(X))) {
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # Fit an K-dimensional line through the data using iterative
     # re-weighted PCA.
@@ -175,8 +175,8 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # x(s) is the fitted line (the first IWPCA component)
       # y(t) is the diagonal line
-      ay <- rep(0,length(ax));                                # (0,0,...,0)
-      by <- rep(1,length(ay));                                # (1,1,...,1)
+      ay <- rep(0, times=length(ax));                         # (0,0,...,0)
+      by <- rep(1, times=length(ay));                         # (1,1,...,1)
 
       dbl <- distanceBetweenLines(ax=ax,bx=bx, ay=ay,by=by);
       a     <- as.vector(dbl$xs);
@@ -194,7 +194,7 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
       #   ax[b] + bx[b]*t == 0 <=> { bx[b]==1 } <=> t = -ax[b]
       # => a[c] <- ax[c] + bx[c]*t  <=> a[c] <- ax[c] - bx[c]*ax[b]
       a <- ax - bx*ax[baselineChannel];
-      adiag <- rep(0, length(ax));
+      adiag <- rep(0, times=length(ax));
     } else if (identical(constraint, "max")) {
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # Find the "greatest" point t on the fitted line that is within
@@ -211,7 +211,7 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
       # Now, amax <<= Xmin if amax <- ax - bx[k]*min(t) where <<= (\prec)
       # means componentswise less or equal than.
       a <- ax + bx*min(t);
-      adiag <- rep(0, length(ax));
+      adiag <- rep(0, times=length(ax));
     } else if (is.numeric(constraint)) {
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # Find the "greatest" point t on the fitted line that is within
@@ -229,7 +229,7 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
       # Now, amax <<= Xmin if amax <- ax - bx[k]*min(t) where <<= (\prec)
       # means componentswise less or equal than.
       a <- ax + bx*min(t);
-      adiag <- rep(0, length(ax));
+      adiag <- rep(0, times=length(ax));
     }
 
     # Return the statistic
@@ -302,7 +302,7 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
 
   # Argument: 'aShift'
   if (is.null(aShift)) {
-    aShift <- rep(0, ncol(X));
+    aShift <- rep(0, times=ncol(X));
   }
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

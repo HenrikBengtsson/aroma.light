@@ -101,7 +101,7 @@ setMethodS3("normalizeQuantileRank", "numeric", function(x, xTarget, ties=FALSE,
   # Different length of sample and target?
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   nDiff <- (nTarget - n);
-  if (nDiff > 0) {
+  if (nDiff > 0L) {
     # Add hoc fix for differences in lengths.
     naValue <- NA;
     storage.mode(naValue) <- storage.mode(x);
@@ -136,7 +136,7 @@ setMethodS3("normalizeQuantileRank", "numeric", function(x, xTarget, ties=FALSE,
 
     x[ok] <- approx(x=quantiles, y=xTarget, xout=xNew, ties="ordered")$y;
 
-    if (nDiff > 0) {
+    if (nDiff > 0L) {
       x <- x[1:(n-nDiff)];
     }
   } else {

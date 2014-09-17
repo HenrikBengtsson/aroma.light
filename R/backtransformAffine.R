@@ -62,7 +62,7 @@ setMethodS3("backtransformAffine", "matrix", function(X, a=NULL, b=NULL, project
   # Dimensions of 'X'
   nobs  <- nrow(X);
   ndims <- ncol(X);
-  if (ndims == 1) {
+  if (ndims == 1L) {
     stop("Can not fit affine multiscan model. Matrix must contain at least two columns (scans): ", ndims);
   }
 
@@ -79,11 +79,10 @@ setMethodS3("backtransformAffine", "matrix", function(X, a=NULL, b=NULL, project
   } else if (is.matrix(a)) {
     # Create a full matrix and filled column by column by the columns in 'a'
     t <- a;
-    naValue <- as.double(NA);
-    a <- matrix(naValue, nrow=nobs, ncol=ndims);
+    a <- matrix(NA_real_, nrow=nobs, ncol=ndims);
     for (cc in 1:ndims) {
       # Loop over the columns in a0 too.
-      col <- ((cc-1) %% ncol(t)) + 1;
+      col <- ((cc-1) %% ncol(t)) + 1L;
       value <- rep(t[,col], length.out=nobs);
       a[,cc] <- value;
     }
@@ -100,11 +99,10 @@ setMethodS3("backtransformAffine", "matrix", function(X, a=NULL, b=NULL, project
     } else if (is.matrix(b)) {
       # Create a full matrix and filled column by column by the columns in 'b'
       t <- b;
-      naValue <- as.double(NA);
-      b <- matrix(naValue, nrow=nobs, ncol=ndims);
+      b <- matrix(NA_real_, nrow=nobs, ncol=ndims);
       for (cc in 1:ndims) {
         # Loop over the columns in a0 too.
-        col <- ((cc-1) %% ncol(t)) + 1;
+        col <- ((cc-1) %% ncol(t)) + 1L;
         value <- rep(t[,col], length.out=nobs);
         b[,cc] <- value;
       }
