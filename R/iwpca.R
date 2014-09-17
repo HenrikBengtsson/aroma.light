@@ -163,7 +163,7 @@ setMethodS3("iwpca", "matrix", function(X, w=NULL, R=1, method=c("symmetric", "b
         r <- r/6;
         # Zero weights introduce NA's (for unknown reasons), therefore
         # with use a number very close to zero instead.
-        w <- rep(.Machine$double.eps, length(r));
+        w <- rep(.Machine$double.eps, times=length(r));
         ii <- (r < 1);
         w[ii] <- (1-r[ii]^2)^2;
         # Not needed anymore
@@ -174,7 +174,7 @@ setMethodS3("iwpca", "matrix", function(X, w=NULL, R=1, method=c("symmetric", "b
         r <- r/6;
         # Zero weights introduce NA's (for unknown reasons), therefore
         # with use a number very close to zero instead.
-        w <- rep(.Machine$double.eps, length(r));
+        w <- rep(.Machine$double.eps, times=length(r));
         ii <- (r < 1);
         w[ii] <- (1-r[ii]^3)^3;
         # Not needed anymore

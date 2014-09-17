@@ -47,7 +47,7 @@
 #   Internally @see "fitNaiveGenotypes" is used to identify the thresholds.
 # }
 #*/###########################################################################
-setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), ..., modelFit=NULL, verbose=FALSE) {
+setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, times=length(y)), ..., modelFit=NULL, verbose=FALSE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -57,15 +57,15 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
 
   # Argument 'cn':
   cn <- as.integer(cn);
-  if (length(cn) == 1) {
-    cn <- rep(cn, J);
+  if (length(cn) == 1L) {
+    cn <- rep(cn, times=J);
   } else if (length(cn) != J) {
     stop("The length of argument 'cn' does not match 'y': ",
                                             length(cn), " != ", J);
   }
   uniqueCNs <- sort(unique(cn));
   unknown <- which(!is.element(uniqueCNs, c(0,1,2,NA)));
-  if (length(unknown) > 0) {
+  if (length(unknown) > 0L) {
     unknown <- paste(uniqueCNs[unknown], collapse=", ");
     stop("Argument 'cn' contains unknown CN levels: ", unknown);
   }
@@ -78,19 +78,8 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
   }
 
   # Argument 'verbose':
-  if (inherits(verbose, "Verbose")) {
-  } else if (is.numeric(verbose)) {
-    require("R.utils") || throw("Package not available: R.utils");
-    verbose <- Verbose(threshold=verbose);
-  } else {
-    verbose <- as.logical(verbose);
-    if (verbose) {
-      require("R.utils") || throw("Package not available: R.utils");
-      verbose <- Verbose(threshold=-1);
-    }
-  }
-  if (verbose && inherits(verbose, "Verbose")) {
-    cat <- R.utils::cat;
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
   }
@@ -112,8 +101,7 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Call genotypes
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  naValue <- as.double(NA);
-  mu <- rep(naValue, times=J);
+  mu <- rep(NA_real_, times=J);
 
   # To please R CMD check
   type <- NULL; rm(list="type");
@@ -135,7 +123,7 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
     yKK <- y[keep];
 
     idx <- which(cnKK == cns);
-    if (length(idx) != 1) {
+    if (length(idx) != 1L) {
       msg <- sprintf("Cannot call genotypes for %d loci with true total copy number %d, because the naive genotype model was not fit for such copy numbers. Skipping.", length(yKK), cnKK);
       verbose && cat(verbose, msg);
       verbose && exit(verbose);
@@ -160,7 +148,7 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, length(y)), 
 
 
     # Call genotypes
-    muKK <- rep(naValue, length(yKK));
+    muKK <- rep(NA_real_, times=length(yKK));
     if (cnKK == 1) {
       verbose && cat(verbose, "TCN=1 => BAF in {0,1}.");
       a <- tau[1];

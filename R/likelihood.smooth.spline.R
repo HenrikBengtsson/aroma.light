@@ -76,7 +76,7 @@
 # @keyword internal
 #*/###########################################################################
 setMethodS3("likelihood", "smooth.spline", function(object, x=NULL, y=NULL, w=NULL, base=exp(1), rel.tol=.Machine$double.eps^(1/8), ...) {
-  ## require(stats); # smooth.spline()  # Loaded by default
+  require("stats") || throw("Package not loaded: stats");  # smooth.spline()
 
   g <- object;
 
@@ -92,7 +92,7 @@ setMethodS3("likelihood", "smooth.spline", function(object, x=NULL, y=NULL, w=NU
     x  <- xy$x;
     y  <- xy$y;
     if (is.null(w))
-      w <- rep(1, length(x));
+      w <- rep(1, times=length(x));
     yg <- NULL;
     ok <- (!is.na(x) & !is.na(y) & !is.na(w));
     if (any(ok == FALSE)) {

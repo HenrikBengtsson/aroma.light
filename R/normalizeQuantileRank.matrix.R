@@ -138,8 +138,7 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
   maxNbrOfObservations <- nbrOfObservations;
 
   # Create a list S to hold the sorted values for each channels
-  naValue <- as.double(NA);
-  S <- matrix(naValue, nrow=maxNbrOfObservations, ncol=nbrOfChannels);
+  S <- matrix(NA_real_, nrow=maxNbrOfObservations, ncol=nbrOfChannels);
 
   # Create a list O to hold the ordered indices for each channels
   O <- vector("list", length=nbrOfChannels);

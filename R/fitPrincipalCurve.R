@@ -44,13 +44,10 @@
 # }
 #*/#########################################################################
 setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
-  require("princurve") || throw("Package not loaded: princurve");
-
   # princurve v1.1-9 and before contains bugs. /HB 2008-05-26
-  ver <- packageDescription("princurve")$Version;
-  if (compareVersion(ver, "1.1-10") < 0) {
-    throw("princurve v1.1-10 or newer is required: ", ver);
-  }
+  use("princurve (>= 1.1-10)")
+  principal.curve <- princurve::principal.curve
+
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
@@ -59,19 +56,8 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
   p <- ncol(X);
 
   # Argument 'verbose':
-  if (inherits(verbose, "Verbose")) {
-  } else if (is.numeric(verbose)) {
-    require("R.utils") || throw("Package not available: R.utils");
-    verbose <- Verbose(threshold=verbose);
-  } else {
-    verbose <- as.logical(verbose);
-    if (verbose) {
-      require("R.utils") || throw("Package not available: R.utils");
-      verbose <- Verbose(threshold=-1);
-    }
-  }
-  if (verbose && inherits(verbose, "Verbose")) {
-    cat <- R.utils::cat;
+  verbose <- Arguments$getVerbose(verbose);
+  if (verbose) {
     pushState(verbose);
     on.exit(popState(verbose));
   }
@@ -108,11 +94,11 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
 
   # Expand, iff missing values were dropped
   if (anyMissing) {
-    values <- matrix(as.double(NA), nrow=n, ncol=p);
+    values <- matrix(NA_real_, nrow=n, ncol=p);
     values[keep,] <- fit$s;
     dimnames(values) <- dimnames(fit$s);
     fit$s <- values;
-    values <- rep(as.double(NA), times=n);
+    values <- rep(NA_real_, times=n);
     for (ff in c("tag", "lambda")) {
       values[keep] <- fit[[ff]];
       fit[[ff]] <- values;

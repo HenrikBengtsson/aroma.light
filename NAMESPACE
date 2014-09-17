@@ -8,6 +8,17 @@ importFrom("R.oo", "Package")
 importFrom("R.oo", "getPosition")
 importFrom("R.oo", "startupMessage")
 
+importFrom("R.utils", "Arguments")
+importFrom("R.utils", "Verbose")
+importFrom("R.utils", "pushState")
+importFrom("R.utils", "popState")
+importFrom("R.utils", "enter")
+importFrom("R.utils", "exit")
+importFrom("R.utils", "printf")
+importFrom("R.utils", "hpaste")
+importFrom("R.utils", "cat") ## Multi-sources: R.utils, base
+importFrom("R.utils", "use")
+
 importFrom("matrixStats", "anyMissing")
 importFrom("matrixStats", "colMedians")
 importFrom("matrixStats", "colMins")

@@ -1,6 +1,14 @@
 Package: aroma.light
 ====================
 
+Version: 2.1.1 [2014-09-16]
+o IMPORTANT/CLEANUP: The matrixStats package is no longer attached 
+  with this package.  In other words, you now might have to add 
+  library('matrixStats') to your scripts.
+o CLEANUP: Now importing R.utils (instead of only suggesting it).
+o Fixed some new R CMD check NOTEs.
+
+
 Version: 2.1.0 [2014-04-11]
 o The version number was bumped for the Bioconductor devel version,
   which is now BioC v2.15 for R (>= 3.1.0).

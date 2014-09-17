@@ -70,7 +70,7 @@
 # @keyword "robust"
 #*/############################################################################
 setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), sdCriteria=2e-4, reps=1e-15, tol=1e-6*IQR(x), plotCurves=FALSE) {
-  require(stats) || throw("Package not loaded: stats");  # smooth.spline()
+  require("stats") || throw("Package not loaded: stats");  # smooth.spline()
 
   # To please RMD CMD check for R v2.6.0
   nx <- 0;
