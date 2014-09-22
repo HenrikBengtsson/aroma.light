@@ -15,3 +15,4 @@ biocViews: Infrastructure, Microarray, OneChannel, TwoChannel, MultiChannel, Vis
 URL: http://www.aroma-project.org/
 LazyLoad: TRUE
 Encoding: latin1
+
