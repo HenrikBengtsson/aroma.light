@@ -1,6 +1,10 @@
 Package: aroma.light
 ====================
 
+Version: 2.1.2 [2014-09-23]
+o Minor tweaks due to the move to GitHub.
+
+
 Version: 2.1.1 [2014-09-16]
 o IMPORTANT/CLEANUP: The matrixStats package is no longer attached 
   with this package.  In other words, you now might have to add 
