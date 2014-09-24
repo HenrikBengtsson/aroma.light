@@ -1,6 +1,6 @@
 # R package: aroma.light
 
-This is the Bioconductor developers version of Bioconductor package [aroma.light](http://bioconductor.org/packages/devel/bioc/html/aroma.light.html).  Install in R as:
+This is the developer version of Bioconductor package [aroma.light](http://bioconductor.org/packages/devel/bioc/html/aroma.light.html).  Install in R as:
 
 ```r
 source('http://bioconductor.org/biocLite.R')
