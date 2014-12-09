@@ -220,7 +220,7 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
       # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       # Find the alpha quantile value of each X component.
       if (is.null(Xmin)) {
-        Xmin <- colQuantiles(X, prob=constraint, na.rm=TRUE);
+        Xmin <- colQuantiles(X, probs=constraint, na.rm=TRUE);
       }
       # For each component k, find the value t such that
       #   ax[k] + bx[k]*t[k] == Xmin[k] <=> t[k] == (Xmin[k] - ax[k])/bx[k]
