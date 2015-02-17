@@ -45,7 +45,8 @@ before_install:
     fi
 
 install:
-  - $RENV install_r R.utils R.rsp 
+  - $RENV install_r R.methodsS3 R.oo R.utils matrixStats
+  - $RENV install_r princurve
 #  - $RENV install_deps
 
 script:
