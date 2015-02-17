@@ -1,6 +1,11 @@
 Package: aroma.light
 ====================
 
+Version: 2.3.2 [2015-02-17]
+o ROBUSTNESS: Added package tests. Code coverage is 76%.
+o CLEANUP: Using requestNamespace() instead of request().
+
+
 Version: 2.3.1 [2014-12-08]
 o Same updates as in 2.2.1.
 
@@ -24,8 +29,8 @@ o Minor tweaks due to the move to GitHub.
 
 
 Version: 2.1.1 [2014-09-16]
-o IMPORTANT/CLEANUP: The matrixStats package is no longer attached 
-  with this package.  In other words, you now might have to add 
+o IMPORTANT/CLEANUP: The matrixStats package is no longer attached
+  with this package.  In other words, you now might have to add
   library('matrixStats') to your scripts.
 o CLEANUP: Now importing R.utils (instead of only suggesting it).
 o Fixed some new R CMD check NOTEs.
@@ -39,7 +44,7 @@ o The version number was bumped for the Bioconductor devel version,
 Version: 2.0.0 [2014-04-11]
 o The version number was bumped for the Bioconductor release version,
   which is now BioC v2.14 for R (>= 3.1.0).
- 
+
 
 Version: 1.99.3 [2014-03-31]
 o Bumped the version such that the next release will be 2.0.0.
@@ -48,9 +53,9 @@ o Bumped the version such that the next release will be 2.0.0.
 Version: 1.33.3 [2014-03-30]
 o Added pairedAlleleSpecificCopyNumbers().
 o Argument 'preserveScale' for normalizeTumorBoost() is now required.
-  The goal with this is to in a future version migrate to use 
-  preserveScale=FALSE as the default (was preserveScale=TRUE) in order 
-  to avoid introducing a a global bias in the tumor allele B fraction 
+  The goal with this is to in a future version migrate to use
+  preserveScale=FALSE as the default (was preserveScale=TRUE) in order
+  to avoid introducing a a global bias in the tumor allele B fraction
   of heterozygous SNPs.  The examples use preserveScale=FALSE now.
 
 

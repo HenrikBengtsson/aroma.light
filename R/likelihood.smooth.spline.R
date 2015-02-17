@@ -76,7 +76,8 @@
 # @keyword internal
 #*/###########################################################################
 setMethodS3("likelihood", "smooth.spline", function(object, x=NULL, y=NULL, w=NULL, base=exp(1), rel.tol=.Machine$double.eps^(1/8), ...) {
-  require("stats") || throw("Package not loaded: stats");  # smooth.spline()
+  requireNamespace("stats") || throw("Package not loaded: stats")
+  smooth.spline <- stats::smooth.spline
 
   g <- object;
 

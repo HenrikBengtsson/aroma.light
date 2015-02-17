@@ -70,7 +70,7 @@
 # @keyword "robust"
 #*/############################################################################
 setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), sdCriteria=2e-4, reps=1e-15, tol=1e-6*IQR(x), plotCurves=FALSE) {
-  require("stats") || throw("Package not loaded: stats");  # smooth.spline()
+  requireNamespace("stats") || throw("Package not loaded: stats");  # smooth.spline()
 
   # To please RMD CMD check for R v2.6.0
   nx <- 0;
@@ -550,6 +550,8 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
 
 ######################################################################
 # HISTORY
+# 2015-01-06
+# o Using requestNamespace() instead of request().
 # 2014-03-25
 # o CLEANUP: The internal .Fortran() calls no longer pass DUP=FALSE,
 #   which "may be disabled in future versions of R.".
