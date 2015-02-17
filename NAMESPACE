@@ -44,21 +44,28 @@ S3method("plotDensity", "data.frame")
 
 # default
 S3method("distanceBetweenLines", "default")
+S3method("normalizeFragmentLength", "default")
 S3method("normalizeQuantile", "default")
 S3method("robustSmoothSpline", "default")
 S3method("sampleTuples", "default")
 
 # density
 S3method("findPeaksAndValleys", "density")
+S3method("plotDensity", "density")
 
 # list
 S3method("averageQuantile", "list")
+S3method("normalizeAverage", "list")
 S3method("normalizeDifferencesToAverage", "list")
 S3method("normalizeQuantileRank", "list")
 S3method("normalizeQuantileSpline", "list")
 S3method("plotDensity", "list")
 
+# lowess
+S3method("predict", "lowess")
+
 # matrix
+S3method("averageQuantile", "matrix")
 S3method("backtransformAffine", "matrix")
 S3method("backtransformPrincipalCurve", "matrix")
 S3method("backtransformXYCurve", "matrix")
@@ -69,6 +76,7 @@ S3method("fitXYCurve", "matrix")
 S3method("iwpca", "matrix")
 S3method("medianPolish", "matrix")
 S3method("normalizeAffine", "matrix")
+S3method("normalizeAverage", "matrix")
 S3method("normalizeCurveFit", "matrix")
 S3method("normalizeLoess", "matrix")
 S3method("normalizeLowess", "matrix")
@@ -93,6 +101,7 @@ S3method("fitNaiveGenotypes", "numeric")
 S3method("normalizeQuantileRank", "numeric")
 S3method("normalizeQuantileSpline", "numeric")
 S3method("normalizeTumorBoost", "numeric")
+S3method("pairedAlleleSpecificCopyNumbers", "numeric")
 S3method("plotDensity", "numeric")
 S3method("plotXYCurve", "numeric")
 
