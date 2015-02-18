@@ -3,7 +3,8 @@ Package: aroma.light
 
 Version: 2.3.2-9000 [2015-02-17]
 o If a value of argument 'xlim' or 'ylim' for plotDensity() is NA,
-  then it defaults to the corresponding extreme value of the data.
+  then it defaults to the corresponding extreme value of the data,
+  e.g. plotDensity(x, xlim=c(0,NA)).
 
 
 Version: 2.3.2 [2015-02-17]
