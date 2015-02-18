@@ -1,6 +1,12 @@
 Package: aroma.light
 ====================
 
+Version: 2.3.3 [2015-02-18]
+o If a value of argument 'xlim' or 'ylim' for plotDensity() is NA,
+  then it defaults to the corresponding extreme value of the data,
+  e.g. plotDensity(x, xlim=c(0,NA)).
+
+
 Version: 2.3.2 [2015-02-17]
 o ROBUSTNESS: Added package tests. Code coverage is 76%.
 o CLEANUP: Using requestNamespace() instead of request().

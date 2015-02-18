@@ -156,10 +156,16 @@ setMethodS3("plotDensity", "list", function(X, W=NULL, xlim=NULL, ylim=NULL, xla
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Plot the densities
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  if (is.null(xlim))
+  if (is.null(xlim)) {
     xlim <- xlimDef;
-  if (is.null(ylim))
+  } else {
+    for (kk in 1:2) if (is.na(xlim[kk])) xlim[kk] <- xlimDef[kk]
+  }
+  if (is.null(ylim)) {
     ylim <- ylimDef;
+  } else {
+    for (kk in 1:2) if (is.na(ylim[kk])) ylim[kk] <- ylimDef[kk]
+  }
 
   if (add == FALSE) {
     suppressWarnings({
@@ -219,4 +225,3 @@ setMethodS3("plotDensity", "density", function(X, ..., xlab=NULL) {
 # 2006-05-12
 # o Created.
 ##############################################################################
-
