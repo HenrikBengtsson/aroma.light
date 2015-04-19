@@ -1,6 +1,16 @@
 Package: aroma.light
 ====================
 
+Version: 2.5.0 [2015-04-16]
+o The version number was bumped for the Bioconductor devel version,
+  which is now BioC v3.2 for R (>= 3.3.0).
+
+
+Version: 2.4.0 [2015-04-16]
+o The version number was bumped for the Bioconductor release version,
+  which is now BioC v3.1 for R (>= 3.2.0).
+
+
 Version: 2.3.3 [2015-02-18]
 o If a value of argument 'xlim' or 'ylim' for plotDensity() is NA,
   then it defaults to the corresponding extreme value of the data,
