@@ -108,4 +108,7 @@ y7 <- Y[,2,drop=FALSE]
 yN7 <- backtransformPrincipalCurve(y7, fit=fit, dimensions=3,
                                                targetDimension=1)
 stopifnot(ncol(yN7) == 1)
-stopifnot(cor(yN7, yN6) > 0.9999)
+
+rho <- cor(yN7, yN6)
+print(rho)
+stopifnot(rho > 0.9999)
