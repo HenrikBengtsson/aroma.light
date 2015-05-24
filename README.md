@@ -1,4 +1,4 @@
-# aroma.light: Light-weight Methods for Normalization and Visualization of Microarray Data using Only Basic R Data Types
+# aroma.light: Light-Weight Methods for Normalization and Visualization of Microarray Data using Only Basic R Data Types
 
 
 ## Installation
