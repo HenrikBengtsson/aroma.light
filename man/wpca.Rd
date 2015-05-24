@@ -14,7 +14,7 @@
 \title{Light-weight Weighted Principal Component Analysis}
 
 \usage{
-\method{wpca}{matrix}(x, w=NULL, center=TRUE, scale=FALSE, method=c("dgesdd", "dgesvd", "dsvdc"),
+\method{wpca}{matrix}(x, w=NULL, center=TRUE, scale=FALSE, method=c("dgesdd", "dgesvd"),
   swapDirections=FALSE, ...)
 }
 
@@ -39,10 +39,8 @@
     divided by its (weighted) root-mean-square of the
     centered column, first.}
   \item{method}{If \code{"dgesdd"} LAPACK's divide-and-conquer
-    based SVD routine is used (faster [1]), if \code{"dgesvd"}, LAPACK's
-    QR-decomposition-based routine is used, and if \code{"dsvdc"},
-    LINPACK's DSVDC(?) routine is used. The latter is just for
-    pure backward compatibility with R v1.7.0.
+    based SVD routine is used (faster [1]).
+    If \code{"dgesvd"}, LAPACK's QR-decomposition-based routine is used.
   }
   \item{swapDirections}{If \code{\link[base:logical]{TRUE}}, the signs of eigenvectors
     that have more negative than positive components are inverted.

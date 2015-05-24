@@ -1,10 +1,16 @@
 Package: aroma.light
-Version: 2.5.0
-Depends: R (>= 2.14.0)
-Imports: R.methodsS3 (>= 1.7.0), R.oo (>= 1.18.0), R.utils (>= 1.34.0), matrixStats (>= 0.14.0)
-Suggests: princurve (>= 1.1-12)
-Date: 2015-04-16
-Title: Light-weight Methods for Normalization and Visualization of Microarray Data using Only Basic R Data Types
+Version: 2.5.1
+Depends:
+  R (>= 2.14.0)
+Imports:
+  R.methodsS3 (>= 1.7.0),
+  R.oo (>= 1.19.0),
+  R.utils (>= 2.0.2),
+  matrixStats (>= 0.14.0)
+Suggests:
+  princurve (>= 1.1-12)
+Date: 2015-05-24
+Title: Light-Weight Methods for Normalization and Visualization of Microarray Data using Only Basic R Data Types
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
                                email = "henrikb@braju.com"),
@@ -12,8 +18,7 @@ Authors@R: c(
 Description: Methods for microarray analysis that take basic data types such as matrices and lists of vectors.  These methods can be used standalone, be utilized in other packages, or be wrapped up in higher-level classes.
 License: GPL (>= 2)
 biocViews: Infrastructure, Microarray, OneChannel, TwoChannel, MultiChannel, Visualization, Preprocessing
-URL: http://www.aroma-project.org/,
-     https://github.com/HenrikBengtsson/aroma.light/
+URL: https://github.com/HenrikBengtsson/aroma.light, http://www.aroma-project.org
 BugReports: https://github.com/HenrikBengtsson/aroma.light/issues
 LazyLoad: TRUE
 Encoding: latin1
