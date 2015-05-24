@@ -29,7 +29,9 @@ install:
 build_script:
 
 
+
  - travis-tool.sh install_r matrixStats R.methodsS3 R.oo R.utils
+
  - travis-tool.sh install_r princurve
 
 test_script:

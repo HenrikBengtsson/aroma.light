@@ -29,10 +29,8 @@
 #     divided by its (weighted) root-mean-square of the
 #     centered column, first.}
 #   \item{method}{If \code{"dgesdd"} LAPACK's divide-and-conquer
-#     based SVD routine is used (faster [1]), if \code{"dgesvd"}, LAPACK's
-#     QR-decomposition-based routine is used, and if \code{"dsvdc"},
-#     LINPACK's DSVDC(?) routine is used. The latter is just for
-#     pure backward compatibility with R v1.7.0.
+#     based SVD routine is used (faster [1]).
+#     If \code{"dgesvd"}, LAPACK's QR-decomposition-based routine is used.
 #   }
 #   \item{swapDirections}{If @TRUE, the signs of eigenvectors
 #     that have more negative than positive components are inverted.
@@ -99,7 +97,7 @@
 #
 # @keyword "algebra"
 #*/#########################################################################
-setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, method=c("dgesdd", "dgesvd", "dsvdc"), swapDirections=FALSE, ...) {
+setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, method=c("dgesdd", "dgesvd"), swapDirections=FALSE, ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 1. Verify the arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -200,10 +198,6 @@ setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, meth
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (method == "dgesdd" || method == "dgesvd") {
     duvt <- La.svd(x);
-  } else if (method == "dsvdc") {
-    # For backward compatibility with R < 1.7.0. See ?svd for more info.
-    duvt <- svd(x, LINPACK=TRUE);
-    duvt$vt <- t(duvt$v);
   } else {
     stop(sprintf("Unknown LAPACK or LINPACK routine to solve SVD: %s", method));
   }
@@ -272,6 +266,8 @@ setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, meth
 
 ############################################################################
 # HISTORY:
+# 2015-05-24
+# o Removed obsolete method="dsvdc"; only needed in R (< 1.7.0).
 # 2013-09-26
 # o Now utilizing anyMissing().
 # 2006-06-26
