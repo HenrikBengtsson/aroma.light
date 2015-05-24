@@ -1,7 +1,9 @@
 Package: aroma.light
 ====================
 
-Version: 2.5.0-9000 [2015-05-13]
+Version: 2.5.0-9000 [2015-05-24]
+o CLEANUP: Removed obsolete wpca(..., method="dsvdc"); was only
+  needed for backward compatibility with R (< 1.7.0).
 o Bumped package dependencies.
 
 
