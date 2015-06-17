@@ -111,4 +111,4 @@ stopifnot(ncol(yN7) == 1)
 
 rho <- cor(yN7, yN6)
 print(rho)
-stopifnot(rho > 0.9999)
+stopifnot(rho > 0.999)
