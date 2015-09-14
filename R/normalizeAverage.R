@@ -30,7 +30,7 @@
 #
 # @author "HB"
 #*/###########################################################################
-setMethodS3("normalizeAverage", "matrix", function(x, baseline=1, avg=median, targetAvg=2200, ...) {
+setMethodS3("normalizeAverage", "matrix", function(x, baseline=1, avg=stats::median, targetAvg=2200, ...) {
   # Estimate the scale for each channel
   scale <- apply(x, MARGIN=2, FUN=avg, ...);
 
@@ -55,7 +55,7 @@ setMethodS3("normalizeAverage", "matrix", function(x, baseline=1, avg=median, ta
 }, private=TRUE)
 
 
-setMethodS3("normalizeAverage", "list", function(x, baseline=1, avg=median, targetAvg=2200, ...) {
+setMethodS3("normalizeAverage", "list", function(x, baseline=1, avg=stats::median, targetAvg=2200, ...) {
   # Estimate the scale for each channel
   scale <- lapply(x, FUN=avg, ...);
   scale <- unlist(scale, use.names=FALSE);
