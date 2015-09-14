@@ -3,6 +3,8 @@ Package: aroma.light
 
 Version: 2.5.2-9000 [2015-09-13]
 o ROBUSTNESS: Explicitly importing core R functions.
+o BUG FIX: rowAverages() would give an error if 'mean' and/or
+  'sd' were defined in the calling environment and non-functions.
 
 
 Version: 2.5.2 [2015-06-16]
