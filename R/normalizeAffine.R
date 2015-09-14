@@ -161,8 +161,7 @@ setMethodS3("normalizeAffine", "matrix", function(X, weights=NULL, typeOfWeights
       stop("Argument 'weights' must not contain NA values.");
 
     if (any(weights < 0 | weights > 1)) {
-      stop("Argument 'weights' out of range [0,1]: ",
-           paste(weights[weights < 0.0 | weights > 1.0], collapse=", "));
+      stop("Argument 'weights' out of range [0,1]: ", paste(weights[weights < 0.0 | weights > 1.0], collapse=", "));
     }
 
     weights <- as.vector(weights);

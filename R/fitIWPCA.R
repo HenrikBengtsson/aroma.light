@@ -254,8 +254,7 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
     stop("Argument 'X' must have two or more columns:", K);
   }
   if (N < K) {
-    stop("Argument 'X' must have at least as many rows as columns:",
-                                                                 N, "<", K);
+    stop("Argument 'X' must have at least as many rows as columns:", N, "<", K);
   }
 
   # Argument: 'constraint'
@@ -268,8 +267,7 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
     constraint <- match.arg(constraint);
     if (identical(constraint, "baseline")) {
       if (is.null(baselineChannel)) {
-        stop("Argument 'baselineChannel' must be given if 'constraint' is ",
-                                                           "\"baseline\".");
+        stop("Argument 'baselineChannel' must be given if 'constraint' is \"baseline\".");
       }
     }
   }
@@ -277,24 +275,19 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
   # Argument: 'baselineChannel'
   if (!is.null(baselineChannel)) {
     if (!is.numeric(baselineChannel) || length(baselineChannel) != 1) {
-      stop("Argument 'baselineChannel' must be a single numeric: ",
-                                                           baselineChannel);
+      stop("Argument 'baselineChannel' must be a single numeric: ", baselineChannel);
     }
 
     if (baselineChannel < 1 || baselineChannel > ncol(X)) {
-      stop("Argument 'baselineChannel' is out of range [1,", ncol(X),"]: ",
-                                                           baselineChannel);
+      stop("Argument 'baselineChannel' is out of range [1,", ncol(X),"]: ", baselineChannel);
     }
 
     if (!(constraint %in% c("baseline", "diagonal"))) {
-      stop("Argument 'baselineChannel' must not be specified if ",
-                 "argument 'constraint' is \"baseline\" or \"diagonal\": ",
-                                                               constraint);
+      stop("Argument 'baselineChannel' must not be specified if argument 'constraint' is \"baseline\" or \"diagonal\": ", constraint);
     }
 
     if (!is.null(Xmin)) {
-      stop("Argument 'Xmin' must not be specified if 'baselineChannel' is",
-                               " specified: ", paste(Xmin, collapse=", "));
+      stop("Argument 'Xmin' must not be specified if 'baselineChannel' is specified: ", paste(Xmin, collapse=", "));
     }
   } else {
     baselineChannel <- 1;
@@ -325,8 +318,7 @@ setMethodS3("fitIWPCA", "matrix", function(X, constraint=c("diagonal", "baseline
 
   # Validate the number of finite observations
   if (N < K) {
-    stop("Argument 'X' must have at least as many non-finite ",
-                         "observations ", "(rows) as columns:", N, "<", K);
+    stop("Argument 'X' must have at least as many non-finite observations (rows) as columns:", N, "<", K);
   }
 
   t0 <- statistic(X[isFinite,], constraint=constraint,

@@ -99,8 +99,7 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
       stop("Argument 'targetDimension' should be a scalar or NULL.");
     }
     if (targetDimension < 1L | targetDimension > L) {
-      stop("Argument 'targetDimension' is out of range [1,", L, "]: ",
-                                                           targetDimension);
+      stop("Argument 'targetDimension' is out of range [1,", L, "]: ", targetDimension);
     }
   }
 

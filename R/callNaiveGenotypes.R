@@ -60,8 +60,7 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, times=length
   if (length(cn) == 1L) {
     cn <- rep(cn, times=J);
   } else if (length(cn) != J) {
-    stop("The length of argument 'cn' does not match 'y': ",
-                                            length(cn), " != ", J);
+    stop("The length of argument 'cn' does not match 'y': ", length(cn), " != ", J);
   }
   uniqueCNs <- sort(unique(cn));
   unknown <- which(!is.element(uniqueCNs, c(0,1,2,NA)));
