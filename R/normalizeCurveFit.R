@@ -141,8 +141,7 @@ setMethodS3("normalizeCurveFit", "matrix", function(X, weights=NULL, typeOfWeigh
   if (ncol(X) != 2)
     stop("Curve-fit normalization requires two channels only: ", ncol(X));
   if (nrow(X) < 3)
-    stop("Curve-fit normalization requires at least three observations: ",
-                                                                   nrow(X));
+    stop("Curve-fit normalization requires at least three observations: ", nrow(X));
 
   # Argument: 'satSignal'
   if (satSignal < 0)
@@ -165,8 +164,7 @@ setMethodS3("normalizeCurveFit", "matrix", function(X, weights=NULL, typeOfWeigh
       stop("Argument 'weights' must not contain NA values.");
 
     if (any(weights < 0 | weights > 1)) {
-      stop("Argument 'weights' out of range [0,1]: ",
-           paste(weights[weights < 0.0 | weights > 1.0], collapse=", "));
+      stop("Argument 'weights' out of range [0,1]: ", paste(weights[weights < 0.0 | weights > 1.0], collapse=", "));
     }
 
     if (zeroOneWeightsOnly && any(weights > 0 & weights < 1)) {

@@ -415,12 +415,10 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
       stop("Weights with value NA are not allowed.");
     }
     if (any(w < 0 | w > 1)) {
-      stop("Weights out of range [0,1]: ",
-           paste(w[w < 0.0 | w > 1.0], collapse=", "));
+      stop("Weights out of range [0,1]: ", paste(w[w < 0.0 | w > 1.0], collapse=", "));
     }
   } else if (!is.null(w)) {
-    stop("Argument 'w' is of an unsupported datatype/class: ",
-                                                         class(weights)[1]);
+    stop("Argument 'w' is of an unsupported datatype/class: ", class(weights)[1]);
   }
 
   # Argument: 'reps'

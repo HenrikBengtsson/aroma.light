@@ -1,6 +1,13 @@
 Package: aroma.light
 ====================
 
+Version: 2.5.3 [2015-09-13]
+o ROBUSTNESS: Explicitly importing core R functions.
+o BUG FIX: rowAverages() and normalizeAverages() would give an error
+  if some of the argument default functions are overridden by
+  non-functions of the same name in the calling environment.
+
+
 Version: 2.5.2 [2015-06-16]
 o Relaxed package test for backtransformPrincipalCurve().
 
