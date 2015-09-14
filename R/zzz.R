@@ -5,6 +5,7 @@
 
 
 .onLoad <- function(libname, pkgname) {
+  ## covr: skip=3
   ns <- getNamespace(pkgname);
   pkg <- Package(pkgname);
   assign(pkgname, pkg, envir=ns);
