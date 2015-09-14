@@ -27,6 +27,19 @@ importFrom("matrixStats", "rowMedians")
 importFrom("matrixStats", "rowWeightedMeans")
 importFrom("matrixStats", "rowWeightedMedians")
 
+importFrom("grDevices",
+           "xy.coords")
+importFrom("graphics",
+           "abline", "axis", "box", "lines", "mtext", "par", "plot",
+           "points", "polygon")
+importFrom("stats",
+           "IQR", "approx", "cor", "density", "integrate", "loess",
+           "loess.control", "lowess", "median", "na.omit", "predict",
+           "sd", "smooth.spline", "weighted.mean", "weights")
+importFrom("utils",
+           "getAnywhere", "packageDescription")
+
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # EXPORTS
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

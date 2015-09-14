@@ -1,4 +1,4 @@
-setMethodS3("rowAverages", "matrix", function(X, average=mean, deviance=sd, df=function(x, ...) length(if(na.rm) na.omit(x) else x), na.rm=TRUE, ..., asAttributes=TRUE) {
+setMethodS3("rowAverages", "matrix", function(X, average=base::mean, deviance=stats::sd, df=function(x, ...) length(if(na.rm) na.omit(x) else x), na.rm=TRUE, ..., asAttributes=TRUE) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 1. Verify the arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -11,7 +11,7 @@ setMethodS3("rowAverages", "matrix", function(X, average=mean, deviance=sd, df=f
   args[["average"]] <- average;
   args[["deviance"]] <- deviance;
   args[["df"]] <- df;
-  
+
   for (kk in seq(along=args)) {
     key <- names(args)[kk];
     arg <- args[[kk]];
@@ -19,7 +19,7 @@ setMethodS3("rowAverages", "matrix", function(X, average=mean, deviance=sd, df=f
       stop(paste("Argument '", key, "' must be a function: ", mode(arg)));
   }
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 2. Calculate the average and the deviance
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   stats <- list();

@@ -114,14 +114,12 @@ setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNai
 
   J <- length(betaT);
   if (length(betaN) != J) {
-    stop("The length of arguments 'betaT' and 'betaN' differ: ",
-                                                   length(betaN), " != ", J);
+    stop("The length of arguments 'betaT' and 'betaN' differ: ", length(betaN), " != ", J);
   }
 
   # Argument: 'muN':
   if (length(muN) != J) {
-    stop("Argument 'muN' does not match the number of loci: ",
-                                                   length(muN), " != ", J);
+    stop("Argument 'muN' does not match the number of loci: ", length(muN), " != ", J);
   }
   knownGenotypes <- c(0, 1/2, 1, NA);
   unknown <- which(!is.element(muN, knownGenotypes));

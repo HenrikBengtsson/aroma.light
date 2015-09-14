@@ -44,26 +44,22 @@ setMethodS3("pairedAlleleSpecificCopyNumbers", "numeric", function(thetaT, betaT
   betaT <- as.numeric(betaT);
   J <- length(thetaT);
   if (length(betaT) != J) {
-    stop("The length of arguments 'betaT' and 'thetaT' differ: ",
-                                                   length(betaT), " != ", J);
+    stop("The length of arguments 'betaT' and 'thetaT' differ: ", length(betaT), " != ", J);
   }
 
   # Argument: 'thetaN' & 'betaN':
   thetaN <- as.numeric(thetaN);
   betaN <- as.numeric(betaN);
   if (length(thetaN) != J) {
-    stop("The length of arguments 'thetaN' and 'thetaT' differ: ",
-                                                   length(thetaN), " != ", J);
+    stop("The length of arguments 'thetaN' and 'thetaT' differ: ", length(thetaN), " != ", J);
   }
   if (length(betaN) != J) {
-    stop("The length of arguments 'betaN' and 'thetaN' differ: ",
-                                                   length(betaN), " != ", J);
+    stop("The length of arguments 'betaN' and 'thetaN' differ: ", length(betaN), " != ", J);
   }
 
   # Argument: 'muN':
   if (length(muN) != J) {
-    stop("The length of arguments 'muN' and 'betaN' differ: ",
-                                                   length(muN), " != ", J);
+    stop("The length of arguments 'muN' and 'betaN' differ: ", length(muN), " != ", J);
   }
   knownGenotypes <- c(0, 1/2, 1, NA);
   unknown <- which(!is.element(muN, knownGenotypes));

@@ -56,8 +56,7 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, times=length(
   if (length(cn) == 1L) {
     cn <- rep(cn, times=J);
   } else if (length(cn) != J) {
-    stop("The length of argument 'cn' does not match 'y': ",
-                                            length(cn), " != ", J);
+    stop("The length of argument 'cn' does not match 'y': ", length(cn), " != ", J);
   }
   uniqueCNs <- sort(unique(cn));
   unknown <- which(!is.element(uniqueCNs, c(0,1,2,NA)));
@@ -70,8 +69,7 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, times=length(
   if (!is.null(subsetToFit)) {
     if (is.logical(subsetToFit)) {
       if (length(subsetToFit) != J) {
-        stop("The length of argument 'subsetToFit' does not match 'y': ",
-                                         length(subsetToFit), " != ", J);
+        stop("The length of argument 'subsetToFit' does not match 'y': ", length(subsetToFit), " != ", J);
       }
       subsetToFit <- which(subsetToFit);
     } else {

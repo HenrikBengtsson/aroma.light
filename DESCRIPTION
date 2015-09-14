@@ -1,15 +1,15 @@
 Package: aroma.light
-Version: 2.5.2
+Version: 2.5.3
 Depends:
   R (>= 2.14.0)
 Imports:
   R.methodsS3 (>= 1.7.0),
   R.oo (>= 1.19.0),
   R.utils (>= 2.1.0),
-  matrixStats (>= 0.14.0)
+  matrixStats (>= 0.14.2)
 Suggests:
   princurve (>= 1.1-12)
-Date: 2015-06-16
+Date: 2015-09-13
 Title: Light-Weight Methods for Normalization and Visualization of Microarray Data using Only Basic R Data Types
 Authors@R: c(
   person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),

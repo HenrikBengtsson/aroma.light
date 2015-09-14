@@ -87,8 +87,7 @@ setMethodS3("fitXYCurve", "matrix", function(X, weights=NULL, typeOfWeights=c("d
     stop("Curve-fit normalization requires two channels only: ", ncol(X));
   }
   if (nrow(X) < 3) {
-    stop("Curve-fit normalization requires at least three observations: ",
-                                                                   nrow(X));
+    stop("Curve-fit normalization requires at least three observations: ", nrow(X));
   }
 
   # Argument: 'satSignal'
@@ -113,8 +112,7 @@ setMethodS3("fitXYCurve", "matrix", function(X, weights=NULL, typeOfWeights=c("d
       stop("Argument 'weights' must not contain NA values.");
 
     if (any(weights < 0 | weights > 1)) {
-      stop("Argument 'weights' out of range [0,1]: ",
-           paste(weights[weights < 0.0 | weights > 1.0], collapse=", "));
+      stop("Argument 'weights' out of range [0,1]: ", paste(weights[weights < 0.0 | weights > 1.0], collapse=", "));
     }
 
     if (zeroOneWeightsOnly && any(weights > 0 & weights < 1)) {
