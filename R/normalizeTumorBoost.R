@@ -104,7 +104,7 @@
 # [1] @include "../incl/BengtssonNeuvial_2010.bib.Rdoc" \cr
 # }
 #*/###########################################################################
-setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNaiveGenotypes(betaN), preserveScale, flavor=c("v4", "v3", "v2", "v1"), ...) {
+setMethodS3("normalizeTumorBoost", "numeric", function(betaT, betaN, muN=callNaiveGenotypes(betaN), preserveScale=FALSE, flavor=c("v4", "v3", "v2", "v1"), ...) {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Validate arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
