@@ -1,6 +1,10 @@
 Package: aroma.light
 ====================
 
+Version: 2.99.0 [2015-10-06]
+o No changes.
+
+
 Version: 2.9.0 [2015-09-17]
 o Argument 'preserveScale' for normalizeTumorBoost() now defaults
   to FALSE.  Since 1.33.3 (2014-04-30) it had no default and
