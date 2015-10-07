@@ -10,6 +10,8 @@ biocLite('aroma.light')
 ```
 
 
+
+
 ## Software status
 
 | Resource:     | Bioconductor        | Travis CI     | Appveyor         |
