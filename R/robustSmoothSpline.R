@@ -72,7 +72,7 @@
 setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), sdCriteria=2e-4, reps=1e-15, tol=1e-6*IQR(x), plotCurves=FALSE) {
   requireNamespace("stats") || throw("Package not loaded: stats");  # smooth.spline()
 
-  # To please RMD CMD check for R v2.6.0
+  # To please RMD CMD check
   nx <- 0;
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -83,7 +83,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
     pkgName <- "stats";
     fcns <- getDLLRegisteredRoutines(pkgName)$.Fortran;
 
-    # Starting with R v2.15.1 patched (rev 60026)
+    # Since R (>= 2.15.2)
     key <- "rbart";
     if (is.element(key, names(fcns))) {
       nparams <- fcns[[key]]$numParameters;
@@ -102,29 +102,6 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
              spar=prep$spar, parms=unlist(prep$contr.sp[1:4]),
              scratch=double(17L * nk + 1L),
              ld4=4L, ldnk=1L, ier=integer(1L),
-             PACKAGE=pkgName);
-        } # fcn()
-        return(fcn);
-      }
-
-      throw(sprintf("Non-supported number of parameters for internal spline function %s(): %d", key, nparams));
-    }
-
-    # Prior to R v2.15.1 patched (rev 60026)
-    key <- "qsbart";
-    if (is.element(key, names(fcns))) {
-      nparams <- fcns[[key]]$numParameters;
-      if (nparams == 21) {
-        fcn <- function(prep, ybar, wbar, yssw, nx, nk, ...) {
-          .Fortran(key, as.double(prep$penalty), as.double(prep$dofoff),
-             x=as.double(prep$xbar), y=as.double(ybar), w=as.double(wbar),
-             ssw=as.double(yssw), as.integer(nx), as.double(prep$knot),
-             as.integer(prep$nk), coef=double(nk), ty=double(nx),
-             lev=double(nx), crit=double(1), iparms=prep$iparms,
-             spar=prep$spar, parms=unlist(prep$contr.sp[1:4]),
-             isetup=as.integer(0),
-             scrtch=double((17 + nk) * nk),
-             ld4=as.integer(4), ldnk=as.integer(1), ier=integer(1),
              PACKAGE=pkgName);
         } # fcn()
         return(fcn);
@@ -174,10 +151,10 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
       c(rep(x[1], 3), x[seq(1, n, len = nk)], rep(x[n], 3))
     }
 
-    contr.sp <- list(low = -1.5, # low = 0.      was default till R 1.3.x
+    contr.sp <- list(low = -1.5,
                      high = 1.5,
-                     tol = 1e-4, # tol = 0.001   was default till R 1.3.x
-                     eps = 2e-8, # eps = 0.00244 was default till R 1.3.x
+                     tol = 1e-4,
+                     eps = 2e-8,
                      maxit = 500, trace = getOption("verbose"));
 
     contr.sp[names(control.spar)] <- control.spar
