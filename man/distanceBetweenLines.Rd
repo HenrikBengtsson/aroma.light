@@ -136,9 +136,8 @@ rm(zzz)
 \references{
  [1] M. Bard and D. Himel, \emph{The Minimum Distance Between Two
     Lines in n-Space}, September 2001, Advisor Dennis Merino.\cr
- [2] Dan Sunday, \emph{Distance between Lines and Segments with
-    their Closest Point of Approach},
-    \url{http://geometryalgorithms.com/Archive/algorithm_0106/}.\cr
+ [2] Dan Sunday, \emph{Distance between 3D Lines and Segments},
+    Jan 2016, \url{http://geomalgorithms.com/a07-_distance.html}.\cr
 }
 
 

@@ -9,6 +9,13 @@ source('http://bioconductor.org/biocLite.R')
 biocLite('aroma.light')
 ```
 
+### Pre-release version
+
+To install the pre-release version that is available in branch `develop`, use:
+```r
+source('http://callr.org/install#HenrikBengtsson/aroma.light@develop')
+```
+This will install the package from source.  
 
 
 

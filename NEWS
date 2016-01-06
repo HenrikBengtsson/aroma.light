@@ -1,6 +1,13 @@
 Package: aroma.light
 ====================
 
+Version: 3.1.1 [2016-01-06]
+o Package requires R (>= 2.15.2).
+o CLEANUP: robustSmoothSpline() no longer generates messages that
+  ".nknots.smspl() is now exported; use it instead of n.knots()"
+  for R (>= 3.1.1).
+
+
 Version: 3.1.0 [2015-10-23]
 o The version number was bumped for the Bioconductor devel version,
   which is now BioC v3.3 for R (>= 3.3.0).
@@ -18,7 +25,7 @@ o No changes.
 Version: 2.9.0 [2015-09-17]
 o Argument 'preserveScale' for normalizeTumorBoost() now defaults
   to FALSE.  Since 1.33.3 (2014-04-30) it had no default and
-  prior to that it was TRUE. 
+  prior to that it was TRUE.
 
 
 Version: 2.5.3 [2015-09-13]
