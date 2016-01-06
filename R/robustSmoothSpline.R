@@ -139,65 +139,34 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   } # getNativeSplineFitFunction()
 
 
-  ## Former internal n.kn() is now available as n.knots() in stats v2.14.0.
-  rVer <- getRversion();
-  if (rVer >= "2.14.0") {
-    ## Cannot use n.knots <- stats:::n.knots because then
-    ## R CMD check will complain with R 2.13.x and before.
-    n.knots <- getAnywhere("n.knots")$obj[[1]];
+  ## Cannot use n.knots <- stats:::n.knots because then
+  ## R CMD check will complain.
+  n.knots <- getAnywhere("n.knots")$obj[[1]];
+  # Sanity check
+  stopifnot(is.function(n.knots));
+
+  whichUnique <- function(x, ...) {
+    # We need to make sure that 'g$x == x' below. /HB 2011-10-10
+    xx <- x;
+    keep <- rep(TRUE, times=length(x));
+    while (TRUE) {
+      idxs <- which(keep);
+      xx <- round((x[idxs] - mean(x[idxs]))/tol);  # de-mean to avoid possible overflow
+      dups <- duplicated(xx);
+      if (!any(dups)) {
+        break;
+      }
+      keep[idxs[dups]] <- FALSE;
+    } # while()
+    nd <- keep;
+
     # Sanity check
-    stopifnot(is.function(n.knots));
+    stopifnot(length(nd) == length(x));
 
-    whichUnique <- function(x, ...) {
-      # We need to make sure that 'g$x == x' below. /HB 2011-10-10
-      xx <- x;
-      keep <- rep(TRUE, times=length(x));
-      while (TRUE) {
-        idxs <- which(keep);
-        xx <- round((x[idxs] - mean(x[idxs]))/tol);  # de-mean to avoid possible overflow
-        dups <- duplicated(xx);
-        if (!any(dups)) {
-          break;
-        }
-        keep[idxs[dups]] <- FALSE;
-      } # while()
-      nd <- keep;
+    which(nd);
+  } # whichUnique()
 
-      # Sanity check
-      stopifnot(length(nd) == length(x));
-
-      which(nd);
-    } # whichUnique()
-
-    stats.smooth.spline <- smooth.spline;
-  } else {
-    n.knots <- function(n) {
-        ## Number of inner knots
-        if (n < 50L) n
-        else trunc({
-            a1 <- log2( 50)
-            a2 <- log2(100)
-            a3 <- log2(140)
-            a4 <- log2(200)
-            if	(n < 200L) 2^(a1+(a2-a1)*(n-50)/150)
-            else if (n < 800L) 2^(a2+(a3-a2)*(n-200)/600)
-            else if (n < 3200L) 2^(a3+(a4-a3)*(n-800)/2400)
-            else 200 + (n-3200)^0.2
-        })
-    } # n.knots()
-
-    whichUnique <- function(x, ...) {
-      tx <- signif(x, 6);
-      utx <- unique(sort(tx));
-      otx <- match(utx, tx);
-      otx;
-    } # whichUnique()
-
-    stats.smooth.spline <- function(..., tol) {
-      smooth.spline(...);
-    }
-  } # if (rVer ...)
-
+  stats.smooth.spline <- smooth.spline;
 
   smooth.spline.prepare <- function(x, w=NULL, df=5, spar=NULL, cv=FALSE, all.knots=FALSE, df.offset=0, penalty=1, control.spar=list(), tol=1e-6*IQR(x)) {
     sknotl <- function(x) {
@@ -436,13 +405,11 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   w0 <- w[uIdxs];
 
   # WORKAROUND
-  if (rVer >= "2.14.0") {
-    # We need to make sure that 'g$x == x' below. /HB 2011-10-10
-    x <- x[uIdxs];
-    y <- y[uIdxs];
-    w <- w[uIdxs];
-    uIdxs <- seq(along=x);
-  }
+  # We need to make sure that 'g$x == x' below. /HB 2011-10-10
+  x <- x[uIdxs];
+  y <- y[uIdxs];
+  w <- w[uIdxs];
+  uIdxs <- seq(along=x);
 
   if (inherits(x, "smooth.spline")) {
     g <- x;
