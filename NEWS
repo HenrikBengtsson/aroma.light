@@ -1,7 +1,7 @@
 Package: aroma.light
 ====================
 
-Version: 3.1.0-9000 [2016-01-06]
+Version: 3.1.1 [2016-01-06]
 o Package requires R (>= 2.15.2).
 o CLEANUP: robustSmoothSpline() no longer generates messages that
   ".nknots.smspl() is now exported; use it instead of n.knots()"
