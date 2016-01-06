@@ -72,7 +72,7 @@
 setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), sdCriteria=2e-4, reps=1e-15, tol=1e-6*IQR(x), plotCurves=FALSE) {
   requireNamespace("stats") || throw("Package not loaded: stats");  # smooth.spline()
 
-  # To please RMD CMD check for R v2.6.0
+  # To please RMD CMD check
   nx <- 0;
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -83,7 +83,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
     pkgName <- "stats";
     fcns <- getDLLRegisteredRoutines(pkgName)$.Fortran;
 
-    # Starting with R v2.15.1 patched (rev 60026)
+    # Since R (>= 2.15.2)
     key <- "rbart";
     if (is.element(key, names(fcns))) {
       nparams <- fcns[[key]]$numParameters;
@@ -110,105 +110,54 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
       throw(sprintf("Non-supported number of parameters for internal spline function %s(): %d", key, nparams));
     }
 
-    # Prior to R v2.15.1 patched (rev 60026)
-    key <- "qsbart";
-    if (is.element(key, names(fcns))) {
-      nparams <- fcns[[key]]$numParameters;
-      if (nparams == 21) {
-        fcn <- function(prep, ybar, wbar, yssw, nx, nk, ...) {
-          .Fortran(key, as.double(prep$penalty), as.double(prep$dofoff),
-             x=as.double(prep$xbar), y=as.double(ybar), w=as.double(wbar),
-             ssw=as.double(yssw), as.integer(nx), as.double(prep$knot),
-             as.integer(prep$nk), coef=double(nk), ty=double(nx),
-             lev=double(nx), crit=double(1), iparms=prep$iparms,
-             spar=prep$spar, parms=unlist(prep$contr.sp[1:4]),
-             isetup=as.integer(0),
-             scrtch=double((17 + nk) * nk),
-             ld4=as.integer(4), ldnk=as.integer(1), ier=integer(1),
-             PACKAGE=pkgName);
-        } # fcn()
-        return(fcn);
-      }
-
-      throw(sprintf("Non-supported number of parameters for internal spline function %s(): %d", key, nparams));
-    }
-
     # Failed to locate native function
     pd <- packageDescription("aroma.light");
     throw(sprintf("INTERNAL ERROR of robustSmoothSline(): Failed to locate an internal spline function for %s. Please report this to the package maintainer (%s) of %s.", R.version$version.string, pd$Maintainer, pd$Package));
   } # getNativeSplineFitFunction()
 
 
-  ## Former internal n.kn() is now available as n.knots() in stats v2.14.0.
-  rVer <- getRversion();
-  if (rVer >= "2.14.0") {
-    ## Cannot use n.knots <- stats:::n.knots because then
-    ## R CMD check will complain with R 2.13.x and before.
-    n.knots <- getAnywhere("n.knots")$obj[[1]];
-    # Sanity check
-    stopifnot(is.function(n.knots));
-
-    whichUnique <- function(x, ...) {
-      # We need to make sure that 'g$x == x' below. /HB 2011-10-10
-      xx <- x;
-      keep <- rep(TRUE, times=length(x));
-      while (TRUE) {
-        idxs <- which(keep);
-        xx <- round((x[idxs] - mean(x[idxs]))/tol);  # de-mean to avoid possible overflow
-        dups <- duplicated(xx);
-        if (!any(dups)) {
-          break;
-        }
-        keep[idxs[dups]] <- FALSE;
-      } # while()
-      nd <- keep;
-
-      # Sanity check
-      stopifnot(length(nd) == length(x));
-
-      which(nd);
-    } # whichUnique()
-
-    stats.smooth.spline <- smooth.spline;
+  ns <- getNamespace("stats")
+  if (getRversion() >= "3.1.1") {
+    ## Exported stats::.nknots.smspl()
+    .nknots.smspl <- get(".nknots.smspl", envir=ns, mode="function")
   } else {
-    n.knots <- function(n) {
-        ## Number of inner knots
-        if (n < 50L) n
-        else trunc({
-            a1 <- log2( 50)
-            a2 <- log2(100)
-            a3 <- log2(140)
-            a4 <- log2(200)
-            if	(n < 200L) 2^(a1+(a2-a1)*(n-50)/150)
-            else if (n < 800L) 2^(a2+(a3-a2)*(n-200)/600)
-            else if (n < 3200L) 2^(a3+(a4-a3)*(n-800)/2400)
-            else 200 + (n-3200)^0.2
-        })
-    } # n.knots()
+    ## Internal stats:::n.knots()
+    .nknots.smspl <- get("n.knots", envir=ns, mode="function")
+  }
 
-    whichUnique <- function(x, ...) {
-      tx <- signif(x, 6);
-      utx <- unique(sort(tx));
-      otx <- match(utx, tx);
-      otx;
-    } # whichUnique()
+  whichUnique <- function(x, ...) {
+    # We need to make sure that 'g$x == x' below. /HB 2011-10-10
+    xx <- x;
+    keep <- rep(TRUE, times=length(x));
+    while (TRUE) {
+      idxs <- which(keep);
+      xx <- round((x[idxs] - mean(x[idxs]))/tol);  # de-mean to avoid possible overflow
+      dups <- duplicated(xx);
+      if (!any(dups)) {
+        break;
+      }
+      keep[idxs[dups]] <- FALSE;
+    } # while()
+    nd <- keep;
 
-    stats.smooth.spline <- function(..., tol) {
-      smooth.spline(...);
-    }
-  } # if (rVer ...)
+    # Sanity check
+    stopifnot(length(nd) == length(x));
 
+    which(nd);
+  } # whichUnique()
+
+  stats.smooth.spline <- smooth.spline;
 
   smooth.spline.prepare <- function(x, w=NULL, df=5, spar=NULL, cv=FALSE, all.knots=FALSE, df.offset=0, penalty=1, control.spar=list(), tol=1e-6*IQR(x)) {
     sknotl <- function(x) {
-      nk <- n.knots(n <- length(x))
+      nk <- .nknots.smspl(n <- length(x))
       c(rep(x[1], 3), x[seq(1, n, len = nk)], rep(x[n], 3))
     }
 
-    contr.sp <- list(low = -1.5, # low = 0.      was default till R 1.3.x
+    contr.sp <- list(low = -1.5,
                      high = 1.5,
-                     tol = 1e-4, # tol = 0.001   was default till R 1.3.x
-                     eps = 2e-8, # eps = 0.00244 was default till R 1.3.x
+                     tol = 1e-4,
+                     eps = 2e-8,
                      maxit = 500, trace = getOption("verbose"));
 
     contr.sp[names(control.spar)] <- control.spar
@@ -436,13 +385,11 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   w0 <- w[uIdxs];
 
   # WORKAROUND
-  if (rVer >= "2.14.0") {
-    # We need to make sure that 'g$x == x' below. /HB 2011-10-10
-    x <- x[uIdxs];
-    y <- y[uIdxs];
-    w <- w[uIdxs];
-    uIdxs <- seq(along=x);
-  }
+  # We need to make sure that 'g$x == x' below. /HB 2011-10-10
+  x <- x[uIdxs];
+  y <- y[uIdxs];
+  w <- w[uIdxs];
+  uIdxs <- seq(along=x);
 
   if (inherits(x, "smooth.spline")) {
     g <- x;
