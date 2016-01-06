@@ -116,11 +116,14 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   } # getNativeSplineFitFunction()
 
 
-  ## Cannot use n.knots <- stats:::n.knots because then
-  ## R CMD check will complain.
-  n.knots <- getAnywhere("n.knots")$obj[[1]];
-  # Sanity check
-  stopifnot(is.function(n.knots));
+  ns <- getNamespace("stats")
+  if (getRversion() >= "3.1.1") {
+    ## Exported stats::.nknots.smspl()
+    .nknots.smspl <- get(".nknots.smspl", envir=ns, mode="function")
+  } else {
+    ## Internal stats:::n.knots()
+    .nknots.smspl <- get("n.knots", envir=ns, mode="function")
+  }
 
   whichUnique <- function(x, ...) {
     # We need to make sure that 'g$x == x' below. /HB 2011-10-10
@@ -147,7 +150,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
 
   smooth.spline.prepare <- function(x, w=NULL, df=5, spar=NULL, cv=FALSE, all.knots=FALSE, df.offset=0, penalty=1, control.spar=list(), tol=1e-6*IQR(x)) {
     sknotl <- function(x) {
-      nk <- n.knots(n <- length(x))
+      nk <- .nknots.smspl(n <- length(x))
       c(rep(x[1], 3), x[seq(1, n, len = nk)], rep(x[n], 3))
     }
 
