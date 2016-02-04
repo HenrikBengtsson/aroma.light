@@ -185,7 +185,7 @@ for (ii in 1:I) {
   if (length(uu) > 0)
     data[[4]] <- M[uu,ii];
 
-  cols <- seq(along=data)+1;
+  cols <- seq_along(data)+1;
   plotDensity(data, col=cols, xlim=Mlim, xlab=Mlab, main="normalized");
 
   abline(v=0, lty=2);
