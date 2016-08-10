@@ -1,7 +1,7 @@
 Package: aroma.light
 ====================
 
-Version: 3.3.0-9000 [2016-08-10]
+Version: 3.3.1 [2016-08-10]
 CLEANUP: Using seq_len() and seq_along() everywhere [#8]
 
 
