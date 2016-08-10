@@ -16,14 +16,18 @@ os:
   - osx
 
 r:
-  - bioc-release
-  - bioc-devel
+  - oldrel
+  - release
+  - devel
 
 matrix:
   exclude:
     - os: osx
       r: devel
 
+bioc_packages:
+  - BiocInstaller
+  
 r_github_packages:
   - jimhester/covr
 
