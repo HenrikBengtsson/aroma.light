@@ -240,10 +240,10 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
       w <- prep$w
       ox <- prep$ox
       # The tapply is expensive! / HB 2002-03-02
-##      tmp <- matrix(unlist(tapply(seq(along=y), ox, function(i, y, w) {
+##      tmp <- matrix(unlist(tapply(seq_along(y), ox, function(i, y, w) {
 ##           c(sum(w[i]), sum(w[i]*y[i]), sum(w[i]*y[i]^2))
 ##         }, y=y, w=w)), ncol=3, byrow = TRUE)
-      tmp <- tapply(seq(along=y), INDEX=ox, FUN=function(i, y, w) {
+      tmp <- tapply(seq_along(y), INDEX=ox, FUN=function(i, y, w) {
            c(sum(w[i]), sum(w[i]*y[i]), sum(w[i]*y[i]^2))
          }, y=y, w=w);
       # Not needed anymore
@@ -389,7 +389,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   x <- x[uIdxs];
   y <- y[uIdxs];
   w <- w[uIdxs];
-  uIdxs <- seq(along=x);
+  uIdxs <- seq_along(x);
 
   if (inherits(x, "smooth.spline")) {
     g <- x;

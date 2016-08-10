@@ -168,7 +168,7 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, times=length(
   # Call genotypes
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   fitList <- list();
-  for (kk in seq(along=uniqueCNs)) {
+  for (kk in seq_along(uniqueCNs)) {
     cnKK <- uniqueCNs[kk];
     verbose && enter(verbose, sprintf("Copy number level #%d (C=%g) of %d", kk, cnKK, length(uniqueCNs)));
 
@@ -193,7 +193,7 @@ setMethodS3("fitNaiveGenotypes", "numeric", function(y, cn=rep(2L, times=length(
       args <- list(...);
       tau <- args$tau;
       if (is.null(tau)) {
-        tau <- seq(length=cnKK) / (cnKK + 1L);
+        tau <- seq_len(cnKK) / (cnKK + 1L);
       }
       nbrOfGenotypeGroups <- length(tau) + 1L;
     }

@@ -49,7 +49,7 @@ setMethodS3("sampleTuples", "default", function(x, size, length, ...) {
   naValue <- NA;
   storage.mode(naValue) <- storage.mode(x);
   tuples <- matrix(naValue, nrow=size, ncol=length);
-  for (kk in seq(length=size)) {
+  for (kk in seq_len(size)) {
     tuples[kk,] <- sample(x, size=length, ...);
   }
 
