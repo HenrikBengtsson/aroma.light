@@ -140,7 +140,7 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
 
   okLambda <- is.finite(lambda);
 
-  for (kk in seq(length=L)) {
+  for (kk in seq_len(L)) {
     sKK <- s[,kk];
     ok <- (is.finite(sKK) & okLambda);
     fitKK <- smooth.spline(sKK[ok], lambda[ok], ...);

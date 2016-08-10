@@ -100,7 +100,7 @@ setMethodS3("plotDensity", "list", function(X, W=NULL, xlim=NULL, ylim=NULL, xla
 
   # Argument 'col':
   if (is.null(col)) {
-    col <- seq(length=nbrOfSamples);
+    col <- seq_len(nbrOfSamples);
   } else {
     col <- rep(col, length.out=nbrOfSamples);
   }

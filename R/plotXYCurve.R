@@ -132,7 +132,7 @@ setMethodS3("plotXYCurve", "numeric", function(x, y, col=1L, lwd=2, dlwd=1, dcol
 }) # plotXYCurve.numeric()
 
 
-setMethodS3("plotXYCurve", "matrix", function(X, Y, col=seq(length=nrow(X)), lwd=2, dlwd=1, dcol=NA, xlim=NULL, ylim=xlim, xlab=NULL, ylab=NULL, curveFit=smooth.spline, ..., add=FALSE) {
+setMethodS3("plotXYCurve", "matrix", function(X, Y, col=seq_len(nrow(X)), lwd=2, dlwd=1, dcol=NA, xlim=NULL, ylim=xlim, xlab=NULL, ylab=NULL, curveFit=smooth.spline, ..., add=FALSE) {
   if (identical((X), dim(Y))) {
     throw("Argument 'X' and 'Y' have different dimensions.");
   }
@@ -145,7 +145,7 @@ setMethodS3("plotXYCurve", "matrix", function(X, Y, col=seq(length=nrow(X)), lwd
 
   ncol <- ncol(X);
   if (is.null(col)) {
-    col <- seq(length=ncol);
+    col <- seq_len(ncol);
   } else {
     col <- rep(col, length.out=ncol);
   }
@@ -160,7 +160,7 @@ setMethodS3("plotXYCurve", "matrix", function(X, Y, col=seq(length=nrow(X)), lwd
     ylim <- range(Y, na.rm=TRUE);
   }
 
-  for (kk in seq(length=ncol)) {
+  for (kk in seq_len(ncol)) {
     plotXYCurve(X[,kk], Y[,kk], col=col[kk], lwd=lwd, dlwd=dlwd, dcol=dcol, xlim=xlim, ylim=ylim, xlab=xlab, ylab=ylab, curveFit=curveFit, ..., add=add || (kk > 1L));
   }
 

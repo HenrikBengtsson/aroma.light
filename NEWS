@@ -1,6 +1,10 @@
 Package: aroma.light
 ====================
 
+Version: 3.3.0-9000 [2016-08-10]
+CLEANUP: Using seq_len() and seq_along() everywhere [#8]
+
+
 Version: 3.3.0 [2016-05-03]
 o The version number was bumped for the Bioconductor devel version,
   which is now BioC v3.4 for R (>= 3.3.0).
