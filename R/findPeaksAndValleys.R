@@ -29,7 +29,7 @@
 #   of "peaks" and "valleys" filtered by \code{tol}.
 # }
 #
-# @examples "..\incl\findPeaksAndValleys.Rex"
+# @examples "../incl/findPeaksAndValleys.Rex"
 #
 # @author
 #

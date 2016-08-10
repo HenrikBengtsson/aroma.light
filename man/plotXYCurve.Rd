@@ -17,8 +17,8 @@
 \usage{
 \method{plotXYCurve}{numeric}(x, y, col=1L, lwd=2, dlwd=1, dcol=NA, xlim=NULL, ylim=xlim, xlab=NULL,
   ylab=NULL, curveFit=smooth.spline, ..., add=FALSE)
-\method{plotXYCurve}{matrix}(X, Y, col=seq(length = nrow(X)), lwd=2, dlwd=1, dcol=NA, xlim=NULL,
-  ylim=xlim, xlab=NULL, ylab=NULL, curveFit=smooth.spline, ..., add=FALSE)
+\method{plotXYCurve}{matrix}(X, Y, col=seq_len(nrow(X)), lwd=2, dlwd=1, dcol=NA, xlim=NULL, ylim=xlim,
+  xlab=NULL, ylab=NULL, curveFit=smooth.spline, ..., add=FALSE)
 }
 
 \description{

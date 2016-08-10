@@ -33,7 +33,7 @@
 #   Non called genotypes have value @NA.
 # }
 #
-# @examples "..\incl\callNaiveGenotypes.Rex"
+# @examples "../incl/callNaiveGenotypes.Rex"
 #
 # \section{Missing and non-finite values}{
 #   A missing value always gives a missing (@NA) genotype call.
