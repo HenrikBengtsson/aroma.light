@@ -69,7 +69,7 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
   verbose && enter(verbose, "Identifying missing values");
   # princurve::principal.curve() does not handle missing values.
   keep <- rep(TRUE, times=n);
-  for (cc in seq(length=p)) {
+  for (cc in seq_len(p)) {
     keep <- keep & is.finite(X[,cc]);
   }
   anyMissing <- (!all(keep));

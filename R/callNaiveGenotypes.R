@@ -107,7 +107,7 @@ setMethodS3("callNaiveGenotypes", "numeric", function(y, cn=rep(2L, times=length
 
   # Fitted CNs
   cns <- sapply(modelFit, FUN=function(fit) fit$cn);
-  for (kk in seq(along=uniqueCNs)) {
+  for (kk in seq_along(uniqueCNs)) {
     cnKK <- uniqueCNs[kk];
     verbose && enter(verbose, sprintf("Copy number level #%d (C=%g) of %d", kk, cnKK, length(uniqueCNs)));
 

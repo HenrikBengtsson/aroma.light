@@ -234,7 +234,7 @@ setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, meth
   # Note: D == diag(duvt$d) is memory expensive since the dimensions of D
   # is the same as the dimensions of 'x'. Thus, it unwise to do:
   # pc <- duvt$u %*% diag(duvt$d);
-  for (kk in seq(length=N))
+  for (kk in seq_len(N))
     pc[kk,] <- pc[kk,] * d;
 
   if (!is.null(w)) {

@@ -152,7 +152,7 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 1. Get the sample quantile for all channels (columns)
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  for (cc in seq(length=nbrOfChannels)) {
+  for (cc in seq_len(nbrOfChannels)) {
     values <- X[,cc,drop=TRUE];
 
     if (!is.null(signalWeights)) {
@@ -217,7 +217,7 @@ setMethodS3("normalizeQuantileRank", "matrix", function(X, ties=FALSE, robust=FA
   #
   # Input: X[r,c], xTarget[r], O[[c]][r], nbrOfFiniteObservations[c].
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  for (cc in seq(length=nbrOfChannels)) {
+  for (cc in seq_len(nbrOfChannels)) {
     # Get the number of non-NA observations
     nobs <- nbrOfFiniteObservations[cc];
 

@@ -12,7 +12,7 @@ setMethodS3("rowAverages", "matrix", function(X, average=base::mean, deviance=st
   args[["deviance"]] <- deviance;
   args[["df"]] <- df;
 
-  for (kk in seq(along=args)) {
+  for (kk in seq_along(args)) {
     key <- names(args)[kk];
     arg <- args[[kk]];
     if (!is.null(arg) && !is.function(arg))
@@ -23,7 +23,7 @@ setMethodS3("rowAverages", "matrix", function(X, average=base::mean, deviance=st
   # 2. Calculate the average and the deviance
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   stats <- list();
-  for (kk in seq(along=args)) {
+  for (kk in seq_along(args)) {
     key <- names(args)[kk];
     arg <- args[[kk]];
     stats[[key]] <- as.matrix(apply(X, MARGIN=1, FUN=arg, na.rm=na.rm));

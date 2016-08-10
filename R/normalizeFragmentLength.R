@@ -110,7 +110,7 @@ setMethodS3("normalizeFragmentLength", "default", function(y, fragmentLengths, t
     throw("Number of rows in argument 'fragmentLengths' does not match the length of argument 'y': ", nrow(fragmentLengths), " != ", nbrOfDataPoints);
   }
   nbrOfEnzymes <- ncol(fragmentLengths);
-  allEnzymes <- seq(length=nbrOfEnzymes);
+  allEnzymes <- seq_len(nbrOfEnzymes);
   # Coerce to doubles
   for (ee in allEnzymes) {
     fragmentLengths[,ee] <- as.double(fragmentLengths[,ee]);
