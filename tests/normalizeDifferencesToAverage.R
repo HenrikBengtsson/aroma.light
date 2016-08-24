@@ -3,7 +3,7 @@ library("aroma.light")
 # Simulate three shifted tracks of different lengths with same profiles
 ns <- c(A=2, B=1, C=0.25)*1000;
 xx <- lapply(ns, FUN=function(n) { seq(from=1, to=max(ns), length.out=n) });
-zz <- mapply(seq(along=ns), ns, FUN=function(z,n) rep(z,n));
+zz <- mapply(seq_along(ns), ns, FUN=function(z,n) rep(z,n));
 
 yy <- list(
   A = rnorm(ns["A"], mean=0, sd=0.5),
