@@ -70,7 +70,7 @@ unitSets <- list(
 )
 
 # The observed data is a mix of two enzymes
-theta <- matrix(NA, nrow=J, ncol=I);
+theta <- matrix(NA_real_, nrow=J, ncol=I);
 
 # Single-enzyme units
 for (ee in 1:2) {
@@ -103,7 +103,7 @@ for (ee in 1:2) {
 subsetToFit <- setdiff(1:J, seq(from=1, to=J, by=10))
 
 # Normalize data (to a target baseline)
-thetaN <- matrix(NA, nrow=J, ncol=I);
+thetaN <- matrix(NA_real_, nrow=J, ncol=I);
 fits <- vector("list", I);
 for (ii in 1:I) {
   lthetaNi <- normalizeFragmentLength(log2(theta[,ii]), targetFcns=targetFcns,
