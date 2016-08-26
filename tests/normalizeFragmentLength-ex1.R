@@ -14,7 +14,7 @@ fl <- seq(from=100, to=1000, length.out=J);
 
 # Simulate data points with unknown fragment lengths
 hasUnknownFL <- seq(from=1, to=J, by=50);
-fl[hasUnknownFL] <- NA;
+fl[hasUnknownFL] <- NA_real_;
 
 # Simulate data
 y <- matrix(0, nrow=J, ncol=I);

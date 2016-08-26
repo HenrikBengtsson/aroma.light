@@ -17,12 +17,12 @@ fl[,1] <- seq(from=100, to=1000, length.out=J);
 fl[,2] <- seq(from=1000, to=100, length.out=J);
 
 # Let 1/2 of the units be on both enzymes
-fl[seq(from=1, to=J, by=4),1] <- NA;
-fl[seq(from=2, to=J, by=4),2] <- NA;
+fl[seq(from=1, to=J, by=4),1] <- NA_real_;
+fl[seq(from=2, to=J, by=4),2] <- NA_real_;
 
 # Let some have unknown fragment lengths
 hasUnknownFL <- seq(from=1, to=J, by=15);
-fl[hasUnknownFL,] <- NA;
+fl[hasUnknownFL,] <- NA_real_;
 
 # Sty/Nsp mixing proportions:
 rho <- rep(1, I);
