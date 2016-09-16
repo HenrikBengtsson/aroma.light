@@ -216,7 +216,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
         icrit <- 3
         dofoff <- df
       } else
-        warning(paste("you must supply 1 < df <= n,  n = #{unique x} =", nx))
+        warning("not using invalid df; must have 1 < df <= n := #{unique x} = ", nx)
     }
     iparms <- as.integer(c(icrit, ispar, contr.sp$maxit))
     names(iparms) <- c("icrit", "ispar", "iter")
@@ -279,7 +279,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
     if (inherits(x, "smooth.spline.prepare")) {
       prep <- x;
     } else {
-      xy <- xy.coords(x,y);
+      xy <- xy.coords(x,y, setLab=FALSE);
       prep <- smooth.spline.prepare(x=xy$x, w=w, df=df, spar=spar, cv=cv, all.knots=all.knots, df.offset=df.offset, penalty=penalty, control.spar=control.spar);
       y <- xy$y;
       # Not needed anymore
