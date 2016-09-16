@@ -151,7 +151,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   smooth.spline.prepare <- function(x, w=NULL, df=5, spar=NULL, cv=FALSE, all.knots=FALSE, df.offset=0, penalty=1, control.spar=list(), tol=1e-6*IQR(x)) {
     sknotl <- function(x) {
       nk <- .nknots.smspl(n <- length(x))
-      c(rep(x[1], 3), x[seq(1, n, len = nk)], rep(x[n], 3))
+      c(rep(x[1], 3), x[seq(1, n, length.out = nk)], rep(x[n], 3))
     }
 
     contr.sp <- list(low = -1.5,
@@ -216,11 +216,15 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
         icrit <- 3
         dofoff <- df
       } else
-        warning(paste("you must supply 1 < df <= n,  n = #{unique x} =", nx))
+        warning("not using invalid df; must have 1 < df <= n := #{unique x} = ", nx)
     }
-    iparms <- as.integer(c(icrit, ispar, contr.sp$maxit))
-    names(iparms) <- c("icrit", "ispar", "iter")
 
+    ## Since R-devel (>= 3.4.0 r70682; 2016-05-28), we need a fourth
+    ## 'iparms' parameter. This seems to be a minimal fix. /HB 2016-09-16
+    ## See https://github.com/HenrikBengtsson/aroma.light/issues/9
+    iparms <- as.integer(c(icrit, ispar, contr.sp$maxit, 0L))
+    names(iparms) <- c("icrit", "ispar", "iter", "")
+    
     object <- list(penalty=penalty, dofoff=dofoff, xbar=as.double(xbar), nx=nx, knot=knot, nk=nk, iparms=iparms, spar=spar, contr.sp=contr.sp, ox=ox, n=n, df.offset=df.offset, w=w, ux=ux, r.ux=r.ux);
     class(object) <- "smooth.spline.prepare";
     object;
@@ -306,7 +310,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
       stop("NA lev[]; probably smoothing parameter `spar' way too large!")
     if (ier > 0) {
       sml <- (spar < 0.5)
-      wtxt <- paste("smoothing parameter value too", if (sml) "small" else "large")
+      wtxt <- paste0("smoothing parameter value too ", if (sml) "small" else "large", " (compared to 0.5): spar=", spar, " (caught because ier = ", ier, " > 0.5)")
       if (sml) {
         stop(wtxt)
       } else {

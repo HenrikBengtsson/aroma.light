@@ -51,7 +51,7 @@ for (channel in c("R", "G")) {
   rgCA[,sidx] <- calibrateMultiscan(rg[,sidx])
 }
 
-rgCAavg <- matrix(NA, nrow=nrow(rgCA), ncol=2)
+rgCAavg <- matrix(NA_real_, nrow=nrow(rgCA), ncol=2)
 colnames(rgCAavg) <- c("R", "G");
 for (channel in c("R", "G")) {
   sidx <- which(colnames(rg) == channel)

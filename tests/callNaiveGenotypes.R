@@ -15,7 +15,7 @@ calls <- callNaiveGenotypes(x, cn=rep(1,length(x)), verbose=-20)
 xc <- split(x, calls)
 print(table(calls))
 xx <- c(list(x),xc)
-plotDensity(xx, adjust=1.5, lwd=2, col=seq(along=xx), main="(AA,BB)")
+plotDensity(xx, adjust=1.5, lwd=2, col=seq_along(xx), main="(AA,BB)")
 abline(v=fit$x)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -23,7 +23,7 @@ abline(v=fit$x)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 xAB <- rnorm(n=10000, mean=1/2, sd=0.1)
 x <- c(xAA,xAB,xBB)
-x[sample(length(x), size=0.05*length(x))] <- NA;
+x[sample(length(x), size=0.05*length(x))] <- NA_real_;
 x[sample(length(x), size=0.01*length(x))] <- -Inf;
 x[sample(length(x), size=0.01*length(x))] <- +Inf;
 fit <- findPeaksAndValleys(x)
@@ -32,7 +32,7 @@ calls <- callNaiveGenotypes(x)
 xc <- split(x, calls)
 print(table(calls))
 xx <- c(list(x),xc)
-plotDensity(xx, adjust=1.5, lwd=2, col=seq(along=xx), main="(AA,AB,BB)")
+plotDensity(xx, adjust=1.5, lwd=2, col=seq_along(xx), main="(AA,AB,BB)")
 abline(v=fit$x)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -48,5 +48,5 @@ calls <- callNaiveGenotypes(x)
 xc <- split(x, calls)
 print(table(calls))
 xx <- c(list(x),xc)
-plotDensity(xx, adjust=1.5, lwd=2, col=seq(along=xx), main="(AA',AB',BB')")
+plotDensity(xx, adjust=1.5, lwd=2, col=seq_along(xx), main="(AA',AB',BB')")
 abline(v=fit$x)

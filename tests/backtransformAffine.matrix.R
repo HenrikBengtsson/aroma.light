@@ -1,7 +1,7 @@
 library("aroma.light")
 
 X <- matrix(1:8, nrow=4, ncol=2)
-X[2,2] <- NA
+X[2,2] <- NA_integer_
 
 print(X)
 

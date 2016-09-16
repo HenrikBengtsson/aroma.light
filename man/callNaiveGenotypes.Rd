@@ -58,7 +58,7 @@ calls <- callNaiveGenotypes(x, cn=rep(1,length(x)), verbose=-20)
 xc <- split(x, calls)
 print(table(calls))
 xx <- c(list(x),xc)
-plotDensity(xx, adjust=1.5, lwd=2, col=seq(along=xx), main="(AA,BB)")
+plotDensity(xx, adjust=1.5, lwd=2, col=seq_along(xx), main="(AA,BB)")
 abline(v=fit$x)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -75,7 +75,7 @@ calls <- callNaiveGenotypes(x)
 xc <- split(x, calls)
 print(table(calls))
 xx <- c(list(x),xc)
-plotDensity(xx, adjust=1.5, lwd=2, col=seq(along=xx), main="(AA,AB,BB)")
+plotDensity(xx, adjust=1.5, lwd=2, col=seq_along(xx), main="(AA,AB,BB)")
 abline(v=fit$x)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -91,7 +91,7 @@ calls <- callNaiveGenotypes(x)
 xc <- split(x, calls)
 print(table(calls))
 xx <- c(list(x),xc)
-plotDensity(xx, adjust=1.5, lwd=2, col=seq(along=xx), main="(AA',AB',BB')")
+plotDensity(xx, adjust=1.5, lwd=2, col=seq_along(xx), main="(AA',AB',BB')")
 abline(v=fit$x)
 }
 
