@@ -218,9 +218,13 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
       } else
         warning("not using invalid df; must have 1 < df <= n := #{unique x} = ", nx)
     }
-    iparms <- as.integer(c(icrit, ispar, contr.sp$maxit))
-    names(iparms) <- c("icrit", "ispar", "iter")
 
+    ## Since R-devel (>= 3.4.0 r70682; 2016-05-28), we need a fourth
+    ## 'iparms' parameter. This seems to be a minimal fix. /HB 2016-09-16
+    ## See https://github.com/HenrikBengtsson/aroma.light/issues/9
+    iparms <- as.integer(c(icrit, ispar, contr.sp$maxit, 0L))
+    names(iparms) <- c("icrit", "ispar", "iter", "")
+    
     object <- list(penalty=penalty, dofoff=dofoff, xbar=as.double(xbar), nx=nx, knot=knot, nk=nk, iparms=iparms, spar=spar, contr.sp=contr.sp, ox=ox, n=n, df.offset=df.offset, w=w, ux=ux, r.ux=r.ux);
     class(object) <- "smooth.spline.prepare";
     object;
@@ -279,7 +283,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
     if (inherits(x, "smooth.spline.prepare")) {
       prep <- x;
     } else {
-      xy <- xy.coords(x,y, setLab=FALSE);
+      xy <- xy.coords(x,y);
       prep <- smooth.spline.prepare(x=xy$x, w=w, df=df, spar=spar, cv=cv, all.knots=all.knots, df.offset=df.offset, penalty=penalty, control.spar=control.spar);
       y <- xy$y;
       # Not needed anymore

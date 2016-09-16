@@ -1,12 +1,13 @@
 Package: aroma.light
 ====================
 
-Version: 3.3.1-9000 [2016-08-24]
-o Using NA_real_ (not just NA) where applicable.
+Version: 3.3.1-9000 [2016-09-16]
+o BUG FIX: robustSmoothSpline() gave an error since R-devel (>= 3.4.0 r70682) (Issue #9)
+o Using NA_real_ (not just NA) everywhere applicable.
 
 
 Version: 3.3.1 [2016-08-10]
-CLEANUP: Using seq_len() and seq_along() everywhere [#8]
+CLEANUP: Using seq_len() and seq_along() everywhere (Issue #8)
 
 
 Version: 3.3.0 [2016-05-03]
