@@ -31,7 +31,10 @@ matrix:
       r: oldrel
     - os: osx
       r: release
-    
+
+bioc_packages:
+  - BiocInstaller
+
 notifications:
   email:
     on_success: change
