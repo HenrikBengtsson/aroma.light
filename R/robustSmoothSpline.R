@@ -151,7 +151,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   smooth.spline.prepare <- function(x, w=NULL, df=5, spar=NULL, cv=FALSE, all.knots=FALSE, df.offset=0, penalty=1, control.spar=list(), tol=1e-6*IQR(x)) {
     sknotl <- function(x) {
       nk <- .nknots.smspl(n <- length(x))
-      c(rep(x[1], 3), x[seq(1, n, len = nk)], rep(x[n], 3))
+      c(rep(x[1], 3), x[seq(1, n, length.out = nk)], rep(x[n], 3))
     }
 
     contr.sp <- list(low = -1.5,
