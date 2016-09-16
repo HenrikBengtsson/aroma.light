@@ -46,7 +46,7 @@ for (channel in c("R", "G")) {
 # is a remaining relative difference in bias between the green
 # and the red channel, a bias that precedes the scanning.
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-rgCA <- matrix(NA, nrow=nrow(rg), ncol=2)
+rgCA <- matrix(NA_real_, nrow=nrow(rg), ncol=2)
 colnames(rgCA) <- c("R", "G");
 for (channel in c("R", "G")) {
   sidx <- which(colnames(rg) == channel)

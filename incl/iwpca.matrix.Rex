@@ -39,7 +39,7 @@ w <- rep(1, length(x)); w[idx] <- 0.8
 maxIter <- c(seq(1,20,length=10),Inf)
 col <- topo.colors(length(maxIter))
 # Show the fitted value for every iteration
-for (ii in seq(along=maxIter)) {
+for (ii in seq_along(maxIter)) {
   # Fit a line using IWPCA through data 
   fit <- iwpca(y, w=w, maxIter=maxIter[ii], swapDirections=TRUE)
 
