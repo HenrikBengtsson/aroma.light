@@ -306,7 +306,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
       stop("NA lev[]; probably smoothing parameter `spar' way too large!")
     if (ier > 0) {
       sml <- (spar < 0.5)
-      wtxt <- paste("smoothing parameter value too", if (sml) "small" else "large")
+      wtxt <- paste0("smoothing parameter value too ", if (sml) "small" else "large", " (compared to 0.5): spar=", spar, " (caught because ier = ", ier, " > 0.5)")
       if (sml) {
         stop(wtxt)
       } else {
