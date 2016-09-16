@@ -1,7 +1,7 @@
 Package: aroma.light
 ====================
 
-Version: 3.3.1-9000 [2016-09-16]
+Version: 3.3.2 [2016-09-16]
 o BUG FIX: robustSmoothSpline() gave an error since R-devel (>= 3.4.0 r70682) (Issue #9)
 o Using NA_real_ (not just NA) everywhere applicable.
 
