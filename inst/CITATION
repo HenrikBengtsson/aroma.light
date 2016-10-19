@@ -171,7 +171,7 @@ citEntry(
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   entry="TechReport",
   author = "H. Bengtsson",
-  title = "{aroma} - {A}n {R} {O}bject-oriented {M}icroarray {A}nalysis environment}",
+  title = "{aroma} - {A}n {R} {O}bject-oriented {M}icroarray {A}nalysis environment",
   type = "Preprint in Mathematical Sciences",
   institution = "Mathematical Statistics, Centre for Mathematical Sciences, Lund University, Sweden",
   year = "2004",
