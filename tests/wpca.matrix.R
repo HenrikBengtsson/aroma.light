@@ -26,7 +26,7 @@ W <- 10
 
 # Plot the data with fitted lines at four different view points
 N <- 4
-theta <- seq(0,180,length=N)
+theta <- seq(0,180,length.out=N)
 phi <- rep(30, length.out=N)
 
 # Use a different color for each set of weights

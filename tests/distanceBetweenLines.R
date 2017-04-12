@@ -52,7 +52,7 @@ v <- seq(-10,10, by=1);
 xv <- list(x=x$a[1]+x$b[1]*v, y=x$a[2]+x$b[2]*v, z=x$a[3]+x$b[3]*v)
 yv <- list(x=y$a[1]+y$b[1]*v, y=y$a[2]+y$b[2]*v, z=y$a[3]+y$b[3]*v)
 
-for (theta in seq(30,140,length=3)) {
+for (theta in seq(30,140,length.out=3)) {
   plot3d(dummy, theta=theta, phi=30, xlab="", ylab="", zlab="",
                              xlim=ylim, ylim=ylim, zlim=zlim)
 
