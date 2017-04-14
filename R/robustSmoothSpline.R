@@ -135,7 +135,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   # The important is that we use these (x,yin) as our
   # (x,y) in the rest of the algorithm.
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  sdR0 <- as.double(NA);
+  sdR0 <- NA_real_;
   col <- 0;
   ready <- FALSE;
   iter <- 0;
