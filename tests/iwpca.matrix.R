@@ -22,11 +22,11 @@ y[idx,] <- y[idx,c(2,3,1)]
 opar <- par(mar=c(1,1,1,1)+0.1)
 N <- 4
 layout(matrix(1:N, nrow=2, byrow=TRUE))
-theta <- seq(0,270,length=N)
+theta <- seq(0,270,length.out=N)
 phi <- rep(20, length.out=N)
 xlim <- ylim <- zlim <- c(0,45);
 persp <- list();
-for (kk in seq(theta)) {
+for (kk in seq_along(theta)) {
   # Plot the data
   persp[[kk]] <- plot3d(y, theta=theta[kk], phi=phi[kk], xlim=xlim, ylim=ylim, zlim=zlim)
 }
@@ -54,7 +54,7 @@ for (ii in seq_along(maxIter)) {
   yline <- matrix(c(y0,y1), nrow=length(b), ncol=2)
   yline <- yline + ymid
 
-  for (kk in seq(theta)) {
+  for (kk in seq_along(theta)) {
     # Set pane to draw in
     par(mfg=c((kk-1) %/% 2, (kk-1) %% 2) + 1);
     # Set the viewpoint of the pane

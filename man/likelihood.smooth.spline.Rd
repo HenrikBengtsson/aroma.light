@@ -81,7 +81,7 @@ f <- expression(0.1*x^4 + 1*x^3 + 2*x^2 + x + 10*sin(2*x))
 
 # Simulate data from this function in the range [a,b]
 a <- -2; b <- 5
-x <- seq(a, b, length=3000)
+x <- seq(a, b, length.out=3000)
 y <- eval(f)
 
 # Add some noise to the data
