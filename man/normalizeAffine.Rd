@@ -156,7 +156,7 @@ layout(matrix(c(1,2,0,3,4,0,5,6,7), ncol=3, byrow=TRUE))
 rgC <- rg
 for (channel in c("R", "G")) {
   sidx <- which(colnames(rg) == channel)
-  channelColor <- switch(channel, R="red", G="green");
+  channelColor <- switch(channel, R="red", G="green")
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # The raw data
@@ -192,15 +192,15 @@ for (channel in c("R", "G")) {
 }
 
 rgCAavg <- matrix(NA_real_, nrow=nrow(rgCA), ncol=2)
-colnames(rgCAavg) <- c("R", "G");
+colnames(rgCAavg) <- c("R", "G")
 for (channel in c("R", "G")) {
   sidx <- which(colnames(rg) == channel)
-  rgCAavg[,channel] <- apply(rgCA[,sidx], MARGIN=1, FUN=median, na.rm=TRUE);
+  rgCAavg[,channel] <- apply(rgCA[,sidx], MARGIN=1, FUN=median, na.rm=TRUE)
 }
 
 # Add some "fake" outliers
 outliers <- 1:600
-rgCAavg[outliers,"G"] <- 50000;
+rgCAavg[outliers,"G"] <- 50000
 
 plotMvsA(rgCAavg)
 title(main="Average calibrated (AC)")
@@ -209,8 +209,8 @@ title(main="Average calibrated (AC)")
 # Normalize data
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Weight-down outliers when normalizing
-weights <- rep(1, nrow(rgCAavg));
-weights[outliers] <- 0.001;
+weights <- rep(1, nrow(rgCAavg))
+weights[outliers] <- 0.001
 
 # Affine normalization of channels
 rgCANa <- normalizeAffine(rgCAavg, weights=weights)

@@ -101,7 +101,7 @@ stopifnot(sum(X[,1]-Y) <= .Machine$double.eps)
 # backtransformation is applied and projected, the
 # same matrix is returned.
 X <- matrix(1:4, nrow=4, ncol=3)
-X[,2] <- X[,2]*2; X[,3] <- X[,3]*3;
+X[,2] <- X[,2]*2; X[,3] <- X[,3]*3
 print(X)
 Y <- backtransformAffine(X, b=c(1,2,3))
 print(Y)

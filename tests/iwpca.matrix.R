@@ -24,8 +24,8 @@ N <- 4
 layout(matrix(1:N, nrow=2, byrow=TRUE))
 theta <- seq(0,270,length.out=N)
 phi <- rep(20, length.out=N)
-xlim <- ylim <- zlim <- c(0,45);
-persp <- list();
+xlim <- ylim <- zlim <- c(0,45)
+persp <- list()
 for (kk in seq_along(theta)) {
   # Plot the data
   persp[[kk]] <- plot3d(y, theta=theta[kk], phi=phi[kk], xlim=xlim, ylim=ylim, zlim=zlim)
@@ -56,9 +56,9 @@ for (ii in seq_along(maxIter)) {
 
   for (kk in seq_along(theta)) {
     # Set pane to draw in
-    par(mfg=c((kk-1) %/% 2, (kk-1) %% 2) + 1);
+    par(mfg=c((kk-1) %/% 2, (kk-1) %% 2) + 1)
     # Set the viewpoint of the pane
-    options(persp.matrix=persp[[kk]]);
+    options(persp.matrix=persp[[kk]])
 
     # Get the first principal component
     points3d(t(ymid), col=col[ii])

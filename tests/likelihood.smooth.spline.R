@@ -30,14 +30,14 @@ x[1:5] <- x[1]  # Non-unique x values
 g <- smooth.spline(x,y, df=16)
 l <- likelihood(g)
 
-cat("\nLog likelihood of the *spline* data set:\n");
+cat("\nLog likelihood of the *spline* data set:\n")
 print(l)
 
 # In cases with non unique x values one has to proceed as
 # below if one want to get the log likelihood for the original
 # data.
 l <- likelihood(g, x=x, y=y)
-cat("\nLog likelihood of the *original* data set:\n");
+cat("\nLog likelihood of the *original* data set:\n")
 print(l)
 
 

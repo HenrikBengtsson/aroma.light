@@ -45,7 +45,7 @@ for (channel in c("R", "G")) {
 # and the red channel, a bias that precedes the scanning.
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 rgCA <- matrix(NA_real_, nrow=nrow(rg), ncol=2)
-colnames(rgCA) <- c("R", "G");
+colnames(rgCA) <- c("R", "G")
 for (channel in c("R", "G")) {
   sidx <- which(colnames(rg) == channel)
   rgCA[,channel] <- calibrateMultiscan(rg[,sidx])
