@@ -14,7 +14,13 @@ SIGNIFICANT CHANGES:
    changed.  Instead the re-iterative algorithm calls stats::smooth.spline() as
    is, which slows it down.  More importantly, it will now give slightly
    different estimates.
-   
+
+SOFTWARE QUALITY:
+
+ o In addition to continous integration (CI) tests and nightly Bioconductor
+   tests, the package is now also tested regularly against all reverse package
+   depencies available on CRAN and Bioconductor.
+ 
  
 Version: 3.5.0 [2016-10-18]
 
