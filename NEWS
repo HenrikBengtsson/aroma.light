@@ -1,9 +1,19 @@
 Package: aroma.light
 ====================
 
-Version: 3.5.0-9000 [2016-10-18]
-o ...
+Version: 3.5.0-9000 [2017-04-13]
 
+SIGNIFICANT CHANGES:
+o robustSmoothSpline() uses a re-weighted re-iterative algorithm that fits a
+  smooth spline using stats::smooth.spline(), calculates the residuals and
+  which are used to fit a re-weighted smooth spline and so on until converence.
+  Due to updates to stats::smooth.spline() in R (>= 3.4.0) it is no longer
+  feasible to maintain a highly optimized version of the algorithm, because it
+  was based on internal stats::smooth.spline() code that has no completely
+  changed.  Instead the re-iterative algorithm calls stats::smooth.spline() as
+  is, which slows it down.  More importantly, it will now give slightly
+  different estimates.
+  
 
 Version: 3.5.0 [2016-10-18]
 o The version number was bumped for the Bioconductor devel version,

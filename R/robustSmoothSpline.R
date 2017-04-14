@@ -1,16 +1,3 @@
-#  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 of the License, or
-#  (at your option) any later version.
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  A copy of the GNU General Public License is available at
-#  http://www.r-project.org/Licenses/
-
 ############################################################################/**
 # @RdocDefault robustSmoothSpline
 #
@@ -72,292 +59,8 @@
 setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), sdCriteria=2e-4, reps=1e-15, tol=1e-6*IQR(x), plotCurves=FALSE) {
   requireNamespace("stats") || throw("Package not loaded: stats");  # smooth.spline()
 
-  # To please RMD CMD check
-  nx <- 0;
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Local functions
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  getNativeSplineFitFunction <- function() {
-    # Locate all native Fortran routines
-    pkgName <- "stats";
-    fcns <- getDLLRegisteredRoutines(pkgName)$.Fortran;
-
-    # Since R (>= 2.15.2)
-    key <- "rbart";
-    if (is.element(key, names(fcns))) {
-      nparams <- fcns[[key]]$numParameters;
-      if (nparams == 20) {
-        expr <- parse(text="stats:::C_rbart");
-        routine <- eval(expr);
-        # Sanity check
-        stopifnot(inherits(routine, "FortranRoutine"));
-        fcn <- function(prep, ybar, wbar, yssw, nx, nk, ...) {
-          .Fortran(routine,
-             as.double(prep$penalty), as.double(prep$dofoff),
-             x=as.double(prep$xbar), y=as.double(ybar), w=as.double(wbar),
-             ssw=as.double(yssw), as.integer(nx), as.double(prep$knot),
-             as.integer(prep$nk), coef=double(nk), ty=double(nx),
-             lev=double(nx), crit=double(1), iparms=prep$iparms,
-             spar=prep$spar, parms=unlist(prep$contr.sp[1:4]),
-             scratch=double(17L * nk + 1L),
-             ld4=4L, ldnk=1L, ier=integer(1L),
-             PACKAGE=pkgName);
-        } # fcn()
-        return(fcn);
-      }
-
-      throw(sprintf("Non-supported number of parameters for internal spline function %s(): %d", key, nparams));
-    }
-
-    # Failed to locate native function
-    pd <- packageDescription("aroma.light");
-    throw(sprintf("INTERNAL ERROR of robustSmoothSline(): Failed to locate an internal spline function for %s. Please report this to the package maintainer (%s) of %s.", R.version$version.string, pd$Maintainer, pd$Package));
-  } # getNativeSplineFitFunction()
-
-
-  ns <- getNamespace("stats")
-  if (getRversion() >= "3.1.1") {
-    ## Exported stats::.nknots.smspl()
-    .nknots.smspl <- get(".nknots.smspl", envir=ns, mode="function")
-  } else {
-    ## Internal stats:::n.knots()
-    .nknots.smspl <- get("n.knots", envir=ns, mode="function")
-  }
-
-  whichUnique <- function(x, ...) {
-    # We need to make sure that 'g$x == x' below. /HB 2011-10-10
-    xx <- x;
-    keep <- rep(TRUE, times=length(x));
-    while (TRUE) {
-      idxs <- which(keep);
-      xx <- round((x[idxs] - mean(x[idxs]))/tol);  # de-mean to avoid possible overflow
-      dups <- duplicated(xx);
-      if (!any(dups)) {
-        break;
-      }
-      keep[idxs[dups]] <- FALSE;
-    } # while()
-    nd <- keep;
-
-    # Sanity check
-    stopifnot(length(nd) == length(x));
-
-    which(nd);
-  } # whichUnique()
-
   stats.smooth.spline <- smooth.spline;
-
-  smooth.spline.prepare <- function(x, w=NULL, df=5, spar=NULL, cv=FALSE, all.knots=FALSE, df.offset=0, penalty=1, control.spar=list(), tol=1e-6*IQR(x)) {
-    sknotl <- function(x) {
-      nk <- .nknots.smspl(n <- length(x))
-      c(rep(x[1], 3), x[seq(1, n, length.out = nk)], rep(x[n], 3))
-    }
-
-    contr.sp <- list(low = -1.5,
-                     high = 1.5,
-                     tol = 1e-4,
-                     eps = 2e-8,
-                     maxit = 500, trace = getOption("verbose"));
-
-    contr.sp[names(control.spar)] <- control.spar
-
-    if (!all(sapply(contr.sp[1:4], is.numeric)) || contr.sp$tol < 0 ||
-             contr.sp$eps <= 0 || contr.sp$maxit <= 0)
-      stop("invalid `control.spar'")
-    # ------------ Differences from smooth.spline BEGIN -----------
-    n <- length(x)
-    w <- if (is.null(w))
-      rep(1, n)
-    else {
-      if (n != length(w))
-        stop("lengths of 'x' and 'w' must match")
-      if (any(w < 0))
-        stop("all weights should be non-negative")
-      if (all(w == 0))
-        stop("some weights should be positive")
-      (w * sum(w > 0))/sum(w)
-    }
-
-    uIdxs <- whichUnique(x);
-    ux <- sort(x[uIdxs]);
-    nx <- length(ux);
-    if (nx == n) {
-      ox <- 1:n;
-    } else {
-      ox <- match(x, ux);
-    }
-
-    if (nx <= 3)
-        stop("need at least four unique `x' values")
-    if (cv && nx < n)
-        warning("crossvalidation with non-unique `x' seems doubtful")
-    # ------------ Differences from smooth.spline BEGIN -----------
-    # ...
-    # ------------ Differences from smooth.spline END -----------
-    r.ux <- ux[nx] - ux[1]
-    xbar <- (ux - ux[1])/r.ux
-    if (all.knots) {
-      knot <- c(rep(xbar[1], 3), xbar, rep(xbar[nx], 3))
-      nk <- nx + 2
-    } else {
-      knot <- sknotl(xbar)
-      nk <- length(knot) - 4
-    }
-    ispar <- if (is.null(spar) || missing(spar)) {
-      if (contr.sp$trace) -1 else 0
-    } else
-      1
-    spar <- if (ispar == 1) as.double(spar) else double(1)
-    icrit <- if (cv) 2 else 1
-    dofoff <- df.offset
-    if (!missing(df)) {
-      if (df > 1 && df <= nx) {
-        icrit <- 3
-        dofoff <- df
-      } else
-        warning("not using invalid df; must have 1 < df <= n := #{unique x} = ", nx)
-    }
-
-    ## Since R-devel (>= 3.4.0 r70682; 2016-05-28), we need a fourth
-    ## 'iparms' parameter. This seems to be a minimal fix. /HB 2016-09-16
-    ## See https://github.com/HenrikBengtsson/aroma.light/issues/9
-    iparms <- as.integer(c(icrit, ispar, contr.sp$maxit, 0L))
-    names(iparms) <- c("icrit", "ispar", "iter", "")
-    
-    object <- list(penalty=penalty, dofoff=dofoff, xbar=as.double(xbar), nx=nx, knot=knot, nk=nk, iparms=iparms, spar=spar, contr.sp=contr.sp, ox=ox, n=n, df.offset=df.offset, w=w, ux=ux, r.ux=r.ux);
-    class(object) <- "smooth.spline.prepare";
-    object;
-  } # smooth.spline.prepare()
-
-
-
-  smooth.spline.fit <- function(prep, y=NULL) {
-    nx <- prep$nx
-    n <- prep$n
-    if (nx == n) {
-      # Don't call tapply if not necessary. / HB 2002-03-02
-      wbar <- prep$w
-      ybar <- y
-      yssw <- rep(0, n)
-    } else {
-      w <- prep$w
-      ox <- prep$ox
-      # The tapply is expensive! / HB 2002-03-02
-##      tmp <- matrix(unlist(tapply(seq_along(y), ox, function(i, y, w) {
-##           c(sum(w[i]), sum(w[i]*y[i]), sum(w[i]*y[i]^2))
-##         }, y=y, w=w)), ncol=3, byrow = TRUE)
-      tmp <- tapply(seq_along(y), INDEX=ox, FUN=function(i, y, w) {
-           c(sum(w[i]), sum(w[i]*y[i]), sum(w[i]*y[i]^2))
-         }, y=y, w=w);
-      # Not needed anymore
-      w <- y <- NULL;
-      tmp <- unlist(tmp, use.names=FALSE);
-      tmp <- matrix(tmp, ncol=3, byrow=TRUE);
-      wbar <- tmp[, 1]
-      ybar <- tmp[, 2]/ifelse(wbar > 0, wbar, 1)
-      yssw <- sum(tmp[, 3] - wbar * ybar^2)
-      # Not needed anymore
-      tmp <- NULL;
-    }
-
-    nk <- prep$nk
-
-    fit <- fitFcn(prep=prep, ybar=ybar, wbar=wbar, yssw=yssw, nx=nx, nk=nk);
-
-    # Not needed anymore
-    prep <- yssw <- nk <- NULL;
-
-    fields <- c("coef", "ty", "lev", "spar", "parms", "crit", "iparms", "ier");
-    fit <- fit[fields];
-    fit$wbar <- wbar;
-    fit$ybar <- ybar;
-    # Not needed anymore
-    wbar <- ybar <- NULL;
-
-    fit;
-  } # smooth.spline.fit()
-
-
-  smooth.spline0 <- function(x, y=NULL, w=NULL, df=5, spar=NULL, cv=FALSE, all.knots=FALSE, df.offset=0, penalty=1, control.spar=list()) {
-    if (inherits(x, "smooth.spline.prepare")) {
-      prep <- x;
-    } else {
-      xy <- xy.coords(x,y);
-      prep <- smooth.spline.prepare(x=xy$x, w=w, df=df, spar=spar, cv=cv, all.knots=all.knots, df.offset=df.offset, penalty=penalty, control.spar=control.spar);
-      y <- xy$y;
-      # Not needed anymore
-      xy <- NULL;
-    }
-
-    fit <- smooth.spline.fit(prep, y=y);
-
-    lev <- fit$lev;
-    wbar <- fit$wbar;
-    coef <- fit$coef;
-    spar <- fit$spar;
-    iparms <- fit$iparms;
-    crit <- fit$crit;
-    lambda <- unname(fit$parms["low"]);
-    ybar <- fit$ybar;
-    ty <- fit$ty;
-    ier <-fit$ier;
-    # Not needed anymore
-    fit <- NULL;
-
-    df <- sum(lev)
-    if (is.na(df))
-      stop("NA lev[]; probably smoothing parameter `spar' way too large!")
-    if (ier > 0) {
-      sml <- (spar < 0.5)
-      wtxt <- paste0("smoothing parameter value too ", if (sml) "small" else "large", " (compared to 0.5): spar=", spar, " (caught because ier = ", ier, " > 0.5)")
-      if (sml) {
-        stop(wtxt)
-      } else {
-        ty <- rep(mean(y), nx)
-        df <- 1
-        warning(paste(wtxt, "setting df = 1  __use with care!__", sep="\n"))
-      }
-    }
-
-    ox <- prep$ox;
-    n <- prep$n;
-
-    cv.crit <- if (cv) {
-      ww <- wbar
-      ww[!(ww > 0)] <- 1
-      weighted.mean(((y - ty[ox])/(1 - (lev[ox] * w)/ww[ox]))^2, w)
-      # Not needed anymore
-      ww <- NULL;
-    } else {
-      weighted.mean((y - ty[ox])^2, w)/(1 - (df.offset + penalty * df)/n)^2
-    }
-
-    pen.crit <- sum(wbar * (ybar - ty) * ybar)
-
-    knot <- prep$knot;
-    nk <- prep$nk;
-    ux <- prep$ux;
-    r.ux <- prep$r.ux;
-    # Not needed anymore
-    prep <- NULL;
-
-    fit.object <- list(knot=knot, nk=nk, min=ux[1], range=r.ux, coef=coef)
-    class(fit.object) <- "smooth.spline.fit"
-    # Not needed anymore
-    knot <- nk <- r.ux <- NULL;
-    object <- list(x=ux, y=ty, w=wbar, yin=ybar, lev=lev, cv.crit=cv.crit,
-               pen.crit=pen.crit, crit=crit, df=df, spar=spar,
-               lambda=lambda, iparms=iparms, fit=fit.object,
-               call=match.call())
-    # Not needed anymore
-    ux <- ty <- wbar <- ybar <-  lev <- cv.crit <- pen.crit <- crit <- df <- spar <- lambda <- fit.object <- NULL;
-    class(object) <- "smooth.spline"
-
-    object
-  } # smooth.spline0()
-
-
+  
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Verify arguments
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -382,9 +85,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   # we have to remove corresponding weights too. There is a small problem here;
   # if different weights are used for data points (x,y,w) with same x-value, which
   # data points (x,y,w) should be used? Here we use the first one only. /HB 2005-01-24
-
-
-  uIdxs <- whichUnique(x);
+  uIdxs <- .whichUnique(x, tol = tol);
   nu <- length(uIdxs);
   w0 <- w[uIdxs];
 
@@ -420,14 +121,7 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
     x <- y <- w <- NULL;
   }
 
-  # Precalculate a lot of thing for speeding up subsequent calls
-  # to smooth.spline()
-  spline.prep <- smooth.spline.prepare(x=g$x, w=g$w,...);
-
-  # Sanity check
-  stopifnot(with(spline.prep, {length(w) == length(ux)}));
-
-
+  
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Step 0. Initiation
   #
@@ -441,10 +135,6 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   # The important is that we use these (x,yin) as our
   # (x,y) in the rest of the algorithm.
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  # Get a wrapper to the internal .Fortran() function
-  # which is not part of the public API of R. /HB 2012-08-19
-  fitFcn <- getNativeSplineFitFunction();
-
   sdR0 <- as.double(NA);
   col <- 0;
   ready <- FALSE;
@@ -483,7 +173,8 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
     # Not needed anymore
     ok.weights <- NULL;
 
-    g <- smooth.spline0(spline.prep, g$yin, w=w, ...);
+    g <- stats.smooth.spline(g$x, g$yin, w=w, ..., tol=tol);
+
     # Not needed anymore
     w <- NULL;
 
@@ -493,8 +184,35 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
     sdR0 <- sdR;
   } # while ( ... )
 
+  g$iter <- iter
+  
   g;
 }) # robustSmoothSpline()
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Local functions
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+.whichUnique <- function(x, ..., tol) {
+  # We need to make sure that 'g$x == x' below. /HB 2011-10-10
+  xx <- x;
+  keep <- rep(TRUE, times=length(x));
+  while (TRUE) {
+    idxs <- which(keep);
+    xx <- round((x[idxs] - mean(x[idxs]))/tol);  # de-mean to avoid possible overflow
+    dups <- duplicated(xx);
+    if (!any(dups)) {
+      break;
+    }
+    keep[idxs[dups]] <- FALSE;
+  } # while()
+  nd <- keep;
+
+  # Sanity check
+  stopifnot(length(nd) == length(x));
+
+  which(nd);
+} # .whichUnique()
 
 
 ######################################################################
