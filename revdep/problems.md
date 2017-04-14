@@ -25,116 +25,85 @@
 
 # Check results
 
-2 packages with problems
+1 packages with problems
 
 |package       |version | errors| warnings| notes|
 |:-------------|:-------|------:|--------:|-----:|
-|metaseqR      |1.14.0  |      1|        1|     4|
-|oneChannelGUI |1.40.0  |      1|        0|     0|
-
-## metaseqR (1.14.0)
-Maintainer: Panagiotis Moulos <moulos@fleming.gr>
-
-1 error  | 1 warning  | 4 notes
-
-```
-checking tests ... ERROR
-  Running ‘runTests.R’ [12s/34s]
-Running the tests in ‘tests/runTests.R’ failed.
-Last 13 lines of output:
-  ERROR in test_estimate_aufc_weights: Error in .check_ncores(cores) : 4 simultaneous processes spawned
-  ERROR in test_metaseqr: Error in .check_ncores(cores) : 3 simultaneous processes spawned
-  
-  Test files with failing tests
-  
-     test_estimate_aufc_weights.R 
-       test_estimate_aufc_weights 
-  
-     test_metaseqr.R 
-       test_metaseqr 
-  
-  
-  Error in BiocGenerics:::testPackage("metaseqR") : 
-    unit tests failed for package metaseqR
-  Execution halted
-
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-
-The following objects are masked from 'package:ShortRead':
-
-    left, right
-
-Loading required package: lattice
-    Welcome to 'DESeq'. For improved performance, usability and
-... 8 lines ...
-    plotMA
-
-The following object is masked from 'package:BiocGenerics':
-
-    plotMA
-
-Loading required package: qvalue
-Quitting from lines 119-159 (metaseqr-pdf.Rnw) 
-Error: processing vignette 'metaseqr-pdf.Rnw' failed with diagnostics:
-4 simultaneous processes spawned
-Execution halted
-
-checking package dependencies ... NOTE
-Packages which this enhances but not available for checking: ‘TCC’ ‘RMySQL’
-
-checking DESCRIPTION meta-information ... NOTE
-Malformed Title field: should not end in a period.
-
-checking dependencies in R code ... NOTE
-'library' or 'require' calls in package code:
-  ‘BSgenome’ ‘BiocInstaller’ ‘GenomicRanges’ ‘RMySQL’ ‘RSQLite’
-  ‘Rsamtools’ ‘TCC’ ‘VennDiagram’ ‘parallel’ ‘rtracklayer’ ‘survcomp’
-  ‘zoo’
-  Please use :: or requireNamespace() instead.
-  See section 'Suggested packages' in the 'Writing R Extensions' manual.
-
-checking R code for possible problems ... NOTE
-biasPlotToJSON: no visible binding for global variable ‘nams’
-cddat: no visible global function definition for ‘assayData’
-cddat: no visible global function definition for ‘ks.test’
-cddat: no visible global function definition for ‘p.adjust’
-cdplot: no visible global function definition for ‘plot’
-cdplot: no visible global function definition for ‘lines’
-countsBioToJSON: no visible binding for global variable ‘nams’
-diagplot.avg.ftd : <anonymous>: no visible binding for global variable
-  ‘sd’
-... 246 lines ...
-             "dev.off", "jpeg", "pdf", "png", "postscript", "tiff")
-  importFrom("graphics", "abline", "arrows", "axis", "grid", "lines",
-             "mtext", "par", "plot", "plot.new", "plot.window", "points",
-             "text", "title")
-  importFrom("methods", "as", "new")
-  importFrom("stats", "as.dist", "cmdscale", "cor", "end", "ks.test",
-             "mad", "median", "model.matrix", "na.exclude", "optimize",
-             "p.adjust", "p.adjust.methods", "pchisq", "quantile",
-             "rexp", "rnbinom", "runif", "sd", "start", "var")
-to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
-contains 'methods').
-```
+|oneChannelGUI |1.40.0  |      0|        2|     6|
 
 ## oneChannelGUI (1.40.0)
 Maintainer: Raffaele A Calogero <raffaele.calogero@unito.it>
 
-1 error  | 0 warnings | 0 notes
+0 errors | 2 warnings | 6 notes
 
 ```
-checking package dependencies ... ERROR
-Packages required but not available: ‘affylmGUI’ ‘tkrplot’
+checking whether package ‘oneChannelGUI’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+  Warning: loading Rplot failed
+See ‘/home/hb/repositories/aroma.light/revdep/checks/oneChannelGUI.Rcheck/00install.out’ for details.
 
+checking sizes of PDF files under ‘inst/doc’ ... WARNING
+  ‘gs+qpdf’ made some significant size reductions:
+     compacted ‘Exon-level.analysis.pdf’ from 1395Kb to 598Kb
+     compacted ‘RNAseq.pdf’ from 1979Kb to 385Kb
+  consider running tools::compactPDF(gs_quality = "ebook") on these files
+
+checking package dependencies ... NOTE
 Depends: includes the non-default packages:
   ‘Biobase’ ‘affylmGUI’ ‘tkrplot’ ‘tkWidgets’ ‘IRanges’ ‘Rsamtools’
   ‘Biostrings’ ‘siggenes’ ‘chimera’
 Adding so many packages to the search path is excessive and importing
 selectively is preferable.
 
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
+checking installed package size ... NOTE
+  installed size is  6.6Mb
+  sub-directories of 1Mb or more:
+    doc   5.0Mb
+
+checking DESCRIPTION meta-information ... NOTE
+Malformed Description field: should contain one or more complete sentences.
+
+checking dependencies in R code ... NOTE
+'library' or 'require' calls in package code:
+  ‘BSgenome.Hsapiens.UCSC.hg19’ ‘BSgenome.Mmusculus.UCSC.mm9’
+  ‘BSgenome.Rnorvegicus.UCSC.rn4’ ‘Genominator’ ‘affy’ ‘affyPLM’
+  ‘chipseq’ ‘maSigPro’
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+
+checking R code for possible problems ... NOTE
+.consistentFilter: warning in get("midas.p.Available", env =
+  affylmGUIenvironment): partial argument match of 'env' to 'envir'
+.consistentFilter: warning in get("AltSplRP.e.Available", env =
+  affylmGUIenvironment): partial argument match of 'env' to 'envir'
+.consistentFilter: warning in get("AltSplRP.e.p", env =
+  affylmGUIenvironment): partial argument match of 'env' to 'envir'
+.consistentFilter: warning in get("midas.p", env =
+  affylmGUIenvironment): partial argument match of 'env' to 'envir'
+.consistentFilter: warning in get("spliceIndexData", env =
+... 2499 lines ...
+  data("chrLength", package = "oneChannelGUI")
+  data("chrLength", package = "oneChannelGUI")
+  data("chrLength", package = "oneChannelGUI")
+  data("chrLength", package = "oneChannelGUI")
+File ‘oneChannelGUI/R/generaltoolsmenu.R’:
+  data(HuExExonProbesetLocation)
+  data(MoExExonProbesetLocation)
+  data(RaExExonProbesetLocation)
+File ‘oneChannelGUI/R/standalonefunctions.R’:
+  data("chrLength", package = "oneChannelGUI")
+See section ‘Good practice’ in ‘?data’.
+
+checking Rd line widths ... NOTE
+Rd file 'oneChannelGUI.Rd':
+  \usage lines wider than 90 characters:
+     wrapperMirnaCounts(working.dir, out.dir, org = "hsa", threads = 1, cutadapt.path = "/usr/local/bin/cutadapt", parallel = FALSE, ...)
+
+Rd file 'standAloneBuildingLocalAnnotation.Rd':
+  \usage lines wider than 90 characters:
+        standAloneBuildingLocalAnnotation(libDirLocation = getwd(), netaffxUser = "myemail@somewhere.org", netaffxUserPw = "yourpassword", w ... [TRUNCATED]
+
+These lines will be truncated in the PDF manual.
 ```
 

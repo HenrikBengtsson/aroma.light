@@ -29,7 +29,7 @@
 
 |package           |version | errors| warnings| notes|
 |:-----------------|:-------|------:|--------:|-----:|
-|ACNE              |0.8.1   |      0|        0|     0|
+|apmsWAPP          |1.0     |      0|        0|     1|
 |aroma.affymetrix  |3.1.0   |      0|        0|     0|
 |aroma.cn          |1.6.1   |      0|        0|     0|
 |aroma.core        |3.1.0   |      0|        0|     0|
@@ -39,11 +39,11 @@
 |HTSCluster        |2.0.8   |      0|        0|     0|
 |HTSFilter         |1.14.1  |      0|        0|     0|
 |metaRNASeq        |1.0.2   |      0|        0|     1|
-|metaseqR          |1.14.0  |      1|        1|     4|
+|metaseqR          |1.14.0  |      0|        0|     4|
 |MoonlightR        |1.0.0   |      0|        0|     2|
 |MPAgenomics       |1.1.2   |      0|        0|     2|
 |NSA               |0.0.32  |      0|        0|     6|
-|oneChannelGUI     |1.40.0  |      1|        0|     0|
+|oneChannelGUI     |1.40.0  |      0|        2|     6|
 |PBNPA             |0.0.1   |      0|        0|     0|
 |PECA              |1.10.0  |      0|        0|     1|
 |PSCBS             |0.62.0  |      0|        0|     0|
@@ -55,11 +55,35 @@
 |TCGAbiolinks      |2.2.10  |      0|        0|     3|
 |TIN               |1.6.0   |      0|        0|     2|
 
-## ACNE (0.8.1)
-Maintainer: Henrik Bengtsson <henrikb@braju.com>  
-Bug reports: https://github.com/HenrikBengtsson/ACNE/issues
+## apmsWAPP (1.0)
+Maintainer: Martina Fischer <fischerm@rki.de>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking R code for possible problems ... NOTE
+TSPM: no visible global function definition for ‘glm’
+TSPM: no visible binding for global variable ‘poisson’
+TSPM: no visible global function definition for ‘hatvalues’
+TSPM: no visible global function definition for ‘residuals’
+TSPM: no visible global function definition for ‘deviance’
+TSPM: no visible global function definition for ‘qchisq’
+TSPM: no visible global function definition for ‘qf’
+TSPM: no visible global function definition for ‘pf’
+TSPM: no visible global function definition for ‘pchisq’
+... 11 lines ...
+varFilter: no visible global function definition for ‘median’
+varFilter: no visible global function definition for ‘quantile’
+Undefined global functions or variables:
+  deviance glm hatvalues median p.adjust pchisq pf poisson qchisq qf
+  quantile read.table residuals write.csv2 write.table
+Consider adding
+  importFrom("stats", "deviance", "glm", "hatvalues", "median",
+             "p.adjust", "pchisq", "pf", "poisson", "qchisq", "qf",
+             "quantile", "residuals")
+  importFrom("utils", "read.table", "write.csv2", "write.table")
+to your NAMESPACE file.
+```
 
 ## aroma.affymetrix (3.1.0)
 Maintainer: Henrik Bengtsson <henrikb@braju.com>  
@@ -200,52 +224,9 @@ to your NAMESPACE file.
 ## metaseqR (1.14.0)
 Maintainer: Panagiotis Moulos <moulos@fleming.gr>
 
-1 error  | 1 warning  | 4 notes
+0 errors | 0 warnings | 4 notes
 
 ```
-checking tests ... ERROR
-  Running ‘runTests.R’ [12s/34s]
-Running the tests in ‘tests/runTests.R’ failed.
-Last 13 lines of output:
-  ERROR in test_estimate_aufc_weights: Error in .check_ncores(cores) : 4 simultaneous processes spawned
-  ERROR in test_metaseqr: Error in .check_ncores(cores) : 3 simultaneous processes spawned
-  
-  Test files with failing tests
-  
-     test_estimate_aufc_weights.R 
-       test_estimate_aufc_weights 
-  
-     test_metaseqr.R 
-       test_metaseqr 
-  
-  
-  Error in BiocGenerics:::testPackage("metaseqR") : 
-    unit tests failed for package metaseqR
-  Execution halted
-
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-
-The following objects are masked from 'package:ShortRead':
-
-    left, right
-
-Loading required package: lattice
-    Welcome to 'DESeq'. For improved performance, usability and
-... 8 lines ...
-    plotMA
-
-The following object is masked from 'package:BiocGenerics':
-
-    plotMA
-
-Loading required package: qvalue
-Quitting from lines 119-159 (metaseqr-pdf.Rnw) 
-Error: processing vignette 'metaseqr-pdf.Rnw' failed with diagnostics:
-4 simultaneous processes spawned
-Execution halted
-
 checking package dependencies ... NOTE
 Packages which this enhances but not available for checking: ‘TCC’ ‘RMySQL’
 
@@ -426,20 +407,77 @@ These lines will be truncated in the PDF manual.
 ## oneChannelGUI (1.40.0)
 Maintainer: Raffaele A Calogero <raffaele.calogero@unito.it>
 
-1 error  | 0 warnings | 0 notes
+0 errors | 2 warnings | 6 notes
 
 ```
-checking package dependencies ... ERROR
-Packages required but not available: ‘affylmGUI’ ‘tkrplot’
+checking whether package ‘oneChannelGUI’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+  Warning: loading Rplot failed
+See ‘/home/hb/repositories/aroma.light/revdep/checks/oneChannelGUI.Rcheck/00install.out’ for details.
 
+checking sizes of PDF files under ‘inst/doc’ ... WARNING
+  ‘gs+qpdf’ made some significant size reductions:
+     compacted ‘Exon-level.analysis.pdf’ from 1395Kb to 598Kb
+     compacted ‘RNAseq.pdf’ from 1979Kb to 385Kb
+  consider running tools::compactPDF(gs_quality = "ebook") on these files
+
+checking package dependencies ... NOTE
 Depends: includes the non-default packages:
   ‘Biobase’ ‘affylmGUI’ ‘tkrplot’ ‘tkWidgets’ ‘IRanges’ ‘Rsamtools’
   ‘Biostrings’ ‘siggenes’ ‘chimera’
 Adding so many packages to the search path is excessive and importing
 selectively is preferable.
 
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
+checking installed package size ... NOTE
+  installed size is  6.6Mb
+  sub-directories of 1Mb or more:
+    doc   5.0Mb
+
+checking DESCRIPTION meta-information ... NOTE
+Malformed Description field: should contain one or more complete sentences.
+
+checking dependencies in R code ... NOTE
+'library' or 'require' calls in package code:
+  ‘BSgenome.Hsapiens.UCSC.hg19’ ‘BSgenome.Mmusculus.UCSC.mm9’
+  ‘BSgenome.Rnorvegicus.UCSC.rn4’ ‘Genominator’ ‘affy’ ‘affyPLM’
+  ‘chipseq’ ‘maSigPro’
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+
+checking R code for possible problems ... NOTE
+.consistentFilter: warning in get("midas.p.Available", env =
+  affylmGUIenvironment): partial argument match of 'env' to 'envir'
+.consistentFilter: warning in get("AltSplRP.e.Available", env =
+  affylmGUIenvironment): partial argument match of 'env' to 'envir'
+.consistentFilter: warning in get("AltSplRP.e.p", env =
+  affylmGUIenvironment): partial argument match of 'env' to 'envir'
+.consistentFilter: warning in get("midas.p", env =
+  affylmGUIenvironment): partial argument match of 'env' to 'envir'
+.consistentFilter: warning in get("spliceIndexData", env =
+... 2499 lines ...
+  data("chrLength", package = "oneChannelGUI")
+  data("chrLength", package = "oneChannelGUI")
+  data("chrLength", package = "oneChannelGUI")
+  data("chrLength", package = "oneChannelGUI")
+File ‘oneChannelGUI/R/generaltoolsmenu.R’:
+  data(HuExExonProbesetLocation)
+  data(MoExExonProbesetLocation)
+  data(RaExExonProbesetLocation)
+File ‘oneChannelGUI/R/standalonefunctions.R’:
+  data("chrLength", package = "oneChannelGUI")
+See section ‘Good practice’ in ‘?data’.
+
+checking Rd line widths ... NOTE
+Rd file 'oneChannelGUI.Rd':
+  \usage lines wider than 90 characters:
+     wrapperMirnaCounts(working.dir, out.dir, org = "hsa", threads = 1, cutadapt.path = "/usr/local/bin/cutadapt", parallel = FALSE, ...)
+
+Rd file 'standAloneBuildingLocalAnnotation.Rd':
+  \usage lines wider than 90 characters:
+        standAloneBuildingLocalAnnotation(libDirLocation = getwd(), netaffxUser = "myemail@somewhere.org", netaffxUserPw = "yourpassword", w ... [TRUNCATED]
+
+These lines will be truncated in the PDF manual.
 ```
 
 ## PBNPA (0.0.1)
