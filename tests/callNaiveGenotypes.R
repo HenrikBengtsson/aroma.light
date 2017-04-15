@@ -23,9 +23,9 @@ abline(v=fit$x)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 xAB <- rnorm(n=10000, mean=1/2, sd=0.1)
 x <- c(xAA,xAB,xBB)
-x[sample(length(x), size=0.05*length(x))] <- NA_real_;
-x[sample(length(x), size=0.01*length(x))] <- -Inf;
-x[sample(length(x), size=0.01*length(x))] <- +Inf;
+x[sample(length(x), size=0.05*length(x))] <- NA_real_
+x[sample(length(x), size=0.01*length(x))] <- -Inf
+x[sample(length(x), size=0.01*length(x))] <- +Inf
 fit <- findPeaksAndValleys(x)
 print(fit)
 calls <- callNaiveGenotypes(x)

@@ -67,7 +67,7 @@ X[sample(3*N, size=0.20*3*N)] <- NA
 
 # Plot the data
 layout(matrix(c(1,0,2:5), ncol=2, byrow=TRUE))
-xlim <- range(X, na.rm=TRUE);
+xlim <- range(X, na.rm=TRUE)
 plotDensity(X, lwd=2, xlim=xlim, main="The three original distributions")
 
 Xn <- normalizeQuantile(X)

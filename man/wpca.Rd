@@ -104,7 +104,7 @@ W <- 10
 
 # Plot the data with fitted lines at four different view points
 N <- 4
-theta <- seq(0,180,length=N)
+theta <- seq(0,180,length.out=N)
 phi <- rep(30, length.out=N)
 
 # Use a different color for each set of weights
@@ -112,7 +112,7 @@ col <- topo.colors(W)
 
 opar <- par(mar=c(1,1,1,1)+0.1)
 layout(matrix(1:N, nrow=2, byrow=TRUE))
-for (kk in seq(theta)) {
+for (kk in seq_along(theta)) {
   # Plot the data
   plot3d(y, theta=theta[kk], phi=phi[kk])
  
@@ -217,10 +217,8 @@ par(opar)
 \references{
   [1] J. Demmel and  J. Dongarra, \emph{DOE2000 Progress Report}, 2004.
       \url{http://www.cs.berkeley.edu/~demmel/DOE2000/Report0100.html} \cr
-  [2] Todd Will,
-      \emph{Introduction to the Singular Value Decomposition},
-      UW-La Crosse, 2004.
-      \url{http://www.uwlax.edu/faculty/will/svd/} \cr
+  [2] Todd Will, \emph{Introduction to the Singular Value Decomposition},
+      UW-La Crosse, 2004. \url{http://websites.uwlax.edu/twill/svd/} \cr
 }
 
 \seealso{
@@ -228,8 +226,8 @@ par(opar)
   For Singular Value Decomposition, see \code{\link[base]{svd}}().
   For other implementations of Principal Component Analysis functions see
   (if they are installed):
-  \code{\link[stats]{prcomp}} in package \pkg{stats} and
-  \code{pca()} in package \pkg{pcurve}.
+  \code{\link[stats]{prcomp}} in package \pkg{stats} and \code{pca()} in package
+  \pkg{pcurve}.
 }
 
 

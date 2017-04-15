@@ -79,7 +79,7 @@ for (kk in 1:8) {
 
 # Add 20\% missing values
 X <- lapply(X, FUN=function(x) {
-  x[sample(length(x), size=0.20*length(x))] <- NA;
+  x[sample(length(x), size=0.20*length(x))] <- NA
   x
 })
 
@@ -88,7 +88,7 @@ Xn <- normalizeQuantile(X)
 
 # Plot the data
 layout(matrix(1:2, ncol=1))
-xlim <- range(X, na.rm=TRUE);
+xlim <- range(X, na.rm=TRUE)
 plotDensity(X, lwd=2, xlim=xlim, main="The original distributions")
 plotDensity(Xn, lwd=2, xlim=xlim, main="The normalized distributions")
 }

@@ -5,7 +5,7 @@ f <- expression(0.1*x^4 + 1*x^3 + 2*x^2 + x + 10*sin(2*x))
 
 # Simulate data from this function in the range [a,b]
 a <- -2; b <- 5
-x <- seq(a, b, length=3000)
+x <- seq(a, b, length.out=3000)
 y <- eval(f)
 
 # Add some noise to the data
@@ -30,14 +30,14 @@ x[1:5] <- x[1]  # Non-unique x values
 g <- smooth.spline(x,y, df=16)
 l <- likelihood(g)
 
-cat("\nLog likelihood of the *spline* data set:\n");
+cat("\nLog likelihood of the *spline* data set:\n")
 print(l)
 
 # In cases with non unique x values one has to proceed as
 # below if one want to get the log likelihood for the original
 # data.
 l <- likelihood(g, x=x, y=y)
-cat("\nLog likelihood of the *original* data set:\n");
+cat("\nLog likelihood of the *original* data set:\n")
 print(l)
 
 

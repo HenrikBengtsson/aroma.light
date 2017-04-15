@@ -74,7 +74,7 @@ Xn <- normalizeQuantile(X)
 
 # Plot the data
 layout(matrix(1:2, ncol=1))
-xlim <- range(X, Xn, na.rm=TRUE);
+xlim <- range(X, Xn, na.rm=TRUE)
 plotDensity(X, lwd=2, xlim=xlim, main="The three original distributions")
 plotDensity(Xn, lwd=2, xlim=xlim, main="The three normalized distributions")
 }

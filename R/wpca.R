@@ -80,10 +80,8 @@
 # \references{
 #   [1] J. Demmel and  J. Dongarra, \emph{DOE2000 Progress Report}, 2004.
 #       \url{http://www.cs.berkeley.edu/~demmel/DOE2000/Report0100.html} \cr
-#   [2] Todd Will,
-#       \emph{Introduction to the Singular Value Decomposition},
-#       UW-La Crosse, 2004.
-#       \url{http://www.uwlax.edu/faculty/will/svd/} \cr
+#   [2] Todd Will, \emph{Introduction to the Singular Value Decomposition},
+#       UW-La Crosse, 2004. \url{http://websites.uwlax.edu/twill/svd/} \cr
 # }
 #
 # \seealso{
@@ -91,8 +89,8 @@
 #   For Singular Value Decomposition, see @see "base::svd".
 #   For other implementations of Principal Component Analysis functions see
 #   (if they are installed):
-#   @see "stats::prcomp" in package \pkg{stats} and
-#   \code{pca()} in package \pkg{pcurve}.
+#   @see "stats::prcomp" in package \pkg{stats} and \code{pca()} in package
+#   \pkg{pcurve}.
 # }
 #
 # @keyword "algebra"

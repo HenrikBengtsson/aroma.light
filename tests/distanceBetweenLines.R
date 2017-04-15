@@ -23,7 +23,7 @@ text(t(x$a), label=expression(a[x]), adj=c(-1,0.5))
 points(t(y$a), pch="+", col="blue")
 text(t(y$a), label=expression(a[y]), adj=c(-1,0.5))
 
-v <- c(-1,1)*10;
+v <- c(-1,1)*10
 xv <- list(x=x$a[1]+x$b[1]*v, y=x$a[2]+x$b[2]*v)
 yv <- list(x=y$a[1]+y$b[1]*v, y=y$a[2]+y$b[2]*v)
 
@@ -45,14 +45,14 @@ y <- list(a=c(2,1,2), b=c(2,1,3))  # A 'fitted' line
 fit <- distanceBetweenLines(ax=x$a, bx=x$b, ay=y$a, by=y$b)
 
 xlim <- ylim <- zlim <- c(-1,3)
-dummy <- t(c(1,1,1))*100;
+dummy <- t(c(1,1,1))*100
 
 # Coordinates for the lines in 3d
-v <- seq(-10,10, by=1);
+v <- seq(-10,10, by=1)
 xv <- list(x=x$a[1]+x$b[1]*v, y=x$a[2]+x$b[2]*v, z=x$a[3]+x$b[3]*v)
 yv <- list(x=y$a[1]+y$b[1]*v, y=y$a[2]+y$b[2]*v, z=y$a[3]+y$b[3]*v)
 
-for (theta in seq(30,140,length=3)) {
+for (theta in seq(30,140,length.out=3)) {
   plot3d(dummy, theta=theta, phi=30, xlab="", ylab="", zlab="",
                              xlim=ylim, ylim=ylim, zlim=zlim)
 
