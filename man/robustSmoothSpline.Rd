@@ -41,6 +41,11 @@
            spline robustly. Default value is 3.}
   \item{maxIter}{the maximum number of iterations used to fit the smoothing
            spline robustly. Default value is 25.}
+  \item{method}{the method used to compute robustness weights at each
+           iteration. Default value is "L1", which uses the inverse of the
+           absolute value of the residuals. Using "symmetric" will use
+           Tukey's biweight with cut-off equal to six times the MAD of the
+           residuals, equivalent to \code{\link[stats]{lowess}}.}
   \item{sdCriteria}{Convergence criteria, which the difference between the
            standard deviation of the residuals between two consecutive iteration
            steps. Default value is 2e-4.}

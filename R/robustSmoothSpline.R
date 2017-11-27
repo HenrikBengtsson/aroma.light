@@ -29,6 +29,11 @@
 #            spline robustly. Default value is 3.}
 #   \item{maxIter}{the maximum number of iterations used to fit the smoothing
 #            spline robustly. Default value is 25.}
+#   \item{method}{the method used to compute robustness weights at each 
+#            iteration. Default value is "L1", which uses the inverse of the
+#            absolute value of the residuals. Using "symmetric" will use 
+#            Tukey's biweight with cut-off equal to six times the MAD of the
+#            residuals, equivalent to @see "stats::lowess".}
 #   \item{sdCriteria}{Convergence criteria, which the difference between the
 #            standard deviation of the residuals between two consecutive iteration
 #            steps. Default value is 2e-4.}
@@ -56,7 +61,9 @@
 # @keyword "smooth"
 # @keyword "robust"
 #*/############################################################################
-setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), sdCriteria=2e-4, reps=1e-15, tol=1e-6*IQR(x), plotCurves=FALSE) {
+setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), 
+                                                      method=c("L1", "symmetric"), 
+                                                      sdCriteria=2e-4, reps=1e-15, tol=1e-6*IQR(x), plotCurves=FALSE) {
   requireNamespace("stats") || throw("Package not loaded: stats");  # smooth.spline()
 
   stats.smooth.spline <- smooth.spline;
@@ -76,6 +83,9 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   } else if (!is.null(w)) {
     stop("Argument 'w' is of an unsupported datatype/class: ", class(weights)[1]);
   }
+
+  # Argument: 'method'
+  method <- match.arg(method)
 
   # Argument: 'reps'
   if (!is.numeric(reps) || length(reps) != 1 || reps <= 0)
@@ -141,9 +151,17 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
   iter <- 0;
   while (!ready & iter < maxIter) {
     iter <- iter + 1;
+
     # Calculate the residuals and the weights
     r <- (g$yin-g$y);
-    w <- 1/(abs(r)+reps); # Add a small constant for stability.
+    if (method=="L1") {
+        w <- 1/(abs(r)+reps); # Add a small constant for stability.
+    } else {
+        rmad <- mad(r)
+        threshold <- 6 * rmad # same as lowess().
+        threshold <- max(reps, threshold) # avoid instability at very low MADs.
+        w <- (1 - pmin(1, abs(r)/threshold)^2)^2
+    }
 
     # If the user specified weights initially, the weights
     # calculated from the inverse of the residuals are themselve
