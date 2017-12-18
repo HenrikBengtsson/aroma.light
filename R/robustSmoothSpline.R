@@ -61,8 +61,7 @@
 # @keyword "smooth"
 # @keyword "robust"
 #*/############################################################################
-setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), 
-                                                      method=c("L1", "symmetric"), 
+setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50), method=c("L1", "symmetric"), 
                                                       sdCriteria=2e-4, reps=1e-15, tol=1e-6*IQR(x), plotCurves=FALSE) {
   requireNamespace("stats") || throw("Package not loaded: stats");  # smooth.spline()
 
@@ -155,12 +154,12 @@ setMethodS3("robustSmoothSpline", "default", function(x, y=NULL, w=NULL, ..., mi
     # Calculate the residuals and the weights
     r <- (g$yin-g$y);
     if (method=="L1") {
-        w <- 1/(abs(r)+reps); # Add a small constant for stability.
+      w <- 1/(abs(r)+reps); # Add a small constant for stability.
     } else {
-        rmad <- mad(r)
-        threshold <- 6 * rmad # same as lowess().
-        threshold <- max(reps, threshold) # avoid instability at very low MADs.
-        w <- (1 - pmin(1, abs(r)/threshold)^2)^2
+      rmad <- mad(r);
+      threshold <- 6 * rmad; # same as lowess().
+      threshold <- max(reps, threshold); # avoid instability at very low MADs.
+      w <- (1 - pmin(1, abs(r)/threshold)^2)^2;
     }
 
     # If the user specified weights initially, the weights
