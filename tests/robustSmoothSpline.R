@@ -18,8 +18,15 @@ lines(smooth.spline(speed, dist, df=10), lty=2, col = "blue")
 # Fit a smoothing spline using L_1 norm with 10 degrees of freedom
 lines(robustSmoothSpline(speed, dist, df=10), lty=2, col = "red")
 
+# Fit a smoothing spline using Tukey's biweight norm
+cars.rspl <- robustSmoothSpline(speed, dist, method = "symmetric")
+lines(cars.rspl, col = "purple")
+
 legend(5,120, c(
-    paste("smooth.spline [C.V.] => df =",round(cars.spl$df,1)),
-    paste("robustSmoothSpline [C.V.] => df =",round(cars.rspl$df,1)),
-    "standard with s( * , df = 10)", "robust with s( * , df = 10)"
-  ), col = c("blue","red","blue","red"), lty = c(1,1,2,2), bg='bisque')
+      paste("smooth.spline [C.V.] => df =",round(cars.spl$df,1)),
+      paste("robustSmoothSpline L1 [C.V.] => df =",round(cars.rspl$df,1)),
+      paste("robustSmoothSpline symmetric [C.V.] => df =",round(cars.rspl$df,1)),
+      "standard with s( * , df = 10)", "robust with s( * , df = 10)"
+    ),
+    col = c("blue","red","purple","blue","red"), lty = c(1,1,1,2,2),
+    bg='bisque')

@@ -34,8 +34,8 @@ importFrom("graphics",
            "points", "polygon")
 importFrom("stats",
            "IQR", "approx", "cor", "density", "integrate", "loess",
-           "loess.control", "lowess", "median", "na.omit", "predict",
-           "sd", "smooth.spline", "weighted.mean", "weights")
+           "loess.control", "lowess", "mad", "median", "na.omit",
+	   "predict", "sd", "smooth.spline", "weighted.mean", "weights")
 importFrom("utils",
            "getAnywhere", "packageDescription")
 

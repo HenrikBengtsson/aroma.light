@@ -14,7 +14,8 @@
 
 \usage{
 \method{robustSmoothSpline}{default}(x, y=NULL, w=NULL, ..., minIter=3, maxIter=max(minIter, 50),
-  sdCriteria=2e-04, reps=1e-15, tol=1e-06 * IQR(x), plotCurves=FALSE)
+  method=c("L1", "symmetric"), sdCriteria=2e-04, reps=1e-15, tol=1e-06 * IQR(x),
+  plotCurves=FALSE)
 }
 
 \description{
@@ -41,9 +42,14 @@
            spline robustly. Default value is 3.}
   \item{maxIter}{the maximum number of iterations used to fit the smoothing
            spline robustly. Default value is 25.}
+  \item{method}{the method used to compute robustness weights at each
+           iteration. Default value is \code{"L1"}, which uses the inverse of
+           the absolute value of the residuals. Using \code{"symmetric"} will
+           use Tukey's biweight with cut-off equal to six times the MAD of
+           the residuals, equivalent to \code{\link[stats]{lowess}}.}
   \item{sdCriteria}{Convergence criteria, which the difference between the
-           standard deviation of the residuals between two consecutive iteration
-           steps. Default value is 2e-4.}
+           standard deviation of the residuals between two consecutive
+           iteration steps. Default value is 2e-4.}
   \item{reps}{Small positive number added to residuals to avoid division by
            zero when calculating new weights for next iteration.}
   \item{tol}{Passed to \code{\link[stats]{smooth.spline}} (R >= 2.14.0).}
