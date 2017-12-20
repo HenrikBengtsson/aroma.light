@@ -1,6 +1,16 @@
 Package: aroma.light
 ====================
 
+Version: 3.9.1 [2017-12-19]
+
+NEW FEATURES:
+
+ o robustSmoothSpline() now supports using Tukey's biweight (in addition to
+   already exising L1) estimators.  See argument 'method'.  Thanks to
+   Aaron Lun at the Cancer Research UK Cambridge Institute for adding this
+   feature.
+
+
 Version: 3.9.0 [2017-10-30]
 
  o The version number was bumped for the Bioconductor devel version, which is

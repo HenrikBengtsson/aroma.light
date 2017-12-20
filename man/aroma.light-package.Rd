@@ -74,7 +74,7 @@
  implemented by downloading the latest "devel" version!
 }
 
-\author{Henrik Bengtsson, Pierre Neuvial}
+\author{Henrik Bengtsson, Pierre Neuvial, Aaron Lun}
 
 \section{License}{
   The releases of this package is licensed under
