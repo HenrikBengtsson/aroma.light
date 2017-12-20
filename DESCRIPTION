@@ -1,5 +1,5 @@
 Package: aroma.light
-Version: 3.9.0-9000
+Version: 3.9.1
 Depends:
   R (>= 2.15.2)
 Imports:
