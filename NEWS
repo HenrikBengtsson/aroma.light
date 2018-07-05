@@ -1,9 +1,21 @@
-Package: aroma.light
+igPackage: aroma.light
 ====================
 
-Version: 3.9.1-9000 [2017-12-19]
+Version: 3.11.0-9000 [2018-07-04]
 
  o ...
+
+
+Version: 3.11.0 [2017-04-30]
+
+ o The version number was bumped for the Bioconductor devel version, which is
+   now BioC 3.8 for R (>= 3.6.0).
+
+
+Version: 3.10.0 [2017-04-30]
+
+ o The version number was bumped for the Bioconductor release version, which is
+   now BioC 3.7 for R (>= 3.5.0).
  
 
 Version: 3.9.1 [2017-12-19]
