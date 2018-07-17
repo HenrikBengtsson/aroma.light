@@ -5,15 +5,15 @@
 R package aroma.light is available on [Bioconductor](https://www.bioconductor.org/packages/devel/bioc/html/aroma.light.html) and can be installed in R as:
 
 ```r
-source('https://bioconductor.org/biocLite.R')
-biocLite('aroma.light')
+install.packages("BiocManager")
+BiocManager::install("aroma.light")
 ```
 
 ### Pre-release version
 
 To install the pre-release version that is available in Git branch `develop` on GitHub, use:
 ```r
-source('http://callr.org/install#HenrikBengtsson/aroma.light@develop')
+remotes::install_github("HenrikBengtsson/aroma.light@develop")
 ```
 This will install the package from source.  
 
