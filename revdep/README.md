@@ -13,22 +13,15 @@
 
 # Dependencies
 
-|package     |old    |new         |Δ  |
-|:-----------|:------|:-----------|:--|
-|aroma.light |3.10.0 |3.11.1-9000 |*  |
-|matrixStats |0.54.0 |0.54.0      |   |
-|R.methodsS3 |1.7.1  |1.7.1       |   |
-|R.oo        |1.22.0 |1.22.0      |   |
-|R.utils     |2.7.0  |2.7.0       |   |
+|package     |old         |new         |Δ  |
+|:-----------|:-----------|:-----------|:--|
+|aroma.light |3.11.1-9000 |3.11.1-9000 |NA |
+|matrixStats |0.54.0      |0.54.0      |NA |
+|R.methodsS3 |1.7.1       |1.7.1       |NA |
+|R.oo        |1.22.0      |1.22.0      |NA |
+|R.utils     |2.7.0       |2.7.0       |NA |
 
 # Revdeps
-
-## Couldn't check (2)
-
-|package |version |error |warning |note |
-|:-------|:-------|:-----|:-------|:----|
-|scone   |?       |      |        |     |
-|scran   |?       |      |        |     |
 
 ## All (9)
 
@@ -40,7 +33,7 @@
 |[aroma.core](problems.md#aromacore) |3.1.3   |      |        |1    |
 |[EDASeq](problems.md#edaseq)        |2.14.1  |2     |1       |2    |
 |PSCBS                               |0.64.0  |      |        |     |
-|scone                               |?       |      |        |     |
-|scran                               |?       |      |        |     |
+|[scone](problems.md#scone)          |1.4.0   |-1    |        |1    |
+|[scran](problems.md#scran)          |1.8.4   |      |2       |1    |
 |[TIN](problems.md#tin)              |1.12.0  |      |        |1    |
 

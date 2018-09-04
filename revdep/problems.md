@@ -151,6 +151,89 @@ Version: 2.14.1
     contains 'methods').
     ```
 
+# scone
+
+Version: 1.4.0
+
+## Newly fixed
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      13: socketConnection(port = port, server = TRUE, blocking = TRUE, open = "a+b")
+      
+      Error in socketConnection(master, port = port, blocking = TRUE, open = "a+b") : 
+        cannot open the connection
+      Calls: local ... eval -> <Anonymous> -> <Anonymous> -> socketConnection
+      In addition: Warning message:
+      In socketConnection(master, port = port, blocking = TRUE, open = "a+b") :
+        localhost:11471 cannot be opened
+      Execution halted
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 60 SKIPPED: 0 FAILED: 1
+      1. Error: all back-ends work (@test_bpparam.R#42) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+## In both
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    sconeReport : server: no visible global function definition for ‘theme’
+    sconeReport : server: no visible global function definition for
+      ‘element_blank’
+    sconeReport : server: no visible global function definition for
+      ‘ggplotly’
+    sconeReport : server: no visible global function definition for
+      ‘geom_violin’
+    sconeReport : server: no visible global function definition for
+      ‘coord_cartesian’
+    sconeReport : server: no visible global function definition for
+      ‘scale_fill_manual’
+    sconeReport : server: no visible global function definition for
+      ‘geom_point’
+    sconeReport : server: no visible global function definition for
+      ‘guides’
+    Undefined global functions or variables:
+      %>% aes coord_cartesian element_blank geom_bar geom_point geom_violin
+      ggplot ggplotly guides labs plot_ly plotlyOutput renderVisNetwork
+      scale_fill_manual theme visEdges visGroups visHierarchicalLayout
+      visLegend visNetwork visNetworkOutput visNetworkProxy visOptions
+      visSelectNodes ylim
+    ```
+
+# scran
+
+Version: 1.8.4
+
+## In both
+
+*   checking Rd cross-references ... WARNING
+    ```
+    Unknown package ‘monocle’ in Rd xrefs
+    ```
+
+*   checking examples ... WARNING
+    ```
+    Found the following significant warnings:
+    
+      Warning: 'exploreData' is deprecated.
+      Warning: 'selectorPlot' is deprecated.
+    Deprecated functions may be defunct as soon as of the next release of
+    R.
+    See ?Deprecated.
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘monocle’
+    ```
+
 # TIN
 
 Version: 1.12.0
