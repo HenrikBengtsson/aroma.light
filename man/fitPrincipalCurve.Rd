@@ -23,13 +23,13 @@
 
 \arguments{
  \item{X}{An NxK \code{\link[base]{matrix}} (K>=2) where the columns represent the dimension.}
- \item{...}{Other arguments passed to \code{\link[princurve]{principal.curve}}.}
+ \item{...}{Other arguments passed to \code{\link[princurve]{principal_curve}}.}
  \item{verbose}{A \code{\link[base]{logical}} or a \code{\link[R.utils]{Verbose}} object.}
 }
 
 \value{
-  Returns a principal.curve object (which is a \code{\link[base]{list}}).
-  See \code{\link[princurve]{principal.curve}} for more details.
+  Returns a principal_curve object (which is a \code{\link[base]{list}}).
+  See \code{\link[princurve]{principal_curve}} for more details.
 }
 
 \section{Missing values}{
@@ -127,6 +127,6 @@ title(main="Pairwise signals before and after transform", outer=TRUE, line=-2)
 
 \seealso{
   \code{\link{backtransformPrincipalCurve}}().
-  \code{\link[princurve]{principal.curve}}.
+  \code{\link[princurve]{principal_curve}}.
 }
 \keyword{methods}

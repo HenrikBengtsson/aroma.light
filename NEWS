@@ -1,5 +1,33 @@
-Package: aroma.light
+igPackage: aroma.light
 ====================
+
+Version: 3.11.2 [2018-09-04]
+
+CODE REFACTORING:
+
+ o fitPrincipalCurve() now requires princurve (>= 2.1.2) and was updated to
+   make use of new principcal_curve class instead of deprecated
+   principcal.curve class.  This update "should not" affect the results, but
+   see https://github.com/dynverse/princurve/issues/8 for information of what
+   has changed in the princurve package in this respect.
+ 
+
+Version: 3.11.1 [2017-08-28]
+
+ o Updated installation instructions in README.md.
+
+
+Version: 3.11.0 [2017-04-30]
+
+ o The version number was bumped for the Bioconductor devel version, which is
+   now BioC 3.8 for R (>= 3.6.0).
+
+
+Version: 3.10.0 [2017-04-30]
+
+ o The version number was bumped for the Bioconductor release version, which is
+   now BioC 3.7 for R (>= 3.5.0).
+ 
 
 Version: 3.9.1 [2017-12-19]
 

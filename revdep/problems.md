@@ -1,109 +1,244 @@
-# Setup
+# apmsWAPP
 
-## Platform
+Version: 1.0
 
-|setting  |value                        |
-|:--------|:----------------------------|
-|version  |R version 3.3.3 (2017-03-06) |
-|system   |x86_64, linux-gnu            |
-|ui       |X11                          |
-|language |en                           |
-|collate  |en_US.UTF-8                  |
-|tz       |America/Los_Angeles          |
-|date     |2017-04-14                   |
+## In both
 
-## Packages
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    TSPM: no visible global function definition for ‘p.adjust’
+    norm.inttable: no visible global function definition for ‘median’
+    norm.inttable : <anonymous>: no visible global function definition for
+      ‘quantile’
+    saint_permF: no visible global function definition for ‘read.table’
+    saint_permF: no visible global function definition for ‘write.table’
+    saint_permF: no visible global function definition for ‘write.csv2’
+    tspm_apms: no visible global function definition for ‘read.table’
+    varFilter : <anonymous>: no visible global function definition for
+      ‘median’
+    varFilter: no visible global function definition for ‘median’
+    varFilter: no visible global function definition for ‘quantile’
+    Undefined global functions or variables:
+      deviance glm hatvalues median p.adjust pchisq pf poisson qchisq qf
+      quantile read.table residuals write.csv2 write.table
+    Consider adding
+      importFrom("stats", "deviance", "glm", "hatvalues", "median",
+                 "p.adjust", "pchisq", "pf", "poisson", "qchisq", "qf",
+                 "quantile", "residuals")
+      importFrom("utils", "read.table", "write.csv2", "write.table")
+    to your NAMESPACE file.
+    ```
 
-|package     |*  |version |date       |source         |
-|:-----------|:--|:-------|:----------|:--------------|
-|aroma.light |   |3.4.0   |2017-03-10 |cran (@3.4.0)  |
-|matrixStats |   |0.52.2  |2017-04-14 |cran (@0.52.2) |
-|princurve   |   |1.1-12  |2013-04-25 |cran (@1.1-12) |
-|R.methodsS3 |   |1.7.1   |2016-02-16 |cran (@1.7.1)  |
-|R.oo        |   |1.21.0  |2016-11-01 |cran (@1.21.0) |
-|R.utils     |   |2.5.0   |2016-11-07 |cran (@2.5.0)  |
+# aroma.core
 
-# Check results
+Version: 3.1.3
 
-1 packages with problems
+## In both
 
-|package       |version | errors| warnings| notes|
-|:-------------|:-------|------:|--------:|-----:|
-|oneChannelGUI |1.40.0  |      0|        2|     6|
+*   checking package dependencies ... NOTE
+    ```
+    Packages suggested but not available for checking:
+      ‘sfit’ ‘expectile’ ‘HaarSeg’ ‘mpcbs’
+    ```
 
-## oneChannelGUI (1.40.0)
-Maintainer: Raffaele A Calogero <raffaele.calogero@unito.it>
+# EDASeq
 
-0 errors | 2 warnings | 6 notes
+Version: 2.14.1
 
-```
-checking whether package ‘oneChannelGUI’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: no DISPLAY variable so Tk is not available
-  Warning: loading Rplot failed
-See ‘/home/hb/repositories/aroma.light/revdep/checks/oneChannelGUI.Rcheck/00install.out’ for details.
+## In both
 
-checking sizes of PDF files under ‘inst/doc’ ... WARNING
-  ‘gs+qpdf’ made some significant size reductions:
-     compacted ‘Exon-level.analysis.pdf’ from 1395Kb to 598Kb
-     compacted ‘RNAseq.pdf’ from 1979Kb to 385Kb
-  consider running tools::compactPDF(gs_quality = "ebook") on these files
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘EDASeq-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: getGeneLengthAndGCContent
+    > ### Title: Get gene length and GC-content
+    > ### Aliases: getGeneLengthAndGCContent
+    > 
+    > ### ** Examples
+    > 
+    > getGeneLengthAndGCContent("ENSG00000012048", "hsa")
+    Connecting to BioMart ...
+    Request to BioMart web service failed.
+    The BioMart web service you're accessing may be down.
+    Check the following URL and see if this website is available:
+    http://www.ensembl.org:80/biomart/martservice?type=registry&requestid=biomaRt
+    Error in if (!grepl(x = registry, pattern = "^\n*<MartRegistry>")) { : 
+      argument is of length zero
+    Calls: getGeneLengthAndGCContent -> useMart -> listMarts
+    Execution halted
+    ```
 
-checking package dependencies ... NOTE
-Depends: includes the non-default packages:
-  ‘Biobase’ ‘affylmGUI’ ‘tkrplot’ ‘tkWidgets’ ‘IRanges’ ‘Rsamtools’
-  ‘Biostrings’ ‘siggenes’ ‘chimera’
-Adding so many packages to the search path is excessive and importing
-selectively is preferable.
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/getLengthAndGC.R’ failed.
+    Last 13 lines of output:
+      
+          aperm, apply
+      
+      > library(yeastRNASeq)
+      > 
+      > getGeneLengthAndGCContent(id=c("ENSG00000012048", "ENSG00000139618"), org="hsa", mode = "biomart")
+      Connecting to BioMart ...
+      Request to BioMart web service failed.
+      The BioMart web service you're accessing may be down.
+      Check the following URL and see if this website is available:
+      http://www.ensembl.org:80/biomart/martservice?type=registry&requestid=biomaRt
+      Error in if (!grepl(x = registry, pattern = "^\n*<MartRegistry>")) { : 
+        argument is of length zero
+      Calls: getGeneLengthAndGCContent -> useMart -> listMarts
+      Execution halted
+    ```
 
-checking installed package size ... NOTE
-  installed size is  6.6Mb
-  sub-directories of 1Mb or more:
-    doc   5.0Mb
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+    locfit 1.5-9.1 	 2013-03-22
+    
+    Attaching package: 'locfit'
+    
+    The following objects are masked from 'package:ShortRead':
+    
+        left, right
+    
+    Loading required package: lattice
+        Welcome to 'DESeq'. For improved performance,
+        usability and functionality, please consider
+        migrating to 'DESeq2'.
+    Connecting to BioMart ...
+    Request to BioMart web service failed.
+    The BioMart web service you're accessing may be down.
+    Check the following URL and see if this website is available:
+    http://www.ensembl.org:80/biomart/martservice?type=registry&requestid=biomaRt
+    Quitting from lines 554-555 (EDASeq.Rnw) 
+    Error: processing vignette 'EDASeq.Rnw' failed with diagnostics:
+    argument is of length zero
+    Execution halted
+    ```
 
-checking DESCRIPTION meta-information ... NOTE
-Malformed Description field: should contain one or more complete sentences.
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘methods’
+      All declared Imports should be used.
+    ```
 
-checking dependencies in R code ... NOTE
-'library' or 'require' calls in package code:
-  ‘BSgenome.Hsapiens.UCSC.hg19’ ‘BSgenome.Mmusculus.UCSC.mm9’
-  ‘BSgenome.Rnorvegicus.UCSC.rn4’ ‘Genominator’ ‘affy’ ‘affyPLM’
-  ‘chipseq’ ‘maSigPro’
-  Please use :: or requireNamespace() instead.
-  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    plotQuality,FastqFileList : <anonymous>: no visible global function
+      definition for ‘as’
+    plotQuality,FastqFileList: no visible global function definition for
+      ‘lines’
+    plotRLE,matrix: no visible global function definition for ‘abline’
+    updateObject,SeqExpressionSet: no visible global function definition
+      for ‘callNextMethod’
+    Undefined global functions or variables:
+      abline as available.packages biocLite callNextMethod countBam
+      elementMetadata legend lines loess lowess matplot median narrow new
+      pairs points predict quality quantile rainbow smoothScatter text
+      validObject
+    Consider adding
+      importFrom("grDevices", "rainbow")
+      importFrom("graphics", "abline", "legend", "lines", "matplot", "pairs",
+                 "points", "smoothScatter", "text")
+      importFrom("methods", "as", "callNextMethod", "new", "validObject")
+      importFrom("stats", "loess", "lowess", "median", "predict", "quantile")
+      importFrom("utils", "available.packages")
+    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
+    contains 'methods').
+    ```
 
-checking R code for possible problems ... NOTE
-.consistentFilter: warning in get("midas.p.Available", env =
-  affylmGUIenvironment): partial argument match of 'env' to 'envir'
-.consistentFilter: warning in get("AltSplRP.e.Available", env =
-  affylmGUIenvironment): partial argument match of 'env' to 'envir'
-.consistentFilter: warning in get("AltSplRP.e.p", env =
-  affylmGUIenvironment): partial argument match of 'env' to 'envir'
-.consistentFilter: warning in get("midas.p", env =
-  affylmGUIenvironment): partial argument match of 'env' to 'envir'
-.consistentFilter: warning in get("spliceIndexData", env =
-... 2499 lines ...
-  data("chrLength", package = "oneChannelGUI")
-  data("chrLength", package = "oneChannelGUI")
-  data("chrLength", package = "oneChannelGUI")
-  data("chrLength", package = "oneChannelGUI")
-File ‘oneChannelGUI/R/generaltoolsmenu.R’:
-  data(HuExExonProbesetLocation)
-  data(MoExExonProbesetLocation)
-  data(RaExExonProbesetLocation)
-File ‘oneChannelGUI/R/standalonefunctions.R’:
-  data("chrLength", package = "oneChannelGUI")
-See section ‘Good practice’ in ‘?data’.
+# scone
 
-checking Rd line widths ... NOTE
-Rd file 'oneChannelGUI.Rd':
-  \usage lines wider than 90 characters:
-     wrapperMirnaCounts(working.dir, out.dir, org = "hsa", threads = 1, cutadapt.path = "/usr/local/bin/cutadapt", parallel = FALSE, ...)
+Version: 1.4.0
 
-Rd file 'standAloneBuildingLocalAnnotation.Rd':
-  \usage lines wider than 90 characters:
-        standAloneBuildingLocalAnnotation(libDirLocation = getwd(), netaffxUser = "myemail@somewhere.org", netaffxUserPw = "yourpassword", w ... [TRUNCATED]
+## In both
 
-These lines will be truncated in the PDF manual.
-```
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    sconeReport : server: no visible global function definition for ‘theme’
+    sconeReport : server: no visible global function definition for
+      ‘element_blank’
+    sconeReport : server: no visible global function definition for
+      ‘ggplotly’
+    sconeReport : server: no visible global function definition for
+      ‘geom_violin’
+    sconeReport : server: no visible global function definition for
+      ‘coord_cartesian’
+    sconeReport : server: no visible global function definition for
+      ‘scale_fill_manual’
+    sconeReport : server: no visible global function definition for
+      ‘geom_point’
+    sconeReport : server: no visible global function definition for
+      ‘guides’
+    Undefined global functions or variables:
+      %>% aes coord_cartesian element_blank geom_bar geom_point geom_violin
+      ggplot ggplotly guides labs plot_ly plotlyOutput renderVisNetwork
+      scale_fill_manual theme visEdges visGroups visHierarchicalLayout
+      visLegend visNetwork visNetworkOutput visNetworkProxy visOptions
+      visSelectNodes ylim
+    ```
+
+# scran
+
+Version: 1.8.4
+
+## In both
+
+*   checking Rd cross-references ... WARNING
+    ```
+    Unknown package ‘monocle’ in Rd xrefs
+    ```
+
+*   checking examples ... WARNING
+    ```
+    Found the following significant warnings:
+    
+      Warning: 'exploreData' is deprecated.
+      Warning: 'selectorPlot' is deprecated.
+    Deprecated functions may be defunct as soon as of the next release of
+    R.
+    See ?Deprecated.
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘monocle’
+    ```
+
+# TIN
+
+Version: 1.12.0
+
+## In both
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    scatterPlot: no visible global function definition for ‘pdf’
+    scatterPlot: no visible global function definition for ‘bmp’
+    scatterPlot: no visible global function definition for ‘plot’
+    scatterPlot: no visible global function definition for ‘ave’
+    scatterPlot: no visible global function definition for ‘axis’
+    scatterPlot: no visible global function definition for ‘text’
+    scatterPlot: no visible global function definition for ‘mtext’
+    scatterPlot: no visible global function definition for ‘points’
+    scatterPlot: no visible global function definition for ‘dev.off’
+    Undefined global functions or variables:
+      ave axis bmp colorRampPalette data dev.off dist hclust hist jpeg
+      median mtext par pdf plot png points postscript quantile read.table
+      text
+    Consider adding
+      importFrom("grDevices", "bmp", "colorRampPalette", "dev.off", "jpeg",
+                 "pdf", "png", "postscript")
+      importFrom("graphics", "axis", "hist", "mtext", "par", "plot",
+                 "points", "text")
+      importFrom("stats", "ave", "dist", "hclust", "median", "quantile")
+      importFrom("utils", "data", "read.table")
+    to your NAMESPACE file.
+    ```
 

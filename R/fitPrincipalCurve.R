@@ -14,13 +14,13 @@
 #
 # \arguments{
 #  \item{X}{An NxK @matrix (K>=2) where the columns represent the dimension.}
-#  \item{...}{Other arguments passed to @see "princurve::principal.curve".}
+#  \item{...}{Other arguments passed to @see "princurve::principal_curve".}
 #  \item{verbose}{A @logical or a @see "R.utils::Verbose" object.}
 # }
 #
 # \value{
-#   Returns a principal.curve object (which is a @list).
-#   See @see "princurve::principal.curve" for more details.
+#   Returns a principal_curve object (which is a @list).
+#   See @see "princurve::principal_curve" for more details.
 # }
 #
 # \section{Missing values}{
@@ -40,13 +40,14 @@
 #
 # \seealso{
 #   @see "backtransformPrincipalCurve".
-#   @see "princurve::principal.curve".
+#   @see "princurve::principal_curve".
 # }
 #*/#########################################################################
 setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
   # princurve v1.1-9 and before contains bugs. /HB 2008-05-26
-  use("princurve (>= 1.1-10)")
-  principal.curve <- princurve::principal.curve
+  # princurve v2.0.0 replaced princurve.curve with princurve_curve. /HB 2018-09-04
+  use("princurve (>= 2.1.2)")
+  principal_curve <- princurve::principal_curve
 
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -67,7 +68,7 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
   verbose && cat(verbose, "Data size: ", n, "x", p);
 
   verbose && enter(verbose, "Identifying missing values");
-  # princurve::principal.curve() does not handle missing values.
+  # princurve::principal_curve() does not handle missing values.
   keep <- rep(TRUE, times=n);
   for (cc in seq_len(p)) {
     keep <- keep & is.finite(X[,cc]);
@@ -81,15 +82,15 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
   verbose && cat(verbose, "Data size after removing non-finite data points: ", nrow(X), "x", p);
 
 
-  verbose && enter(verbose, "Calling principal.curve()");
+  verbose && enter(verbose, "Calling principal_curve()");
   trace <- as.logical(verbose);
   t <- system.time({
-    fit <- principal.curve(X, ..., trace=trace);
+    fit <- principal_curve(X, ..., trace=trace);
   });
   attr(fit, "processingTime") <- t;
   verbose && printf(verbose, "Converged: %s\n", fit$converged);
-  verbose && printf(verbose, "Number of iterations: %d\n", fit$nbrOfIterations);
-  verbose && printf(verbose, "Processing time/iteration: %.1fs (%.1fs/iteration)\n", t[3], t[3]/fit$nbrOfIterations);
+  verbose && printf(verbose, "Number of iterations: %d\n", fit$num_iterations);
+  verbose && printf(verbose, "Processing time/iteration: %.1fs (%.1fs/iteration)\n", t[3], t[3]/fit$num_iterations);
   verbose && exit(verbose);
 
   # Expand, iff missing values were dropped
@@ -99,7 +100,7 @@ setMethodS3("fitPrincipalCurve", "matrix", function(X, ..., verbose=FALSE) {
     dimnames(values) <- dimnames(fit$s);
     fit$s <- values;
     values <- rep(NA_real_, times=n);
-    for (ff in c("tag", "lambda")) {
+    for (ff in c("ord", "lambda")) {
       values[keep] <- fit[[ff]];
       fit[[ff]] <- values;
     }
