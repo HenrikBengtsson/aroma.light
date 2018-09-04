@@ -33,7 +33,7 @@
 |[aroma.core](problems.md#aromacore) |3.1.3   |      |        |1    |
 |[EDASeq](problems.md#edaseq)        |2.14.1  |2     |1       |2    |
 |PSCBS                               |0.64.0  |      |        |     |
-|[scone](problems.md#scone)          |1.4.0   |-1    |        |1    |
+|[scone](problems.md#scone)          |1.4.0   |      |        |1    |
 |[scran](problems.md#scran)          |1.8.4   |      |2       |1    |
 |[TIN](problems.md#tin)              |1.12.0  |      |        |1    |
 

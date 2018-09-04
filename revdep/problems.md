@@ -155,30 +155,6 @@ Version: 2.14.1
 
 Version: 1.4.0
 
-## Newly fixed
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      13: socketConnection(port = port, server = TRUE, blocking = TRUE, open = "a+b")
-      
-      Error in socketConnection(master, port = port, blocking = TRUE, open = "a+b") : 
-        cannot open the connection
-      Calls: local ... eval -> <Anonymous> -> <Anonymous> -> socketConnection
-      In addition: Warning message:
-      In socketConnection(master, port = port, blocking = TRUE, open = "a+b") :
-        localhost:11471 cannot be opened
-      Execution halted
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 60 SKIPPED: 0 FAILED: 1
-      1. Error: all back-ends work (@test_bpparam.R#42) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 ## In both
 
 *   checking R code for possible problems ... NOTE
