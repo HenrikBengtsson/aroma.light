@@ -5,9 +5,9 @@ Depends:
 Imports:
   stats,
   R.methodsS3 (>= 1.7.1),
-  R.oo (>= 1.21.0),
-  R.utils (>= 2.6.0),
-  matrixStats (>= 0.52.2)
+  R.oo (>= 1.22.0),
+  R.utils (>= 2.7.0),
+  matrixStats (>= 0.54.0)
 Suggests:
   princurve (>= 2.1.2)
 Date: 2018-09-04
@@ -24,4 +24,3 @@ URL: https://github.com/HenrikBengtsson/aroma.light, http://www.aroma-project.or
 BugReports: https://github.com/HenrikBengtsson/aroma.light/issues
 LazyLoad: TRUE
 Encoding: latin1
-RoxygenNote: 6.0.1
