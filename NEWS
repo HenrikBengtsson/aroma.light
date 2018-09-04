@@ -1,9 +1,20 @@
 igPackage: aroma.light
 ====================
 
-Version: 3.11.0-9000 [2018-07-04]
+Version: 3.11.1-9000 [2018-07-04]
 
- o ...
+CODE REFACTORING:
+
+ o fitPrincipalCurve() now requires princurve (>= 2.1.2) and was updated to
+   make use of new principcal_curve class instead of deprecated
+   principcal.curve class.  This update "should not" affect the results, but
+   see https://github.com/dynverse/princurve/issues/8 for information of what
+   has changed in the princurve package in this respect.
+ 
+
+Version: 3.11.1 [2017-08-28]
+
+ o Updated installation instructions in README.md.
 
 
 Version: 3.11.0 [2017-04-30]

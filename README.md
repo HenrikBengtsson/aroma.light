@@ -5,9 +5,8 @@
 R package aroma.light is available on [Bioconductor](https://www.bioconductor.org/packages/devel/bioc/html/aroma.light.html) and can be installed in R as:
 
 ```r
-if (!requireNamespace("BiocManager", quietly=TRUE))
-    install.packages("BiocManager")
-BiocManager::install('aroma.light')
+install.packages("BiocManager")
+BiocManager::install("aroma.light")
 ```
 
 ### Pre-release version

@@ -26,7 +26,7 @@
 \arguments{
  \item{X}{An NxK \code{\link[base]{matrix}} containing data to be backtransformed.}
  \item{fit}{An MxL principal-curve fit object of class
-   \code{principal.curve} as returned by \code{\link{fitPrincipalCurve}}().
+   \code{principal_curve} as returned by \code{\link{fitPrincipalCurve}}().
    Typically \eqn{L = K}, but not always.
  }
  \item{dimensions}{An (optional) subset of of D dimensions all in [1,L]

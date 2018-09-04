@@ -17,7 +17,7 @@
 # \arguments{
 #  \item{X}{An NxK @matrix containing data to be backtransformed.}
 #  \item{fit}{An MxL principal-curve fit object of class
-#    \code{principal.curve} as returned by @see "fitPrincipalCurve".
+#    \code{principal_curve} as returned by @see "fitPrincipalCurve".
 #    Typically \eqn{L = K}, but not always.
 #  }
 #  \item{dimensions}{An (optional) subset of of D dimensions all in [1,L]
@@ -78,8 +78,8 @@ setMethodS3("backtransformPrincipalCurve", "matrix", function(X, fit, dimensions
   }
 
   # Argument 'fit'
-  if (!inherits(fit, "principal.curve")) {
-    stop("Argument 'fit' is not a principal.curve object: ", class(fit)[1]);
+  if (!inherits(fit, "principal_curve")) {
+    stop("Argument 'fit' is not a principal_curve object: ", class(fit)[1]);
   }
 
   # Argument 'dimensions'
