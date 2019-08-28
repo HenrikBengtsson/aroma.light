@@ -10,7 +10,7 @@ Imports:
   matrixStats (>= 0.54.0)
 Suggests:
   princurve (>= 2.1.2)
-Date: 2018-09-04
+Date: 2019-08-28
 Title: Light-Weight Methods for Normalization and Visualization of Microarray Data using Only Basic R Data Types
 Authors@R: c(
   person("Henrik", "Bengtsson", role = c("aut", "cre", "cph"),
@@ -20,7 +20,7 @@ Authors@R: c(
 Description: Methods for microarray analysis that take basic data types such as matrices and lists of vectors.  These methods can be used standalone, be utilized in other packages, or be wrapped up in higher-level classes.
 License: GPL (>= 2)
 biocViews: Infrastructure, Microarray, OneChannel, TwoChannel, MultiChannel, Visualization, Preprocessing
-URL: https://github.com/HenrikBengtsson/aroma.light, http://www.aroma-project.org
+URL: https://github.com/HenrikBengtsson/aroma.light, https://www.aroma-project.org
 BugReports: https://github.com/HenrikBengtsson/aroma.light/issues
 LazyLoad: TRUE
 Encoding: latin1
