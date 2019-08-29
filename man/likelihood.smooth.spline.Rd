@@ -40,7 +40,7 @@
  and a \emph{roughness measure} of the spline
  \eqn{J(g) = \int g''(t) dt}. Hence, the overall log likelihood is
    \deqn{\log L(g|x) = (y-g(x))'W(y-g(x)) + \lambda J(g)}
- In addition to the overall likelihood, all its seperate
+ In addition to the overall likelihood, all its separate
  components are also returned.
 
  Note: when fitting a smooth spline with \eqn{(x,y)} values where the

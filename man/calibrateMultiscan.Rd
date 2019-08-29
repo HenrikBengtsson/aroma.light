@@ -72,7 +72,7 @@
 
 \section{Missing values}{
   Only observations (rows) in \code{X} that contain all finite values are
-  used in the estimation of the alibration functions. Thus,
+  used in the estimation of the calibration functions. Thus,
   observations can be excluded by setting them to \code{\link[base]{NA}}.
 }
 

@@ -25,7 +25,7 @@
  \item{X}{An NxK \code{\link[base]{matrix}} containing data to be backtransformed.}
  \item{a}{A scalar, \code{\link[base]{vector}}, a \code{\link[base]{matrix}}, or a \code{\link[base]{list}}.
    First, if a \code{\link[base]{list}}, it is assumed to contained the elements \code{a}
-   and \code{b}, which are the used as if they were passed as seperate
+   and \code{b}, which are the used as if they were passed as separate
    arguments.
    If a \code{\link[base]{vector}}, a matrix of size NxK is created which is then filled
    \emph{row by row} with the values in the vector. Commonly, the

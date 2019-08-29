@@ -1,5 +1,4 @@
-#! /usr/bin/env Rscript
-
+#!/usr/bin/env Rscript
 library("revdepcheck")
 options(warn = 1L)
 
@@ -41,14 +40,18 @@ check <- function() {
                timeout = as.difftime(20, units = "mins"), quiet = FALSE)
 }
 
+
 todo <- function() {
   pkgs <- tryCatch(revdep_todo(), error = function(ex) NA)
-  if (length(pkgs) == 1L && is.na(pkgs)) {
+  if (identical(pkgs, NA)) {
     cat("Revdepcheck has not been initiated\n")
-  } else if (length(pkgs) == 0) {
+    return()
+  }
+  pkgs <- subset(pkgs, status == "todo")
+  if (nrow(pkgs) == 0) {
     cat("There are no packages on the revdepcheck todo list\n")
   } else {
-    cat(sprintf("%d. %s\n", seq_along(pkgs), pkgs))
+    cat(sprintf("%d. %s\n", seq_len(nrow(pkgs)), pkgs$package))
   }
 }
 
@@ -83,6 +86,32 @@ revdep_children <- local({
   }
 })
 
+revdep_pkgs_with_status <- function(status = "error") {
+  status <- match.arg(status)
+  res <- revdepcheck::revdep_summary()
+  field <- switch(status, error = "errors")
+  has_status <- vapply(res, FUN = function(x) {
+    z <- x[["new"]][[field]]
+    is.character(z) && any(nchar(z) > 0)
+  }, FUN.VALUE = NA, USE.NAMES = TRUE)
+  has_status <- !is.na(has_status) & has_status
+  names(has_status)[has_status]
+}
+
+revdep_preinstall <- function(pkgs) {
+  pkgs <- unique(pkgs)
+  lib_paths_org <- lib_paths <- .libPaths()
+  on.exit(.libPaths(lib_paths_org))
+  lib_paths[1] <- sprintf("%s-revdepcheck", lib_paths[1])
+  dir.create(lib_paths[1], recursive = TRUE, showWarnings = FALSE)
+  .libPaths(lib_paths)
+  message("Triggering crancache builds by pre-installing packages: ",
+           paste(sQuote(pkgs), collapse = ", "))
+  message(".libPaths():")
+  message(paste(paste0(" - ", .libPaths()), collapse = "\n"))
+  crancache::install_packages(pkgs)
+}
+
 args <- base::commandArgs()
 if ("--reset" %in% args) {
   revdep_reset()
@@ -95,6 +124,11 @@ if ("--reset" %in% args) {
   pos <- which("--add" == args)
   pkgs <- parse_pkgs(args[seq(from = pos + 1L, to = length(args))])
   revdep_add(packages = pkgs)
+  todo()
+} else if ("--rm" %in% args) {
+  pos <- which("--rm" == args)
+  pkgs <- parse_pkgs(args[seq(from = pos + 1L, to = length(args))])
+  revdep_rm(packages = pkgs)
   todo()
 } else if ("--add-broken" %in% args) {
   revdep_add_broken()
@@ -117,10 +151,34 @@ if ("--reset" %in% args) {
   pkgs <- unique(pkgs)
   revdep_add(packages = pkgs)
   todo()
-} else if ("--install" %in% args) {
-  pos <- which("--install" == args)
+} else if ("--show-check" %in% args) {
+  pos <- which("--show-check" == args)
   pkgs <- parse_pkgs(args[seq(from = pos + 1L, to = length(args))])
-  crancache::install_packages(pkgs)
+  for (pkg in pkgs) {
+    for (dir in c("old", "new")) {
+      path <- file.path("revdep", "checks", pkg, dir, sprintf("%s.Rcheck", pkg))
+      if (!utils::file_test("-d", path)) next
+      pathname <- file.path(path, "00check.log")
+      cat("-----------------------------------------------\n")
+      cat(sprintf("%s (%s):\n", pkg, dir))
+      cat("-----------------------------------------------\n")
+      bfr <- readLines(pathname, warn = FALSE)
+      tail <- tail(bfr, n = 20L)
+      writeLines(tail)
+    }
+  }
+} else if ("--list-error" %in% args) {
+  cat(paste(revdep_pkgs_with_status("error"), collapse = " "), "\n", sep="")
+} else if ("--add-error" %in% args) {
+  revdepcheck::revdep_add(packages = revdep_pkgs_with_status("error"))
+} else if ("--preinstall-error" %in% args) {
+  res <- revdepcheck::revdep_summary()
+  revdep_preinstall(revdep_pkgs_with_status("error"))
+} else if ("--preinstall" %in% args) {
+  pos <- which("--preinstall" == args)
+  pkgs <- parse_pkgs(args[seq(from = pos + 1L, to = length(args))])
+  revdep_preinstall(pkgs)
 } else {
   check()
+  revdep_report(all = TRUE)
 }

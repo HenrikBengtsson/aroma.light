@@ -33,7 +33,7 @@
    which loci should be used for estimating the model.
    If \code{\link[base]{NULL}}, all loci are used.}
  \item{flavor}{A \code{\link[base]{character}} string specifying the type of algorithm used.}
- \item{adjust}{A postive \code{\link[base]{double}} specifying the amount smoothing for
+ \item{adjust}{A positive \code{\link[base]{double}} specifying the amount smoothing for
    the empirical density estimator.}
  \item{...}{Additional arguments passed to \code{\link{findPeaksAndValleys}}().}
  \item{censorAt}{A \code{\link[base]{double}} \code{\link[base]{vector}} of length two specifying the range

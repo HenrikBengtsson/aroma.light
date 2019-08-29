@@ -42,7 +42,7 @@
 }
 
 \details{
-  Each column in X ("dimension") is backtransformed independentently
+  Each column in X ("dimension") is backtransformed independently
   of the others.
 }
 

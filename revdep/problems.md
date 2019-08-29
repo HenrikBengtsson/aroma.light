@@ -1,159 +1,81 @@
-# apmsWAPP
+# aroma.affymetrix
 
-Version: 1.0
+<details>
+
+* Version: 3.2.0
+* Source code: https://github.com/cran/aroma.affymetrix
+* URL: https://www.aroma-project.org/, https://github.com/HenrikBengtsson/aroma.affymetrix
+* BugReports: https://github.com/HenrikBengtsson/aroma.affymetrix/issues
+* Date/Publication: 2019-06-23 06:00:14 UTC
+* Number of recursive dependencies: 80
+
+Run `revdep_details(,"aroma.affymetrix")` for more info
+
+</details>
 
 ## In both
 
-*   checking R code for possible problems ... NOTE
+*   checking installed package size ... NOTE
     ```
-    ...
-    TSPM: no visible global function definition for ‘p.adjust’
-    norm.inttable: no visible global function definition for ‘median’
-    norm.inttable : <anonymous>: no visible global function definition for
-      ‘quantile’
-    saint_permF: no visible global function definition for ‘read.table’
-    saint_permF: no visible global function definition for ‘write.table’
-    saint_permF: no visible global function definition for ‘write.csv2’
-    tspm_apms: no visible global function definition for ‘read.table’
-    varFilter : <anonymous>: no visible global function definition for
-      ‘median’
-    varFilter: no visible global function definition for ‘median’
-    varFilter: no visible global function definition for ‘quantile’
-    Undefined global functions or variables:
-      deviance glm hatvalues median p.adjust pchisq pf poisson qchisq qf
-      quantile read.table residuals write.csv2 write.table
-    Consider adding
-      importFrom("stats", "deviance", "glm", "hatvalues", "median",
-                 "p.adjust", "pchisq", "pf", "poisson", "qchisq", "qf",
-                 "quantile", "residuals")
-      importFrom("utils", "read.table", "write.csv2", "write.table")
-    to your NAMESPACE file.
+      installed size is  5.8Mb
+      sub-directories of 1Mb or more:
+        R             2.3Mb
+        help          1.1Mb
+        testScripts   1.3Mb
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Error in setClass("ProgressBarText", representation(steps = "integer",  : 
+      could not find function "setClass"
+    Error in setClass("ProgressBarText", representation(steps = "integer",  : 
+      could not find function "setClass"
+    Error in setGeneric("getX", function(object, type) standardGeneric("getX")) : 
+      could not find function "setGeneric"
     ```
 
 # aroma.core
 
-Version: 3.1.3
+<details>
+
+* Version: 3.2.0
+* Source code: https://github.com/cran/aroma.core
+* URL: https://github.com/HenrikBengtsson/aroma.core, https://www.aroma-project.org/
+* BugReports: https://github.com/HenrikBengtsson/aroma.core/issues
+* Date/Publication: 2019-06-17 18:20:03 UTC
+* Number of recursive dependencies: 45
+
+Run `revdep_details(,"aroma.core")` for more info
+
+</details>
 
 ## In both
 
 *   checking package dependencies ... NOTE
     ```
     Packages suggested but not available for checking:
-      ‘sfit’ ‘expectile’ ‘HaarSeg’ ‘mpcbs’
-    ```
-
-# EDASeq
-
-Version: 2.14.1
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘EDASeq-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: getGeneLengthAndGCContent
-    > ### Title: Get gene length and GC-content
-    > ### Aliases: getGeneLengthAndGCContent
-    > 
-    > ### ** Examples
-    > 
-    > getGeneLengthAndGCContent("ENSG00000012048", "hsa")
-    Connecting to BioMart ...
-    Request to BioMart web service failed.
-    The BioMart web service you're accessing may be down.
-    Check the following URL and see if this website is available:
-    http://www.ensembl.org:80/biomart/martservice?type=registry&requestid=biomaRt
-    Error in if (!grepl(x = registry, pattern = "^\n*<MartRegistry>")) { : 
-      argument is of length zero
-    Calls: getGeneLengthAndGCContent -> useMart -> listMarts
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/getLengthAndGC.R’ failed.
-    Last 13 lines of output:
-      
-          aperm, apply
-      
-      > library(yeastRNASeq)
-      > 
-      > getGeneLengthAndGCContent(id=c("ENSG00000012048", "ENSG00000139618"), org="hsa", mode = "biomart")
-      Connecting to BioMart ...
-      Request to BioMart web service failed.
-      The BioMart web service you're accessing may be down.
-      Check the following URL and see if this website is available:
-      http://www.ensembl.org:80/biomart/martservice?type=registry&requestid=biomaRt
-      Error in if (!grepl(x = registry, pattern = "^\n*<MartRegistry>")) { : 
-        argument is of length zero
-      Calls: getGeneLengthAndGCContent -> useMart -> listMarts
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    locfit 1.5-9.1 	 2013-03-22
-    
-    Attaching package: 'locfit'
-    
-    The following objects are masked from 'package:ShortRead':
-    
-        left, right
-    
-    Loading required package: lattice
-        Welcome to 'DESeq'. For improved performance,
-        usability and functionality, please consider
-        migrating to 'DESeq2'.
-    Connecting to BioMart ...
-    Request to BioMart web service failed.
-    The BioMart web service you're accessing may be down.
-    Check the following URL and see if this website is available:
-    http://www.ensembl.org:80/biomart/martservice?type=registry&requestid=biomaRt
-    Quitting from lines 554-555 (EDASeq.Rnw) 
-    Error: processing vignette 'EDASeq.Rnw' failed with diagnostics:
-    argument is of length zero
-    Execution halted
+      'sfit', 'expectile', 'HaarSeg', 'mpcbs'
     ```
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespace in Imports field not imported from: ‘methods’
-      All declared Imports should be used.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    plotQuality,FastqFileList : <anonymous>: no visible global function
-      definition for ‘as’
-    plotQuality,FastqFileList: no visible global function definition for
-      ‘lines’
-    plotRLE,matrix: no visible global function definition for ‘abline’
-    updateObject,SeqExpressionSet: no visible global function definition
-      for ‘callNextMethod’
-    Undefined global functions or variables:
-      abline as available.packages biocLite callNextMethod countBam
-      elementMetadata legend lines loess lowess matplot median narrow new
-      pairs points predict quality quantile rainbow smoothScatter text
-      validObject
-    Consider adding
-      importFrom("grDevices", "rainbow")
-      importFrom("graphics", "abline", "legend", "lines", "matplot", "pairs",
-                 "points", "smoothScatter", "text")
-      importFrom("methods", "as", "callNextMethod", "new", "validObject")
-      importFrom("stats", "loess", "lowess", "median", "predict", "quantile")
-      importFrom("utils", "available.packages")
-    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
-    contains 'methods').
+    Error in setGeneric("image", function(x, ...) standardGeneric("image")) : 
+      could not find function "setGeneric"
     ```
 
 # scone
 
-Version: 1.4.0
+<details>
+
+* Version: 1.8.0
+* Source code: https://github.com/cran/scone
+* BugReports: https://github.com/YosefLab/scone/issues
+* Date/Publication: 2019-05-02
+* Number of recursive dependencies: 197
+
+Run `revdep_details(,"scone")` for more info
+
+</details>
 
 ## In both
 
@@ -185,60 +107,118 @@ Version: 1.4.0
 
 # scran
 
-Version: 1.8.4
+<details>
+
+* Version: 1.12.1
+* Source code: https://github.com/cran/scran
+* Date/Publication: 2019-05-27
+* Number of recursive dependencies: 162
+
+Run `revdep_details(,"scran")` for more info
+
+</details>
 
 ## In both
 
-*   checking Rd cross-references ... WARNING
+*   checking whether the namespace can be loaded with stated dependencies ... WARNING
     ```
-    Unknown package ‘monocle’ in Rd xrefs
-    ```
-
-*   checking examples ... WARNING
-    ```
-    Found the following significant warnings:
+    Error in setClass("SCESet", contains = "ExpressionSet", slots = c(logExprsOffset = "numeric",  : 
+      could not find function "setClass"
+    Error: unable to load R code in package ‘scater’
+    Execution halted
     
-      Warning: 'exploreData' is deprecated.
-      Warning: 'selectorPlot' is deprecated.
-    Deprecated functions may be defunct as soon as of the next release of
-    R.
-    See ?Deprecated.
+    A namespace must be able to be loaded with just the base namespace
+    loaded: otherwise if the namespace gets loaded by a saved object, the
+    session will be unable to start.
+    
+    Probably some imports need to be declared in the NAMESPACE file.
     ```
 
-*   checking package dependencies ... NOTE
+*   checking whether the namespace can be unloaded cleanly ... WARNING
     ```
-    Package suggested but not available for checking: ‘monocle’
+    Error in classVersion("ExpressionSet") : 
+      could not find function "classVersion"
+    Error: unable to load R code in package ‘scater’
+    Execution halted
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 26.4Mb
+      sub-directories of 1Mb or more:
+        doc    1.5Mb
+        libs  23.9Mb
     ```
 
 # TIN
 
-Version: 1.12.0
+<details>
+
+* Version: 1.16.0
+* Source code: https://github.com/cran/TIN
+* Date/Publication: 2019-05-02
+* Number of recursive dependencies: 115
+
+Run `revdep_details(,"TIN")` for more info
+
+</details>
 
 ## In both
 
-*   checking R code for possible problems ... NOTE
+*   checking whether the package can be unloaded cleanly ... WARNING
+    ```
+    Error in globalVariables("naresid.omit") : 
+      could not find function "globalVariables"
+    Error: package or namespace load failed for ‘TIN’:
+     unable to load R code in package ‘Hmisc’
+    Execution halted
+    ```
+
+*   checking whether the namespace can be loaded with stated dependencies ... WARNING
+    ```
+    Error in globalVariables("naresid.omit") : 
+      could not find function "globalVariables"
+    Error: unable to load R code in package ‘Hmisc’
+    Execution halted
+    
+    A namespace must be able to be loaded with just the base namespace
+    loaded: otherwise if the namespace gets loaded by a saved object, the
+    session will be unable to start.
+    
+    Probably some imports need to be declared in the NAMESPACE file.
+    ```
+
+*   checking dependencies in R code ... NOTE
     ```
     ...
-    scatterPlot: no visible global function definition for ‘pdf’
-    scatterPlot: no visible global function definition for ‘bmp’
-    scatterPlot: no visible global function definition for ‘plot’
-    scatterPlot: no visible global function definition for ‘ave’
-    scatterPlot: no visible global function definition for ‘axis’
-    scatterPlot: no visible global function definition for ‘text’
-    scatterPlot: no visible global function definition for ‘mtext’
-    scatterPlot: no visible global function definition for ‘points’
-    scatterPlot: no visible global function definition for ‘dev.off’
-    Undefined global functions or variables:
-      ave axis bmp colorRampPalette data dev.off dist hclust hist jpeg
-      median mtext par pdf plot png points postscript quantile read.table
-      text
-    Consider adding
-      importFrom("grDevices", "bmp", "colorRampPalette", "dev.off", "jpeg",
-                 "pdf", "png", "postscript")
-      importFrom("graphics", "axis", "hist", "mtext", "par", "plot",
-                 "points", "text")
-      importFrom("stats", "ave", "dist", "hclust", "median", "quantile")
-      importFrom("utils", "data", "read.table")
-    to your NAMESPACE file.
+    Call sequence:
+    6: stop(msg, call. = FALSE, domain = NA)
+    5: value[[3L]](cond)
+    4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+    3: tryCatchList(expr, classes, parentenv, handlers)
+    2: tryCatch({
+           attr(package, "LibPath") <- which.lib.loc
+           ns <- loadNamespace(package, lib.loc)
+           env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)
+       }, error = function(e) {
+           P <- if (!is.null(cc <- conditionCall(e))) 
+               paste(" in", deparse(cc)[1L])
+           else ""
+           msg <- gettextf("package or namespace load failed for %s%s:\n %s", 
+               sQuote(package), P, conditionMessage(e))
+           if (logical.return) 
+               message(paste("Error:", msg), domain = NA)
+           else stop(msg, call. = FALSE, domain = NA)
+       })
+    1: library(package, lib.loc = lib.loc, character.only = TRUE, verbose = FALSE)
+    Execution halted
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    Error in globalVariables("naresid.omit") : 
+      could not find function "globalVariables"
+    Error: unable to load R code in package ‘Hmisc’
+    Execution halted
     ```
 

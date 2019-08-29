@@ -92,7 +92,7 @@
 #   from the first array, then all channels from the second array and so
 #   on.  Then \code{Xn <- normalizeAffine(X)} will return the across-array
 #   and across-channel normalized data in the NxK matrix \code{Xn} where
-#   the colunms are stored in the same order as in matrix \code{X}.
+#   the columns are stored in the same order as in matrix \code{X}.
 #
 #   Equal effective bias in all channels is much better. First of all,
 #   any intensity-dependent bias in the log-ratios is removed \emph{for
