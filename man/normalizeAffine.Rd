@@ -125,7 +125,7 @@
 }
 
 \details{
- A line is fitted robustly throught the \eqn{(y_R,y_G)} observations
+ A line is fitted robustly through the \eqn{(y_R,y_G)} observations
  using an iterated re-weighted principal component analysis (IWPCA),
  which minimized the residuals that are orthogonal to the fitted line.
  Each observation is down-weighted by the inverse of the absolute

@@ -53,7 +53,7 @@
 #   order as the enzyme are in the columns of argument
 #   \code{fragmentLengths}.
 #   For instance, if one wish to normalize the signals such that their
-#   mean signal as a function of fragment length effect is contantly
+#   mean signal as a function of fragment length effect is constantly
 #   equal to 2200 (or the intensity scale), the use
 #   \code{targetFcns=function(fl, ...) log2(2200)} which completely
 #   ignores fragment-length argument 'fl' and always returns a
@@ -64,7 +64,7 @@
 #   Note, if \code{targetFcns} is @NULL, this corresponds to
 #   \code{targetFcns=rep(list(function(fl, ...) 0), ncol(fragmentLengths))}.
 #
-#   Alternatively, if one wants to only apply minimial corrections to
+#   Alternatively, if one wants to only apply minimal corrections to
 #   the signals, then one can normalize toward target functions that
 #   correspond to the fragment-length effect of the average array.
 # }

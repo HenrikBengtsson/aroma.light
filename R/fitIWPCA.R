@@ -18,7 +18,7 @@
 #  }
 #
 #  \item{constraint}{A @character string or a @numeric value.
-#   If @character it specifies which additional contraint to be used
+#   If @character it specifies which additional constraint to be used
 #   to specify the offset parameters along the fitted line;
 #
 #   If \code{"diagonal"}, the offset vector will be a point on the line
@@ -70,7 +70,7 @@
 #   \item{b}{A @double @vector \eqn{(b[1],...,b[K])}with scale
 #       parameter estimates.  It is made identifiable by constraining
 #       \code{b[baselineChannel] == 1}.
-#       These estimates are idependent of argument \code{constraint}.
+#       These estimates are independent of argument \code{constraint}.
 #   }
 #   \item{adiag}{If identifiability constraint \code{"diagonal"},
 #       a @double @vector \eqn{(adiag[1],...,adiag[K])}, where
@@ -94,7 +94,7 @@
 #
 # \details{
 #   This method uses re-weighted principal component analysis (IWPCA)
-#   to fit a the nodel \eqn{y_n = a + bx_n + eps_n} where \eqn{y_n},
+#   to fit a the model \eqn{y_n = a + bx_n + eps_n} where \eqn{y_n},
 #   \eqn{a}, \eqn{b}, and \eqn{eps_n} are vector of the K and \eqn{x_n}
 #   is a scalar.
 #
@@ -109,7 +109,7 @@
 #       where we have used the residuals of all but the first principal
 #       component.
 #    3) Find the point a on \eqn{L} that is closest to the
-#       line \eqn{D=(1,1,...,1)}. Similarily, denote the point on D that is
+#       line \eqn{D=(1,1,...,1)}. Similarly, denote the point on D that is
 #       closest to \eqn{L} by \eqn{t=a*(1,1,...,1)}.
 # }
 #

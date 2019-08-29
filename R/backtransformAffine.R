@@ -16,7 +16,7 @@
 #  \item{X}{An NxK @matrix containing data to be backtransformed.}
 #  \item{a}{A scalar, @vector, a @matrix, or a @list.
 #    First, if a @list, it is assumed to contained the elements \code{a}
-#    and \code{b}, which are the used as if they were passed as seperate
+#    and \code{b}, which are the used as if they were passed as separate
 #    arguments.
 #    If a @vector, a matrix of size NxK is created which is then filled
 #    \emph{row by row} with the values in the vector. Commonly, the

@@ -37,7 +37,7 @@
 #     The signs of corresponding principal components are also inverted.
 #     This is only of interest when for instance visualizing or comparing
 #     with other PCA estimates from other methods, because the
-#     PCA (SVD) decompostion of a matrix is not unique.
+#     PCA (SVD) decomposition of a matrix is not unique.
 #   }
 #   \item{...}{Not used.}
 # }
@@ -59,7 +59,7 @@
 # \section{Method}{
 #   A singular value decomposition (SVD) is carried out.
 #   Let X=\code{mat}, then the SVD of the matrix is \eqn{X = U D V'}, where
-#   \eqn{U} and \eqn{V} are othogonal, and \eqn{D} is a diagonal matrix
+#   \eqn{U} and \eqn{V} are orthogonal, and \eqn{D} is a diagonal matrix
 #   with singular values. The principal returned by this method are \eqn{U D}.
 #
 #   Internally \code{La.svd()} (or \code{svd()}) of the \pkg{base}
