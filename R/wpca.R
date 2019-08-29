@@ -114,6 +114,9 @@ setMethodS3("wpca", "matrix", function(x, w=NULL, center=TRUE, scale=FALSE, meth
       stop("Argument 'w' has missing values.");
   }
 
+  ## Argument 'method':
+  method <- match.arg(method, choices = c("dgesdd", "dgesvd"))
+  
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # 2. Weighted or non-weighted centering and rescaling of the data

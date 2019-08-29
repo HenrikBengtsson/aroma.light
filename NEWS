@@ -3,7 +3,9 @@ Package: aroma.light
 
 Version: 3.15.0-9000 [2019-08-28]
 
- o ...
+BUG FIXES:
+
+ o wpca() for matrices had a 'length > 1 in coercion to logical' bug.
 
 
 Version: 3.15.0 [2019-05-02]
