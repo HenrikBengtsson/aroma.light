@@ -63,7 +63,7 @@
  \itemize{
   \item{v4: (default) The TumorBoost method, i.e. Eqns. (8)-(9) in [1].}
   \item{v3: Eqn (9) in [1] is applied to both heterozygous and homozygous
-            SNPs, which effectly is v4 where the normalized allele B
+            SNPs, which effectively is v4 where the normalized allele B
             fractions for homozygous SNPs becomes 0 and 1.}
   \item{v2: ...}
   \item{v1: TumorBoost where correction factor is forced to one, i.e.
@@ -77,7 +77,7 @@
  \emph{As of \pkg{aroma.light} v1.33.3 (March 30, 2014),
  argument \code{preserveScale} no longer has a default value and has
  to be specified explicitly.  This is done in order to change the
- default to \code{\link[base:logical]{FALSE}} in a future version, while minizing the risk
+ default to \code{\link[base:logical]{FALSE}} in a future version, while minimizing the risk
  for surprises.}
 
  Allele B fractions are more or less compressed toward a half, e.g.

@@ -23,7 +23,7 @@
 #    which loci should be used for estimating the model.
 #    If @NULL, all loci are used.}
 #  \item{flavor}{A @character string specifying the type of algorithm used.}
-#  \item{adjust}{A postive @double specifying the amount smoothing for
+#  \item{adjust}{A positive @double specifying the amount smoothing for
 #    the empirical density estimator.}
 #  \item{...}{Additional arguments passed to @see "findPeaksAndValleys".}
 #  \item{censorAt}{A @double @vector of length two specifying the range

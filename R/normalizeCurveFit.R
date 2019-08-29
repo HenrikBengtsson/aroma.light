@@ -27,7 +27,7 @@
 #   There exist at least one method trying to overcome this limitation,
 #   namely the cyclic-lowess [1], which applies the paired
 #   curve-fit method iteratively over all pairs of channels/arrays.
-#   Cyclic-lowess is not implented here.
+#   Cyclic-lowess is not implemented here.
 #
 #   We recommend that affine normalization [2] is used instead of curve-fit
 #   normalization.
@@ -76,7 +76,7 @@
 # }
 #
 # \details{
-#  A smooth function \eqn{c(A)} is fitted throught data in \eqn{(A,M)},
+#  A smooth function \eqn{c(A)} is fitted through data in \eqn{(A,M)},
 #  where \eqn{M=log_2(y_2/y_1)} and \eqn{A=1/2*log_2(y_2*y_1)}. Data is
 #  normalized by \eqn{M <- M - c(A)}.
 #

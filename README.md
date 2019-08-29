@@ -5,7 +5,7 @@
 R package aroma.light is available on [Bioconductor](https://www.bioconductor.org/packages/devel/bioc/html/aroma.light.html) and can be installed in R as:
 
 ```r
-install.packages("BiocManager")
+## install.packages("BiocManager")
 BiocManager::install("aroma.light")
 ```
 
@@ -28,7 +28,7 @@ Contributing to this package is easy.  Just send a [pull request](https://help.g
 
 ## Software status
 
-| Resource:     | Bioconductor        | Travis CI       | Appveyor         |
+| Resource:     | Bioconductor        | Travis CI       | AppVeyor         |
 | ------------- | ------------------- | --------------- | ---------------- |
 | _Platforms:_  | _Multiple_          | _Linux & macOS_ | _Windows_        |
 | R CMD check   | <a href="https://bioconductor.org/checkResults/release/bioc-LATEST/aroma.light/"><img border="0" src="https://bioconductor.org/shields/build/release/bioc/aroma.light.svg" alt="Build status"></a> (release)</br><a href="https://bioconductor.org/checkResults/devel/bioc-LATEST/aroma.light/"><img border="0" src="https://bioconductor.org/shields/build/devel/bioc/aroma.light.svg" alt="Build status"></a> (devel) | <a href="https://travis-ci.org/HenrikBengtsson/aroma.light"><img src="https://travis-ci.org/HenrikBengtsson/aroma.light.svg" alt="Build status"></a>   | <a href="https://ci.appveyor.com/project/HenrikBengtsson/aroma-light"><img src="https://ci.appveyor.com/api/projects/status/github/HenrikBengtsson/aroma.light?svg=true" alt="Build status"></a> |
