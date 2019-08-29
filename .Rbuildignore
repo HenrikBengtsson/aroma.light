@@ -49,4 +49,4 @@ Rplots.pdf$
 #----------------------------
 ^[.]BatchJobs[.]R$
 [.]future
-^last[.]dump_.*[.](rda|log)$
+^last[.]dump_.*[.](rda|out)$
