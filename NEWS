@@ -1,9 +1,11 @@
 Package: aroma.light
 ====================
 
-Version: 3.17.0-9000 [2019-12-08]
+Version: 3.17.0-9000 [2019-12-09]
 
- * ...
+CODE REFACTORING:
+
+ * Now importing throw() from R.oo instead of R.methodsS3.
 
 
 Version: 3.17.0 [2019-10-30]
