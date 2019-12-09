@@ -29,6 +29,7 @@ matrix:
         - _R_CHECK_CONNECTIONS_LEFT_OPEN_=true
         - _R_CHECK_LENGTH_1_CONDITION_=true
         - _R_CHECK_LENGTH_1_LOGIC2_=true
+        - _R_CLASS_MATRIX_ARRAY_=true
     - os: osx
       r: oldrel
     - os: osx
@@ -41,6 +42,10 @@ matrix:
       after_success:
         - Rscript -e 'covr::codecov(quiet=FALSE)'
       env: NB='w/ covr' ## Just a label
+
+before_install:
+  - Rscript -e 'c(physical = parallel::detectCores(logical = FALSE), logical = parallel::detectCores())'
+  - export _R_CHECK_TIMINGS_=0
 
 notifications:
   email:
