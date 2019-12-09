@@ -5,7 +5,7 @@ Depends:
 Imports:
   stats,
   R.methodsS3 (>= 1.7.1),
-  R.oo (>= 1.22.0),
+  R.oo (>= 1.23.0),
   R.utils (>= 2.9.0),
   matrixStats (>= 0.54.0)
 Suggests:
