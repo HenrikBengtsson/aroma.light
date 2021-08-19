@@ -22,7 +22,7 @@
 
 \section{Installation}{
   To install this package, see
-  \url{http://bioconductor.org/packages/release/bioc/html/aroma.light.html}.
+  \url{https://bioconductor.org/packages/release/bioc/html/aroma.light.html}.
 }
 
 \section{To get started}{
@@ -92,7 +92,7 @@
 
 \references{
  Some of the reference below can be found at
- \url{http://www.aroma-project.org/publications/}.\cr
+ \url{https://www.aroma-project.org/publications/}.\cr
 
 [1] H. Bengtsson, \emph{Identification and normalization of plate effects
     in cDNA microarray data}, Preprints in Mathematical Sciences,

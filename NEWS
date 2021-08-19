@@ -1,6 +1,31 @@
 Package: aroma.light
 ====================
 
+Version: 3.23.1 [2021-08-19]
+
+DOCUMENTATION:
+
+ * Update several citation URLs that were either broken or redirects elsewhere.
+
+
+Version: 3.22.0 [2021-05-19]
+
+ * The version number was bumped for the Bioconductor release version, which is
+   now BioC 3.13 for R (>= 4.0.3).
+
+
+Version: 3.20.0 [2020-10-27]
+
+ * The version number was bumped for the Bioconductor release version, which is
+   now BioC 3.12 for R (>= 4.0.0).
+
+
+Version: 3.18.0 [2020-04-27]
+
+ * The version number was bumped for the Bioconductor release version, which is
+   now BioC 3.11 for R (>= 3.6.1).
+
+
 Version: 3.17.1 [2019-12-09]
 
 CODE REFACTORING:

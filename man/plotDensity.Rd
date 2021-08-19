@@ -41,7 +41,7 @@
  \item{lty}{The types of curves.}
  \item{lwd}{The width of curves.}
  \item{...}{Additional arguments passed to \code{\link[stats]{density}},
-   \code{\link[graphics]{plot}}, and \code{\link[graphics]{lines}}.}
+   \code{\link[graphics]{plot}}(), and \code{\link[graphics]{lines}}.}
  \item{add}{If \code{\link[base:logical]{TRUE}}, the curves are plotted in the current plot,
   otherwise a new is created.}
 }
