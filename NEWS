@@ -3,7 +3,9 @@ Package: aroma.light
 
 Version: 3.23.0-9000 [2021-08-19]
 
- * ...
+DOCUMENTATION:
+
+ * Update several citation URLs that were either broken or redirects elsewhere.
 
 
 Version: 3.22.0 [2021-05-19]
