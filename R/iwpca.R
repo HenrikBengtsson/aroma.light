@@ -104,7 +104,7 @@ setMethodS3("iwpca", "matrix", function(X, w=NULL, R=1, method=c("symmetric", "b
   Ulast <- 1/.Machine$double.eps; # A large number
   iter <- 0;
   isConverged <- FALSE;
-  w <- rep(1, length=nrow(X));
+  w <- rep(1, times=nrow(X));
   while (!isConverged && iter < maxIter) {
     if (iter > 0 || is.null(fit0)) {
       iter <- iter + 1;
