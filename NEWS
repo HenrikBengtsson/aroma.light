@@ -1,11 +1,6 @@
 Package: aroma.light
 ====================
 
-Version: 3.25.0 [2021-10-27]
-
- * ...
- 
-
 Version: 3.24.0 [2021-10-27]
 
  * The version number was bumped for the Bioconductor release version, which is
