@@ -43,20 +43,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: r-lib/actions/setup-pandoc@master
-
-      - uses: r-lib/actions/setup-tinytex@v1
-      
-      - name: Install additional LaTeX packages
-        run: |
-          tlmgr --version
-          ## Additional LaTeX packages needed by BiocStyle:
-          tlmgr install ae bera bibleref caption changepage enumitem everysel fancyhdr footmisc grfext hobsub marginfix mathtools nowidow parnotes parskip placeins preprint ragged2e setspace soul titlesec xstring
-          tlmgr list --only-installed
-
       - uses: r-lib/actions/setup-r@master
         with:
           r-version: ${{ matrix.config.r }}
+
+      - uses: r-lib/actions/setup-pandoc@master
 
       - name: Query R package dependencies
         run: |
@@ -104,9 +95,9 @@ jobs:
         shell: Rscript {0}
 
       - name: Check
-        run: |
-          skip_vignettes <- (getRversion() < "4.0.0")
-          rcmdcheck::rcmdcheck(build_args = if (skip_vignettes) "--no-build-vignettes", args = c("--no-manual", "--as-cran", if (skip_vignettes) "--ignore-vignettes"), error_on = "warning", check_dir = "check")
+        env:
+          _R_CHECK_CRAN_INCOMING_: false
+        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", if (.Platform$OS.type == "windows" && getRversion() >= "4.2.0") "--no-multiarch"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 
       - name: Upload check results
