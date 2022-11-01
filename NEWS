@@ -1,6 +1,12 @@
 Package: aroma.light
 ====================
 
+Version 3.29.0 [2022-11-01]
+
+ * The version number was bumped for the Bioconductor devel version,
+   which is now Bioconductor 3.17 for R devel.
+
+
 Version 3.28.0 [2022-11-01]
 
  * The version number was bumped for the Bioconductor release version,
