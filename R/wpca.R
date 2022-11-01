@@ -49,8 +49,8 @@
 #             spectral loadings or factors etc).}
 #   \item{d}{An K @vector containing the eigenvalues of the
 #             principal components.}
-#   \item{vt}{An KxK @matrix containing the eigenvector of the
-#             principal components.}
+#   \item{vt}{An KxK @matrix where the column @vectors are the
+#             eigenvector of the principal components.}
 #   \item{xMean}{The center coordinate.}
 #
 #   It holds that \code{x == t(t(fit$pc \%*\% fit$vt) + fit$xMean)}.
