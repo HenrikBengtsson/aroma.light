@@ -1,21 +1,37 @@
-# aroma.light 3.29.0 [2022-11-01]
+# Version 3.31.0 [2023-04-25]
 
-# aroma.light 3.28.0 [2022-11-01]
+## Notes
 
-# aroma.light 3.27.0 [2022-04-26]
+ * The version number was bumped for the Bioconductor release version,
+   which is now Bioconductor 3.18 for R (>= 4.4.0).
 
-# aroma.light 3.26.0 [2022-04-26]
 
-# aroma.light 3.25.1 [2022-04-21]
+# Version 3.30.0 [2023-04-25]
+
+## Notes
+
+ * The version number was bumped for the Bioconductor release version,
+   which is now Bioconductor 3.17 for R (>= 4.3.0).
+
+
+# Version 3.29.0 [2022-11-01]
+
+# Version 3.28.0 [2022-11-01]
+
+# Version 3.27.0 [2022-04-26]
+
+# Version 3.26.0 [2022-04-26]
+
+# Version 3.25.1 [2022-04-21]
 
 ### Bug Fixes
 
  * Fixed partial argument name used in `iwpca()`.
 
 
-# aroma.light 3.24.0 [2021-10-27]
+# Version 3.24.0 [2021-10-27]
 
-# aroma.light 3.23.1 [2021-08-19]
+# Version 3.23.1 [2021-08-19]
 
 ### Documentation
 
@@ -23,39 +39,39 @@
    elsewhere.
 
 
-# aroma.light 3.22.0 [2021-05-19]
+# Version 3.22.0 [2021-05-19]
 
-# aroma.light 3.20.0 [2020-10-27]
+# Version 3.20.0 [2020-10-27]
 
-# aroma.light 3.18.0 [2020-04-27]
+# Version 3.18.0 [2020-04-27]
 
-# aroma.light 3.17.1 [2019-12-09]
+# Version 3.17.1 [2019-12-09]
 
 ### Code Refactoring
 
  * Now importing `throw()` from **R.oo** instead of **R.methodsS3**.
 
 
-# aroma.light 3.17.0 [2019-10-30]
+# Version 3.17.0 [2019-10-30]
 
-# aroma.light 3.16.0 [2019-10-30]
+# Version 3.16.0 [2019-10-30]
 
-# aroma.light 3.15.1 [2019-08-28]
+# Version 3.15.1 [2019-08-28]
 
 ### Bug Fixes
 
  * `wpca()` for matrices had a `length > 1 in coercion to logical` bug.
 
 
-# aroma.light 3.15.0 [2019-05-02]
+# Version 3.15.0 [2019-05-02]
 
-# aroma.light 3.14.0 [2019-05-02]
+# Version 3.14.0 [2019-05-02]
 
-# aroma.light 3.13.0 [2018-10-30]
+# Version 3.13.0 [2018-10-30]
 
-# aroma.light 3.12.0 [2018-10-30]
+# Version 3.12.0 [2018-10-30]
 
-# aroma.light 3.11.2 [2018-09-04]
+# Version 3.11.2 [2018-09-04]
 
 ### Code Refactoring
 
@@ -67,13 +83,13 @@
    what has changed in the **princurve** package in this respect.
 
 
-# aroma.light 3.11.1 [2018-08-28]
+# Version 3.11.1 [2018-08-28]
 
-# aroma.light 3.11.0 [2018-04-30]
+# Version 3.11.0 [2018-04-30]
 
-# aroma.light 3.10.0 [2018-04-30]
+# Version 3.10.0 [2018-04-30]
 
-# aroma.light 3.9.1 [2017-12-19]
+# Version 3.9.1 [2017-12-19]
 
 ### New Features
 
@@ -83,15 +99,15 @@
    for adding this feature.
 
 
-# aroma.light 3.9.0 [2017-10-30]
+# Version 3.9.0 [2017-10-30]
 
-# aroma.light 3.8.0 [2017-10-30]
+# Version 3.8.0 [2017-10-30]
 
-# aroma.light 3.7.0 [2017-04-23]
+# Version 3.7.0 [2017-04-23]
 
-# aroma.light 3.6.0 [2017-04-23]
+# Version 3.6.0 [2017-04-23]
 
-# aroma.light 3.5.1 [2017-04-14]
+# Version 3.5.1 [2017-04-14]
 
 ### Significant Changes
 
@@ -115,11 +131,11 @@
    Bioconductor.
 
 
-# aroma.light 3.5.0 [2016-10-18]
+# Version 3.5.0 [2016-10-18]
 
-# aroma.light 3.4.0 [2016-10-18]
+# Version 3.4.0 [2016-10-18]
 
-# aroma.light 3.3.2 [2016-09-16]
+# Version 3.3.2 [2016-09-16]
 
 ### Code Refactoring
 
@@ -132,26 +148,26 @@
    r70682).
 
 
-# aroma.light 3.3.1 [2016-08-10]
+# Version 3.3.1 [2016-08-10]
 
 ### Code Refactoring
 
  * CLEANUP: Using `seq_len()` and `seq_along()` everywhere (Issue #8)
 
 
-# aroma.light 3.3.0 [2016-05-03]
+# Version 3.3.0 [2016-05-03]
 
-# aroma.light 3.2.0 [2016-05-03]
+# Version 3.2.0 [2016-05-03]
 
-# aroma.light 3.1.1 [2016-01-06]
+# Version 3.1.1 [2016-01-06]
 
-# aroma.light 3.1.0 [2015-10-23]
+# Version 3.1.0 [2015-10-23]
 
-# aroma.light 3.0.0 [2015-10-13]
+# Version 3.0.0 [2015-10-13]
 
-# aroma.light 2.99.0 [2015-10-06]
+# Version 2.99.0 [2015-10-06]
 
-# aroma.light 2.9.0 [2015-09-17]
+# Version 2.9.0 [2015-09-17]
 
 ### Significant Changes
 
@@ -160,7 +176,7 @@
    that it was TRUE.
 
 
-# aroma.light 2.5.3 [2015-09-13]
+# Version 2.5.3 [2015-09-13]
 
 ### Software Quality
 
@@ -174,20 +190,20 @@
    non-functions of the same name in the calling environment.
 
 
-# aroma.light 2.5.2 [2015-06-16]
+# Version 2.5.2 [2015-06-16]
 
 ### Software Quality
 
  * Relaxed package test for `backtransformPrincipalCurve()`.
 
 
-# aroma.light 2.5.1 [2015-05-24]
+# Version 2.5.1 [2015-05-24]
 
-# aroma.light 2.5.0 [2015-04-16]
+# Version 2.5.0 [2015-04-16]
 
-# aroma.light 2.4.0 [2015-04-16]
+# Version 2.4.0 [2015-04-16]
 
-# aroma.light 2.3.3 [2015-02-18]
+# Version 2.3.3 [2015-02-18]
 
 ### New Features
 
@@ -196,7 +212,7 @@
    e.g. `plotDensity(x, xlim = c(0, NA))`.
 
 
-# aroma.light 2.3.2 [2015-02-17]
+# Version 2.3.2 [2015-02-17]
 
 ### Software Quality
 
@@ -208,22 +224,22 @@
  * CLEANUP: Using `requestNamespace()` instead of `request()`.
 
 
-# aroma.light 2.3.1 [2014-12-08]
+# Version 2.3.1 [2014-12-08]
 
-# aroma.light 2.3.0 [2014-10-13]
+# Version 2.3.0 [2014-10-13]
 
-# aroma.light 2.2.1 [2014-12-08]
+# Version 2.2.1 [2014-12-08]
 
 ### Code Refactoring
 
  * Minor code cleanup.
 
 
-# aroma.light 2.2.0 [2014-10-13]
+# Version 2.2.0 [2014-10-13]
 
-# aroma.light 2.1.2 [2014-09-23]
+# Version 2.1.2 [2014-09-23]
 
-# aroma.light 2.1.1 [2014-09-16]
+# Version 2.1.1 [2014-09-16]
 
 ### Software Quality
 
@@ -239,13 +255,13 @@
    add `library(matrixStats)` to your scripts.
 
 
-# aroma.light 2.1.0 [2014-04-11]
+# Version 2.1.0 [2014-04-11]
 
-# aroma.light 2.0.0 [2014-04-11]
+# Version 2.0.0 [2014-04-11]
 
-# aroma.light 1.99.3 [2014-03-31]
+# Version 1.99.3 [2014-03-31]
 
-# aroma.light 1.33.3 [2014-03-30]
+# Version 1.33.3 [2014-03-30]
 
 ### Significant Changes
 
@@ -262,14 +278,14 @@
  * Added `pairedAlleleSpecificCopyNumbers()`.
 
 
-# aroma.light 1.33.2 [2014-03-25]
+# Version 1.33.2 [2014-03-25]
 
 ### New Features
 
  * Now `plotDensity()` supports weights via argument `W`.
 
 
-# aroma.light 1.33.1 [2014-03-25]
+# Version 1.33.1 [2014-03-25]
 
 ### New Features
 
@@ -284,11 +300,11 @@
  * Bumped up package dependencies.
 
 
-# aroma.light 1.33.0 [2013-10-14]
+# Version 1.33.0 [2013-10-14]
 
-# aroma.light 1.32.0 [2012-10-14]
+# Version 1.32.0 [2012-10-14]
 
-# aroma.light 1.31.10 [2013-10-08]
+# Version 1.31.10 [2013-10-08]
 
 ### New Features
 
@@ -319,7 +335,7 @@
    matrix.
 
 
-# aroma.light 1.31.9 [2013-10-07]
+# Version 1.31.9 [2013-10-07]
 
 ### New Features
 
@@ -339,7 +355,7 @@
    function.
 
 
-# aroma.light 1.31.8 [2013-10-02]
+# Version 1.31.8 [2013-10-02]
 
 ### Documentation
 
@@ -347,7 +363,7 @@
    corresponding methods.
 
 
-# aroma.light 1.31.7 [2013-09-27]
+# Version 1.31.7 [2013-09-27]
 
 ### Performance
 
@@ -361,7 +377,7 @@
  * Bumped up package dependencies.
 
 
-# aroma.light 1.31.6 [2013-09-25]
+# Version 1.31.6 [2013-09-25]
 
 ### Code Refactoring
 
@@ -369,7 +385,7 @@
    **R.oo** package upon attachment.
 
 
-# aroma.light 1.31.5 [2013-09-23]
+# Version 1.31.5 [2013-09-23]
 
 ### Software Quality
 
@@ -393,7 +409,7 @@
  * Bumped up package dependencies.
 
 
-# aroma.light 1.31.4 [2013-09-10]
+# Version 1.31.4 [2013-09-10]
 
 ### Software Quality
 
@@ -406,7 +422,7 @@
  * Bumped up package dependencies.
 
 
-# aroma.light 1.31.3 [2013-05-25]
+# Version 1.31.3 [2013-05-25]
 
 ### Performance
 
@@ -421,13 +437,13 @@
  * Updated the package dependencies.
 
 
-# aroma.light 1.31.2 [2013-05-20]
+# Version 1.31.2 [2013-05-20]
 
-# aroma.light 1.31.1 [2011-04-18]
+# Version 1.31.1 [2011-04-18]
 
-# aroma.light 1.31.0 [2013-04-03]
+# Version 1.31.0 [2013-04-03]
 
-# aroma.light 1.30.5 [2013-09-25]
+# Version 1.30.5 [2013-09-25]
 
 ### Software Quality
 
@@ -440,7 +456,7 @@
    which also removes one dependency on **R.utils**.
 
 
-# aroma.light 1.30.4 [2013-09-25]
+# Version 1.30.4 [2013-09-25]
 
 ### Software Quality
 
@@ -448,7 +464,7 @@
    from **matrixStats**.
 
 
-# aroma.light 1.30.3 [2013-09-25]
+# Version 1.30.3 [2013-09-25]
 
 ### Performance
 
@@ -461,9 +477,9 @@
  * Removed one stray `str()` debug output in `robustSmoothSpline()`.
 
 
-# aroma.light 1.30.2 [2013-05-20]
+# Version 1.30.2 [2013-05-20]
 
-# aroma.light 1.30.1 [2013-04-18]
+# Version 1.30.1 [2013-04-18]
 
 ### New Features
 
@@ -479,13 +495,13 @@
    contain missing values.
 
 
-# aroma.light 1.30.0 [2012-04-03]
+# Version 1.30.0 [2012-04-03]
 
-# aroma.light 1.29.0 [2012-10-01]
+# Version 1.29.0 [2012-10-01]
 
-# aroma.light 1.28.0 [2012-10-01]
+# Version 1.28.0 [2012-10-01]
 
-# aroma.light 1.27.1 [2012-09-12]
+# Version 1.27.1 [2012-09-12]
 
 ### Software Quality
 
@@ -493,7 +509,7 @@
    `medianPolish()` with a call to **matrixStats**:::`.psortKM()`.
 
 
-# aroma.light 1.27.0 [2012-08-30]
+# Version 1.27.0 [2012-08-30]
 
 ### Code Refactoring
 
@@ -506,7 +522,7 @@
    will be downgraded to only be a suggested package.
 
 
-# aroma.light 1.26.1 [2012-08-30]
+# Version 1.26.1 [2012-08-30]
 
 ### Code Refactoring
 
@@ -519,7 +535,7 @@
    versions.
 
 
-# aroma.light 1.26.0 [2012-08-19]
+# Version 1.26.0 [2012-08-19]
 
 ### Significant Changes
 
@@ -535,7 +551,7 @@
    **R.basic** package.
 
 
-# aroma.light 1.25.4 [2012-08-19]
+# Version 1.25.4 [2012-08-19]
 
 ### Software Quality
 
@@ -544,21 +560,21 @@
    releases of R.
 
 
-# aroma.light 1.25.3 [2012-04-16]
+# Version 1.25.3 [2012-04-16]
 
 ### Code Refactoring
 
  * Package no longer depends on **R.methodsS3**, only imports.
 
 
-# aroma.light 1.25.2 [2012-04-16]
+# Version 1.25.2 [2012-04-16]
 
 ### Software Quality
 
  * `R CMD check` no longer complaints about `.Internal()` calls.
 
 
-# aroma.light 1.25.1 [2012-04-16]
+# Version 1.25.1 [2012-04-16]
 
 ### New Features
 
@@ -574,15 +590,15 @@
    instead passed to `fitNaiveGenotypes()` via `...`.
 
 
-# aroma.light 1.25.0 [2012-03-30]
+# Version 1.25.0 [2012-03-30]
 
-# aroma.light 1.24.0 [2012-03-30]
+# Version 1.24.0 [2012-03-30]
 
-# aroma.light 1.23.0 [2011-10-31]
+# Version 1.23.0 [2011-10-31]
 
-# aroma.light 1.22.0 [2011-10-31]
+# Version 1.22.0 [2011-10-31]
 
-# aroma.light 1.21.2 [2011-10-10]
+# Version 1.21.2 [2011-10-10]
 
 ### Code Refactoring
 
@@ -596,7 +612,7 @@
    mean(x))/tol)`.
 
 
-# aroma.light 1.21.1 [2011-06-26]
+# Version 1.21.1 [2011-06-26]
 
 ### New Features
 
@@ -605,11 +621,11 @@
    argument.
 
 
-# aroma.light 1.21.0 [2011-04-13]
+# Version 1.21.0 [2011-04-13]
 
-# aroma.light 1.20.0 [2010-04-13]
+# Version 1.20.0 [2010-04-13]
 
-# aroma.light 1.19.6 [2011-04-12]
+# Version 1.19.6 [2011-04-12]
 
 ### Code Refactoring
 
@@ -627,7 +643,7 @@
    `robustSmoothSpline()` to break in some cases.
 
 
-# aroma.light 1.19.5 [2011-04-08]
+# Version 1.19.5 [2011-04-08]
 
 ### New Features
 
@@ -635,17 +651,17 @@
    `x`.
 
 
-# aroma.light 1.19.4 [2011-03-03]
+# Version 1.19.4 [2011-03-03]
 
-# aroma.light 1.19.3 [2011-02-05]
+# Version 1.19.3 [2011-02-05]
 
-# aroma.light 1.19.2 [2010-10-22]
+# Version 1.19.2 [2010-10-22]
 
-# aroma.light 1.19.1 [2010-10-18]
+# Version 1.19.1 [2010-10-18]
 
-# aroma.light 1.19.0 [2010-10-18]
+# Version 1.19.0 [2010-10-18]
 
-# aroma.light 1.18.4 [2011-03-03]
+# Version 1.18.4 [2011-03-03]
 
 ### Bug Fixes
 
@@ -656,7 +672,7 @@
    UK for reporting on and identifying this bug.
 
 
-# aroma.light 1.18.3 [2011-02-05]
+# Version 1.18.3 [2011-02-05]
 
 ### Documentation
 
@@ -667,7 +683,7 @@
  * Fixed broken links to help for `iwpca()`.
 
 
-# aroma.light 1.18.2 [2010-10-22]
+# Version 1.18.2 [2010-10-22]
 
 ### Documentation
 
@@ -676,7 +692,7 @@
    `help("calibrateMultiscan")`.
 
 
-# aroma.light 1.18.1 [2010-10-18]
+# Version 1.18.1 [2010-10-18]
 
 ### New Features
 
@@ -694,9 +710,9 @@
    of range ...`.
 
 
-# aroma.light 1.18.0 [2010-10-18]
+# Version 1.18.0 [2010-10-18]
 
-# aroma.light 1.17.6 [2010-10-08]
+# Version 1.17.6 [2010-10-08]
 
 ### New Features
 
@@ -704,7 +720,7 @@
    `PeaksAndValleys`, which extends data.frame.
 
 
-# aroma.light 1.17.5 [2010-10-07]
+# Version 1.17.5 [2010-10-07]
 
 ### New Features
 
@@ -716,7 +732,7 @@
    `callNaiveGenotypes()`.
 
 
-# aroma.light 1.17.4 [2010-10-06]
+# Version 1.17.4 [2010-10-06]
 
 ### New Features
 
@@ -724,7 +740,7 @@
    `findPeaksAndValleys()` for `numeric` utilizes.
 
 
-# aroma.light 1.17.3 [2010-09-18]
+# Version 1.17.3 [2010-09-18]
 
 ### Software Quality
 
@@ -735,7 +751,7 @@
    normalization function due to non-finite values.
 
 
-# aroma.light 1.17.2 [2010-08-04]
+# Version 1.17.2 [2010-08-04]
 
 ### New Features
 
@@ -745,11 +761,11 @@
    preserved.
 
 
-# aroma.light 1.17.1 [2010-07-23]
+# Version 1.17.1 [2010-07-23]
 
-# aroma.light 1.17.0 [2010-04-22]
+# Version 1.17.0 [2010-04-22]
 
-# aroma.light 1.16.1 [2010-07-23]
+# Version 1.16.1 [2010-07-23]
 
 ### New Features
 
@@ -757,9 +773,9 @@
    `modelFit`.  This feature was supposed to be in v1.16.0.
 
 
-# aroma.light 1.16.0 [2010-04-22]
+# Version 1.16.0 [2010-04-22]
 
-# aroma.light 1.15.4 [2010-04-08]
+# Version 1.15.4 [2010-04-08]
 
 ### Software Quality
 
@@ -767,7 +783,7 @@
    Latin-1 encoding to the DESCRIPTION file to `R CMD check` to pass.
 
 
-# aroma.light 1.15.3 [2010-04-04]
+# Version 1.15.3 [2010-04-04]
 
 ### New Features
 
@@ -776,7 +792,7 @@
    all were moved from the **aroma.cn** package.
 
 
-# aroma.light 1.15.2 [2010-03-12]
+# Version 1.15.2 [2010-03-12]
 
 ### Bug Fixes
 
@@ -785,7 +801,7 @@
    University of Oxford for reporting this.
 
 
-# aroma.light 1.15.1 [2009-11-01]
+# Version 1.15.1 [2009-11-01]
 
 ### Code Refactoring
 
@@ -793,32 +809,32 @@
    version earlier than **princurve** v1.1-10 is installed.
 
 
-# aroma.light 1.15.0 [2009-10-27]
+# Version 1.15.0 [2009-10-27]
 
-# aroma.light 1.14.0 [2009-10-27]
+# Version 1.14.0 [2009-10-27]
 
-# aroma.light 1.13.6 [2009-10-20]
+# Version 1.13.6 [2009-10-20]
 
 ### Documentation
 
  * FIX: CITATION file reverted to that of v1.13.4.
 
 
-# aroma.light 1.13.5 [2009-10-08]
+# Version 1.13.5 [2009-10-08]
 
 ### Documentation
 
  * CITATION file (incorrectly) updated by Bioconductor maintainers.
 
 
-# aroma.light 1.13.4 [2009-09-23]
+# Version 1.13.4 [2009-09-23]
 
 ### Documentation
 
  * Fixed a few broken Rd links.
 
 
-# aroma.light 1.13.3 [2009-07-15]
+# Version 1.13.3 [2009-07-15]
 
 ### New Features
 
@@ -828,13 +844,13 @@
    `fitPrincipalCurve()`.
 
 
-# aroma.light 1.13.2 [2009-05-29]
+# Version 1.13.2 [2009-05-29]
 
-# aroma.light 1.13.1 [2009-05-13]
+# Version 1.13.1 [2009-05-13]
 
-# aroma.light 1.13.0 [2009-04-20]
+# Version 1.13.0 [2009-04-20]
 
-# aroma.light 1.12.2 [2009-05-29]
+# Version 1.12.2 [2009-05-29]
 
 ### Code Refactoring
 
@@ -851,7 +867,7 @@
    example code for `backtransformPrincipalCurve.matrix()`.
 
 
-# aroma.light 1.12.1 [2009-05-13]
+# Version 1.12.1 [2009-05-13]
 
 ### Bug Fixes
 
@@ -862,9 +878,9 @@
    fix.
 
 
-# aroma.light 1.12.0 [2009-04-20]
+# Version 1.12.0 [2009-04-20]
 
-# aroma.light 1.11.2 [2009-02-08]
+# Version 1.11.2 [2009-02-08]
 
 ### Bug Fixes
 
@@ -872,18 +888,18 @@
    argument `dimensions` was specified.
 
 
-# aroma.light 1.11.1 [2009-01-12]
+# Version 1.11.1 [2009-01-12]
 
 ### New Features
 
  * Added `fitPrincipalCurve()` and `backtransformPrincipalCurve()`.
 
 
-# aroma.light 1.11.0 [2008-10-21]
+# Version 1.11.0 [2008-10-21]
 
-# aroma.light 1.10.0 [2008-10-21]
+# Version 1.10.0 [2008-10-21]
 
-# aroma.light 1.9.2 [2008-09-11]
+# Version 1.9.2 [2008-09-11]
 
 ### New Features
 
@@ -899,11 +915,11 @@
    more variables when no longer needed.
 
 
-# aroma.light 1.9.1 [2008-05-10]
+# Version 1.9.1 [2008-05-10]
 
-# aroma.light 1.9.0 [2008-04-29]
+# Version 1.9.0 [2008-04-29]
 
-# aroma.light 1.8.1 [2008-05-10]
+# Version 1.8.1 [2008-05-10]
 
 ### Bug Fixes
 
@@ -913,9 +929,9 @@
    number of data points.
 
 
-# aroma.light 1.8.0 [2008-04-29]
+# Version 1.8.0 [2008-04-29]
 
-# aroma.light 1.7.2 [2008-04-14]
+# Version 1.7.2 [2008-04-14]
 
 ### New Features
 
@@ -930,7 +946,7 @@
  * Added `predict()` for the `lowess` class.
 
 
-# aroma.light 1.7.1 [2007-11-28]
+# Version 1.7.1 [2007-11-28]
 
 ### New Features
 
@@ -954,18 +970,18 @@
    on the new **R.methodsS3**.
 
 
-# aroma.light 1.7.0 [2007-10-08]
+# Version 1.7.0 [2007-10-08]
 
-# aroma.light 1.6.0 [2007-10-08]
+# Version 1.6.0 [2007-10-08]
 
-# aroma.light 1.5.2 [2007-08-10]
+# Version 1.5.2 [2007-08-10]
 
 ### Software Quality
 
  * Package pass `R CMD check` for R v2.6.0.
 
 
-# aroma.light 1.5.1 [NA]
+# Version 1.5.1 [NA]
 
 ### New Features
 
@@ -977,11 +993,11 @@
  * Package pass `R CMD check` for R v2.6.0 with Rd encoding errors.
 
 
-# aroma.light 1.5.0 [2007-05-09]
+# Version 1.5.0 [2007-05-09]
 
-# aroma.light 1.4.0 [2007-05-09]
+# Version 1.4.0 [2007-05-09]
 
-# aroma.light 1.3.1 [2007-01-15]
+# Version 1.3.1 [2007-01-15]
 
 ### Code Refactoring
 
@@ -991,11 +1007,11 @@
  * Added **R.utils** to Suggests field of DESCRIPTION.
 
 
-# aroma.light 1.3.0 [NA]
+# Version 1.3.0 [NA]
 
-# aroma.light 1.2.0 [2006-10-03]
+# Version 1.2.0 [2006-10-03]
 
-# aroma.light 1.1.0 [2006-07-20]
+# Version 1.1.0 [2006-07-20]
 
 ### Significant Changes
 
@@ -1008,7 +1024,7 @@
    package.
 
 
-# aroma.light 0.1.7 [2006-06-27]
+# Version 0.1.7 [2006-06-27]
 
 ### Code Refactoring
 
@@ -1016,7 +1032,7 @@
    Previously package **R.basic** was used in some of the examples.
 
 
-# aroma.light 0.1.6 [2006-05-22]
+# Version 0.1.6 [2006-05-22]
 
 ### New Features
 
@@ -1043,7 +1059,7 @@
    Bioconductor project.
 
 
-# aroma.light 0.1.5 [2006-04-21]
+# Version 0.1.5 [2006-04-21]
 
 ### Performance
 
@@ -1054,7 +1070,7 @@
    skip NA checks.
 
 
-# aroma.light 0.1.4 [2006-03-28]
+# Version 0.1.4 [2006-03-28]
 
 ### Documentation
 
@@ -1063,7 +1079,7 @@
  * Updated the references to publications.
 
 
-# aroma.light 0.1.3 [2006-01-22]
+# Version 0.1.3 [2006-01-22]
 
 ### New Features
 
@@ -1077,7 +1093,7 @@
  * Added help on the returned parameters of `fitIWPCA()`.
 
 
-# aroma.light 0.1.2 [2005-09-06]
+# Version 0.1.2 [2005-09-06]
 
 ### New Features
 
@@ -1088,7 +1104,7 @@
    overflow warnings for too large integers.
 
 
-# aroma.light 0.1.1 [2005-07-26]
+# Version 0.1.1 [2005-07-26]
 
 ### New Features
 
@@ -1098,7 +1114,7 @@
    only if `ties` is NULL.
 
 
-# aroma.light 0.1.0 [2005-06-03]
+# Version 0.1.0 [2005-06-03]
 
 ### Significant Changes
 
