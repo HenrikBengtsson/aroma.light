@@ -1,8 +1,15 @@
+# Version (development version)
+
+## Documentation
+
+ * Update redirecting and broken URLs.
+
+
 # Version 3.32.0 [2023-04-25]
 
 ## Notes
 
- * The version number was bumped for the Bioconductor release version,
+ * The version number was bumped for the Bioconductor devel version,
    which is now Bioconductor 3.18 for R (>= 4.4.0).
 
 
@@ -10,8 +17,8 @@
 
 ## Notes
 
- * The version number was bumped for the Bioconductor devel version,
-   which is now Bioconductor 3.18 for R (>= 4.4.0).
+ * The version number was bumped for the Bioconductor release version,
+   which is now Bioconductor 3.17 for R (>= 4.3.0).
 
 
 # Version 3.30.0 [2023-04-25]
@@ -137,7 +144,7 @@
    updated to make use of new `principcal_curve` class instead of
    deprecated `principcal.curve` class.  This update "should not"
    affect the results, but see
-   <https://github.com/dynverse/princurve/issues/8> for information of
+   <https://github.com/rcannood/princurve/issues/8> for information of
    what has changed in the **princurve** package in this respect.
 
 

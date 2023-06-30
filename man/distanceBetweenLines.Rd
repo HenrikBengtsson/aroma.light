@@ -137,7 +137,7 @@ rm(zzz)
  [1] M. Bard and D. Himel, \emph{The Minimum Distance Between Two
     Lines in n-Space}, September 2001, Advisor Dennis Merino.\cr
  [2] Dan Sunday, \emph{Distance between 3D Lines and Segments},
-    Jan 2016, \url{https://www.geomalgorithms.com/algorithms.html}.\cr
+    Jan 2016, \code{https://www.geomalgorithms.com/algorithms.html}.\cr
 }
 
 
