@@ -54,7 +54,7 @@
 # @examples "../incl/normalizeQuantileRank.list.Rex"
 #
 # \author{
-#   Adopted from Gordon Smyth (\url{http://www.statsci.org/}) in 2002 \& 2006.
+#   Adopted from Gordon Smyth (\url{http://www.statsci.org/}) in 2002 & 2006.
 #   Original code by Ben Bolstad at Statistics Department, University of
 #   California.
 # }

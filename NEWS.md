@@ -4,6 +4,8 @@
 
  * Update redirecting and broken URLs.
 
+ * Fix `R CMD check` notes on "Escaped LaTeX specials: \&".
+ 
 
 # Version 3.32.0 [2023-04-25]
 
